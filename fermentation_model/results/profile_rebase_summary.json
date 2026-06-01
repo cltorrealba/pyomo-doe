@@ -1,0 +1,12 @@
+{
+  "base_profile_objective": 3676.711064246014,
+  "n_profile_rows": 96,
+  "n_negative_profile_rows": 14,
+  "n_rebase_candidates": 14,
+  "n_successful_rebase": 14,
+  "best_rebase_objective": 3676.095748647641,
+  "best_rebase_candidate_id": "profile_negative_10",
+  "best_source_profiled_theta": "Yxg",
+  "best_source_theta_value": 3.053290205764467,
+  "best_improvement_vs_base": 0.6153155983729448
+}

@@ -1,0 +1,10 @@
+{
+  "obj_hat": 3676.095748647641,
+  "n_profile_rows": 95,
+  "n_successful_profile_rows": 90,
+  "n_negative_profile_rows": 6,
+  "min_profile_objective": 3673.0294659400174,
+  "min_profiled_theta": "betaF0",
+  "min_theta_value": 0.9306718776939609,
+  "best_improvement_vs_rebased_obj_hat": 3.066282707623486
+}
