@@ -46,8 +46,10 @@ Archived on 2026-07-14. These files were moved from the
 - `scripts/run_operational_campaign_schedule.py`
 - `scripts/run_secondary_fit_capacity.py`
 
-The result directories were intentionally left under `../../results/` because
-current evidence-bundle generators still reference selected historical tables.
+The matching superseded results are under `results/`. Flat initial calibration,
+PSO, FIM and profile files are grouped in `results/initial_calibration/`.
+Administrative builders that still consume selected historical tables use these
+archived paths; active scientific workflows do not.
 
 Administrative `AXX` builders are catalogued separately in `../rendicion/` and
 are not part of this scientific development archive.

@@ -27,9 +27,9 @@ if str(FERMENTATION_MODEL_DIR) not in sys.path:
     sys.path.insert(0, str(FERMENTATION_MODEL_DIR))
 
 import pilot_2025_data_loader as pilot_loader
-import run_new_must_glycerol_estimability_doe as base
-import run_secondary_joint_campaign_doe as joint
-import run_secondary_v2_model_evaluation as v2
+from shared import run_new_must_glycerol_estimability_doe as base
+from shared import run_secondary_joint_campaign_doe as joint
+from shared import run_secondary_v2_model_evaluation as v2
 
 
 RESULTS_DIR = PILOT_DIR / "results" / "calibration_estimability"
@@ -94,11 +94,11 @@ def clip_extended(theta: dict[str, float]) -> dict[str, float]:
 def load_initial_theta() -> dict[str, float]:
     theta = joint.load_reference_theta()
     theta.update(v2.default_theta_v2(theta))
-    secondary_path = FERMENTATION_MODEL_DIR / "results" / "secondary_v2_model_evaluation" / "theta_secondary_v2_reduced_o2fixed.csv"
+    secondary_path = v2.RESULTS_DIR / "theta_secondary_v2_reduced_o2fixed.csv"
     if secondary_path.exists():
         loaded = pd.read_csv(secondary_path, index_col=0).iloc[:, 0].to_dict()
         theta.update({str(k): float(v) for k, v in loaded.items() if str(k) in v2.V2_BOUNDS and np.isfinite(float(v))})
-    aroma_path = FERMENTATION_MODEL_DIR / "results" / "secondary_joint_campaign_doe" / "theta_secondary_joint.csv"
+    aroma_path = joint.RESULTS_DIR / "theta_secondary_joint.csv"
     if aroma_path.exists():
         loaded = pd.read_csv(aroma_path, index_col=0).iloc[:, 0].to_dict()
         theta.update({str(k): float(v) for k, v in loaded.items() if str(k) in joint.AROMA_BOUNDS and np.isfinite(float(v))})

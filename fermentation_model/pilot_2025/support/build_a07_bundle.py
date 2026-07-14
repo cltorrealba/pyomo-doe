@@ -360,8 +360,8 @@ def copy_source_snapshot(source: Path) -> None:
         SCRIPT_DIR / "run_pilot_2025_global_model_selection_doe.py",
         SCRIPT_DIR / "run_pilot_2025_co2_stripping_benchmark.py",
         SCRIPT_DIR / "pilot_2025_data_loader.py",
-        FERMENTATION_MODEL_DIR / "run_new_must_glycerol_estimability_doe.py",
-        FERMENTATION_MODEL_DIR / "run_secondary_joint_campaign_doe.py",
+        FERMENTATION_MODEL_DIR / "shared" / "run_new_must_glycerol_estimability_doe.py",
+        FERMENTATION_MODEL_DIR / "shared" / "run_secondary_joint_campaign_doe.py",
     ]
     manifest = []
     for src in sources:

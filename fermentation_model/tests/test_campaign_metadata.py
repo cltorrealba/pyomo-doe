@@ -24,6 +24,15 @@ class CampaignMetadataTests(unittest.TestCase):
         result = campaign_audit.audit(check_hashes=True)
         self.assertFalse(result["errors"], result["errors"])
 
+    def test_active_code_and_results_have_explicit_owners(self) -> None:
+        self.assertFalse(list(FERMENTATION_DIR.glob("*.py")))
+        self.assertFalse((FERMENTATION_DIR / "results").exists())
+        self.assertTrue((FERMENTATION_DIR / "shared" / "paths.py").exists())
+        self.assertTrue((FERMENTATION_DIR / "shared" / "results").is_dir())
+        self.assertTrue(
+            (FERMENTATION_DIR / "laboratory_2026" / "results").is_dir()
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

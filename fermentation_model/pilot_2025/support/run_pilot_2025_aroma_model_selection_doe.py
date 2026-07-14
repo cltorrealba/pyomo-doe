@@ -33,10 +33,10 @@ if str(FERMENTATION_MODEL_DIR) not in sys.path:
     sys.path.insert(0, str(FERMENTATION_MODEL_DIR))
 
 import run_pilot_2025_calibration_estimability as pilot
-import aroma_partition_unifac as unifac_partition
-import run_new_must_glycerol_estimability_doe as base
-import run_secondary_joint_campaign_doe as joint
-import run_secondary_v2_model_evaluation as v2
+from shared import aroma_partition_unifac as unifac_partition
+from shared import run_new_must_glycerol_estimability_doe as base
+from shared import run_secondary_joint_campaign_doe as joint
+from shared import run_secondary_v2_model_evaluation as v2
 
 
 RESULTS_DIR = PILOT_DIR / "results" / "aroma_model_selection_doe"

@@ -10,8 +10,8 @@
       "matrix": "synthetic_and_natural_must",
       "planned_experiments": 9,
       "raw_experiments_present": 6,
-      "authoritative_design": "fermentation_model/results/design_execution_bundle_2026-06-09/recommended_volume_constrained",
-      "execution_copy": "db_20260609/rec"
+      "authoritative_design": "fermentation_model/laboratory_2026/results/design_execution_bundle_2026-06-09/recommended_volume_constrained",
+      "execution_copy": "fermentation_model/laboratory_2026/archive/design_execution_copy_2026-06-09/rec"
     }
   },
   "registry": "fermentation_model/campaigns/experiments.csv"

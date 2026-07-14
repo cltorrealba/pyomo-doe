@@ -24,3 +24,6 @@ model-based DOE executed in 2026.
 Shared active modules are documented in `../shared/README.md`. Historical
 calibration notebooks are retained under
 `../legacy/development_2026/notebooks/initial_calibration/`.
+
+The active shared calibration and estimability outputs are under
+`../shared/results/new_must_glycerol_estimability_doe/`.

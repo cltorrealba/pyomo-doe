@@ -2,97 +2,146 @@
 
 Status date: 2026-07-14.
 
-## Campaign layer
+This is the canonical navigation map for the fermentation work. Every active
+artifact now has one explicit owner: the shared model layer or one experimental
+campaign. There is no generic `fermentation_model/results/` directory and no
+active Python module in the `fermentation_model/` root.
 
-| Campaign | Data | Workspace | Scientific endpoint |
-| --- | --- | --- | --- |
-| Laboratory 2025 | `data/Laboratorio 2025/` | `laboratory_2025/` | Shared calibration/estimability prior |
-| Pilot 2025 | `data/Piloto 2025/` | `pilot_2025/` | `pilot_2025/results/co2_solubility_integrated_doe/` |
-| Laboratory 2026 | `data/Laboratorio 2026/` | `laboratory_2026/` | `results/design_execution_bundle_2026-06-09/` and sequential Lot results |
-| Pilot 2026 | `data/Piloto 2026/` | `pilot_2026/` | Pending homologated dataset |
-
-`campaigns/campaigns.csv` and `campaigns/experiments.csv` are the machine-readable
-registry. They distinguish the laboratory-2026 transferability stream from the
-nine-protocol optimal-design stream.
-
-## Current dependency chain
+## Directory tree
 
 ```text
-data/Laboratorio 2025-2026
-        |
-        v
-new_must_data_loader.py
-        |
-        v
-run_new_must_glycerol_estimability_doe.py
-        |
-        +--> run_secondary_metabolite_data_review.py
-        |             |
-        |             v
-        +--> run_secondary_joint_campaign_doe.py
-                      |
-                      v
-            run_secondary_v2_model_evaluation.py
-
-data/Piloto 2025 + CO2 sensors
-        |
-        v
-pilot_2025/support/pilot_2025_data_loader.py
-        |
-        +--> calibration_estimability prior
-        +--> aroma_model_selection_doe prior
-        +--> global model-selection prior
-        |
-        v
-pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py
-        |
-        +--> dissolved CO2 and macro-O2 benchmark
-        +--> integrated calibration
-        +--> FIM/eigenvalue diagnostics
-        +--> natural-must MBDoE
-        |
-        v
-pilot_2025/results/co2_solubility_integrated_doe/
+fermentation_model/
+├── README.md                  orientation and entry points
+├── REPOSITORY_MAP.md          this ownership/dependency map
+├── REPRODUCIBILITY.md         environment and run-manifest rules
+├── campaigns/                 machine-readable campaign/experiment registry
+├── config/                    solver and run-manifest configuration
+├── data/                      immutable experimental sources
+├── shared/                    reusable model package and shared results
+├── laboratory_2025/           Laboratory 2025 campaign metadata
+├── pilot_2025/                Pilot 2025 code, notebooks and results
+├── laboratory_2026/           Laboratory 2026 code, notebooks and results
+├── pilot_2026/                Pilot 2026 data-integration workspace
+├── legacy/                    frozen superseded work and rendition bundles
+├── tools/                     repository audit and run-context capture
+└── tests/                     structural and provenance checks
 ```
 
-## Artifact status
+## Where to start
 
-| Area | Status | Authoritative location |
+| Question | Start at | Then follow |
 | --- | --- | --- |
-| Pilot integrated model | Current | `pilot_2025/` |
-| Pilot final results | Current | `pilot_2025/results/co2_solubility_integrated_doe/` |
-| Pilot calibration/aroma/global priors | Active dependency | `pilot_2025/results/` |
-| Laboratory volume-constrained DOE | Current | root notebooks and `results/final_operational_doe_volume_constrained/` |
-| Lot 1 follow-up | Current | root Lot 1 notebooks/runners and `results/lot1_*` |
-| Primary/glycerol model | Active shared dependency | root Python modules and `results/new_must_*` |
-| Secondary/aroma model | Active shared dependency | root Python modules and `results/secondary_*` |
-| Initial calibration and early DOE iterations | Archived | `legacy/development_2026/` |
-| Pilot superseded branches | Archived | `pilot_2025/legacy/` |
-| Administrative AXX bundles | Frozen rendition deliverables; not scientific endpoints | `legacy/rendicion/` and `pilot_2025/bundles/` |
-| Laboratory 2026 notebooks | Current | `laboratory_2026/notebooks/` |
+| What campaigns exist? | `campaigns/campaigns.csv` | campaign `README.md` |
+| Where is one fermentation? | `campaigns/experiments.csv` | its `raw_location` |
+| Which runner is authoritative? | `campaigns/workflows.csv` | `path` and `authoritative_output` |
+| Are raw files unchanged? | `campaigns/raw_data_manifest.csv` | `tools/campaign_audit.py --check-hashes` |
+| How do I reproduce a result? | `REPRODUCIBILITY.md` | run config and `run_manifest.json` |
+| Is an old artifact still current? | nearest `README.md` | otherwise treat `legacy/` as frozen |
 
-## Why some old-looking results remain in `results/`
+## Ownership by layer
 
-The report and evidence-bundle generators still consume selected earlier
-outputs, including curve validation, aroma campaign, secondary-model and
-operational-design tables. Moving those directories would silently break the
-evidence chain. They therefore remain in place and are labelled in
-`results/README.md` instead of being relocated.
+### Immutable data
 
-## Rules for future work
+```text
+data/Laboratorio 2025/
+data/Piloto 2025/
+data/Laboratorio 2026/
+data/Piloto 2026/
+```
 
-1. Add new pilot iterations under `pilot_2025/`; do not place pilot notebooks in
-   the fermentation-model root.
-2. Use one result directory per runner and keep its name equal to the workflow
-   name.
-3. Keep one source notebook and, when needed, one `.executed.ipynb` beside it.
-4. When a workflow is superseded, move its notebooks and runner to `legacy/`
-   only after checking imports with `rg`.
-5. Do not delete prior parameter tables or FIM outputs used by a current runner
-   or evidence bundle.
-6. Record the authoritative runner, notebook and result directory in the
-   nearest `README.md`.
-7. Register every new experiment in `campaigns/experiments.csv` and regenerate
-   `campaigns/raw_data_manifest.csv` after adding immutable raw files.
-8. Capture a run manifest as described in `REPRODUCIBILITY.md` before reporting
-   new parameter estimates or FIM comparisons.
+Analysis code never writes into `data/`. Derived normalized tables belong to
+the results directory of the workflow that created them.
+
+### Shared model
+
+```text
+shared/
+├── paths.py
+├── new_must_data_loader.py
+├── run_new_must_glycerol_estimability_doe.py
+├── run_new_must_overnight_validation.py
+├── run_secondary_metabolite_data_review.py
+├── run_secondary_joint_campaign_doe.py
+├── run_secondary_v2_model_evaluation.py
+├── aroma_partition_unifac.py
+├── notebooks/
+└── results/
+```
+
+`shared/paths.py` is the single path contract. Shared modules must import
+canonical directories from it instead of deriving data or result ownership from
+their own file location.
+
+### Laboratory 2026
+
+```text
+laboratory_2026/
+├── run_final_operational_doe_v2.py
+├── run_final_operational_doe_volume_constrained.py
+├── run_estimability_old_vs_lot1.py
+├── run_lot1_actual_mbdoe_reassessment.py
+├── run_lot1_pulse_timing_mbdoe.py
+├── run_lot1_express_optimal_sampling.py
+├── create_*.py
+├── notebooks/
+└── results/
+```
+
+The authoritative design handoff is
+`laboratory_2026/results/design_execution_bundle_2026-06-09/`. Sequential Lot 1
+processing and design updates live beside it under `laboratory_2026/results/`.
+
+### Pilot campaigns
+
+Pilot 2025 owns its integrated model, support code, notebooks and results under
+`pilot_2025/`. Pilot 2026 owns its future processed data and results under
+`pilot_2026/`; the individual reactor/sample registry is still pending.
+
+### Frozen history
+
+`legacy/development_2026/` contains superseded runners, notebooks and their
+matching result families. `legacy/rendicion/` and `pilot_2025/bundles/` contain
+administrative AXX deliverables. Frozen source snapshots retain their original
+paths intentionally and are not imported by active workflows.
+
+## Active dependency chain
+
+```text
+data/Laboratorio 2025 + data/Laboratorio 2026
+                         │
+                         ▼
+             shared/new_must_data_loader.py
+                         │
+                         ▼
+ shared/run_new_must_glycerol_estimability_doe.py
+                         │
+             ┌───────────┴───────────┐
+             ▼                       ▼
+ secondary metabolite review   shared validation
+             │
+             ▼
+ secondary joint/aroma model
+             │
+             ▼
+ secondary v2 model evaluation
+             │
+       ┌─────┴────────────────┐
+       ▼                      ▼
+ laboratory_2026 runners   pilot_2025 runners
+       │                      │
+       ▼                      ▼
+ campaign-owned results   campaign-owned results
+```
+
+## Rules for future additions
+
+1. Put reusable model code in `shared/`; put campaign-specific code in its
+   campaign workspace.
+2. Write outputs only to `shared/results/` or `<campaign>/results/`.
+3. Add every experiment to `campaigns/experiments.csv`.
+4. Add every active runner to `campaigns/workflows.csv`.
+5. Regenerate the raw-data manifest only after intentionally adding raw files.
+6. Move superseded code and its outputs together into `legacy/`.
+7. Do not import code from notebooks, executed notebooks, bundles or `legacy/`.
+8. Run `python fermentation_model/tools/campaign_audit.py --check-hashes`
+   before committing a scientific result.
