@@ -1,0 +1,11 @@
+{
+  "campaign_id": "pilot_2025",
+  "status": "complete",
+  "matrix": "natural_grape_must",
+  "experimental_structure": "eight_fermentations_four_pairs",
+  "aroma_data": "time_resolved_condensate_and_wine_total",
+  "raw_data": "fermentation_model/data/Piloto 2025/Calibration_data_vl3.xlsx",
+  "authoritative_runner": "fermentation_model/pilot_2025/run_pilot_2025_co2_solubility_integrated_doe.py",
+  "authoritative_results": "fermentation_model/pilot_2025/results/co2_solubility_integrated_doe",
+  "registry": "fermentation_model/campaigns/experiments.csv"
+}

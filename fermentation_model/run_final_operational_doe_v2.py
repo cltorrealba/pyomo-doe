@@ -27,7 +27,12 @@ import run_secondary_v2_model_evaluation as v2
 
 
 RESULTS_DIR = SCRIPT_DIR / "results" / "final_operational_doe_v2"
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_final_operational_doe_v2.ipynb"
+NOTEBOOK_PATH = (
+    SCRIPT_DIR
+    / "laboratory_2026"
+    / "notebooks"
+    / "fermentation_final_operational_doe_v2.ipynb"
+)
 
 FERMENTATION_TARGETS = joint.FERMENTATION_TARGETS
 SECONDARY_TARGETS = tuple(name for name in v2.V2_REDUCED_PARAMETERS if name != "kAldRed")
@@ -622,6 +627,7 @@ def write_report(
 
 
 def write_notebook() -> None:
+    NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [
         nbformat.v4.new_markdown_cell(

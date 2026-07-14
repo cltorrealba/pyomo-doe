@@ -19,6 +19,10 @@ The CSV and PNG files directly under `results/` are the initial calibration,
 PSO, profile-likelihood and q-sensitivity baseline. They are retained because
 they are tracked evidence and some contain user modifications.
 
+The PSO and broad multistart files are classified as transient development
+evidence. The preferred method family is local IPOPT estimation followed by
+weighted FIM/eigen-analysis and profile likelihood.
+
 ## Current operational and Lot 1 outputs
 
 - `final_operational_doe_v2/`: active baseline for the constrained design.
@@ -53,3 +57,7 @@ because current reports or bundles reference them:
 
 Do not move or delete a result family until `rg` confirms that no current
 runner, notebook generator or evidence-bundle script references it.
+
+Administrative `AXX` bundles are not scientific result families. Their retained
+files are documented under `../legacy/rendicion/` and
+`../pilot_2025/bundles/`.

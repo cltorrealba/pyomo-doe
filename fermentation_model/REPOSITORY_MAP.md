@@ -2,6 +2,19 @@
 
 Status date: 2026-07-14.
 
+## Campaign layer
+
+| Campaign | Data | Workspace | Scientific endpoint |
+| --- | --- | --- | --- |
+| Laboratory 2025 | `data/Laboratorio 2025/` | `laboratory_2025/` | Shared calibration/estimability prior |
+| Pilot 2025 | `data/Piloto 2025/` | `pilot_2025/` | `pilot_2025/results/co2_solubility_integrated_doe/` |
+| Laboratory 2026 | `data/Laboratorio 2026/` | `laboratory_2026/` | `results/design_execution_bundle_2026-06-09/` and sequential Lot results |
+| Pilot 2026 | `data/Piloto 2026/` | `pilot_2026/` | Pending homologated dataset |
+
+`campaigns/campaigns.csv` and `campaigns/experiments.csv` are the machine-readable
+registry. They distinguish the laboratory-2026 transferability stream from the
+nine-protocol optimal-design stream.
+
 ## Current dependency chain
 
 ```text
@@ -55,7 +68,8 @@ pilot_2025/results/co2_solubility_integrated_doe/
 | Secondary/aroma model | Active shared dependency | root Python modules and `results/secondary_*` |
 | Initial calibration and early DOE iterations | Archived | `legacy/development_2026/` |
 | Pilot superseded branches | Archived | `pilot_2025/legacy/` |
-| Evidence bundles | Frozen deliverables | `pilot_2025/bundles/` and selected root result bundles |
+| Administrative AXX bundles | Frozen rendition deliverables; not scientific endpoints | `legacy/rendicion/` and `pilot_2025/bundles/` |
+| Laboratory 2026 notebooks | Current | `laboratory_2026/notebooks/` |
 
 ## Why some old-looking results remain in `results/`
 
@@ -78,3 +92,7 @@ evidence chain. They therefore remain in place and are labelled in
    or evidence bundle.
 6. Record the authoritative runner, notebook and result directory in the
    nearest `README.md`.
+7. Register every new experiment in `campaigns/experiments.csv` and regenerate
+   `campaigns/raw_data_manifest.csv` after adding immutable raw files.
+8. Capture a run manifest as described in `REPRODUCIBILITY.md` before reporting
+   new parameter estimates or FIM comparisons.

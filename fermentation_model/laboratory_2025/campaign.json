@@ -1,0 +1,10 @@
+{
+  "campaign_id": "laboratory_2025",
+  "status": "complete",
+  "matrix": "synthetic_must",
+  "design": "two_factor_ccd",
+  "factors": ["isothermal_temperature", "nutrient_addition_timing"],
+  "experiment_ids": ["MS007", "MS008", "MS009", "MS010", "MS011", "MS012", "MS013", "MS014", "MS015", "MS016"],
+  "raw_data": "fermentation_model/data/Laboratorio 2025/mosto_sintetico_vl3.xlsx",
+  "registry": "fermentation_model/campaigns/experiments.csv"
+}

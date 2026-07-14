@@ -1,0 +1,13 @@
+{
+  "campaign_id": "pilot_2026",
+  "status": "data_integration",
+  "matrix": "natural_grape_must",
+  "reactors": 3,
+  "controls": {
+    "temperature": "dynamic_profiles",
+    "nutrition": "constant"
+  },
+  "raw_data": "fermentation_model/data/Piloto 2026/Lotes1a3/Resultados_GC.csv",
+  "individual_experiment_registry": "pending",
+  "registry": "fermentation_model/campaigns/experiments.csv"
+}

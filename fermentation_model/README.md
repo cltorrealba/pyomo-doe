@@ -5,6 +5,23 @@ model-based design of experiments (MBDoE) work. The organization below marks
 which artifacts are current, which are active dependencies, and which are kept
 only for traceability.
 
+## Start here: four campaigns
+
+The campaign-level navigation and experiment registry are in `campaigns/`.
+
+| Campaign | Workspace | Current state |
+| --- | --- | --- |
+| Laboratory 2025 | `laboratory_2025/` | Complete synthetic-must CCD |
+| Pilot 2025 | `pilot_2025/` | Complete paired vintage campaign |
+| Laboratory 2026 | `laboratory_2026/` | Active sequential MBDoE and transferability streams |
+| Pilot 2026 | `pilot_2026/` | Aroma data integration in progress |
+
+Reusable model code is shared across campaigns and documented in
+`shared/README.md`. Raw inputs stay under `data/`; campaign workspaces point to
+them rather than copying them.
+
+For environment and run-manifest requirements, see `REPRODUCIBILITY.md`.
+
 ## Authoritative workflows
 
 ### Pilot 2025: current integrated model
@@ -36,8 +53,8 @@ python fermentation_model\pilot_2025\run_pilot_2025_co2_solubility_integrated_do
 
 The latest volume-constrained laboratory campaign is represented by:
 
-- `fermentation_final_operational_doe_volume_constrained.ipynb`
-- `fermentation_final_operational_doe_volume_constrained.executed.ipynb`
+- `laboratory_2026/notebooks/fermentation_final_operational_doe_volume_constrained.ipynb`
+- `laboratory_2026/notebooks/fermentation_final_operational_doe_volume_constrained.executed.ipynb`
 - `run_final_operational_doe_volume_constrained.py`
 - `results/final_operational_doe_volume_constrained/`
 
@@ -49,8 +66,8 @@ volume-constrained and Lot 1 workflows use them as an active baseline.
 
 The current Lot 1 data and estimability follow-up is represented by:
 
-- `fermentation_lot1_data_preview.ipynb`
-- `fermentation_estimability_old_vs_lot1.ipynb`
+- `laboratory_2026/notebooks/fermentation_lot1_data_preview.ipynb`
+- `laboratory_2026/notebooks/fermentation_estimability_old_vs_lot1.ipynb`
 - `run_lot1_actual_mbdoe_reassessment.py`
 - `run_lot1_pulse_timing_mbdoe.py`
 - `run_lot1_express_optimal_sampling.py`
@@ -84,6 +101,9 @@ Raw data should not be moved into `results/` or modified by analysis scripts.
 Normalized tables and fitted parameters belong in the corresponding results
 directory.
 
+`campaigns/raw_data_manifest.csv` records the current checksum snapshot. Use
+`tools/campaign_audit.py` to validate it.
+
 ## Results and legacy material
 
 See `results/README.md` for the status of every result family. Some historical
@@ -94,5 +114,8 @@ Superseded notebooks and runners were moved to
 `legacy/development_2026/`. They are retained as a frozen development record,
 not as recommended entry points. See `legacy/README.md` and
 `legacy/development_2026/ARCHIVE_MANIFEST.md`.
+
+Administrative `AXX` rendition builders are separated under
+`legacy/rendicion/` or `pilot_2025/bundles/` and are not model entry points.
 
 For the complete dependency and ownership map, see `REPOSITORY_MAP.md`.

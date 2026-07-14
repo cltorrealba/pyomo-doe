@@ -1,0 +1,32 @@
+{
+  "config_version": 1,
+  "workflow_family": "local_ipopt_calibration_estimability",
+  "scientific_status": "preferred_method_family",
+  "estimation": {
+    "solver": "ipopt",
+    "strategy": "local",
+    "multistart": false,
+    "particle_swarm": false
+  },
+  "post_fit_diagnostics": [
+    "weighted_fisher_information_matrix",
+    "eigenvalue_and_eigendirection_analysis",
+    "profile_likelihood"
+  ],
+  "inference_notes": {
+    "profile_likelihood": "frequentist",
+    "laplace_or_bayesian_approximation": "report_separately_if_used"
+  },
+  "required_per_run_fields": [
+    "campaign_id",
+    "experiment_ids",
+    "objective_definition",
+    "measurement_error_definition",
+    "free_parameters",
+    "fixed_parameters",
+    "parameter_bounds",
+    "initial_guess",
+    "solver_options",
+    "input_checksums"
+  ]
+}

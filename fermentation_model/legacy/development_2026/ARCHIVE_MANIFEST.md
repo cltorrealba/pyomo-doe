@@ -48,3 +48,6 @@ Archived on 2026-07-14. These files were moved from the
 
 The result directories were intentionally left under `../../results/` because
 current evidence-bundle generators still reference selected historical tables.
+
+Administrative `AXX` builders are catalogued separately in `../rendicion/` and
+are not part of this scientific development archive.
