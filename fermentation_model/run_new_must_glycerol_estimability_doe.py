@@ -32,7 +32,12 @@ from new_must_data_loader import load_new_must_data
 RESULTS_DIR = SCRIPT_DIR / "results" / "new_must_glycerol_estimability_doe"
 NORMALIZED_DATA_PATH = SCRIPT_DIR / "results" / "new_must_data_loading" / "new_must_normalized_long.csv"
 OLD_FINAL_THETA_PATH = SCRIPT_DIR / "results" / "identifiability_reduction" / "theta_final_identifiable.csv"
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_new_must_glycerol_estimability_doe.ipynb"
+NOTEBOOK_PATH = (
+    SCRIPT_DIR
+    / "shared"
+    / "notebooks"
+    / "fermentation_new_must_glycerol_estimability_doe.ipynb"
+)
 
 FULL15 = (
     "mu0",
@@ -1544,6 +1549,7 @@ def write_report(
 
 
 def write_notebook() -> None:
+    NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [
         nbformat.v4.new_markdown_cell(

@@ -36,8 +36,11 @@ LOT1_ETHANOL_WORKBOOK_FALLBACK = (
     / "manual_entry_templates"
     / "DOE_Lote_1_ethanol_manual_entry.xlsx"
 )
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_estimability_old_vs_lot1.ipynb"
-EXECUTED_NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_estimability_old_vs_lot1.executed.ipynb"
+NOTEBOOK_DIR = SCRIPT_DIR / "laboratory_2026" / "notebooks"
+NOTEBOOK_PATH = NOTEBOOK_DIR / "fermentation_estimability_old_vs_lot1.ipynb"
+EXECUTED_NOTEBOOK_PATH = (
+    NOTEBOOK_DIR / "fermentation_estimability_old_vs_lot1.executed.ipynb"
+)
 
 CORE_PARAMETERS = final.FERMENTATION_TARGETS
 PROFILE_DEFAULT = ("Kd0", "qN")
@@ -782,6 +785,7 @@ Negative `std_log_delta_plus_minus_old` means the parameter became more estimabl
 
 
 def create_notebook() -> None:
+    NOTEBOOK_DIR.mkdir(parents=True, exist_ok=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [
         nbformat.v4.new_markdown_cell(

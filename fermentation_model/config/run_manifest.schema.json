@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fermentation model run manifest",
+  "type": "object",
+  "required": [
+    "created_utc",
+    "git",
+    "platform",
+    "python",
+    "config",
+    "packages",
+    "solver"
+  ],
+  "properties": {
+    "created_utc": {"type": "string"},
+    "git": {
+      "type": "object",
+      "required": ["commit", "dirty"],
+      "properties": {
+        "commit": {"type": "string"},
+        "branch": {"type": "string"},
+        "dirty": {"type": "boolean"}
+      }
+    },
+    "platform": {"type": "string"},
+    "python": {"type": "string"},
+    "config": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string"},
+        "sha256": {"type": "string"}
+      }
+    },
+    "packages": {"type": "object"},
+    "solver": {"type": "object"},
+    "raw_data_manifest_sha256": {"type": ["string", "null"]}
+  }
+}

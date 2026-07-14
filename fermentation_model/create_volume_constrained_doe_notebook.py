@@ -5,7 +5,12 @@ from pathlib import Path
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_final_operational_doe_volume_constrained.ipynb"
+NOTEBOOK_PATH = (
+    SCRIPT_DIR
+    / "laboratory_2026"
+    / "notebooks"
+    / "fermentation_final_operational_doe_volume_constrained.ipynb"
+)
 
 
 def md(text: str):

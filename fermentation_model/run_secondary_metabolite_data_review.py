@@ -24,7 +24,12 @@ from new_must_data_loader import (
 
 RESULTS_DIR = SCRIPT_DIR / "results" / "secondary_metabolite_data_review"
 PLOT_DIR = RESULTS_DIR / "plots"
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_secondary_metabolite_data_review.ipynb"
+NOTEBOOK_PATH = (
+    SCRIPT_DIR
+    / "shared"
+    / "notebooks"
+    / "fermentation_secondary_metabolite_data_review.ipynb"
+)
 CALIBRATION_FILE = SCRIPT_DIR / "data" / "Calibration_data_vl3.xlsx"
 
 SECONDARY_PLOT_COLUMNS = [
@@ -262,6 +267,7 @@ def write_modeling_notes() -> None:
 
 
 def write_notebook() -> None:
+    NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [
         nbformat.v4.new_markdown_cell(

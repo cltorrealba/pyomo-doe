@@ -22,3 +22,8 @@ an audit record. The authoritative current paths are documented in
 
 Before reviving an archived runner, verify its input paths and write outputs to
 a new results directory. Do not overwrite current priors.
+
+## `rendicion/`
+
+Administrative `AXX` bundle builders and retained rendition ZIP files. These
+artifacts are preserved but excluded from the scientific workflow map.

@@ -29,7 +29,12 @@ import run_secondary_metabolite_data_review as secondary_review
 
 
 RESULTS_DIR = SCRIPT_DIR / "results" / "secondary_joint_campaign_doe"
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_secondary_joint_campaign_doe.ipynb"
+NOTEBOOK_PATH = (
+    SCRIPT_DIR
+    / "shared"
+    / "notebooks"
+    / "fermentation_secondary_joint_campaign_doe.ipynb"
+)
 
 SECONDARY_STATES = ("Pyr", "AcAld", "Acetate", "O2")
 AROMA_SPECIES = ("ethyl_acetate", "isoamyl_acetate", "ethyl_octanoate")
@@ -1152,6 +1157,7 @@ def run_pyomo_checks(theta: dict[str, float], selected: pd.DataFrame, designs: d
 
 
 def write_notebook() -> None:
+    NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [
         nbformat.v4.new_markdown_cell(

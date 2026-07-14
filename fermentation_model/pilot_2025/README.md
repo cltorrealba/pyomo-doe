@@ -1,5 +1,8 @@
 # Pilot 2025 workspace
 
+Campaign metadata and experiment IDs are registered in
+`../campaigns/experiments.csv` and `campaign.json`.
+
 ## Current integrated workflow
 
 The authoritative pilot-scale workflow is:
@@ -46,8 +49,8 @@ metadata. Both are therefore still active inputs.
 
 ## Bundles and legacy
 
-- `bundles/`: frozen evidence packages with source snapshots and selected
-  result tables.
+- `bundles/`: administrative/evidence packages created for rendition. They are
+  preserved but are not authoritative scientific endpoints.
 - `legacy/notebooks/`: superseded exploratory and executed notebooks.
 - `legacy/scripts/`: runners replaced by the integrated workflow.
 - `legacy/results/`: outputs from superseded branches.

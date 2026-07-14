@@ -23,7 +23,12 @@ import run_secondary_joint_campaign_doe as v1
 
 
 RESULTS_DIR = SCRIPT_DIR / "results" / "secondary_v2_model_evaluation"
-NOTEBOOK_PATH = SCRIPT_DIR / "fermentation_secondary_v2_model_evaluation.ipynb"
+NOTEBOOK_PATH = (
+    SCRIPT_DIR
+    / "shared"
+    / "notebooks"
+    / "fermentation_secondary_v2_model_evaluation.ipynb"
+)
 
 V2_PARAMETERS = (
     "kPyrS_N",
@@ -481,6 +486,7 @@ def write_report(fit_table: pd.DataFrame, state_metrics: pd.DataFrame, estim: pd
 
 
 def write_notebook() -> None:
+    NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [
         nbformat.v4.new_markdown_cell(

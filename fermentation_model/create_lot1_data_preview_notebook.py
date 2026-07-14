@@ -5,7 +5,13 @@ import nbformat as nbf
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NOTEBOOK_PATH = ROOT / "fermentation_model" / "fermentation_lot1_data_preview.ipynb"
+NOTEBOOK_PATH = (
+    ROOT
+    / "fermentation_model"
+    / "laboratory_2026"
+    / "notebooks"
+    / "fermentation_lot1_data_preview.ipynb"
+)
 
 
 def md(text: str):
@@ -130,7 +136,14 @@ nb["cells"] = [
             if ETHANOL_TEMPLATE_XLSX_DATA.exists()
             else ETHANOL_TEMPLATE_XLSX_FALLBACK
         )
-        LOT1_PLANNED_SCHEDULE_CSV = ROOT / "db_20260609" / "rec" / "lot_1_schedule.csv"
+        LOT1_PLANNED_SCHEDULE_CSV = (
+            ROOT
+            / "fermentation_model"
+            / "results"
+            / "design_execution_bundle_2026-06-09"
+            / "recommended_volume_constrained"
+            / "lot_1_operational_schedule.csv"
+        )
         ACTUAL_INPUT_EVENTS_CSV = (
             ROOT
             / "fermentation_model"
@@ -817,7 +830,8 @@ nb["cells"] = [
 
         This section therefore creates a separate editable execution table:
 
-        - Planned pulses are read from `db_20260609/rec/lot_1_schedule.csv`.
+        - Planned pulses are read from the authoritative design bundle under
+          `fermentation_model/results/design_execution_bundle_2026-06-09/`.
         - `planned_design_t_h` is the model-based design time relative to process
           start.
         - `planned_clock_t_h_from_actual_t0` is the old scheduled clock time

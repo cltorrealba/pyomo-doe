@@ -1,0 +1,20 @@
+name: fermentation-doe
+channels:
+  - conda-forge
+  - IDAES-PSE
+dependencies:
+  - python=3.11
+  - idaes-pse
+  - pandas
+  - numpy
+  - scipy
+  - matplotlib
+  - openpyxl
+  - nbformat
+  - nbclient
+  - ipykernel
+  - jupyterlab
+  - pypdf
+  - thermo
+  - chemicals
+  - pywin32

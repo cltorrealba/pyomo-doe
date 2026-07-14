@@ -1,0 +1,18 @@
+{
+  "campaign_id": "laboratory_2026",
+  "status": "active",
+  "streams": {
+    "transferability_replication": {
+      "matrix": "natural_grape_must",
+      "raw_data": "fermentation_model/data/Laboratorio 2026/mosto_natural_xthiol.xlsx"
+    },
+    "optimal_doe": {
+      "matrix": "synthetic_and_natural_must",
+      "planned_experiments": 9,
+      "raw_experiments_present": 6,
+      "authoritative_design": "fermentation_model/results/design_execution_bundle_2026-06-09/recommended_volume_constrained",
+      "execution_copy": "db_20260609/rec"
+    }
+  },
+  "registry": "fermentation_model/campaigns/experiments.csv"
+}
