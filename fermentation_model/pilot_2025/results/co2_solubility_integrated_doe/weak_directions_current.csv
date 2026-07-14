@@ -1,0 +1,11 @@
+analysis,weak_direction,eigenvalue,relative_eigenvalue,dominant_parameters,dominant_abs_loadings
+current,1,1e-09,1.0,"mu0, kCO2_release_h, kAldPyr, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,2,1e-09,1.0,"kAcAld, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,3,1e-09,1.0,"kAcStress, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,4,1e-09,1.0,"kAcAssim, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,5,1e-09,1.0,"k_EA_growth, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,6,1e-09,1.0,"k_EA_stationary, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,7,1e-09,1.0,"k_IAA_growth, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,8,1e-09,1.0,"kAldRed, CO2sat_scale, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,9,1e-09,1.0,"k_IAA_stationary, kAldS_N, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0, gammaG0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current,10,1e-09,1.0,"k_EO_stationary, CO2sat_scale, Kd0, kPyrDrain, kPyrO2, kPyrS_stat, kPyrS_N, gammaF0","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"

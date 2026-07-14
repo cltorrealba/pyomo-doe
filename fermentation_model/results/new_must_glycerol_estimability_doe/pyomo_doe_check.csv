@@ -1,0 +1,2 @@
+candidate,status,parameters,pyomo_logdet,pyomo_min_eigenvalue,pyomo_max_eigenvalue,pyomo_min_relative_eigenvalue,pyomo_condition_number,pyomo_trace,pyomo_trace_inv,pyomo_rank_1e-8
+synthetic_glucose_rich_fructose_pulse,ok,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",52.30227841999982,0.01896040182114415,14457.323441191327,1.3114738629366763e-06,762500.8993780339,30132.70072754796,54.45920152950194,11

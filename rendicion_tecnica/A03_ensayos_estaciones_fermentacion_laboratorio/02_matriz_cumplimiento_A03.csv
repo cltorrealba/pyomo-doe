@@ -1,0 +1,9 @@
+contenido_minimo,estado_bundle,archivos_bundle,detalle
+Diseno experimental,cubierto,tables/03_diseno_experimental_CCD.csv; source_tables/Diseno_CCD.csv; data_sources/mosto_sintetico_vl3.xlsx,"Incluye diseno CCD de dos factores, cubadas MS007-MS016, temperatura operacional, adicion y horizonte de muestreo."
+Tratamientos,cubierto,tables/04_matriz_tratamientos.csv; tables/04_tratamientos_resumen_factorial.csv,"Matriz por cubada con temperatura, adicion, numero de muestreos y condiciones iniciales/finales."
+Equipos,cubierto,reference_documents/*.pdf; tables/02_documentos_referencia_pdf.csv,Se adjuntan documentos de referencia de sistema/estacion de vinificacion y experimentos de escala laboratorio.
+Ejecucion,cubierto,tables/05_ejecucion_por_cubada.csv; source_tables/Datos_originales.csv,"Incluye fecha/hora, tiempos, numero de muestras por cubada y horizonte real de ejecucion."
+Registros de proceso,cubierto_con_salvedad_CO2,tables/06_cobertura_registros_proceso.csv; source_tables/Datos_homologados.csv,"Incluye temperatura, densidad, Brix, nutrientes, azucares, biomasa, etanol, glicerol, metabolitos y aromas. CO2 no disponible porque los sensores aun no estaban instalados."
+Incidencias,cubierto,tables/07_incidencias_flags_calidad.csv; source_tables/Flags_calidad.csv,Incluye flag de calidad preservando valor crudo y criterio de revision.
+Resultados,cubierto,tables/08_resultados_por_cubada.csv; tables/08_resultados_variables_finales.csv,"Resume resultados finales por cubada: densidad/Brix, azucares, YAN, etanol, glicerol, biomasa y viabilidad."
+Cumplimiento,cubierto,tables/09_cumplimiento_A03.csv; 04_resultados_y_cumplimiento_A03.md,Cumplimiento documental completo con brecha CO2 justificada por estado de instalacion de sensores.

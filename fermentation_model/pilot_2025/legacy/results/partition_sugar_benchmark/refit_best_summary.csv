@@ -1,0 +1,3 @@
+partition_mode,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,active_bound_count,fit_selection_score
+water_ethanol,fixed_reference,True,0,selected global theta before aroma-only refit,0,9272.370230681474,9272.370230681474,9272.370230681474,366,2,9312.370230681474
+water_ethanol_GF_as_glucose,fixed_reference,True,0,selected global theta before aroma-only refit,0,8431.47915220079,8431.47915220079,8431.47915220079,366,2,8471.47915220079

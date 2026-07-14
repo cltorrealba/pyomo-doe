@@ -1,0 +1,11 @@
+,0
+kCO2_release_h,0.2669276959271604
+CO2sat_scale,0.4066343341502766
+O2_qmax_mg_gdw_h,0.15
+O2_K_mg_l,0.25
+O2_ana_K_mg_l,0.75
+O2_ana_hill,2.0
+O2_crabtree_floor,0.08
+O2sat_scale,1.0
+O2_kLa_h,0.0
+O2_25171_fraction,0.05

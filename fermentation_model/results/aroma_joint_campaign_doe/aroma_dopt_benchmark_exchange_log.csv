@@ -1,0 +1,2 @@
+iteration,swap_out,swap_in,previous_logdet,new_logdet,gain_logdet,out_index
+1,yan_saturation_scan,viable_biomass_step,155.9804254402529,156.4795106128937,0.4990851726408039,4

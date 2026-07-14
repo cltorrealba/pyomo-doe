@@ -1,0 +1,6 @@
+channel,stock_concentration,unit,max_single_pulse_ml_target,comment
+N,20.0,mg_N_per_mL,15.0,20 mg YAN-N/mL gives 5-6 mL for a 50-60 mg/L pulse in 2 L.
+G,700.0,g_per_L,125.0,700 g/L is concentrated and viscous but keeps 35 g/L in 2 L near 100 mL.
+F,700.0,g_per_L,125.0,Use same concentration as glucose because fructose is treated as equivalent sugar.
+E,789.0,g_per_L,80.0,Pure ethanol basis; not used in selected hybrid campaign.
+X,100.0,g_dry_biomass_per_L,35.0,Dry-biomass-equivalent concentrated slurry; verify viable cell concentration before dosing.

@@ -1,0 +1,4 @@
+campaign_order,lot,start_datetime,candidate,medium,family,horizon_h,temperature_segments,initial_N_mg_l,initial_G_g_l,initial_F_g_l,initial_E_g_l,initial_X_kg_m3,full_samples,small_samples,planned_sample_volume_ml,rationale
+1,1,2026-06-15 08:00:00,synthetic_lit_SM410_18C_highN_ester,synthetic,literature_nitrogen_high,216.0,"18, 18, 18, 18",410.0,115.0,115.0,0.0,0.4205249999999999,14,6,748.0,Literature SM410-like high YAN tests ester capacity and nitrogen-saturated aroma phase.
+2,1,2026-06-15 08:00:00,synthetic_high_biomass_low_N_maintenance,synthetic,maintenance,216.0,"16, 18, 20, 18",30.0,75.0,75.0,10.0,2.0,14,6,748.0,High biomass with low N creates low-growth sugar consumption windows for m0.
+3,1,2026-06-15 08:00:00,synthetic_fructose_rich_glucose_pulse,synthetic,sugar_separation,216.0,"17, 20, 23, 20",240.0,35.0,155.0,0.0,0.4205249999999999,14,6,748.0,Fructose-rich run probes iG and fructose kinetic directions.

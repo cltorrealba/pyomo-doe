@@ -1,0 +1,6 @@
+partition_mode,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,active_bound_count,fit_selection_score
+water_ethanol,fixed_reference,True,0,selected global theta before aroma-only refit,0,9272.370230681474,9272.370230681474,9272.370230681474,366,2,9312.370230681474
+water_ethanol,0,True,2,`ftol` termination condition is satisfied.,7,9272.370240096401,9879.623534830442,9879.511728228048,366,2,9919.511728228048
+water_ethanol,1,True,2,`ftol` termination condition is satisfied.,19,11813983.070977684,9879.62950157997,9879.517535425837,366,2,9919.517535425837
+water_ethanol,2,True,2,`ftol` termination condition is satisfied.,11,75069.08387285308,9879.623736013182,9879.5119331122,366,2,9919.5119331122
+water_ethanol,3,True,2,`ftol` termination condition is satisfied.,16,176652.37786815147,9879.632725930383,9879.520734093116,366,2,9919.520734093116

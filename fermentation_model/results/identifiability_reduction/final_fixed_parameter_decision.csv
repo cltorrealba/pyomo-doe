@@ -1,0 +1,9 @@
+parameter,fixed_value,reason
+sN,18.0,nitrogen saturation slope fixed from nominal/reference filter; derived Kn0 remains an interpretation diagnostic
+qXG,0.1124999999999999,free fit moves qXG to lower bound and qXG/qXF dominate near-null FIM directions; fixed pending DOE that separates growth sugar uptake
+qXF,0.1124999999999999,free fit moves qXF to lower bound and qXG/qXF dominate near-null FIM directions; fixed pending DOE that separates growth sugar uptake
+sG,0.03,glucose saturation slope fixed from nominal/reference filter; weakly separable from betaG0 in current data
+sF,0.03,fructose saturation slope fixed from nominal/reference filter; weakly separable from betaF0 in current data
+iE,0.025,ethanol inhibition fixed from nominal/reference filter; current data do not isolate ethanol inhibition sufficiently
+Kd0,0.00044,death/decay fixed from nominal/reference filter
+m0,0.01,maintenance fixed from nominal/reference filter

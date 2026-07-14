@@ -1,0 +1,35 @@
+analysis,direction,eigenvalue,relative_eigenvalue,kind,weak_direction,dominant_parameters,dominant_abs_loadings
+current_prior_v2,1.0,1e-06,6.567942950716277e-12,spectrum,,,
+current_prior_v2,2.0,1e-06,6.567942950716277e-12,spectrum,,,
+current_prior_v2,3.0,1e-06,6.567942950716277e-12,spectrum,,,
+current_prior_v2,4.0,1e-06,6.567942950716277e-12,spectrum,,,
+current_prior_v2,5.0,1e-06,6.567942950716277e-12,spectrum,,,
+current_prior_v2,6.0,1e-06,6.567942950716277e-12,spectrum,,,
+current_prior_v2,7.0,0.15539868463829837,1.0206496953206936e-06,spectrum,,,
+current_prior_v2,8.0,0.640001,4.203490056401368e-06,spectrum,,,
+current_prior_v2,9.0,0.640001,4.203490056401368e-06,spectrum,,,
+current_prior_v2,10.0,0.640001,4.203490056401368e-06,spectrum,,,
+current_prior_v2,11.0,0.640001,4.203490056401368e-06,spectrum,,,
+current_prior_v2,12.0,0.640001,4.203490056401368e-06,spectrum,,,
+current_prior_v2,13.0,0.640001,4.203490056401368e-06,spectrum,,,
+current_prior_v2,14.0,1.7777787777777776,1.1676349591438552e-05,spectrum,,,
+current_prior_v2,15.0,1.7777787777777776,1.1676349591438552e-05,spectrum,,,
+current_prior_v2,16.0,1.7777787777777776,1.1676349591438552e-05,spectrum,,,
+current_prior_v2,17.0,78.9906926747351,0.0005188063631252223,spectrum,,,
+current_prior_v2,18.0,320.612131146329,0.002105762186676654,spectrum,,,
+current_prior_v2,19.0,383.92215908490454,0.0025215788383854717,spectrum,,,
+current_prior_v2,20.0,579.4751050609219,0.003805959431400456,spectrum,,,
+current_prior_v2,21.0,6321.743461765113,0.041520850405936886,spectrum,,,
+current_prior_v2,22.0,7906.341234069536,0.05192839817426444,spectrum,,,
+current_prior_v2,23.0,22709.635469109315,0.14915559019267285,spectrum,,,
+current_prior_v2,24.0,35087.67693674959,0.23045386039373453,spectrum,,,
+current_prior_v2,25.0,60591.987712532784,0.39796471856641696,spectrum,,,
+current_prior_v2,26.0,152254.67204932764,1.0,spectrum,,,
+current_prior_v2,,1e-06,,weak_loading,1.0,"kPyrS_N, alpha_EO_loss, alpha_IAA_loss, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior_v2,,1e-06,,weak_loading,2.0,"kPyrO2, alpha_IAA_loss, qN, betaG0, betaF0, qEG, qEF, iG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior_v2,,1e-06,,weak_loading,3.0,"kPyrDrain, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior_v2,,1e-06,,weak_loading,4.0,"kAldS_N, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior_v2,,1e-06,,weak_loading,5.0,"kAcAld, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior_v2,,1e-06,,weak_loading,6.0,"kAcStress, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior_v2,,0.15539868463829837,,weak_loading,7.0,"gammaF0, gammaG0, betaF0, iG, iE, qEF, qEG, betaG0","1.000, 0.012, 0.002, 0.002, 0.002, 0.002, 0.001, 0.001"
+current_prior_v2,,0.640001,,weak_loading,8.0,"k_EO_growth, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"

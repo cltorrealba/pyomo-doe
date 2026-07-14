@@ -1,0 +1,8 @@
+contenido_minimo,estado_bundle,archivos_bundle,detalle
+Base independiente vendimia 2025,cubierto,data_sources/*.xlsx; tables/03_base_independiente_2025_resumen_lotes.csv; tables/03_base_independiente_2025_diccionario.csv,"Incluye mosto natural y sintetico 2025, normalizacion long y resumen por lote."
+Protocolo de validacion,cubierto,03_protocolo_validacion_A02.md; code_sources/run_new_must_curve_validation.py,"Define fuentes, estados, comparacion base vs multistart, predicho-observado, factibilidad y decision."
+Comparacion predicho-observado,cubierto,tables/04_predicho_observado_metricas.csv; figures/curve_fit__*.png,Incluye metricas por lote/estado y graficos fitcmp para lotes naturales y sinteticos.
+Metricas de error,cubierto,tables/04_metricas_error_por_medio_estado.csv; tables/04_residuales_agregados_base_vs_best.csv,"Incluye weighted RMSE, RMSE, sesgo medio y comparacion theta base vs mejor multistart."
+Criterio de validacion,cubierto,tables/05_criterios_validacion.csv; 04_decision_tecnica_A02.md,"Criterios de base cargada, cobertura de metricas, robustez, factibilidad y transferencia natural."
+Brechas,cubierto,tables/06_brechas_y_acciones.csv; source_reports/medium_transfer__medium_transfer_diagnostics_report.md,"Incluye identificabilidad practica, transferencia de medio, redundancias y necesidad de recalibracion secuencial."
+Decision tecnica,cubierto,04_decision_tecnica_A02.md; ANEXO_A02_borrador.md,Decision de validacion tecnica condicionada para uso secuencial y primer bloque mixto.

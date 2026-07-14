@@ -1,0 +1,161 @@
+{
+  "campaign_size": 9,
+  "step": 0.01,
+  "pulse_slots": 3,
+  "liquid_interval_h": 12.0,
+  "co2_interval_h": 6.0,
+  "prior_cv": 2.0,
+  "parameter_mode": "joint_full",
+  "include_partition_alpha": false,
+  "parameters": [
+    "mu0",
+    "sN",
+    "qN",
+    "qXG",
+    "qXF",
+    "betaG0",
+    "sG",
+    "betaF0",
+    "sF",
+    "qEG",
+    "qEF",
+    "iG",
+    "iE",
+    "Kd0",
+    "m0",
+    "k_EA_growth",
+    "k_EA_stationary",
+    "k_IAA_growth",
+    "k_IAA_stationary",
+    "k_EO_growth",
+    "k_EO_stationary"
+  ],
+  "n_candidates": 13,
+  "n_successful_candidates": 11,
+  "partition_model": {
+    "ethyl_acetate": {
+      "K20": 0.004436873104876256,
+      "logK_ref": -5.417805406301014,
+      "temp_slope": 0.04194469273775919,
+      "ethanol_slope": -0.004435874095101745,
+      "sugar_slope": -0.001294685911279265,
+      "fit_rmse_log": 0.016141439689987897,
+      "fit_max_abs_log_error": 0.050775890184795,
+      "mode": "water_ethanol_total_sugar_as_glucose",
+      "source": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+      "trap_efficiency": 0.9
+    },
+    "isoamyl_acetate": {
+      "K20": 0.004686642987359504,
+      "logK_ref": -5.363038733764239,
+      "temp_slope": 0.050548239029352224,
+      "ethanol_slope": -0.008398256814164052,
+      "sugar_slope": -0.002839994124788369,
+      "fit_rmse_log": 0.023795486485307913,
+      "fit_max_abs_log_error": 0.07734302144577665,
+      "mode": "water_ethanol_total_sugar_as_glucose",
+      "source": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+      "trap_efficiency": 0.88
+    },
+    "ethyl_octanoate": {
+      "K20": 0.005096307202607516,
+      "logK_ref": -5.27923907944298,
+      "temp_slope": 0.05846192972893301,
+      "ethanol_slope": -0.012798319503792885,
+      "sugar_slope": -0.004547456030230349,
+      "fit_rmse_log": 0.03186881376194,
+      "fit_max_abs_log_error": 0.10817343047121053,
+      "mode": "water_ethanol_total_sugar_as_glucose",
+      "source": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+      "trap_efficiency": 0.85
+    }
+  },
+  "partition_mode": "water_ethanol_total_sugar_as_glucose",
+  "unifac_assignments": {
+    "water": {
+      "name": "water",
+      "CAS": "7732-18-5",
+      "InChI_key": "XLYOFNOQVPJJNP-UHFFFAOYSA-N",
+      "groups": {
+        "16": 1
+      },
+      "available": true
+    },
+    "ethanol": {
+      "name": "ethanol",
+      "CAS": "64-17-5",
+      "InChI_key": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "14": 1
+      },
+      "available": true
+    },
+    "glucose": {
+      "name": "glucose",
+      "CAS": "50-99-7",
+      "InChI_key": "GZCGUPFRVQAUEE-SLPGGIOYSA-N",
+      "groups": {
+        "2": 1,
+        "3": 4,
+        "14": 5,
+        "20": 1
+      },
+      "available": true
+    },
+    "fructose": {
+      "name": "fructose",
+      "available": false,
+      "error": "UNIFACUnavailable: No DDBST original-UNIFAC group assignment found for 'fructose'."
+    },
+    "ethyl_acetate": {
+      "name": "ethyl acetate",
+      "CAS": "141-78-6",
+      "InChI_key": "XEKOWRVHYACXOJ-UHFFFAOYSA-N",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "21": 1
+      },
+      "available": true
+    },
+    "isoamyl_acetate": {
+      "name": "isoamyl acetate",
+      "CAS": "123-92-2",
+      "InChI_key": "MLFHJEHSLIIPHL-UHFFFAOYSA-N",
+      "groups": {
+        "1": 2,
+        "2": 2,
+        "3": 1,
+        "21": 1
+      },
+      "available": true
+    },
+    "ethyl_octanoate": {
+      "name": "ethyl octanoate",
+      "CAS": "106-32-1",
+      "InChI_key": "YYZUSRORWSJGET-UHFFFAOYSA-N",
+      "groups": {
+        "1": 2,
+        "2": 6,
+        "22": 1
+      },
+      "available": true
+    }
+  },
+  "nominal_yields": {
+    "ethyl_acetate": {
+      "growth": 0.1,
+      "stationary": 0.28
+    },
+    "isoamyl_acetate": {
+      "growth": 0.003,
+      "stationary": 0.012
+    },
+    "ethyl_octanoate": {
+      "growth": 0.0008,
+      "stationary": 0.003
+    }
+  }
+}

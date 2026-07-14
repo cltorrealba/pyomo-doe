@@ -1,0 +1,3 @@
+analysis,parameter,theta,std_log_approx,approx_95_multiplier,fim_diag,active_bound,classification
+co2_o2_current,kCO2_release_h,0.2669276959271604,0.29330125167318516,1.7769003203938465,13.58559353430914,False,well_estimated
+co2_o2_current,CO2sat_scale,0.4066343341502766,0.448227266276838,2.4073473144809165,5.817145219413559,False,moderate

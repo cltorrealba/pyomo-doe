@@ -1,0 +1,2 @@
+candidate,family,horizon_h,temperature_c,X0,N0,G0,F0,E0,Xd0,rationale
+glucose_rich_growth_yield,sugar_initial,168.0,"18, 22, 24, 20",0.45,0.26,150.0,25.0,0.0,0.0,High glucose must isolates glucose growth/fermentation terms and tests fructose response after glucose history.

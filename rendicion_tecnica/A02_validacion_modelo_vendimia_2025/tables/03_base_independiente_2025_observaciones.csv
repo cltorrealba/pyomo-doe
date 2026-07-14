@@ -1,0 +1,15 @@
+medium,state,n_observations,n_batches_with_observation
+natural,X_viable_kg_m3,100,9
+natural,X_dead_kg_m3,100,9
+natural,N_kg_m3,91,9
+natural,G_g_l,91,9
+natural,F_g_l,91,9
+natural,E_g_l,44,9
+natural,glycerol_g_l,91,9
+synthetic,X_viable_kg_m3,76,10
+synthetic,X_dead_kg_m3,86,10
+synthetic,N_kg_m3,83,10
+synthetic,G_g_l,86,10
+synthetic,F_g_l,86,10
+synthetic,E_g_l,40,10
+synthetic,glycerol_g_l,85,10

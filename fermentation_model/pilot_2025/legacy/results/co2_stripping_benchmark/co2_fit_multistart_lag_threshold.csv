@@ -1,0 +1,9 @@
+mode,start,success,status,message,nfev,data_wsse,n_data_residuals,active_bound_count,fit_selection_score,params_json,tau_h,threshold_fraction
+lag_threshold,0,True,2,`ftol` termination condition is satisfied.,22,222.43742879189597,308,0,222.43742879189597,"{'tau_h': 36.39531734710694, 'threshold_fraction': 0.8422213386772133}",36.39531734710694,0.8422213386772133
+lag_threshold,1,True,2,`ftol` termination condition is satisfied.,27,222.4344975048096,308,0,222.4344975048096,"{'tau_h': 36.38664821753853, 'threshold_fraction': 0.8421881320086569}",36.38664821753853,0.8421881320086569
+lag_threshold,2,True,2,`ftol` termination condition is satisfied.,25,222.43696386029356,308,0,222.43696386029356,"{'tau_h': 36.3936728769947, 'threshold_fraction': 0.8422292819131305}",36.3936728769947,0.8422292819131305
+lag_threshold,3,True,2,`ftol` termination condition is satisfied.,21,222.43170985801467,308,0,222.43170985801467,"{'tau_h': 36.38236217778723, 'threshold_fraction': 0.8419628866863644}",36.38236217778723,0.8419628866863644
+lag_threshold,4,True,2,`ftol` termination condition is satisfied.,26,222.43321406329414,308,0,222.43321406329414,"{'tau_h': 36.3816980142687, 'threshold_fraction': 0.8422298308495244}",36.3816980142687,0.8422298308495244
+lag_threshold,5,True,2,`ftol` termination condition is satisfied.,10,222.48956691318153,308,0,222.48956691318153,"{'tau_h': 36.55067990648917, 'threshold_fraction': 0.8426586046975141}",36.55067990648917,0.8426586046975141
+lag_threshold,6,True,2,`ftol` termination condition is satisfied.,27,222.43639290399273,308,0,222.43639290399273,"{'tau_h': 36.391860589093966, 'threshold_fraction': 0.8422288789704867}",36.391860589093966,0.8422288789704867
+lag_threshold,7,True,2,`ftol` termination condition is satisfied.,29,222.4397619117969,308,0,222.4397619117969,"{'tau_h': 36.40264265476813, 'threshold_fraction': 0.8422266508736155}",36.40264265476813,0.8422266508736155

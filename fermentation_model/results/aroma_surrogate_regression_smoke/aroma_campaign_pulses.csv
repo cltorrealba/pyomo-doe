@@ -1,0 +1,4 @@
+candidate,family,channel,time_h,amount
+glucose_rich_growth_yield,sugar_initial,N,0.0,0.08
+glucose_rich_growth_yield,sugar_initial,N,36.0,0.06
+glucose_rich_growth_yield,sugar_initial,F,72.0,35.0

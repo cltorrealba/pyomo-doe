@@ -1,0 +1,15 @@
+field,description,unit_or_domain,role,present_in_normalized_long
+medium,Tipo de matriz,natural/synthetic,Define base independiente y transferencia de medio,True
+batch,Lote o fermentacion,"LAB004-LAB012, MS007-MS016",Unidad experimental,True
+time_h,Tiempo de fermentacion,h,Eje temporal para predicho-observado,True
+temperature_c,Temperatura,C,Entrada/condicion operacional,True
+X_viable_kg_m3,Biomasa viable,kg/m3,Estado observado/modelado,True
+X_dead_kg_m3,Biomasa muerta,kg/m3,Estado observado/modelado,True
+N_kg_m3,Nitrogeno asimilable,kg/m3,Estado observado/modelado,True
+G_g_l,Glucosa,g/L,Estado observado/modelado,True
+F_g_l,Fructosa,g/L,Estado observado/modelado,True
+E_g_l,Etanol,g/L,Estado observado/modelado,True
+glycerol_g_l,Glicerol,g/L,Estado observado/modelado,True
+ethyl_acetate_total,Acetato de etilo total,dato fuente,Variable aromatica disponible,True
+isoamyl_acetate_total,Acetato de isoamilo total,dato fuente,Variable aromatica disponible,True
+ethyl_octanoate_total,Octanoato de etilo total,dato fuente,Variable aromatica disponible,True

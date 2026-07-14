@@ -1,0 +1,9 @@
+{
+  "logdet": -746.0375701300709,
+  "min_eigenvalue": 1e-09,
+  "max_eigenvalue": 1e-09,
+  "min_relative_eigenvalue": 1.0,
+  "condition_number": 1.0,
+  "trace_inv": 18000000000.000004,
+  "rank_1e-8": 36
+}

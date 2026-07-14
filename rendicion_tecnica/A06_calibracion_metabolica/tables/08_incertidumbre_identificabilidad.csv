@@ -1,0 +1,25 @@
+workflow,parameter,diagnostico,metrica,valor,detalle
+secondary_v2_FIM,kPyrS_N,well_estimated,approx_95_multiplier,1.0772804868923502,std_log_approx=0.0379794886628891; active_bound=False
+secondary_v2_FIM,kPyrO2,well_estimated,approx_95_multiplier,1.2180613925056278,std_log_approx=0.100643149170135; active_bound=False
+secondary_v2_FIM,kPyrDrain,well_estimated,approx_95_multiplier,1.1256804543597017,std_log_approx=0.0604018883311731; active_bound=False
+secondary_v2_FIM,kAldS_N,well_estimated,approx_95_multiplier,1.0260821591294889,std_log_approx=0.0131366431973644; active_bound=False
+secondary_v2_FIM,kAldRed,weak_or_confounded,approx_95_multiplier,20752.958470953366,std_log_approx=5.071655149188335; active_bound=False
+secondary_v2_FIM,kAcAld,well_estimated,approx_95_multiplier,1.1016531228114743,std_log_approx=0.0493938217303898; active_bound=False
+secondary_v2_FIM,kAcStress,well_estimated,approx_95_multiplier,1.06400411514056,std_log_approx=0.0316526829210621; active_bound=False
+profile_likelihood_full17,mu0,no_identifiable_95,max_lr_stat,1878.6079058815667,left=False; right=True; chi2_95=3.841458820694124
+profile_likelihood_full17,sN,no_identifiable_95,max_lr_stat,5.950374106912932,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,qN,profile_identifiable_95,max_lr_stat,5840.911199476752,left=True; right=True; chi2_95=3.841458820694124
+profile_likelihood_full17,qXG,no_identifiable_95,max_lr_stat,0.0,left=False; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,qXF,no_identifiable_95,max_lr_stat,17.857437932496396,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,betaG0,no_identifiable_95,max_lr_stat,0.0,left=False; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,sG,no_identifiable_95,max_lr_stat,105.51938168677589,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,betaF0,no_identifiable_95,max_lr_stat,424.0279806899234,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,sF,no_identifiable_95,max_lr_stat,531.0346761036053,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,qEG,no_identifiable_95,max_lr_stat,3934.3556397044704,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,qEF,no_identifiable_95,max_lr_stat,4017.488352924018,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,iG,no_identifiable_95,max_lr_stat,129.04461635522603,left=False; right=True; chi2_95=3.841458820694124
+profile_likelihood_full17,iE,no_identifiable_95,max_lr_stat,228.24435074699431,left=True; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,Kd0,profile_identifiable_95,max_lr_stat,374.761028763769,left=True; right=True; chi2_95=3.841458820694124
+profile_likelihood_full17,m0,no_identifiable_95,max_lr_stat,0.0,left=False; right=False; chi2_95=3.841458820694124
+profile_likelihood_full17,gammaG0,profile_identifiable_95,max_lr_stat,246.70044514316032,left=True; right=True; chi2_95=3.841458820694124
+profile_likelihood_full17,gammaF0,profile_identifiable_95,max_lr_stat,14.154663436827832,left=True; right=True; chi2_95=3.841458820694124

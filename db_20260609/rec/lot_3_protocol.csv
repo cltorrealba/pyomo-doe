@@ -1,0 +1,4 @@
+campaign_order,lot,start_datetime,candidate,medium,family,horizon_h,temperature_segments,initial_N_mg_l,initial_G_g_l,initial_F_g_l,initial_E_g_l,initial_X_kg_m3,full_samples,small_samples,planned_sample_volume_ml,rationale
+7,3,2026-07-13 08:00:00,synthetic_high_sugar_reference,synthetic,synthetic_baseline,216.0,"18, 20, 20, 18",220.5,124.465,117.685,0.0,0.4205249999999999,14,6,748.0,Synthetic high-sugar operating point close to the current synthetic dataset.
+8,3,2026-07-13 08:00:00,natural_glucose_pulse_after_growth,natural,natural_sugar_pulse,216.0,"18, 20, 22, 19",229.12,76.21,76.67,0.0,0.3939,14,6,748.0,Natural must with glucose perturbation to test sugar-transfer validity.
+9,3,2026-07-13 08:00:00,synthetic_fast_CO2_aroma_strip_highN,synthetic,co2_aroma_loss,168.0,"20, 24, 24, 20",300.0,135.0,135.0,0.0,0.4205249999999999,12,4,632.0,High-rate fermentation excites CO2 stripping and liquid/condensate aroma split.

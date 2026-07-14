@@ -1,0 +1,5 @@
+batch,raw_rows,used_for_calibration,reason,activation_time_h,curated_rows
+25150,56,False,excluded: CO2 file not usable for this batch,,0
+25151,56,False,excluded: CO2 file not usable for this batch,,0
+25170,22833,True,kept,0.0,22794
+25171,20000,True,trimmed to annotated process restart sample,114.0,13123

@@ -1,0 +1,7 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+best_multistart_07,1,0.13954006861701843,"gammaF0, m0, qXF, qXG, gammaG0, sG, qEF","0.977, 0.190, 0.094, 0.022, 0.010, 0.008, 0.005"
+best_multistart_07,2,0.3484228797460326,"m0, qXF, gammaF0, qXG, qEF, iG, betaF0","0.880, 0.421, 0.211, 0.051, 0.030, 0.010, 0.009"
+best_multistart_07,3,2.50547024706032,"qXG, qXF, m0, sF, iG, sN, qEF","0.910, 0.363, 0.129, 0.099, 0.085, 0.052, 0.031"
+best_multistart_07,4,2.9135625412196857,"qXF, m0, qXG, sF, iG, iE, sG","0.807, 0.408, 0.394, 0.098, 0.098, 0.048, 0.048"
+best_multistart_07,5,4.589541885708904,"sN, qXG, sG, sF, mu0, qN, iG","0.992, 0.068, 0.050, 0.048, 0.043, 0.041, 0.034"
+best_multistart_07,6,8.319793715999682,"sF, iG, qEF, betaF0, qXF, sG, sN","0.898, 0.302, 0.164, 0.156, 0.138, 0.110, 0.074"

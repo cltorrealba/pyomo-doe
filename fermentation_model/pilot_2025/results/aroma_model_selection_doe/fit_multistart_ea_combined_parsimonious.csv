@@ -1,0 +1,9 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count
+ea_combined_parsimonious,0,True,2,`ftol` termination condition is satisfied.,21,9451.15788153657,8253.27895283587,8249.32264596522,261,12,31.606600176111954,2
+ea_combined_parsimonious,1,True,2,`ftol` termination condition is satisfied.,27,1211499.0856061056,7701.48678468459,7697.076219746696,261,12,29.490713485619523,2
+ea_combined_parsimonious,2,True,2,`ftol` termination condition is satisfied.,24,58194625.95908016,7701.4861583384245,7697.075594471149,261,12,29.490711089927775,2
+ea_combined_parsimonious,3,True,2,`ftol` termination condition is satisfied.,10,12382.166001076332,7495.744118685883,7490.274055249643,261,12,28.69836802777641,3
+ea_combined_parsimonious,4,True,2,`ftol` termination condition is satisfied.,21,49462.84155830051,7499.153988295044,7493.711872044613,261,12,28.711539739634535,2
+ea_combined_parsimonious,5,True,2,`ftol` termination condition is satisfied.,20,95952086.96025638,8253.231245537048,8249.275229506142,261,12,31.60641850385495,2
+ea_combined_parsimonious,6,True,2,`ftol` termination condition is satisfied.,25,951024.9734445433,7701.491973566017,7697.081376272953,261,12,29.490733242425108,2
+ea_combined_parsimonious,7,True,2,`ftol` termination condition is satisfied.,41,8109910.927226161,7701.484002389592,7697.0734355383265,261,12,29.490702818154507,2

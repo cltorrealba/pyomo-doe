@@ -1,0 +1,9 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+current_prior,1,1.2200014821341018e-05,"kAcAssim, kAcStress, kAldPyr, kAldRed, kLaO2, O2sat, kAcAld, qO2","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior,2,0.03533853411665553,"kAldPyr, kAldRed, O2sat, qO2, kAcAld, kLaO2, kAldS, kPyrD","0.963, 0.265, 0.040, 0.010, 0.009, 0.007, 0.005, 0.001"
+current_prior,3,0.15514647958842645,"gammaF0, gammaG0, betaF0, iG, iE, qEF, qEG, betaG0","1.000, 0.011, 0.003, 0.002, 0.002, 0.002, 0.001, 0.001"
+current_prior,4,0.3669717664584231,"O2sat, kLaO2, kAldRed, kAldPyr, qO2, kPyrD, kAcAld, kAldS","0.701, 0.535, 0.442, 0.148, 0.069, 0.004, 0.003, 0.002"
+current_prior,5,0.640001,"k_EA_growth, alpha_EO_loss, kAldS, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior,6,0.640001,"k_EA_stationary, alpha_EO_loss, kAldS, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior,7,0.640001,"k_IAA_growth, alpha_EO_loss, kAldS, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_prior,8,0.640001,"k_IAA_stationary, alpha_EO_loss, kAldS, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"

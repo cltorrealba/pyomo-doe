@@ -1,0 +1,25 @@
+{
+  "model": "secondary_v2_reduced_o2fixed",
+  "parameters": [
+    "kPyrS_N",
+    "kPyrO2",
+    "kPyrDrain",
+    "kAldS_N",
+    "kAldRed",
+    "kAcAld",
+    "kAcStress"
+  ],
+  "fixed_parameters": [
+    "qO2",
+    "kLaO2",
+    "O2sat",
+    "kPyrS_stat",
+    "kAldPyr",
+    "kAldS_stat",
+    "kAldO2",
+    "kAcAssim"
+  ],
+  "n_batches": 27,
+  "n_residuals": 588,
+  "core_policy": "fixed core simulation loaded from secondary_joint theta"
+}

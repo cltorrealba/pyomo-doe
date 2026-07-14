@@ -1,0 +1,4 @@
+mode,data_wsse,n_data_residuals,n_parameters,active_bound_count,aicc,bic,selection_score,description,selected
+threshold,5541.601828678331,674,12,2,5566.073840781205,5619.7605900092785,5659.7605900092785,Gas flow activates only above a fraction of the median production rate.,True
+lag_threshold,5627.179878289986,674,13,2,5653.7313934415015,5711.851869731846,5751.851869731846,Thresholded production-rate transform followed by first-order gas-release lag.,False
+instant,9183.543222601822,674,11,2,9205.942014142607,9255.188753821858,9295.188753821858,Current model: stripping gas flow is directly proportional to instantaneous ethanol-derived CO2 production.,False

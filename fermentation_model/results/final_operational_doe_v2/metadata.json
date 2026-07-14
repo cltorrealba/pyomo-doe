@@ -1,0 +1,53 @@
+{
+  "chosen_policy": "balanced",
+  "campaign_size": 9,
+  "target_parameters": [
+    "mu0",
+    "qN",
+    "betaG0",
+    "betaF0",
+    "qEG",
+    "qEF",
+    "iG",
+    "iE",
+    "Kd0",
+    "gammaG0",
+    "gammaF0",
+    "kPyrS_N",
+    "kPyrO2",
+    "kPyrDrain",
+    "kAldS_N",
+    "kAcAld",
+    "kAcStress",
+    "k_EA_growth",
+    "k_EA_stationary",
+    "k_IAA_growth",
+    "k_IAA_stationary",
+    "k_EO_growth",
+    "k_EO_stationary",
+    "alpha_EA_loss",
+    "alpha_IAA_loss",
+    "alpha_EO_loss"
+  ],
+  "fixed_secondary_parameters": [
+    "qO2",
+    "kLaO2",
+    "O2sat",
+    "kAldRed",
+    "kPyrS_stat",
+    "kAldPyr",
+    "kAldS_stat",
+    "kAldO2",
+    "kAcAssim"
+  ],
+  "start_dates": [
+    "2026-06-15 08:00",
+    "2026-06-29 08:00",
+    "2026-07-13 08:00"
+  ],
+  "literature_basis": [
+    "Mouret et al. 2014 Food Research International: nitrogen-temperature aroma kinetics and gas-liquid balances",
+    "Morakul et al. 2011/2013: gas-liquid partitioning and volatile losses during fermentation",
+    "Henriques/Scott dynamic genome-scale models: mechanistic context for acetate, pyruvate, acetaldehyde, and ester formation"
+  ]
+}

@@ -1,0 +1,8 @@
+criterio,umbral_o_regla,valor_observado,estado,interpretacion
+Base independiente 2025 cargada,Debe contener lotes naturales y sinteticos 2025 homologados.,natural=9; synthetic=10,cumple,La base independiente contiene ambos dominios de validacion.
+Robustez theta base vs mejor multistart,Mejor multistart no debe deteriorar la mayoria de combinaciones medio/estado.,13/14 combinaciones mejoran o empatan,cumple,La alternativa multistart mejora casi todos los estados/medios; el deterioro principal reportado es Xd sintetico.
+Factibilidad de predicciones DOE,"No activar banderas duras en etanol, biomasa, biomasa muerta, glicerol o azucar residual.",issue_count_total=0,cumple,Las simulaciones seleccionadas quedan en rangos plausibles.
+Prueba de transferencia a mosto natural,El set de validacion/diseno debe incluir al menos un candidato natural.,n_candidatos_naturales=2,cumple,"Existe prueba natural para transferencia de matriz, pero debe mantenerse en el primer bloque."
+Sensibilidad a theta,Registrar desacuerdo base-vs-best para priorizar experimentos informativos.,max_theta_disagreement_weighted_rmse=2.168,advertencia,"Alto desacuerdo implica informacion util, pero no cierre automatico de parametros debiles."
+Redundancia de trayectorias,Pares con distancia <=0.25 y correlacion >=0.90 requieren seleccion manual.,pares_redundantes=2,advertencia,No ejecutar pares redundantes en el primer bloque; elegir el que ataque mejor la brecha.
+Identificabilidad practica,Registrar parametros no identificables y tratarlos como brecha tecnica.,4/17 parametros identificables al 95%,brecha,"La validacion permite uso secuencial, no cierre definitivo de todos los parametros."

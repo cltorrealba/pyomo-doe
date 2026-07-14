@@ -1,0 +1,3 @@
+mode,start,success,status,message,nfev,data_wsse,n_data_residuals,n_parameters,active_bound_count,fit_selection_score,params_json,qgas_tau_h,qgas_threshold_fraction
+old_lag_threshold,0,True,2,`ftol` termination condition is satisfied.,7,163.4476151670773,301,2,1,173.4476151670773,"{""qgas_tau_h"": 47.960053368763646, ""qgas_threshold_fraction"": 0.8999999999999074}",47.960053368763646,0.8999999999999074
+old_lag_threshold,1,True,2,`ftol` termination condition is satisfied.,8,163.44869096887658,301,2,1,173.44869096887658,"{""qgas_tau_h"": 47.97183003575601, ""qgas_threshold_fraction"": 0.8999999999933059}",47.97183003575601,0.8999999999933059

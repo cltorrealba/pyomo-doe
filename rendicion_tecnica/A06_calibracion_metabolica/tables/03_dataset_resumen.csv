@@ -1,0 +1,5 @@
+archivo,estado,n_hojas,filas_totales,n_lotes,medios,hojas_resumen
+Calibration_data_vl3.xlsx,disponible,8,312,,,25026:24; 25027:32; 25085:35; 25086:35; 25150:30; 25151:30; 25170:63; 25171:63
+mosto_natural_xthiol.xlsx,disponible,20,610,,,00_Resumen:20; Datos_homologados:104; LAB004:14; LAB005:14; LAB006:16; LAB007:14; LAB008:14; LAB009:13; LAB010:10; LAB011:9; LAB012:9; Perfiles_temperatura:25
+mosto_sintetico_vl3.xlsx,disponible,16,310,,,00_Resumen:10; Datos_homologados:86; MS007:10; MS008:10; MS009:10; MS010:10; MS011:10; MS012:10; MS013:9; MS014:9; MS015:9; MS016:9
+secondary_joint_input_data.csv,disponible,,520,27,"historical_vl3,natural,synthetic",time_h:520; temperature_c:506; density:496; X_viable_kg_m3:307; G_g_l:315; F_g_l:315; YAN_mg_l:308; pyruvic_acid:313; acetaldehyde:193; acetic_acid:50; DO_mg_l:32; glycerol_g_l:314; E_g_l:222; ethyl_acetate_total:50; isoamyl_acetate_total:50; ethyl_octanoate_total:50

@@ -1,0 +1,4 @@
+candidate,status,parameters,pyomo_logdet,pyomo_min_eigenvalue,pyomo_max_eigenvalue,pyomo_min_relative_eigenvalue,pyomo_condition_number,pyomo_trace,pyomo_trace_inv,pyomo_rank_1e-8
+synthetic_fructose_rich_glucose_pulse,ok,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",58.918398997123205,0.04623876935613899,45672.09396162236,1.0124074756675881e-06,987744.583119157,66775.43299137833,22.329872206093157,11
+synthetic_high_biomass_low_N_maintenance,ok,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",49.467405735097344,0.0305881131911496,24966.853182387997,1.2251489191568174e-06,816227.3045861467,43055.66211878251,35.81279949211263,11
+synthetic_lit_SM410_18C_highN_ester,ok,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",67.4499532019934,0.04409005452353864,35897.74861473274,1.2282122479804682e-06,814191.5223889728,74386.5456143896,22.77708009562553,11

@@ -1,0 +1,11 @@
+analysis,weak_direction,eigenvalue,relative_eigenvalue,dominant_parameters,dominant_abs_loadings
+current_plus_campaign,1,1.266766120298608e-07,6.499522968586343e-13,"kAcAssim, k_EA_XE, kAldRed, k_EA_growth, kPyrS_stat, kAldPyr, kAldO2, kAcAld","1.000, 0.005, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_plus_campaign,2,1.795537209259153e-07,9.212541404075717e-13,"k_EA_XE, k_EA_growth, kAcAssim, k_EA_XE_Nlim, k_EA_stationary, kCO2_release_h, gammaF0, kAldRed","1.000, 0.030, 0.005, 0.000, 0.000, 0.000, 0.000, 0.000"
+current_plus_campaign,3,0.0008910304494950174,4.571698579085406e-09,"k_EA_growth, k_EA_XE, kAldRed, k_EA_stationary, kCO2_release_h, alpha_EA_loss, k_EA_XE_Nlim, kPyrS_stat","1.000, 0.030, 0.002, 0.001, 0.000, 0.000, 0.000, 0.000"
+current_plus_campaign,4,0.0025287328979440847,1.29744214723182e-08,"kAldRed, kPyrS_stat, kAldPyr, kPyrO2, k_EA_growth, kAldO2, kAcAssim, kAldS_stat","1.000, 0.024, 0.009, 0.002, 0.002, 0.001, 0.001, 0.001"
+current_plus_campaign,5,0.10252109200348243,5.260151669387205e-07,"kPyrS_stat, kPyrO2, kAldRed, kPyrDrain, kPyrS_N, kAldS_stat, gammaF0, kAldPyr","0.996, 0.080, 0.024, 0.013, 0.006, 0.002, 0.001, 0.001"
+current_plus_campaign,6,0.8979969389468019,4.607442239637058e-06,"gammaF0, gammaG0, betaF0, iG, kCO2_release_h, iE, qEF, qEG","0.999, 0.042, 0.010, 0.006, 0.004, 0.004, 0.004, 0.003"
+current_plus_campaign,7,44.26573566046637,0.00022711861411225083,"kCO2_release_h, CO2sat_scale, betaF0, kPyrO2, kPyrDrain, iG, qEF, kAldPyr","0.896, 0.410, 0.118, 0.089, 0.056, 0.035, 0.023, 0.023"
+current_plus_campaign,8,45.58660585490263,0.00023389573423702643,"kPyrO2, kPyrDrain, kAldPyr, kPyrS_N, kCO2_release_h, kAldO2, kPyrS_stat, kAldS_stat","0.809, 0.507, 0.178, 0.156, 0.102, 0.084, 0.072, 0.065"
+current_plus_campaign,9,74.17904595543824,0.00038059781142674,"iG, betaF0, qEF, kAldS_stat, iE, kAldO2, kAldPyr, kCO2_release_h","0.612, 0.595, 0.304, 0.301, 0.175, 0.100, 0.097, 0.089"
+current_plus_campaign,10,99.90366981275105,0.0005125856984878781,"kAldS_stat, kAldPyr, kAldO2, betaF0, iG, kPyrO2, kAldS_N, qEF","0.783, 0.380, 0.302, 0.244, 0.201, 0.125, 0.102, 0.095"

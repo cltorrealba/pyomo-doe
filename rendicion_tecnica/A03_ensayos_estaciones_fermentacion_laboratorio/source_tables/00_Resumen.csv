@@ -1,0 +1,11 @@
+Campo,Valor
+Archivo generado,Datos_CCD_2factores_homologados.xlsx
+Archivo origen,data_CCD_2factores.xlsx
+Referencia estructural,Calibration_data_vl3(4).xlsx / estructura homologada previa
+Número de filas homologadas,86
+Cubadas procesadas,"MS007, MS008, MS009, MS010, MS011, MS012, MS013, MS014, MS015, MS016"
+Criterio de temperatura,Columna homologada temperatura = columna fuente Temperatura; Temperatura Medida se conserva solo como variable adicional.
+Criterio de fructosa,FRUCTOSE = GLU-FRU-320 - GLUCOSE-320 mediante fórmula.
+Criterio de adición,Adicion se conserva como factor CCD y se mapea además a pulso_nut para compatibilidad.
+Flags de calidad,1
+Nota,No se modificaron valores crudos; flags solo indican revisión recomendada.

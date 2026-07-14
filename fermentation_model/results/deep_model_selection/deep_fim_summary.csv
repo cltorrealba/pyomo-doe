@@ -1,0 +1,5 @@
+candidate,n_requested_parameters,n_used_parameters,used_parameters,dropped_parameters,fim_condition_number,fim_min_relative_eigenvalue,fim_near_null_directions,fim_full_rank_by_threshold,weakest_direction_parameters,weakest_direction_abs_loadings,q_failed_solves
+reduced6_local,6,6,"mu0, qN, betaG0, betaF0, qEG, qEF",,1118.3080885257962,0.0008942079649251619,0,True,"betaF0, qEF, qEG, qN, mu0","0.839, 0.413, 0.305, 0.138, 0.113",0
+plus_iG_unregularized,7,7,"mu0, qN, betaG0, betaF0, qEG, qEF, iG",,8381.224238269466,0.0001193143115577203,0,True,"iG, qEF, betaF0, betaG0, qEG","0.902, 0.333, 0.201, 0.166, 0.082",0
+plus_qx_iG_unregularized,9,9,"mu0, qN, betaG0, betaF0, qEG, qEF, qXG, qXF, iG",,48454012.83183728,9.061690090458363e-09,1,False,"qXF, qXG, iG, betaG0, qEF","0.929, 0.370, 0.013, 0.003, 0.002",0
+plus_qx_iG_logL2_10,9,9,"mu0, qN, betaG0, betaF0, qEG, qEF, qXG, qXF, iG",,370243.15225097514,2.7009277387583773e-06,0,True,"qXF, qXG, iG, qEF, betaG0","0.806, 0.554, 0.197, 0.039, 0.037",0

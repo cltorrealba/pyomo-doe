@@ -1,0 +1,5 @@
+batch,raw_rows,used_for_calibration,reason,activation_time_h,curated_rows
+25150,56,False,excluded: CO2 file not usable for this batch,,0
+25151,56,False,excluded: CO2 file not usable for this batch,,0
+25170,22877,True,kept,0.0,22837
+25171,20000,True,trimmed to operational CO2/process activation override,100.0,13963

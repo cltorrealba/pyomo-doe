@@ -1,0 +1,1042 @@
+
+
+--- PAGE 1 ---
+Kinetic analysis and gas– liquid balances of the production of
+fermentative aromas during winemaking fermentations: Effect of
+assimilable nitrogen and temperature
+J.R. Mouret a,⁎,C .C a m a r a s aa, M. Angenieux c, E. Aguera c,M .P e r e za,V .F a r i n e sa,b, J.M. Sablayrolles a
+a INRA, UMR1083, 2 Place Viala, F-34060 Montpellier Cedex 1, France
+b Universite Montpellier 1, UMR1083, 2 Place Viala, F-34060 Montpellier Cedex 1, France
+c INRA, UE999, F-11430 Gruissan, France
+abstractarticle info
+Article history:
+Received 16 December 2013
+Accepted 23 February 2014
+Available online 4 March 2014
+Keywords:
+Winemaking fermentation
+Online monitoring
+Gas– liquid balance
+Aroma compounds
+Nitrogen
+Temperature
+The impact of temperature and assimilable nitrogen on synthesis of the principal fermentative aromas by yeasts
+was evaluated with an online GC system. Kinetic parameters and gas–liquid balances were precisely calculated,
+making it possible to differentiate between the biological and physical consequences of temperature shifts. The
+lower liquid concentrations of esters at high temperature resulted mostly from large losses by evaporation,
+with only limited changes in yeast metabolism. Nitrogen availability was the main fermentation parameter
+affecting the kinetics of higher alcohol and ester synthesis, but the magnitude of this effect depended on
+temperature. The production of fermentative aromas was closely linked to central carbon metabolism, except
+for propanol. Indeed, two successive linear production phases (with yields dependent on initial nitrogen content
+and temperature) were obtained when volatile compound synthesis was plotted against sugar consumption.
+Overall and speci ﬁc rates of isobutanol and isoamyl alcohol production were affected differently by nitrogen
+and temperature, indicating major differences in the regulation of synthesis for these two compounds, despite
+their partially shared metabolic pathways. Finally, propanol was produced exclusively during the nitrogen
+consumption phase, and the amount produced increased with initial nitrogen concentration. This compound
+was, therefore, identiﬁed as a quantitative, metabolic marker of the availability of intracellular nitrogen.
+© 2014 Elsevier Ltd. All rights reserved.
+1. Introduction
+Wine aroma is one of the principal attributes determining the pref-
+erences of wine consumers ( Lee & Noble, 2003; Swiegers, Bartowsky,
+Henschke, & Pretorius, 2005; Ugliano, Travis, Francis, & Henschke,
+2010). However, it is dif ﬁcult to evaluate, because several hundred
+compounds can contribute to wine ﬂavor ( Francis & Newton, 2005;
+Swiegers et al., 2005 ). Indeed, wine aroma depends on a mixture of
+volatile compounds originating from the grapes used (varietal aromas),
+secondary metabolites synthesized by microorganisms during the
+winemaking fermentation (fermentative aromas) and molecules
+produced during aging (post-fermentative aromas). In addition, these
+volatile compounds can interact with each other and with constituents
+of the matrix ( Escudero, Campo, Farina, Cacho, & Ferreira, 2007;
+Ferreira, Lopez, & Cacho, 2000). Most fruity aroma compounds, includ-
+ing esters in particular, are secondary metabolites produced by yeasts
+during alcoholic fermentation ( Ugliano et al., 2010 ). Several studies
+have assessed the in ﬂuence of fermentation parameters on the ﬁnal
+fermentative aroma compound content of the wine, focusing mostly
+on higher alcohols and esters (Swiegers et al., 2005).
+The concentration of assimilable nitrogen has a major in ﬂuence on
+ﬁnal fermentative aroma content (Swiegers et al., 2005). Initial nitrogen
+and ﬁnal higher alcohol concentrations are directly correlated when as-
+similable nitrogen content is low. Conversely, an inverse relationship
+between initial nitrogen and ﬁnal higher alcohol contents is observed
+in musts containing moderate to high levels of nitrogen ( Carrau et al.,
+2008; Vilanova, Siebert, Varela, Pretorius, & Henschke, 2012; Vilanova
+et al., 2007 ). The ﬁnal liquid concentrations of both acetate and ethyl
+esters are generally higher for musts with high nitrogen contents
+(Garde-Cerdan & Ancin Azpilicueta, 2008; Hernandez-Orte, Bely,
+Cacho, & Ferreira, 2006; Torrea et al., 2011; Ugliano et al., 2010 ).
+However, depending on the strain, the form of nitrogen added and the
+timing of nitrogen addition, lower levels of ester production may also
+be observed after nitrogen supplementation ( Beltran, Esteve-Zarzoso,
+Rozes, Mas, & Guillamon, 2005; Jimenez-Marti, Aranda, Mendes-
+Ferreira, Mendes-Faia, & li del Olmo, 2007 ). Saccharomyces cerevisiae
+generally produces larger amounts of higher alcohols at high tempera-
+ture ( Beltran, Novo, Guillamon, Mas, & Rozes, 2008; Gamero,
+Tronchoni, Querol, & Belloch, 2013), but this relationship is not system-
+atic (Molina, Swiegers, Varela, Pretorius, & Agosin, 2007 ). Final liquid
+Food Research International 62 (2014) 1–10
+⁎ Corresponding author. Tel.: +33 4 99 61 22 74; fax: +33 4 99 61 28 57.
+E-mail address: mouretj@supagro.inra.fr(J.R. Mouret).
+http://dx.doi.org/10.1016/j.foodres.2014.02.044
+0963-9969/© 2014 Elsevier Ltd. All rights reserved.
+Contents lists available at ScienceDirect
+Food Research International
+journal homepage: www.elsevier.com/locate/foodres
+
+
+--- PAGE 2 ---
+concentrations of esters are systematically lower at high temperature
+than at lower temperatures, particularly for ethyl esters (Beltran et al.,
+2008; Molina et al., 2007 ). Nevertheless, much remains unknown
+about the way in which fermentation parameters regulate aroma
+metabolism.
+In this study, we carried out online monitoring of the main fermen-
+tative aromas, to increase our understanding of yeast metabolism. The
+high acquisition frequency of online gas chromatography (GC) makes
+it possible to calculate the overall and speci ﬁc rates of synthesis for
+volatile compounds ( Mouret et al., 2013 ). We also determined the
+gas– liquid balances of aroma production (Morakul et al., 2013)t ot a k e
+losses into account and to distinguish between microbial and physico-
+chemical phenomena.
+2. Materials and methods
+2.1. Fermentation
+2.1.1. Yeast strain and culture media
+Fermentations were carried out with the commercial S. cerevisiae
+strain Lalvin EC 1118® (Lallemand SA, Montreal, Canada). Fermentation
+tanks were inoculated with 200 mg l
+−1 active dry yeast that had been
+rehydrated by incubation with 50 g l−1 glucose for 30 min at 35 °C.
+We used three different synthetic media (SMn, with‘ n’ indicating the
+assimilable nitrogen content) mimicking grape musts (Bely, Sablayrolles,
+&B a r r e ,1 9 9 0). The base medium contained 90 g l −1 glucose, 90 g l −1
+fructose, 6 g l−1 malic acid, 6 g l−1 citric acid, salts (0.75 g l−1 KH2PO4;
+0.50 g l −1 K2SO4; 0.25 g l −1 MgSO4; 0.155 g l −1 CaCl2; 0.20 g l −1
+NaCl), vitamins (20 mg l−1 myo-inositol; 1.5 mg l−1 pantothenic acid;
+0.25 mg l−1 thiamine; 2 mg l−1 nicotinic acid, 0.25 mg l−1 pyridoxine;
+0.003 mg l −1 biotin), trace elements (4 mg l −1 MnSO4; 4 mg l −1
+ZnSO4; 1 mg l −1 CuSO4; 1 mg l −1 KI; 0.4 mg l −1 CoCl2; 1 mg l −1
+H3BO3; 1 mg l −1 (NH4)6Mo7O24) and anaerobic factors (0.05% v/v
+Tween 80; 15 mg l −1 ergosterol; 0.0005% v/v oleic acid). Tartaric acid
+was replaced with citric acid to prevent the formation of tartrate precip-
+itate during freezing at−20 °C. The source of nitrogen was a mixture of
+ammonium (30%) and amino acids (70%). Assimilable nitrogen concen-
+tration ranged from 70 to 410 mg N l
+−1 (SM70, SM230 and SM410),
+but the proportions of the different sources were identical in all three
+media. The amino-acid content of the medium was as follows (quantities
+as for SM410): 42.9 mg l
+−1 aspartic acid, 118.7 mg l −1 glutamic
+acid, 140.2 mg l−1 alanine, 361.2 mg l−1 arginine, 12.6 mg l−1 cysteine,
+487.5 mg l −1 glutamine, 17.7 mg l −1 glycine, 31.5 mg l −1 histidine,
+31.5 mg l −1 isoleucine, 46.7 mg l −1 leucine, 16.4 mg l −1 lysine,
+30.3 mg l −1 methionine, 36.7 mg l −1 phenylalanine, 591.0 mg l −1
+proline, 75.7 mg l −1 serine, 73.2 mg l −1 threonine, 173.0 mg l −1
+tryptophan, 17.7 mg l−1 tyrosine and 42.9 mg l−1 valine.
+2.1.2. Assimilable nitrogen determination
+Ammonium concentration was determined enzymatically (R-
+Biopharm, Darmstadt, Germany).
+The free amino-acid content of the must was determined by cation
+exchange chromatography, with post-column ninhydrin derivatization
+(Biochrom 30, Biochrom, Cambridge, UK) as described by Crepin,
+Nidelet, Sanchez, Dequin, and Camarasa (2012).
+2.1.3. Cell counts
+During fermentation, the cell population was determined with a
+Coulter Counter (model Z2, Beckman-Coulter, Margency, France)ﬁtted
+with a 100 μm-aperture probe.
+2.1.4. Tanks and fermentation control
+Fermentations were run at pilot scale, in 10-liter stainless steel
+tanks, at 18, 24 and 30 °C. The amount of CO 2 released was measured
+accurately and automatically with a gas massﬂow meter, for calculation
+of the rate of CO 2 production (dCO2/dt).
+As individual experiments were quite cumbersome to perform, each
+fermentation was performed only once. However, it has been shown
+that duplicate experiments run with this online monitoring system
+yield highly reproducible results. For all the various volatile compounds
+assessed, the relative standard deviation between duplicates was very
+low throughout the fermentation process ( Mouret, Morakul, Nicolle,
+Athes, & Sablayrolles, 2012; Mouret et al., 2013 ): 4%, 3%, 6%, 3%, 2%
+and 4% for propanol, isobutanol, isoamyl alcohol, isoamyl acetate,
+ethyl hexanoate and ethyl octanoate, respectively.
+2.2. Analysis of higher alcohols and esters
+The concentrations of volatile compounds in the headspace of the
+fermentor were measured with an online GC device. The concentrations
+in the liquid phase were calculated as described byMorakul et al. (2011)
+and Morakul et al. (2013). Some measurements of concentration in the
+liquid phase were also performed, to validate estimation by the model.
+The relative standard deviation between model-based estimates and
+experimental determined values was 3%, validating the use of the
+model for this purpose.
+2.2.1. Online measurements of concentrations in the gas phase
+Headspace gas was pumped from the tank at a ﬂow rate of
+14 ml min
+− 1, through a heated transfer line. Carbon compounds
+were concentrated in a cold trap (Tenax TM) for 6 min, desorbed at
+160 °C for 1 min, and analyzed with a Perichrom PR2100 GC coupled
+to a ﬂame ionization detector (Alpha MOS, Toulouse, France). The de-
+tails of the GC method and the calibration procedure were as previously
+described by Mouret et al. (2013).
+2.2.2. Ofﬂine measurements of the liquid
+Liquid samples were collected at various stages of the fermentation.
+Samples were centrifuged at 1500 ×g at 4 °C for 10 min and the super-
+natants were collected and stored at − 20 °C until analysis. Sample
+preparation and the GC method used for the analysis were as described
+by Morakul et al. (2011, 2013) and Mouret et al. (2012).
+2.3. Volatile compound balances during fermentation
+2.3.1. Concentration in the liquid
+The concentration of a volatile compound in the liquid (C
+liq(t)) was
+calculated from the concentration measured online in the gas phase,
+expressed as Cgas(t)i nm gl −1 of CO 2,u s i n gt h ep a r t i t i o nc o e fﬁcient
+(ki) value (Eq. (1)).
+Cliq tðÞ ¼ Cgas tðÞ
+ki
+: 1
+The value ofki (Eq. (2)) was calculated with the model developed by
+Morakul et al. (2011), as a function of the fermenting must composition,
+characterized by ethanol concentration and temperature.
+lnki ¼ F1 þ F2 /C2 E− F3 þ F4 /C2 E
+R
+1000
+T − 1000
+Tref
+ !
+2
+where E is the ethanol concentration (g l−1) in the liquid phase, calcu-
+lated from measurements of the amount of CO2 released, which is pro-
+portional to sugar consumption; T is the current absolute temperature,
+Tref corresponds to the absolute reference temperature (i.e. 293.15 K,
+20 °C, in this study). F1, F2, F3 and F4 are constants, identi ﬁed for each
+volatile compound. The values of these parameters for the different
+molecules were determined by Mouret et al. (2013) . Ethyl octanoate
+was recently calibrated on the online GC system. So, for this particular
+compound, changes in the value of k
+i with temperature and ethanol
+concentration were modeled from the data collected during the nine
+experiments presented in this work. For this particular compound, the
+2 J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 3 ---
+numerical values of F1, F2, F3 and F4 were −3.13 ± 0.24, −1.35 ×
+10−2 ± 4.3 × 10 −3, 52 ± 35, and − 3.60 × 10 −3 ± 5.91 × 10 −1,
+respectively.
+2.3.2. Losses in the exhaust gas
+The losses in the gas were calculated with Eq. (3).
+LtðÞ ¼
+Zt
+0
+Cgas tðÞ /C2 QtðÞ /C2 dt 3
+where Q(t)i st h eC O2 ﬂow rate at time t, expressed in liters of CO 2 per
+liter of must and per hour. The relative losses ( RL), expressed as a
+percentage of production (P(t)), were determined as follows (Eq. (4)):
+RL ¼ LtðÞ
+PtðÞ ¼
+Ztend
+0
+Cgas tðÞ /C2 QtðÞ /C2 dt
+Cliq tend
+/C0/C1
+þ
+Ztend
+0
+Cgas tðÞ /C2 QtðÞ /C2 dt
+4
+where tend corresponds to the end of fermentation (h).
+2.3.3. Total production
+The total production of a volatile compound at time t, expressed as
+P(t)i nm gl −1 of must, was calculated by adding the concentration in
+the liquid phase, expressed as Cliq(t)i nm gl −1 of must, to the amount
+of the volatile compound lost in the gas phase, expressed as L(t)i nm g
+l−1 of must (Eq. (5)).
+PtðÞ ¼ Cliq tðÞ þ LtðÞ : 5
+This production reﬂects the ability of the yeast to produce a volatile
+compound, regardless of its subsequent fate: accumulation in the liquid
+phase or evaporation.
+2.3.4. Calculation of the rates and speciﬁc rates of production, accumulation
+in the liquid and loss in the gas phase
+The high frequency of online GC measurements (up to one measure-
+ment per hour) made it possible to calculate the rates of volatile
+compound production, accumulation and loss, using sliding-window
+second-order polynomial ﬁtting in a custom-developed Labview
+application.
+The speci ﬁc rates were calculated by dividing the corresponding
+rates by the cell count.
+2.4. Statistical analysis
+R software version 1.14.2 was used for statistical analysis.
+FactoMineR package (Le, Josse, & Husson, 2008) was used for principal
+component analysis (PCA), for studies of the kinetics of fermentative
+aroma production.
+3. Results and discussion
+We investigated the impact of initial nitrogen concentration and
+temperature on the production of the principal fermentative aromas,
+performing nine fermentations at different temperatures and with
+different initial assimilable nitrogen concentrations. Six fermentative
+aromas from various chemical families were monitored throughout
+the fermentation process: three higher alcohols (propanol, isobutanol
+and isoamyl alcohol), one acetate ester (isoamyl acetate) and two
+ethyl esters (ethyl hexanoate and ethyl octanoate).
+For all fermentations, nitrogen was exhausted at the end of the
+growth phase and the sugar supply was exhausted at the end of the
+culture.
+3.1. Effect of nitrogen and temperature on the kinetics of volatile compound
+synthesis
+We present here data for the total production of fermentative
+aromas (corresponding to the sum of liquid content and gaseous losses),
+because this re ﬂects the true capacity of the yeast to synthesize these
+volatile compounds.
+3.1.1. Higher alcohols
+3.1.1.1. Propanol. The pattern of production for propanol was different
+from that of the other volatile molecules studied, as propanol produc-
+tion stopped at the end of the growth phase ( Table 1 ), when cell
+count was maximal (Fig. 1a, b, c).
+In medium with an initial nitrogen concentration of 410 mg N l
+−1,
+nitrogen consumption, growth and propanol synthesis all ended at
+t h es a m et i m e(Fig. 1 c). By contrast, in media containing 230 or
+70 mg N l
+−1 assimilable nitrogen, cell count and propanol content con-
+tinued to increase for a short period after exhaustion of external nitro-
+gen supply (Fig. 1a, b). This suggests that the intracellular nitrogen pool
+may be managed differently in media with different initial nitrogen
+contents, with probable transient nitrogen storage and the subsequent
+consumption of these reserves when nitrogen is not provided in excess.
+Nevertheless, whatever the culture medium, cell count and propanol
+synthesis were maximal when the intracellular nitrogen supply was
+exhausted. Propanol can therefore be considered to be a metabolic
+marker of the availability of intracellular nitrogen. This observation is
+consistent with propanol being generated exclusively as a consequence
+of nitrogen metabolism, by the direct deamination of exogenous
+threonine or by interconversion between other amino acids and threo-
+nine, catalyzed by aminotransferases and transaminases ( Boulton,
+Singleton, Bisson, & Kunkee, 1995).
+A connection between nitrogen metabolism and propanol synthesis
+was also evident from the relationship between the rate of total
+propanol production and the consumption of its amino-acid precursor,
+threonine. The rate of total propanol production gradually increased
+during fermentation until the supply of threonine was exhausted, and
+declined thereafter (Fig. 2a, b). This observation suggests that propanol
+Table 1
+Percentage production of volatile compounds during the growth phase.a
+Initial nitrogen concentration (mg l−1) Fermentation temperature (°C) Propanol Isobutanol Isoamyl alcohol Isoamyl acetate Ethyl hexanoate Ethyl octanoate
+70 18 80 55 24 20 11 31
+70 24 87 46 24 17 12 15
+70 30 81 24 14 9 6 5
+230 18 97 26 19 16 25 22
+230 24 89 27 15 13 22 18
+230 30 97 19 14 12 24 17
+410 18 83 37 37 23 46 36
+410 24 79 33 28 17 41 31
+410 30 79 32 31 17 37 29
+a % when cell count reached 90% of its maximum value.
+3J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 4 ---
+may act as a “safety valve ”, preventing the accumulation of α -
+ketobutyrate and threonine. Furthermore, the rate of total production
+of this higher alcohol followed the same pattern regardless of tempera-
+ture ( Fig. 2 a), whereas major differences were observed between
+fermentations in media with different initial nitrogen contents (Fig. 2b).
+Plots of total propanol production against assimilable nitrogen con-
+sumption highlighted two successive linear production phases (Fig. 3).
+The yield of the second phase was systematically greater than that of
+the ﬁrst phase. These yields were independent of temperature (Fig. 3).
+The transition between the two phases was not related to exhaustion
+of the supply of threonine, the amino-acid precursor of propanol, but
+was almost certainly linked to the sequential use of different nitrogen
+sources (Crepin et al., 2012). Indeed, the transition coincided with the
+exhaustion of the nitrogen compounds used early in fermentation
+(Asp, Thr, Glu, Leu, His, Met, Ile, Ser, Gln, and Phe) and the start of
+consumption of the nitrogen compounds used late in fermentation
+(ammonium, Val, Arg, Ala, Trp, and Tyr).
+Consistent with our observations concerning the kinetics of
+propanol production, total production levels throughout the fermenta-
+tion process for this higher alcohol were independent of temperature
+and directly proportional to initial nitrogen content ( Table 2 ). In all
+nine fermentations, ﬁnal propanol concentration was linearly correlat-
+ed with initial assimilable nitrogen content (regression coefﬁ cient =
+0.9807). Thus, propanol synthesis can be used as a quantitative marker
+of initial assimilable nitrogen content. This proportionality between ni-
+trogen concentration and propanol synthesis has never been described,
+although several studies ( Clement et al., 2013; Gonzalez-Marco,
+Jimenez-Moreno, & Ancin-Azpilicueta, 2010; Mendes-Ferreira, Barbosa,
+Falco, Leao, & Mendes-Faia, 2009; Moreira, de Pinho, Santos, &
+Vasconcelos, 2011; Torrea, Fraile, Garde, & Ancin, 2003; Vilanova et al.,
+2007) report ﬁnal propanol concentrations to be higher following the
+fermentation of musts with high assimilable nitrogen concentrations.
+Propanol can therefore be considered to be both a metabolic marker
+of the availability of intracellular nitrogen and a quantitative marker of
+assimilable nitrogen content.
+3.1.1.2. Isobutanol and isoamyl alcohol.Both isobutanol and isoamyl alco-
+hol were produced principally during stationary phase ( Table 1 ),
+Fig. 1. Changes in the total production of propanol ( □), cell count ( ●) and residual
+nitrogen content ( Δ) for SM70 (a), SM230 (b) and SM410 (c), as a function of sugar
+consumption. The values shown on each graph correspond to three fermentations,
+performed at 18, 24 and 30 °C.
+Fig. 2. (a) and (b) Changes in the rate of total propanol production at 18 °C (−), 24 °C (− )a n d3 0 ° C(−− ) for an initial nitrogen concentration of 230 mg N l−1 (a) and for SM70 (−),
+SM230 (−)a n dS M 4 1 0(−− ) at 18 °C (b). The arrows indicate the exhaustion of extracellular threonine for an initial nitrogen concentration of 230 mg N l−1 (a) and for SM70 (black),
+SM230 (gray) and SM410 (dotted) (b). (c) and (d) Changes in the rate of total isobutanol production at 18 °C ( −), 24 °C ( −) and 30 °C ( −− ) for an initial nitrogen concentration of
+230 mg N l−1 (c) and for SM70 (−), SM230 (−) and SM410 (−− ) at 18 °C (d). The arrows correspond to the exhaustion of extracellular threonine for an initial nitrogen concentration
+of 230 mg N l −1 (c) and for SM70 (black), SM230 (gray) and SM410 (dotted) (d).
+4 J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 5 ---
+regardless of experimental conditions, as previously reported by
+Mouret et al. (2013) . A comparison of the production pro ﬁles of these
+aromatic molecules with the assimilation of their corresponding
+amino-acid precursors revealed no clear link between the synthesis of
+these higher alcohols and the consumption of their precursors. Indeed,
+as shown in Fig. 2c and d for isobutanol and valine, the amino-acid pre-
+cursor was systematically exhausted before the rate of total production
+for the corresponding higher alcohol peaked. These two observations
+suggest that isobutanol and isoamyl alcohol are not produced exclusive-
+ly from their amino-acid precursors (via the Ehrlich pathway) and that
+other metabolic pathways (such as the production of keto-acids from
+central carbon metabolism) make a signi ﬁcant contribution to their
+synthesis.
+We also analyzed the relationship between the synthesis of
+isobutanol and isoamyl alcohol and sugar consumption. Two consecu-
+tive linear production phases were identi ﬁed, as shown in Fig. 4a for
+isoamyl alcohol. The transition between the two linear phases of pro-
+duction from sugar was simultaneous for these two higher alcohols, cor-
+responding in all cases to the end of the growth phase. This can be
+explained by the different metabolic pathways for these two higher al-
+cohols, one being produced by the catabolism of exogenous amino acids
+and the other by central carbon metabolism (Swiegers et al., 2005; Van
+Der Sluis et al., 2002 ). These higher alcohols were generated by both
+carbon and nitrogen metabolism during the growth phase, whereas
+they were produced solely by central carbon metabolism during the sta-
+tionary phase.
+The production yield of the higher alcohols during the second phase
+was higher than that for the ﬁrst phase at high nitrogen contents (230
+and 410 mg N l
+−1), as shown in Table 3 a. By contrast, for medium
+with an initial nitrogen content of 70 mg l −1, the yield of the second
+phase was lower. These differences in production yields suggest that
+(i) the contributions of central carbon and nitrogen metabolism to the
+synthesis of keto-acid precursors and their further conversion to
+isobutanol and isoamyl alcohol differ at high and low nitrogen contents
+and (ii) the regulation of the metabolic pathways involved in the pro-
+duction and consumption of keto-acids differ according to the pool of
+extracellular amino acids used.
+For the three temperatures tested, both the production yields of
+these higher alcohols from sugars ( Table 3 a) and their ﬁnal levels
+(Table 2) were maximal for an initial nitrogen content of 230 mg N l−1.
+This indicates that the synthesis of higher alcohols is not a monotonic
+function of initial nitrogen content, with optimal production for an
+initial assimilable nitrogen concentration consistent with previous re-
+ports, at 200 to 300 mg l −1 (Carrau et al., 2008; Jimenez-Marti et al.,
+2007; Vilanova et al., 2012 ). Differences in the management of the
+keto-acid pools as a function of the quality and quantity of extracellular
+amino acids may explain these observations. Indeed, the intracellular
+availability of keto-acids is dependent on several different metabolic
+pathways: (1) production from central carbon metabolism, (2) the de-
+amination of amino acids, (3) re-use for amino-acid synthesis (anabolic
+use) and (4) conversion into higher alcohols.
+Temperature had different effects on the production of isobutanol
+and that of isoamyl alcohol, whatever the culture medium. For
+isobutanol, production yields and total production increased with tem-
+perature, whereas these parameters peaked at 24 °C for isoamyl alcohol
+(Tables 2 and 3a). This suggests that, surprisingly, temperature had dif-
+ferent effects (metabolic and/or genomic effects) on the synthesis path-
+ways of these two higher alcohols, despite their similarity, both these
+pathways including α-ketoisovalerate as an intermediate (Hazelwood,
+Daran, van Maris, Pronk, & Dickinson, 2008 ). These differences in the
+metabolic and/or genomic regulation of the synthesis of these two
+Fig. 3. Changes in total propanol production as a function of nitrogen consumption for an
+initial assimilable nitrogen content of 410 mg N l −1, at the three different temperatures.
+For the two successive linear phases, the regression coef ﬁcients were 0.988 and 0.987,
+respectively.
+Table 2
+Total production,ﬁnal concentration in the liquid phase, and relative losses of volatile compounds.
+Initial nitrogen
+concentration
+(mg l
+−1)
+Fermentation
+temperature
+(°C)
+Propanol Isobutanol Isoamyl alcohol
+Total
+production
+(mg l
+−1)
+Final
+concentration in
+wine (mg l−1)
+Relative
+losses
+(%)
+Total
+production
+(mg l−1)
+Final
+concentration in
+wine (mg l−1)
+Relative
+losses
+(%)
+Total
+production
+(mg l−1)
+Final
+concentration in
+wine (mg l−1)
+Relative
+losses
+(%)
+70 18 8.82 8.78 0.45 17.1 17.0 0.58 167 166 0.60
+70 24 8.80 8.75 0.57 35.7 35.4 0.98 231 228 1.30
+70 30 10.0 9.94 0.60 66.8 66.0 1.20 203 200 1.48
+230 18 23.1 23.0 0.43 35.8 35.6 0.56 205 204 0.49
+230 24 25.6 25.4 0.78 53.7 53.3 0.74 244 242 0.82
+230 30 24.1 23.8 1.24 82.9 82.1 0.97 226 223 1.33
+410 18 51.5 51.3 0.39 25.8 25.7 0.39 120 119 0.83
+410 24 50.5 50.2 0.59 37.4 37.2 0.53 138 136 1.46
+410 30 50.5 50.0 0.99 39.7 39.3 1.01 111 109 1.80
+Initial nitrogen
+concentration
+(mg l
+−1)
+Fermentation
+temperature
+(°C)
+Isoamyl acetate Ethyl hexanoate Ethyl octanoate
+Total
+production
+(mg l
+−1)
+Final
+concentration in
+wine (mg l−1)
+Relative
+losses
+(%)
+Total
+production
+(mg l−1)
+Final
+concentration in
+wine (mg l−1)
+Relative
+losses
+(%)
+Total
+production
+(mg l−1)
+Final
+concentration in
+wine (mg l−1)
+Relative
+losses
+(%)
+70 18 0.28 0.223 19 0.47 0.344 27 0.51 0.33 34
+70 24 0.41 0.299 26 0.57 0.354 38 0.57 0.35 39
+70 30 0.36 0.220 39 0.50 0.240 52 0.38 0.17 54
+230 18 1.15 0.967 16 0.68 0.494 27 0.94 0.70 26
+230 24 1.53 1.15 25 0.69 0.419 39 0.92 0.58 36
+230 30 1.19 0.774 35 0.56 0.276 51 0.72 0.37 48
+410 18 2.47 2.13 14 0.82 0.579 29 1.01 0.74 26
+410 24 2.12 1.67 21 0.83 0.484 42 1.06 0.67 37
+410 30 1.43 0.952 33 0.66 0.326 50 0.91 0.46 49
+5J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 6 ---
+fermentative aroma compounds were conﬁrmed by the very large dif-
+ferences in their rates and speciﬁc rates of total production (Fig. 5a, b).
+3.1.2. Esters
+3.1.2.1. Acetate ester.Like isoamyl alcohol, isoamyl acetate was produced
+mostly during the stationary phase (Table 1).
+The phenomena observed depended on the initial nitrogen content.
+At high nitrogen contents (230 and 410 mg N l−1), two consecutive lin-
+ear production phases were observed when total acetate ester produc-
+tion was plotted against sugar consumption. The transition between
+the two phases occurred at the end of the growth phase ( Fig. 4b). The
+yield of the second linear phase was much higher than that of the ﬁrst
+(by 245% on average;Table 3a). The production yields and total produc-
+tion (Tables 2 and 3a) of this acetate ester increased with initial nitrogen
+concentration. A positive correlation between the synthesis of acetate
+esters and nitrogen availability has been reported in previous studies
+(Garde-Cerdan & Ancin Azpilicueta, 2008; Hernandez-Orte et al.,
+2006; Torrea et al., 2011; Ugliano et al., 2010) and is not surprising, be-
+cause nitrogen metabolism, via the Ehrlich pathway, contributes to the
+formation of higher alcohols and their acetate ester derivatives
+(Swiegers et al., 2005 ). By contrast, there was only one linear produc-
+tion phase ( Table 3 a), in medium with an initial nitrogen content of
+70 mg N l −1, suggesting a minor contribution of nitrogen metabolism
+to aromatic molecule formation.
+Like the relationship between total isoamyl acetate production and
+sugar consumption, the relationship between total isoamyl alcohol pro-
+duction and isoamyl acetate production was dependent on initial nitro-
+gen content. At low nitrogen concentration (70 mg N l −1), there were
+two consecutive linear production phases, the second having a higher
+yield than the ﬁrst (Fig. 6ba n dTable 3b). By contrast, at high initial ni-
+trogen contents (230 and 410 mg N l−1), there was only one linear pro-
+duction phase, which began when isoamyl alcohol reached a threshold
+concentration (Fig. 6aa n dTable 3b). This threshold may correspond to
+an intracellular concentration of isoamyl alcohol required for the induc-
+tion of ester synthesis. This hypothesis is supported by the much higher
+Km value of the alcohol acetyl transferase (EC number: 2.3.1.84) for
+isoamyl alcohol than for acetyl-coA (Minetoki, Bogaki, Iwamatsu, Fujii,
+&H a m a c h i ,1 9 9 3): 29.8 and 0.025 mM for isoamyl alcohol and acetyl-
+coA, respectively. Due to this high Km, an intracellular accumulation of
+isoamyl alcohol is required to induce the production of the ester or to
+achieve a production rate high enough for the detection of extracellular
+isoamyl acetate. Alternatively, there may be an effect of enzyme activity
+or enzyme gene transcription. In medium with an initial nitrogen con-
+tent of 70 mg N l
+−1, the cell population was small and its anabolic de-
+mand for amino acids was low. The threshold level of isoamyl alcohol
+required to induce isoamyl acetate synthesis was therefore probably
+reached rapidly. This may account for the lack of a time lag in the pro-
+duction of this acetate ester from its precursor higher alcohol in medium
+with a low nitrogen content. However, it does not account for the two
+successive phases in the medium containing 70 mg N l
+−1 assimilable ni-
+trogen. Other regulatory systems must therefore be involved.
+All these observations indicate that the intracellular concentration of
+higher alcohols is a key element in the synthesis of acetate esters. Nev-
+ertheless, substrate availability is not the only factor. The activity of the
+alcohol acetyltransferases catalyzing theﬁnal step of acetate ester syn-
+thesis ( Lilly, Lambrechts, & Pretorius, 2000 ) is also regulated at the
+level of transcription ( Lilly et al., 2006; Saerens, Delvaux, Verstrepen,
+& Thevelein, 2010; Verstrepen, Van Laere, et al., 2003).
+Finally, we noted that the ranking of production yields and total pro-
+duction according to temperature differed as a function of nitrogen
+availability (Tables 2 and 3a), indicating an interaction between the ef-
+fects of initial nitrogen content and temperature on the overall produc-
+tion of this acetate ester.
+3.1.2.2. Ethyl esters.Ethyl hexanoate and ethyl octanoate were produced
+mostly during the stationary phase (Table 1).
+On a plot of the total production of these ethyl esters against sugar
+consumption, two consecutive linear production phases were observed,
+as shown in Fig. 4c for ethyl octanoate. For the two ethyl esters, whatev-
+er the initial nitrogen concentration, the transition between the two lin-
+ear production phases occurred at the same point in the fermentation
+(after the consumption of 20 g l
+−1 and 60 g l −1 sugar for ethyl
+hexanoate and ethyl octanoate (Fig. 4c), respectively). Ethyl esters are
+produced by lipid metabolism; differences in yield were therefore not
+connected to nitrogen metabolism.
+In all fermentation conditions (except for ethyl octanoate at 18 °C
+and an initial nitrogen concentration of 70 mg N l −1), the yield of the
+second phase was higher than that of the ﬁrst phase, by 297% and
+132% for ethyl hexanoate and ethyl octanoate, respectively. Yields
+were maximal at 18 °C and 410 mg N l −1 assimilable nitrogen
+(Table 3a) for the two ethyl esters. Surprisingly, production yield was
+inﬂuenced by the initial nitrogen concentration. This may be due to con-
+nections between nitrogen and lipid metabolism via redox regulation or
+the possible synthesis of acyl-CoA derivatives from α-ketoacids. An al-
+ternative explanation would be the induction of acyl-coA synthesis
+due to the higher lipid requirements for high levels of biomass produc-
+t i o ni nm e d i aw i t hh i g hn i t r o g e nc o n c e n t r a t i o n s .
+Fig. 4. (a) Changes in the total production of isoamyl alcohol ( □) and cell count ( ) as a
+function of sugar consumption. For the two successive linear phases, the regression coef-
+ﬁcients were 0.997 and 0.994, respectively. (b) Changes in the total production of isoamyl
+acetate (□) and cell count ( ) as a function of sugar consumption. For the two successive
+linear phases, the regression coefﬁcients were 0.990 and 0.996, respectively. (c) Changes
+in the total production of ethyl octanoate ( □) and cell count ( ) as a function of sugar
+consumption. For the two successive linear phases, the regression coef ﬁcients were
+0.979 and 0.995, respectively. For all three graphs, the initial nitrogen concentration was
+410 mg N l
+−1 and the fermentation temperature was 24 °C.
+6 J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 7 ---
+3.1.3. General overview
+With the exception of propanol, the fermentative aromas were pro-
+duced principally during the stationary phase ( Table 1). This observa-
+tion conﬁrms the results obtained by Mouret et al. (2013) for a natural
+must and is consistent with fermentative aromas generally not being
+synthesized directly by the degradation of amino acids ( Miller, Wolff,
+Bisson, & Ebeler, 2007).
+Nevertheless, the percentage fermentative aroma production during
+the growth phase (estimated when the cell count reached 90% of its
+maximum value) varied with temperature and initial nitrogen content.
+For all the volatile compounds studied, percentage production during
+the growth phase decreased with temperature (Table 1). This observa-
+tion suggests that the pools of keto-acids and fatty acids may be distrib-
+uted differently between anabolism and volatile compound production
+as a function of temperature and, probably, growth rate. One keyﬁnding
+was that percentage ester production during the growth phase
+increased with initial nitrogen content, particularly for ethyl esters
+(Table 1). This was probably because the growth phase was longer for
+higher initial nitrogen concentrations. Indeed, when the initial nitrogen
+concentration was 70 mg N l
+−1, the growth phase ended when 45 g
+sugar l−1 had been consumed, whereas, at an initial nitrogen concentra-
+tion of 410 mg N l−1, the growth phase continued until 100 g sugar l−1
+had been consumed.
+Moreover, there was a relationship between the total production of
+fermentative aromas and sugar consumption, for all the compounds
+considered other than propanol. For these volatile compounds, two con-
+secutive linear production phases were generally identiﬁed. The dura-
+tions of these two phases depended on the compound studied. The
+yields obtained during the two phases varied with initial nitrogen con-
+tent and temperature (Table 3a).
+Table 3
+Production yields of fermentative aromas during the two successive linear production phases.
+(a) Yields from sugars
+Production yield from sugar
+(mg g−1)
+SM70, 18 °C SM70, 24 °C SM70, 30 °C SM230, 18 °C SM230, 24 °C SM230, 30 °C SM410, 18 °C SM410, 24 °C SM410, 30 °C
+Isobutanol First phase 1.84 × 10 −1 3.51 × 10 −1 6.53 × 10 −1 1.69 × 10 −1 3.22 × 10 −1 3.41 × 10 −1 1.16 × 10 −1 1.79 × 10 −1 2.06 × 10 −1
+Second phase 3.50 × 10 −2 1.11 × 10 −1 2.64 × 10 −1 2.09 × 10 −1 2.94 × 10 −1 5.02 × 10 −1 1.98 × 10 −1 2.84 × 10 −1 2.50 × 10 −1
+Isoamyl alcohol First phase 1.17 1.51 1.71 6.74 × 10 −1 8.22 × 10 −1 6.81 × 10 −1 5.18 × 10 −1 5.60 × 10 −1 5.49 × 10 −1
+Second phase 7.65 × 10 −1 1.20 8.99 × 10 −1 1.53 1.75 1.60 9.71 × 10 −1 1.13 7.09 × 10 −1
+Isoamyl acetate First phase 1.16 × 10 −3 1.61 × 10 −3 1.21 × 10 −3 1.68 × 10 −3 2.95 × 10 −3 2.84 × 10 −3 4.62 × 10 −3 4.88 × 10 −3 2.99 × 10 −3
+Second phase 6.61 × 10 −3 7.89 × 10 −3 5.28 × 10 −3 1.85 × 10 −1 1.44 × 10 −2 7.22 × 10 −3
+Ethyl hexanoate First phase 8.44 × 10 −4 5.34 × 10 −4 7.69 × 10 −4 1.61 × 10 −3 8.21 × 10 −4 4.17 × 10 −4 9.39 × 10 −4 1.93 × 10 −3 1.79 × 10 −3
+Second phase 2.02 × 10 −3 2.47 × 10 −3 2.56 × 10 −3 2.96 × 10 −3 2.42 × 10 −3 1.92 × 10 −3 4.36 × 10 −3 4.01 × 10 −3 1.63 × 10 −3
+Ethyl octanoate First phase 3.11 × 10 −3 7.99 × 10 −4 4.79 × 10 −4 2.76 × 10 −3 2.06 × 10 −3 1.29 × 10 −3 2.73 × 10 −3 2.26 × 10 −3 2.17 × 10 −3
+Second phase 1.26 × 10 −3 2.17 × 10 −3 1.68 × 10 −3 3.92 × 10 −3 3.57 × 10 −3 2.51 × 10 −3 4.85 × 10 −3 3.91 × 10 −3 2.65 × 10 −3
+(b) Yields of isoamyl acetate from its higher alcohol precursor
+Production yield from isoamyl
+alcohol (mg g
+−1)
+SM70, 18 °C SM70, 24 °C SM70, 30 °C SM230, 18 °C SM230, 24 °C SM230, 30 °C SM410, 18 °C SM410, 24 °C SM410, 30 °C
+Isoamyl acetate First phase 1.16 × 10 −3 1.29 × 10 −3 1.18 × 10 −3 5.85 × 10 −3 6.38 × 10 −3 5.51 × 10 −3 2.45 × 10 −2 1.77 × 10 −2 1.58 × 10 −2
+Second phase 2.55 × 10 −3 2.51 × 10 −3 3.03 × 10 −3
+Fig. 5. (a) Changes in the rate of total production of isobutanol ( −)a n di s o a m y l
+alcohol ( −) as a function of sugar consumption, for an initial assimilable nitrogen
+content of 230 mg N l − 1 and a temperature of 30 °C. (b) Changes in the speci ﬁc
+rates of total production for isobutanol ( −) and isoamyl alcohol ( −)a saf u n c t i o n
+of sugar consumption, for an initial assimilable nitrogen content of 70 mg N l − 1
+and a temperature of 30 °C.
+Fig. 6. (a) Changes in total isoamyl acetate production (□) as a function of total isoamyl
+alcohol production, for an initial assimilable nitrogen content of 410 mg N l −1. For the
+linear phase, the regression coefﬁcient was 0.998. (b) Changes in the total production of
+isoamyl acetate ( □) as a function of total isoamyl alcohol production, for an initial
+assimilable nitrogen content of 70 mg N l −1. For the two successive linear phases, the
+regression coef ﬁcients were 0.994 and 0.967, respectively. For the two graphs, the
+fermentation temperature was 18 °C.
+7J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 8 ---
+For the three esters studied in particular, yields and total production
+over the entire fermentation process were not maximal in the same
+fermentation conditions (Tables 2 and 3 a). For the acetate ester, total
+production was highest for the lowest temperature and the highest
+initial assimilable nitrogen content: 18 °C and 410 mg N l
+−1 of assimila-
+ble nitrogen ( Table 2). The results for the two ethyl esters were more
+complex: total production was identical and maximal for two fermenta-
+tion conditions: 18 °C and 410 mg N l
+−1, and 24 °C and 410 mg N l −1.
+The synthesis of these two groups of esters is catalyzed by different en-
+zymes (Saerens et al., 2008; Verstrepen, Derdelinckx, et al., 2003): alco-
+hol acetyl transferases (encoded by the ATF1 and ATF2 genes) for
+acetate esters and acyl-CoA:ethanol O-acyltransferases (encoded by
+the EEB1 and EHT1 genes) for ethyl esters. Thus, these enzymes and/
+or the other proteins involved in the metabolic pathways responsible
+for the production of these two types of esters appear to be regulated
+differently by temperature, but similarly by nitrogen content.
+Finally, to obtain an overview of the dependence of total aroma com-
+pound production on temperature and initial nitrogen concentration,
+we described the production proﬁles of the six fermentative aromas, to-
+gether with growth and CO
+2 release, in terms of representative kinetic
+parameters: (1) start of synthesis (deﬁned as the amount of sugar con-
+sumed at which the product concentration ﬁrst exceeded 10% of its
+maximum concentration), (2) end of synthesis (deﬁned as the amount
+of sugar consumed at which the product concentration reached 90% of
+the maximum concentration), (3) the amount of sugar consumed at
+which the production rate was maximal, (4) the amount of sugar con-
+sumed at which the speciﬁc production rate was maximal, (5) percent-
+age production during the growth phase.
+PCA was performed for detailed investigation of the effects of tem-
+perature and nitrogen availability on the chronology of compound syn-
+thesis (Fig. 7). The ﬁrst two PCA axes accounted for 70.6% of the total
+variation. The principal parameters contributing to axis 1 were related
+to isoamyl acetate, cell count and propanol, whereas those contributing
+to axis 2 were mostly related to isobutanol. The distribution of individ-
+ual fermentations on the basis of nitrogen content was similar for the
+ﬁrst two axes of the PCA.
+In Fig. 7, the fermentation conditions are grouped according to initial
+nitrogen content rather than temperature. The synthesis proﬁles of the
+six fermentative aromas studied here thus depended mostly on initial
+assimilable nitrogen content. Increases in temperature increased the
+rate of volatile compound synthesis without affecting the production
+proﬁle of these compounds during the course of fermentation ( Fig. 2a,
+c). However, there was an interaction between the effects of nitrogen
+and temperature on the regulation of yeast metabolism. Indeed, in
+Fig. 7 , individual fermentations are not ranked in the same order for
+the three nitrogen contents, according to axis 2. On the ﬁrst axis of the
+PCA, for SM70 medium, the kinetic pro ﬁles were similar at 18 and
+24 °C whereas, at high nitrogen contents (230 and 410 mg N l
+−1),
+similarities were observed between 24 and 30 °C conditions.
+3.2. Importance of the gas–liquid balance
+In the previous sections, we present only the total production of fer-
+mentative aromas. Nevertheless, in published studies, the only data
+available are the liquid concentrations. We will show here that using
+the liquid content of fermentative aromas can lead to misinterpretations
+of the effects of fermentative parameters on the synthesis of aromas by
+yeast. Indeed, fermentative aromas are produced in the liquid phase by
+S. cerevisiae. However, these speciﬁc compounds are volatile and tend to
+evaporate, resulting in their partial loss in the exhaust gas. As a result,
+there are two distinct mechanisms accounting for the amounts of
+these volatile molecules accumulating in the liquid: biological produc-
+tion and physical evaporation.
+Here, we compare data for total production with those for liquid
+concentration.
+As shown byMorakul et al. (2013)and Mouret et al. (2013),l o s s e si n
+the exhaust gas were negligible for higher alcohols but much greater for
+esters (Table 2). Liquid concentration or total production can therefore
+be used indifferently to determine the quantities of higher alcohols ef-
+fectively produced by S. cerevisiae. By contrast, total production must
+be used to determine the metabolic capacity for the synthesis of esters.
+Final liquid concentrations of ethyl hexanoate and ethyl octanoate
+were systematically higher at 18 °C. However, the total production of
+these esters was identical at 18 and 24 °C for the three culture media
+(Table 2). Thus, the lower liquid concentration of ethyl esters at 18 °C
+than at 24 °C is due entirely to evaporation, rather than changes in
+yeast metabolism. Thus, analyses taking into account only liquid
+concentrations result in an overestimation of the effect of temperature
+on ester production. To our knowledge, this is the ﬁrst time attempts
+have been made to differentiate between the physical and biological
+effects of temperature on the liquid accumulation of aromas in
+winemaking.
+As for the ﬁnal values (Table 2), calculations of the yield of produc-
+tion of fermentative aromas from sugars based on total productions or
+liquid concentrations gave similar values for higher alcohols but signif-
+icantly different values for esters (Table 4). Indeed, the large losses ob-
+served for esters ( Table 2 ) resulted in an underestimation of
+production yields from liquid concentrations (Table 4), as reported by
+Mouret et al. (2013). This underestimation was greater for the yields re-
+corded for the second linear production phase (Table 4). Moreover, the
+second linear phase was shorter in analyses based on liquid content
+than in those based on total production, particularly for ethyl hexanoate
+(data not shown). For this speci ﬁc compound, the second linear phase
+lasted from 20 to 170 g l
+−1 consumed sugar for calculations based on
+total synthesis and from 20 to 140 g l−1 consumed sugar for calculations
+based on liquid content. These ﬁndings reﬂect the increase in the per-
+centage loss of esters during the course of the fermentation ( Morakul
+et al., 2013; Mouret et al., 2012).
+The yields for ester production from sugar in the two linear phases,
+calculated with total synthesis or liquid content, were used for PCA
+(Fig. 8a, b). The ﬁrst two PCA axes accounted for 82% of the total varia-
+tion for the liquid concentrations and 86% of the total variation for total
+production. In both PCAs, the main parameters contributing to axis 1
+were the production yields of isoamyl acetate in phases 1 and 2, where-
+as the main parameters contributing to axis 2 were the production
+yields of ethyl hexanoate and ethyl octanoate in theﬁrst phase. The dis-
+tributions of the nine fermentations differed, whether calculations were
+based on liquid content or total synthesis (Fig. 8a, b). For total produc-
+tion, the PCA clearly distinguished fermentations on the basis of their
+initial nitrogen content ( Fig. 8a), indicating a key role for nitrogen in
+regulating the metabolism of ester synthesis. The discrimination was
+Fig. 7. Principal component analysis (PCA) of the kinetic parameters. The following kinetic
+parameters were determined for the six fermentative aromas, cell count and CO2: (1) start
+of synthesis, (2) end of synthesis, (3) sugar consumption at the maximal production rate,
+(4) sugar consumption at the maximal speciﬁc production rate, (5) percentage production
+during the growth phase. Each fermentation is identiﬁed as X,Y, where X corresponds to
+the initial nitrogen concentration in mg N l−1 and Y is the fermentation temperature in °C.
+8 J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 9 ---
+less clear-cut when we used liquid concentrations (Fig. 8b), particularly
+for media with high nitrogen contents (250 and 430 mg N l−1). This ob-
+servation conﬁrms the need for gas – liquid balances for a good under-
+standing of ester production: at 30 °C, a change in yeast metabolism
+resulted in lower levels of ester synthesis, but the low liquid concentra-
+tions observed mostly reﬂected the effects of evaporation.
+4. Conclusion
+In this work, we studied the impact of initial assimilable nitrogen
+concentration and temperature on the production kinetics of the princi-
+pal fermentative aromas. Gas– liquid balances were also determined, to
+differentiate between the biological and physical consequences of dif-
+ferences in temperature. We found that the impact of temperature on
+ester synthesis was overestimated if only liquid content was considered.
+Assimilable nitrogen appeared to be the major fermentation param-
+eter affecting the kinetics of synthesis for higher alcohols and esters, but
+temperature also had an effect, both on its own and in interaction with
+nitrogen. Original correlations between the production of fermentative
+aromas and sugar consumption were established for all the compounds
+studied. Propanol was identiﬁed as a quantitative marker of initial nitro-
+gen content and a metabolic indicator of the availability of intracellular
+nitrogen.
+Additional experiments in other strains and in media with different
+compositions (especially natural musts) are required, but these results
+provide preliminary data and insight, making it possible to model the
+dynamics of synthesis for fermentative aromas. These ﬁndings will
+also facilitate the development of innovative strategies for controlling
+the production of fermentative aromas by managing assimilable nitro-
+gen content and temperature during alcoholic fermentation.
+Acknowledgments
+We thank Isabelle Sanchez for assistance with statistical analysis. We
+also thank Pamela Nicolle and Christian Picou for technical assistance.
+The research generating these results was funded by the European
+Community Seventh Framework Programme (FP7/2007e2013) under
+grant agreement CAFE no. KBBE-212754 (http://www.cafeproject.org).
+This study was also supported by the INRA Sys-Aromes program and
+by the BIOFLAVOUR Cost Action FA0907.
+References
+Beltran, G., Esteve-Zarzoso, B., Rozes, N., Mas, A., & Guillamon, J. M. (2005). Inﬂuence of
+the timing of nitrogen additions during synthetic grape must fermentations on fer-
+mentation kinetics and nitrogen consumption. Journal of Agricultural and Food
+Chemistry, 53,9 9 6– 1002.
+Beltran, G., Novo, M., Guillamon, J. M., Mas, A., & Rozes, N. (2008). Effect of fermentation
+temperature and culture media on the yeast lipid composition and wine volatile
+compounds. International Journal of Food Microbiology, 121,1 6 9–177.
+Bely, M., Sablayrolles, J. M., & Barre, P. (1990).Automatic detection of assimilable nitrogen
+deﬁciencies during alcoholic fermentation in oenological conditions. Journal of
+Fermentation and Bioengineering, 70,2 4 6– 252.
+Boulton, R. B., Singleton, V. L., Bisson, L. F., & Kunkee, R. E. (1995).Principles and practices of
+winemaking. New York: Chapman & Hall.
+Carrau, F. M., Medina, K., Farina, L., Boido, E., Henschke, P. A., & Dellacassa, E. (2008). Pro-
+duction of fermentation aroma compounds by Saccharomyces cerevisiaewine yeasts:
+Effects of yeast assimilable nitrogen on two model strains. FEMS Yeast Research , 8,
+1196–1207.
+Clement, T., Perez, M., Mouret, J. R., Sanchez, I., Sablayrolles, J. M., & Camarasa, C. (2013).
+Metabolic responses of yeast to valine and ammonium pulses during four-stage con-
+tinuous wine fermentation. Applied and Environmental Microbiology, 79,2 7 4 9– 2758.
+Crepin, L., Nidelet, T., Sanchez, I., Dequin, S., & Camarasa, C. (2012). Sequential use of ni-
+trogen compounds by Saccharomyces cerevisiae during wine fermentation: a model
+based on kinetic and regulation characteristics of nitrogen permeases. Applied and
+Environmental Microbiology, 78,8 1 0 2– 8111.
+Escudero, A., Campo, E., Farina, L., Cacho, J., & Ferreira, V. (2007). Analytical characteriza-
+tion of the aroma of ﬁve premium red wines. Insights into the role of odor families
+and the concept of fruitiness of wines. Journal of Agricultural and Food Chemistry, 55,
+4501–4510.
+Table 4
+Underestimation of production yields of esters in calculations based on liquid concentrations.
+Percentage underestimation for
+the production yield from sugar
+SM70, 18 °C SM70, 24 °C SM70, 30 °C SM230, 18 °C SM230, 24 °C SM230, 30 °C SM410, 18 °C SM410, 24 °C SM410, 30 °C
+Isoamyl acetate First phase 21 31 43 7 11 16 9 15 23
+Second phase 18 28 41 14 23 36
+Ethyl hexanoate First phase 13 17 16 12 14 22 18 13 28
+Second phase 31 36 33 33 44 48 21 24 57
+Ethyl octanoate First phase 14 31 19 21 29 38 25 21 41
+Second phase 49 42 41 32 41 51 29 42 55
+Percentage underestimation for
+the production yield from
+isoamyl alcohol
+SM70, 18 °C SM70, 24 °C SM70, 30 °C SM230, 18 °C SM230, 24 °C SM230, 30 °C SM410, 18 °C SM410, 24 °C SM410, 30 °C
+Isoamyl acetate First phase 17 23 33 18 26 39 14 22 35
+Second phase 22 30 45
+Fig. 8. PCA of the production yields for the three esters (isoamyl acetate, ethyl hexanoate
+and ethyl octanoate) from sugars, calculated either from total productions (a) or from liq-
+uid concentrations (b). Each fermentation is identiﬁed as X,Y, where X is the initial nitro-
+gen concentration in mg N l
+−1 and Y is the fermentation temperature in °C.
+9J.R. Mouret et al. / Food Research International 62 (2014) 1–10
+
+
+--- PAGE 10 ---
+Ferreira, V., Lopez, R., & Cacho, J. (2000). Quantitative determination of the odorants of
+young red wines from different grape varieties. Journal of the Science of Food and
+Agriculture, 80,1 6 5 9– 1667.
+Francis, I. L., & Newton, J. L. (2005). Determining wine aroma from compositional data.
+Australian Journal of Grape and Wine Research, 11,1 1 4– 126.
+Gamero, A., Tronchoni, J., Querol, A., & Belloch, C. (2013).Production of aroma compounds
+by cryotolerant Saccharomyces species and hybrids at low and moderate fermenta-
+tion temperatures. Journal of Applied Microbiology, 114,1 4 0 5– 1414.
+Garde-Cerdan, T., & Ancin Azpilicueta, C. (2008). Effect of the addition of different quan-
+tities of amino acids to nitrogen-de ﬁcient must on the formation of esters, alcohols,
+and acids during wine alcoholic fermentation. LWT - Food Science and Technology ,
+41,5 0 1–510.
+Gonzalez-Marco, A., Jimenez-Moreno, N., & Ancin-Azpilicueta, C. (2010).Inﬂuence of nu-
+trients addition to nonlimited-in-nitrogen must on wine volatile composition.Journal
+of Food Science, 75,2 0 6– 211.
+Hazelwood, L. A., Daran, J. M., van Maris, A. J. A., Pronk, J. T., & Dickinson, J. R. (2008). The
+Ehrlich pathway for fusel alcohol production: A century of research onSaccharomyces
+cerevisiae metabolism. Applied and Environmental Microbiology, 74,2 2 5 9– 2266.
+Hernandez-Orte, P., Bely, M., Cacho, J., & Ferreira, V. (2006). Impact of ammonium addi-
+tion on volatile acidity, ethanol, and aromatic compounds production by different
+Saccharomyces cerevisiae strains during fermentation in controlled synthetic media.
+Australian Journal of Grape and Wine Research, 12,1 5 0– 160.
+Jimenez-Marti, E., Aranda, A., Mendes-Ferreira, A., Mendes-Faia, A., & li del Olmo, M.
+(2007). The nature of the nitrogen source added to nitrogen depleted vini ﬁcations
+conducted by a Saccharomyces cerevisiaestrain in synthetic must affects gene expres-
+sion and the levels of several volatile compounds. Antonie van Leeuwenhoek , 92,
+61– 75.
+Le, S., Josse, J., & Husson, F. (2008). FactoMineR: An R package for multivariate analysis.
+Journal of Statistical Software, 25,1 – 18.
+Lee, S. J., & Noble, A.C. (2003). Ch aracterisation of odor-active compounds in Californian
+Chardonnay wines using GC-olfactometry and GC – mass spectrometry. Journal of
+Agricultural and Food Chemistry, 51,8 0 3 6– 8044.
+Lilly, M., Bauer, F. F., Lambrechts, M. G., Swiegers, J. H., Cozzolino, D., & Pretorius, I. S.
+(2006). The effect of increased yeast alcohol acetyltransferase and esterase activity
+on the ﬂavour proﬁles of wine and distillates. Yeast, 23,6 4 1– 659.
+Lilly, M., Lambrechts, M. G., & Pretorius, I. S. (2000). Effect of increased yeast alcohol ace-
+tyltransferase activity on ﬂavor pro ﬁles of wine and distillates. Applied and
+Environmental Microbiology, 66,7 4 4– 753.
+Mendes-Ferreira, A., Barbosa, C., Falco, V., Leao, C., & Mendes-Faia, A. (2009).The produc-
+tion of hydrogen sulphide and other compounds by wine strains of Saccharomyces
+cerevisiae in synthetic media with different nitrogen concentrations. Journal of
+Industrial Microbiology and Biotechnology, 36,5 7 1– 583.
+Miller, A.C., Wolff, S. R., Bisson, L. F., & Ebeler, S. E. (2007). Yeast strain and nitrogen sup-
+plementation: Dynamics of volatile ester production in Chardonnay juice fermenta-
+tions. American Journal of Enology and Viticulture, 58,4 7 0– 483.
+Minetoki, T., Bogaki, T., Iwamatsu, A., Fujii, T., & Hamachi, M. (1993). The puri ﬁcation,
+properties and internal peptide sequences of alcohol acetyltransferase isolated from
+Saccharomyces cerevisiae Kyokai No. 7. Bioscience, Biotechnology, and Biochemistry ,
+57,2 0 9 4– 2098.
+Molina, A.M., Swiegers, J. H., Varela, C., Pretorius, I. S., & Agosin, E. (2007). Inﬂuence of
+wine fermentation temperature on the synthesis of yeast-derived volatile aroma
+compounds. Applied Microbiology and Biotechnology, 77,6 7 5– 687.
+Morakul, S., Mouret, J. R., Nicolle, P., Aguera, E., Sablayrolles, J. M., & Athes, V. (2013).Ad y -
+namic analysis of higher alcohol and ester release during winemaking fermentations.
+Food and Bioprocess Technology, 6,8 1 8– 827.
+Morakul, S., Mouret, J. R., Nicolle, P., Trelea, I. C., Sablayrolles, J. M., & Athes, V. (2011).
+Modelling of the gas– liquid partitioning of aroma compounds during wine alcoholic
+fermentation and prediction of aroma losses. Process Biochemistry, 46,1
+ 1 2 5–1131.
+Moreira, N., de Pinho, P. G., Santos, C., & Vasconcelos, I. (2011). Relationship between ni-
+trogen content in grapes and volatiles, namely heavy sulphur compounds, in wine.
+Food Chemistry, 126,1 5 9 9– 1607.
+Mouret, J. R., Morakul, S., Nicolle, P., Athes, V., & Sablayrolles, J. M. (2012). Gas– liquid
+transfer of aroma compounds during winemaking fermentations. LWT–Food Science
+and Technology, 49,2 3 8– 244.
+Mouret, J. R., Perez, M., Angenieux, M., Nicolle, P., Farines, V., & Sablayrolles, J. M. (2013).
+Online-based kinetic analysis of higher alcohol and ester synthesis during
+winemaking fermentations. Food and Bioprocess Technology . http://dx.doi.org/10.
+1007/s11947-013-1089-5.
+Saerens, S. M. G., Delvaux, F. R., Verstrepen, K. J., & Thevelein, J. M. (2010).Production and
+biological function of volatile esters in Saccharomyces cerevisiae . Microbial
+Biotechnology, 3,1 6 5–177.
+Saerens, S. M. G., Delvaux, F., Verstrepen, K. J., Van Dijck, P., Thevelein, J. M., & Delvaux, F.
+R. (2008). Parameters affecting ethyl esters production by Saccharomyces cerevisiae
+during fermentation. Applied and Environmental Microbiology, 74,4 5 4– 461.
+Swiegers, J. H., Bartowsky, E. J., Henschke, P. A., & Pretorius, I. S. (2005).Yeast and bacterial
+modulation of wine aroma andﬂavour. Australian Journal of Grape and Wine Research,
+11,1 3 9– 173.
+Torrea, D., Fraile, P., Garde, T., & Ancin, C. (2003).Production of volatile compounds in the
+fermentation of Chardonnay musts inoculated with two strains of Saccharomyces
+cerevisiae with different nitrogen demands. Food Control, 14,5 6 5– 571.
+Torrea, D., Varela, C., Ugliano, M., Ancin-Azpilicueta, C., Francis, I. L., & Henschke, P. A.
+(2011). Comparison of inorganic and organic nitrogen supplementation of grape
+juice — Effect on volatile composition and aroma pro ﬁle of a Chardonnay wine
+fermented with Saccharomyces cerevisiaeyeast. Food Chemistry, 127, 1072– 1083.
+Ugliano, M., Travis, B., Francis, I. L., & Henschke, P. (2010). Volatile composition and sen-
+sor
+y properties of Shiraz wines as affected by nitrogen supplementation and yeast
+species: Rationalizing nitrogen modulation of wine aroma. Journal of Agricultural
+and Food Chemistry, 58,1 2 4 1 7– 12425.
+Van Der Sluis, C., Rahardjo, Y. S. P., Smit, B.A., Kroon, P. J., Hartmans, S., Ter Schure, E. G.,
+et al. (2002). Concomitant extracellular accumulation of alpha-keto acids and higher
+alcohols by Zygosaccharomyces rouxii . Journal of Bioscience and Bioengineering , 93,
+117– 124.
+Verstrepen, K. J., Derdelinckx, G., Dufour, J. P., Winderickx, J., Thevelein, J. M., Pretorius, I. S.
+, et al. (2003). Flavor-active esters: Adding fruitiness to beer.Journal of Bioscience and
+Bioengineering, 96,1 1 0– 118.
+Verstrepen, K. J., Van Laere, S. D.M., Vanderhaegen, B.M. P., Derdelinckx, G., Dufour, J. P.,
+Pretorius, I. S., et al. (2003). Expression levels of the yeast alcohol acetyltransferase
+genes ATF1, Lg-ATF1, and ATF2 control the formation of a broad range of volatile es-
+ters. Applied and Environmental Microbiology, 69,5 2 2 8– 5237.
+Vilanova, M., Siebert, T. E., Varela, C., Pretorius, I. S., & Henschke, P. A. (2012).Effect of am-
+monium nitrogen supplementation of grape juice on wine volatiles and non-volatiles
+composition of the aromatic grape variety Albarino. Food Chemistry, 133,1 2 4– 131.
+Vilanova, M., Ugliano, M., Varela, C., Siebert, T. E., Pretorious, I. S., & Henschke, P. A. (2007).
+Assimilable nitrogen utilisation and production of volatile and non-volatile com-
+pounds in chemically de ﬁned medium by Saccharomyces cerevisiae wine yeasts.
+Applied Microbiology and Biotechnology, 77,1 4 5– 157.
+10 J.R. Mouret et al. / Food Research International 62 (2014) 1–10

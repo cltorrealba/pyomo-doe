@@ -1,0 +1,9 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count
+baseline_phase,0,True,2,`ftol` termination condition is satisfied.,8,8848.582610025685,9449.737462216985,9448.991216408125,261,9,36.2030314804909,2
+baseline_phase,1,True,2,`ftol` termination condition is satisfied.,7,43406.09830268711,9449.730635921587,9448.98391046078,261,9,36.20300348835548,2
+baseline_phase,2,True,2,`ftol` termination condition is satisfied.,11,10289.687523295152,9449.731230832456,9448.98450515157,261,9,36.20300576686425,2
+baseline_phase,3,True,2,`ftol` termination condition is satisfied.,13,11608.658422206809,9449.730715046684,9448.983999537024,261,9,36.20300382964377,2
+baseline_phase,4,True,2,`ftol` termination condition is satisfied.,9,11345.769914388586,9449.73059517707,9448.98386989518,261,9,36.20300333293173,2
+baseline_phase,5,True,2,`ftol` termination condition is satisfied.,11,42801.48984807602,9449.730847916884,9448.984121022528,261,9,36.20300429510547,2
+baseline_phase,6,True,2,`ftol` termination condition is satisfied.,6,69212.44625817519,9449.7416684005,9448.99500719883,261,9,36.20304600459322,2
+baseline_phase,7,True,2,`ftol` termination condition is satisfied.,10,11326.924603776582,9449.733848255888,9448.987229085484,261,9,36.20301620339266,2

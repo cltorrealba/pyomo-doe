@@ -1,0 +1,2 @@
+Codigo,Cubada,Horas,Columna,Valor,Criterio,Accion
+MS009-2,MS009,22.5,Brix,45797,Brix > 40,Valor crudo preservado; revisar si corresponde a error de carga/fecha serial.

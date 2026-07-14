@@ -1,0 +1,4 @@
+criterio,estado,valor,comentario
+Cobertura contenido minimo,cumple,8/8 items cubiertos,Todos los items se cubren documentalmente; CO2 se cubre como ausencia justificada.
+Registros CO2,no_disponible_justificado,columnas_presentes=,No hay registros CO2 en estos ensayos porque los sensores aun no estaban instalados.
+Datos crudos preservados,cumple,Excel fuente y CSV exportados,La hoja 00_Resumen indica que no se modificaron valores crudos; flags solo recomiendan revision.

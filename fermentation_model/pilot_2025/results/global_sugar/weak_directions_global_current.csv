@@ -1,0 +1,9 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+global_current,1,-4.417901695062568e-15,"kAcStress, kAcAssim, k_EA_XE, k_EA_growth, kAldRed, k_EA_XE_Nlim, kPyrS_stat, kAldPyr","1.000, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current,2,1.909297512223921e-14,"kAcAssim, kAcStress, k_EA_XE, k_EA_growth, kAldRed, k_EA_XE_Nlim, gammaF0, k_EA_stationary","1.000, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current,3,1.7293159218817445e-08,"k_EA_XE, k_EA_growth, k_EA_XE_Nlim, kAldRed, k_EA_stationary, alpha_EA_loss, gammaF0, betaF0","0.998, 0.057, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current,4,0.00010841170586174861,"k_EA_growth, k_EA_XE, k_EA_stationary, kAldRed, alpha_EA_loss, gammaF0, k_EA_XE_Nlim, betaF0","0.998, 0.057, 0.003, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current,5,0.0008468452049109195,"kAldRed, kAldPyr, kPyrS_stat, kAldO2, kAldS_stat, kPyrO2, kAldS_N, kPyrDrain","1.000, 0.012, 0.006, 0.005, 0.003, 0.002, 0.001, 0.001"
+global_current,6,0.03628687517614102,"kPyrS_stat, kPyrO2, kPyrDrain, kAldS_stat, kAldO2, kAldRed, kPyrS_N, kAldPyr","0.997, 0.070, 0.009, 0.008, 0.006, 0.006, 0.003, 0.002"
+global_current,7,0.24751026428468306,"gammaF0, gammaG0, betaF0, iG, qEF, iE, qEG, k_IAA_growth","0.999, 0.041, 0.022, 0.015, 0.009, 0.008, 0.004, 0.002"
+global_current,8,6.78706858090839,"k_EA_stationary, k_EA_XE_Nlim, alpha_EA_loss, Kd0, kPyrO2, kAldO2, kPyrDrain, iG","0.989, 0.122, 0.078, 0.020, 0.011, 0.007, 0.006, 0.006"

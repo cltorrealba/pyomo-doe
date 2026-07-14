@@ -1,0 +1,10 @@
+candidate,family,horizon_h,temperature_c,X0,N0,G0,F0,E0,Xd0,rationale
+cold_synthesis_hot_stripping,aroma_partition,192.0,"15, 16, 24, 25",0.5,0.24,95.0,95.0,0.0,0.0,Low-temperature synthesis window followed by high-temperature stripping challenge.
+low_temp_growth_separation_plus_co2,legacy_plus,168.0,"15, 17, 20, 22",0.55,0.24,75.0,70.0,0.0,0.0,"Previous robust N/T design, now measured with Xd and online CO2."
+hot_synthesis_cold_retention,aroma_partition,192.0,"24, 25, 17, 15",0.5,0.24,95.0,95.0,0.0,0.0,High-temperature production window followed by cold retention phase.
+fructose_rich_iG_probe,sugar_initial,192.0,"18, 20, 24, 22",0.45,0.26,25.0,150.0,0.0,0.0,Fructose-rich must plus glucose pulse separates fructose capacity from glucose inhibition iG.
+high_biomass_low_N_maintenance,maintenance,168.0,"16, 18, 20, 18",2.2,0.025,70.0,70.0,15.0,0.0,High biomass and low N create low-growth sugar consumption windows for m0.
+glucose_rich_growth_yield,sugar_initial,168.0,"18, 22, 24, 20",0.45,0.26,150.0,25.0,0.0,0.0,High glucose must isolates glucose growth/fermentation terms and tests fructose response after glucose history.
+combined_stress_long_horizon,integrated,240.0,"15, 22, 25, 18",0.7,0.2,110.0,110.0,15.0,0.0,Broad stress/input design for integrated all-parameter information.
+viable_biomass_step,biomass_input,168.0,"18, 22, 22, 18",0.3,0.22,90.0,90.0,0.0,0.0,Known viable biomass addition tests whether rates scale with X and improves q/yield separation.
+ethanol_partition_late_pulse,aroma_partition,216.0,"18, 20, 24, 22",0.65,0.2,85.0,85.0,10.0,0.0,Late ethanol pulse perturbs partition without changing aroma synthesis parameters directly.

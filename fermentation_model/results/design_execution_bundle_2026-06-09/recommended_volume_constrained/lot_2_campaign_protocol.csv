@@ -1,0 +1,4 @@
+campaign_order,lot,start_datetime,candidate,medium,family,horizon_h,temperature_segments,initial_N_mg_l,initial_G_g_l,initial_F_g_l,initial_E_g_l,initial_X_kg_m3,full_samples,small_samples,planned_sample_volume_ml,rationale
+4,2,2026-06-29 08:00:00,synthetic_glucose_rich_fructose_pulse,synthetic,sugar_separation,216.0,"17, 20, 23, 20",240.0,155.0,35.0,0.0,0.4205249999999999,14,6,748.0,High glucose plus fructose pulse separates glucose and fructose uptake/yield directions.
+5,2,2026-06-29 08:00:00,synthetic_lit_SM410_24C_highN_strip,synthetic,literature_temp_strip,168.0,"20, 24, 24, 20",410.0,125.0,125.0,0.0,0.4205249999999999,12,4,632.0,High YAN plus warm high-rate fermentation excites CO2 stripping and temperature-partition effects.
+6,2,2026-06-29 08:00:00,synthetic_viable_biomass_step,synthetic,biomass_input,216.0,"18, 22, 22, 18",220.0,90.0,90.0,0.0,0.3,14,6,748.0,Known viable biomass addition tests rate proportionality to X and supports yield separation.

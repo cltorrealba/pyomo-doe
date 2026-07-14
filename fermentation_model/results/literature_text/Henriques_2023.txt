@@ -1,0 +1,1672 @@
+
+
+--- PAGE 1 ---
+A Dynamic Genome-Scale Model Identi ﬁes Metabolic Pathways
+Associated with Cold Tolerance in Saccharomyces kudriavzevii
+David Henriques,a
+ Romain Minebois,b David dos Santos,a
+ Eladio Barrio,c
+ Amparo Querol,b
+ Eva Balsa-Cantoa
+aBioprocess and Biosystems Engineering, IIM-CSIC, Vigo, Spain
+bSystems Biology of Yeasts of Biotechnological Interest, IATA-CSIC, Paterna, Spain
+cGenomics Department, Universitat de València, Valencia, Spain
+ABSTRACT Saccharomyces kudriavzevii is a cold-tolerant species identi ﬁed as a good
+alternative for industrial winemaking. Although S. kudriavzevii has never been found in
+winemaking, its co-occurrence withSaccharomyces cerevisiaein Mediterranean oaks is well
+documented. This sympatric association is believed to be possible due to the different
+growth temperatures of the two yeast species. However, the mechanisms behind the
+cold tolerance of S. kudriavzeviiare not well understood. In this work, we propose the use
+of a dynamic genome-scale model to compare the metabolic routes used byS. kudriavzevii
+at two temperatures, 25°C and 12°C, to decipher pathways relevant to cold tolerance. The
+model successfully recovered the dynamics of biomass and external metabolites and
+allowed us to link the observed phenotype with exact intracellular pathways. The model
+predictedﬂuxes that are consistent with previous ﬁndings, but it also led to novel results
+which we further conﬁrmed with intracellular metabolomics and transcriptomic data. The
+proposed model (along with the corresponding code) provides a comprehensive picture
+of the mechanisms of cold tolerance that occur withinS. kudriavzevii. The proposed strategy
+offers a systematic approach to explore microbial diversity from extracellular fermentation
+data at low temperatures.
+IMPORTANCE Nonconventional yeasts promise to provide new metabolic pathways for
+producing industrially relevant compounds and tolerating speciﬁc stressors such as cold
+temperatures. The mechanisms behind the cold tolerance ofS. kudriavzeviior its sympatric
+relationship with S. cerevisiae in Mediterranean oaks are not well understood. This study
+proposes a dynamic genome-scale model to investigate metabolic pathways relevant to
+cold tolerance. The predictions of the model would indicate the ability ofS. kudriavzeviito
+produce assimilable nitrogen sources from extracellular proteins present in its natural niche.
+These predictions were further conﬁrmed with metabolomics and transcriptomic data. This
+ﬁnding suggests that not only the different growth temperature preferences but also this
+proteolytic activity may contribute to the sympatric association with S. cerevisiae.F u r t h e r
+exploration of these natural adaptations could lead to novel engineering targets for the
+biotechnological industry.
+KEYWORDS Saccharomyces kudriavzevii, wine fermentation, cold tolerance, dFBA,
+genome-scale metabolic model, nonconventional yeasts, proteolysis, sympatry
+Y
+east species, particularly those belonging to theSaccharomycesgenus, play an impor-
+tant role in human activity (1). Dozens ofSaccharomyces cerevisiaestrains are commer-
+cially available as starters in food and beverage fermentations.S. cerevisiaehas good fermen-
+tation capacity, produces and accumulates ethanol (which is toxic to most other microbial
+species), and thus eliminates competition. Furthermore,S. cerevisiae is remarkably tolerant
+to high sugar concentrations and produces aromatic and volatile compounds during fer-
+mentation. The last characteristic is particularly important in the fermentation of foods and
+beverages.
+Editor Sandi Orlic, Institut Ruder Boskovic
+Copyright © 2023 Henriques et al. This is an
+open-access article distributed under the terms
+of the Creative Commons Attribution 4.0
+International license.
+Address correspondence to Eva Balsa-Canto,
+ebalsa@iim.csic.es.
+The authors declare no conﬂict of interest.
+Received 4 September 2022
+Accepted 10 May 2023
+Published 25 May 2023
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 1
+RESEARCH ARTICLE
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 2 ---
+Aroma retention is critical for the wine industry and could be improved by decreasing
+the temperature of fermentation. However, temperature has a major inﬂuence on the activity
+and performance of S. cerevisiae in fermentation (2, 3). The use of low temperature—well
+below the optimal growth temperature—during the fermentation process improves the
+complexity of the aroma but also prolongs the time required to complete fermentation
+and can result in sluggish or stuck fermentations (4). This is a drawback for the wine fer-
+mentation industry, which is actively looking for alternative starters to produce wines with
+lower alcohol, improved sensory properties, and better energy efﬁciency (5, 6).
+Recent research has revealed the speciesSaccharomyces kudriavzeviias a good alterna-
+tive. S. kudriavzeviiwas originally described by Naumov et al. (7) from two different strains
+found in decayed leaves in Japan. Later, Sampaio and Gonçalves (8) isolated different
+S. kudriavzevii strains from oak trees in Portugal, indicating that the geographic distribution
+of this species was wider than initially assumed. Interestingly, isolation was achieved at 10°C,
+indicating that the species grows at low temperature.S. kudriavzeviistrains have also been
+found in oak trees in Spain (9) and France (10). Morphologically similar to S. cerevisiae,
+S. kudriavzevii is usually smaller (11). This species produces a smaller amount of ethanol
+and a larger amount of glycerol (6), as well as larger amounts of aroma compounds (12),
+than S. cerevisiae. Although S. kudriavzevii has never been found in winemaking, because
+it is outcompeted by S. cerevisiae(13), Sampaio and Gonçalves (8) conﬁrmed the co-occur-
+rence of S. cerevisiaeand S. kudriavzeviiin Mediterranean oaks. This sympatric association is
+believed to be possible due to the different growth temperatures of the two yeast species,
+S. kudriavzeviibeing better adapted to cold conditions (14). In fact, the optimal growth tem-
+perature forS. kudriavzeviiis around 24°C, while forS. cerevisiaeit is around 32°C (3).
+Paget et al. (14) and Tronchoni et al. (15) provided the ﬁrst insight into the intracellular
+processes involved in the cold tolerance ofS. kudriavzevii.I nt h e i rw o r k ,P a g e te ta l .( 1 4 )a n -
+alyzed reactions within the metabolic model iMM904S. cerevisiae (16) for their thermody-
+namic properties and performed a large-scale competition experiment with the collection
+of yeast heterozygote mutants to identify genes and pathways important for growth at low
+temperatures. The list of possible cold-favoring reactions included genes associated with mi-
+tochondrial, fatty acid, and lipid metabolism. Tronchoni et al. (15) comparedS. cerevisiaeand
+S. kudriavzeviiafter the yeasts were adapted to cold shock. Their results showed that both
+yeasts activated mainly genes related to translation machinery, but the response of
+S. kudriavzeviiwas stronger, revealing an increased expression of dozens of genes involved
+in protein synthesis.
+In this work, we went one step further to elucidate the metabolic pathways related
+to cold tolerance inS. kudriavzevii. To this end, we proposed a dynamic genome-scale model
+to compare the metabolic routes used by S. kudriavzevii at a nearly optimal growth
+temperature (25°C) and at a cold temperature (12°C). The model, adapted from the
+one recently proposed by several groups (17), integrates a kinetic model that
+describes the dynamics of extracellular metabolites, with a modiﬁcation of the Yeast8 con-
+sensus metabolic reconstruction (18) and a multiphase and multiobjectiveﬂux balance anal-
+ysis approach (FBA) (19).
+The model successfully recovered the dynamics of biomass and external metabolites
+and allowed us to link the observed phenotype to exact intracellular pathways at two dif-
+ferent temperatures. The predicted ﬂuxes are consistent with previous ﬁndings but also
+led to novel results which we further con ﬁrmed with intracellular metabolomics and
+transcriptomic data. In particular, S. kudriavzevii appears to use the g -aminobutyric
+acid (GABA) shunt to produce almost all succinate. This route appears to provide the
+NADPH required for the mevalonate pathway, initiated with acetate uptake in the stationary
+phase. Particularly interesting is the fact that S. kudriavzevii showed a high protein turn-
+over, further enhanced at lower temperatures. This may indicate the ability ofS. kudriavzevii
+to produce assimilable nitrogen sources from extracellular proteins present in its natural
+niche. This ﬁnding suggests that not only the different preferences for growth tempera-
+ture but also this proteolytic activity may contribute to the sympatric association with
+S. cerevisiae .
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 2
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 3 ---
+RESULTS
+Metabolic reconstruction for S. kudriavzevii CR85. A comparative analysis of the
+genome sequences ofS. cerevisiaeS288c and S. kudriavzeviiCR85 revealed very small differ-
+ences in terms of metabolic genes (see Table S1 in the supplemental material). From the
+list of metabolic genes that differ between S. kudriavzevii and S. cerevisiae, a large propor-
+tion corresponds to redundant genes, that is, genes that catalyze reactions that can be
+catalyzed by alternative genes. Another fraction is not associated with the reactions present
+in the S. cerevisiae reconstruction. As a result, only seven reactions needed to be removed
+f r o mt h ew i n er e c o n s t r u c t i o no fS. cerevisiae(Table S1).
+The metabolic model pointed toward the use of erythrose 4-phosphate (E4P) in the
+production of higher alcohols. This building block is known to be the precursor of erythritol
+synthesis in other yeast species (e.g.,Yarrowia lipolytica[20]), and the presence of extracellu-
+lar erythritol was conﬁrmed in ourS. kudriavzeviifermentations. Therefore, we have modiﬁed
+the metabolic reconstruction to incorporate the production of erythritol. To this end, since
+to our knowledge there are no known genes associated with erythritol production in
+Saccharomyces , we added the following putative reactions:
+D
+/C0 erythrose 2 4/C0 phosphate ! erythrose 1 phosphate
+Erythrose 1 NADPH 1 H1 ! erythritol 1 NADP1
+as well as an exchange reaction to export erythritol from the cytoplasm to the extracel-
+lular compartment.
+The model successfully explains the dynamics of biomass and external metabolites.
+We ﬁtted the model to experimental data gathered inS. kudriavzeviifermentations at cold
+(12°C) and close to optimal (25°C) temperatures. Data consisted of time series data of bio-
+mass (optical density [OD] and dry weight), plus the concentration of external metabolites,
+including hexoses, nitrogen sources, and metabolic products such as alcohols, carboxylic
+acids, and esters.
+Using the parameter estimation procedure described in Materials and Methods, we
+found parameter estimates that describe the system dynamics well for both temperatures.
+Optimal parameter values are reported in Table S2. The parameter values differed between
+temperatures. Particularly notable are the differences in the duration of the fermentation
+phases, which were larger at lower temperatures. Furthermore, the rates of succinate pro-
+duction and acetate uptake were signiﬁcantly higher at 25°C, while the rate of erythritol
+production was signiﬁcantly higher at 12°C. The best ﬁts for relevant external metabolites
+are shown in Fig. 1A to I and Fig. 2B to H, while the best ﬁts for biomass, carboxylic acids,
+and esters can be found in Fig. S1A1 to A10 and those obtained for amino acids and other
+nitrogen sources are shown in Fig. S1B1 to B17.
+The R
+2 values were determined for all the measured variables and temperatures and
+are reported in Table S3. Our model includes a dynamic biomass composition to describe
+growth kinetics and its relationship with yeast assimilable nitrogen (YAN). The best ﬁt
+shown in Fig. S1A1 corresponds to R2 scores of 0.92 at 12°C and 25°C. Sugars are
+explained with an R2 median above 0.92 for both temperatures (Fig. 1A to C). Nitrogen
+sources are explained with an R2 median greater than 0.9 (Fig. 2F to H and Fig. S1B1 to
+B17). The production of alcohols is explained with an R2 median greater than 0.93 (Fig. 1F
+to I, Fig. 2B to E, and Fig. S1A9 and A10). RegardingR2 for the production of carboxylic acids,
+the median at 12°C was 0.77, while at 25°C it was 0.9 (Fig. 1D and E and Fig. S1A2 and A3).
+Esters are explained with a lower quality, with a median R2 of approximately 0.3 at both
+temperatures (Fig. 1I and Fig. S1A4 to A8). The low quality of these predictions is typi-
+cally associated with a low signal-to-noise ratio (SNR) and a high dispersion of the data
+observed in the measured variables, which has been linked to the volatility of these
+compounds.
+The general quality of the ﬁt suggests that this modeling approach is well suited to
+describe standard and cold fermentations by S. kudriavzevii.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 3
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 4 ---
+No flux during
+stationary phase 
+.
+.
+Mitochondrion
+  Glucose + FructoseEthanolJ)
+Cytoplasm
+Produces NADPH
+Consumes NADPHConsumes NADH
+Produces NADH Shuttle, carrier, exchange
+Stoichiometry 2x
+Acetate
+Ethyl 
+acetate
+Ethyl acetate
+G3P
+DHAP
+Acetaldehyde  
+Ethanol
+G3P
+Glycerol
+DHAP
+F16BP
+GADP
+Glycerol
+PEP
+Pyruvate
+A-CoA
+Shikimate
+Citrate
+Oxaloacetate
+Malate
+Isocitrate
+2-oxoglutarate
+Cis-aconitate
+Isocitrate
+Succinic
+semialdehyde
+Oxoloacetate
+Succinate
+Succinate
+Malate
+Ethanol
+Pyruvate
+Acetaldehyde
+2,3-Butanediol
+Acetoin
+2,3-Butanediol
+< 0.1 
+Dynamic Flux ratio (mmol/mmolH) = line thickness
+Except for: Thick lines > 50; < 0.3
+F16P PPP
+ PPP
+TCA Reductive branch
+TCA Oxidative
+branch
+Citrate
+r_0492
+r_2057
+r_2034
+r_1106
+r_0159
+r_0658r_2131
+r_0302
+r_0280
+r_0659
+r_0714
+r_2132
+r_1763
+r_0300
+r_0489
+r_1172
+r_0452
+r_0958
+r_1632
+r_1128
+r_2115 
+r_0491
+r_0029
+r_0471
+r_0469
+2-oxoglutarate
+r_0068
+r_0068
+GABA
+Fumarate
+Mevalonate
+r_1023
+r_1096
+Mevalonate
+HMG-CoA
+Acetoacetyl
+-CoA
+r_0103
+r_0165
+Model vs data 
+Predicted fluxes
+Sk 25 
+oC
+Sk 12 oC  
+Fructose (g/L)Glucose (g/L) Acetate (g/L)
+0.04 1.31
+r_0558
+r_0112
+0.14 4.13
+Acetate
+0.10 4.12
+r_0961
+0.22 1.03
+0.22 1.03
+r_0559
+A-CoA
+ 0.003
+0.19 0.94
+0.19 0.94
+0.19 0.94
+0.19 0.94
+Glutamate
+0.22 1.03
+Acetaldehyde
+r_2116
+0.04 
+2-oxoglutarate
+Malate
+0.42 1.13
+0.14 2.25
+0.42 1.12
+0.19 0.94
+0.41 1.17
+r_0003 
+r_0960 
+r_1097 r_1762 
+ 1.31
+r_1840
+0.04
+Model: lines; Data: circles
+r_0713
+r_0718
+0.12 0.05
+ATP
+H20
+ADP
+H+
+Phosphate
+r_4046
+15.8 6.32
+0 100 200 3000
+50
+100
+Time (h)
+0 100 200 300
+50
+100
+Time (h)
+0 100 200 3000
+0.5
+1
+Time (h)
+Succinate (g/L)
+Time (h)
+0 100 200 3001.5
+2
+2.5
+Ethanol (g/L)
+Time (h)
+0 100 200 3000
+50
+100 2,3-Butanediol (g/L)
+Time (h)
+0 100 200 3000
+1
+Glycerol (g/L)
+Time (h)
+0 100 200 3000
+5
+10
+0 100 200 3000
+0.05
+0.1
+Ethyl acetate (g/L)
+Time (h)
+0 100 200 3000
+20
+40
+Time (h)
+Sucrose (g/L)
+ 1.31
+0.19 0.940.01 0.15
+0.19 0.940.42 1.13
+HMG-CoA
+A) B) C) D)
+E) F) G) H) I)
+r_1134 r_1166 
+FIG 1 Central carbon metabolism, representing the dynamics of sugar uptake (A to C) and relevant products (D to I). Continuous lines represent model predictions,
+while circles represent experimental data. Panel J presents a comparison of theﬂuxes computed during the stationary phase for both temperatures (orange, 25°C; blue,
+12°C). Sk, S. kudriavzevii.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 4
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 5 ---
+Extracellular medium
+Cytoplasm
+Fructose Glucose 
+Mitochondrion
+Glycolysis Produces NADPH
+Consumes NADPH
+Consumes NADH
+Produces NADH
+Shuttle or carrier
+Stoichiometry 2x
+Sk 25 oC
+Sk 12 oC
+ 0.69 0.25
+ 46.6 59.8
+ 44.8 57.9
+ 0.05 0.37
+Erythritol (g/L)
+Time (h)
+PEA (g/L)
+Model vs data and predicted fluxes
+< 0.1 
+Flux score (mmol/mmolH)
+< 0.3
+Line thickness = flux score
+Except for:
+Thick blue lines > 50  
+Isoamylol (g/L)
+Time (h)
+Isobutanol (g/L)
+ 53.4 40.2
+r_1050
+r_0984
+F6P
+X5P
+Rbl5P
+R5P
+G6P
+r_0091
+r_0466
+r_0889
+r_0982
+SH7P
+r_1049r_0990
+E4P
+Erythrose
+Erythritol
+ 0.69 0.25
+DHA7P
+r_0042
+r_0996
+r_0040
+r_0039
+r_0962
+PEP
+r_0065
+Shikimate EPSP
+Chorismate
+Prephenate
+r_0938
+r_2117
+Phenylalanine
+r_0854
+PAL
+PEA
+ 0.004 0.05
+PAL
+PEA
+PEA
+r_1590
+Time (h)
+Pyruvate
+r_0170
+Erythritol
+Pyruvate
+2-AcetyllacticA
+r_0097
+3-m-2-o
+r_0352
+ 0.20 0.08
+Valine
+r_0961
+r_0061
+r_0029
+r_0072
+Ketoleucine
+ 0.53 0.008
+3-methylbutanal
+r_1599
+3-methylbutanal
+Isoamylol
+r_1600
+r_0181
+r_0180
+Isoamylol
+r_1864
+r_1863
+r_1868
+2-oxoglutarate
+Glutamate
+ 0.20 0.09r_1088
+r_2093
+ 0.20 0.09
+3-m-2-o IBAL
+r_1583
+Valine
+IBAL Isobutanol
+Isobutanol
+r_1869
+  0.03
+r_0182
+ 0.20
+r_0184
+ 0.20 0.08
+Isobutanol
+r_0179
+ 0.004 0.28
+Isoamylol
+0.43 
+3-methylbutanal
+ 0.002 0.12
+r_0025
+Acetyl-CoA
+IPM
+  0.05
+r_0183
+  0.05
+0.0020.008
+r_0062
+r_1087
+0.04 0.01
+2-oxoglutarate
+Glutamate
+Glutamate
+ 0.05 0.15
+r_1196
+Keto-phenylpyruvate
+ 0.005 0.09
+r_0169
+ 0.12 
+r_0171
+r_1591
+r_2003
+6.539
+Valine
+0.04 0.13
+Phenylalanine
+ 0.02 0.07
+0 100 200 3000
+0.01
+0.02
+0.03
+Glutamate (g/L)
+Time (h)
+0 100 200 3000
+0.1
+0.2
+0 100 200 3000
+0.05
+0.1
+0 100 200 3000
+0.02
+0.04
+Phenylalanine (g/L)
+0 100 200 3000
+0.01
+0.02
+Time (h)
+Valine (g/L)
+Time (h)
+0 100 200 3000
+0.05
+0.1
+Time (h)
+0 100 200 3000
+0.2
+0.4
+ 1.06 0.42
+IPM
+ 0.002 0.12
+  0.03
+A)
+B) C) D) E)
+F) G) H)
+r_1574
+FIG 2 Secondary metabolism associated with the production of higher alcohols. Panel A presents a comparison of the ﬂux ratios obtained in the stationary
+phase for both temperatures (orange, 25°C; blue, 12°C). Panels B to E show the comparison of the model with the experimental data for the most abundant h igher
+alcohols and erythritol. Panels F and H show the model predictions versus the data corresponding to the uptake of three amino acids that contribute to t he
+production of higher alcohols.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 5
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 6 ---
+As i g n iﬁcant protein turnover activity could explain the slower growth ofS. kudriav-
+zevii in fermentation.The biomass equation is a pseudoreaction in the stoichiometric
+model that details the quantities (in millimoles) of compounds (generally monomers)
+required to synthesize 1 g of biomass (a group of polymers). The proposed model uses
+a dynamic biomass equation in which the protein content in the newly formed cell mass
+depends on YAN. Adjusting this reaction was necessary to match amino acid consump-
+tion rates with growth rates. Noticeably, we found that at the beginning of fermentation,
+S. kudriavzevii had an increased protein content at low temperature (66% and 41% at 12°C
+and 25°C, respectively).
+In a stoichiometric model, growth-associated maintenance (GAM) ATP is the amount of
+this compound required to form 1 g of biomass. From a modeling point of view, GAM deter-
+mines how much of the carbon source (here glucose and fructose) is shifted to energy pro-
+duction (fermentation) to the detriment of carbon-dependent biomass precursors. Thus, in
+practice, this parameter mainly determines the growth rate and the yield for a given hexose
+intake. By default, the Yeast8 model is conﬁgured with a GAM of approximately 60 mmol of
+ATP/(gDW/C1 h) (where gDW is grams [dry weight]). About half of this amount can be attributed
+to polymerization costs, and the rest can be attributed to processes required to maintain cellu-
+lar structural integrity against constant leakage of molecules over membranes (e.g., ethanol)
+and degradation of cellular polymers.
+Our model includes a parameter (GAM
+F) that regulates the fraction of GAM that is not
+associated with the polymerization costs. Using parameter estimation, we found that GAM
+corresponded to approximately 137 and 99.8 mmol of ATP/(gDW/C1 h) at 12 and 25°C, respec-
+tively (Table S2). These values were substantially higher than the total GAM ofS. cerevisiae,
+implying a lower biomass yield for a given hexose uptake inS. kudriavzevii.
+To understand this apparent higher energy expenditure inS. kudriavzevii,w er e v i s i t e d
+gas chromatography-mass spectrometry (GC-MS) data from intracellular metabolites from
+previous experiments carried out in a chemostat at a dilution rate (D)o f0 . 0 4h
+21 (21). The
+authors found that compared toS. cerevisiaeand S. uvarum, S. kudriavzeviihad a signiﬁcant
+increase in metabolites from the salvage pathway of NAD (e.g., nicotinate, nicotinamide
+ribonucleotide, nicotinate ribonucleoside, and both oxidized and reduced forms of nicotin-
+amide [Table S4]). Furthermore, in light of our modeling results, a large group of dipepti-
+des (e.g., glycyltryptophan, arginylvaline, and histidylleucine, to name a few) were found in
+S. kudriavzeviiat concentrations up to 40 times higher than inS. cerevisiae(Table S4). Together,
+these results suggest that during growth,S. kudriavzeviihas a high protein turnover rate com-
+pared to that of S. cerevisiae or S. uvarum, which is explained by the predicted expendi-
+ture of ATP (for protein synthesis) and the signiﬁcant increase in the concentration of dipep-
+tides (from protein degradation).
+To further explore whether an increase in protein synthesis could be associated with
+cold temperature, we compared the number of transcripts associated with translation at 12
+and 25°C. The cold condition resulted in 1.44- and 0.76-log
+2 fold increases in the number
+of transcripts associated with protein synthesis during the exponential phase and growth
+in limited nitrogen, respectively. We also explored the signiﬁcance of this result with the
+paired t,t w o - s a m p l et, and Kolmogorov-Smirnov tests. All tests rejected the null hypothe-
+sis (both times), indicating that ribosomal gene transcription increases in response to cold
+temperature. The former results support the role of increased protein synthesis in
+response to cold temperatures. This situation was reversed during the stationary phase,
+during which greater transcription was observed at 25°C.
+To investigate the role of temperature in the metabolism ofS. kudriavzevii, we calculated
+the dynamic ﬂux ratios obtained at 12 and 25°C. We observed that there was an overlap in
+the production of succinate and higher alcohols, as well as in the consumption of acetate
+during the stationary phase. Thus, we focused our study on this particular phase. Theﬂux
+ratios for all reactions during this phase are given in Table S5. Fig. 1 to 3 present a compar-
+ison of the intracellularﬂuxes predicted at both temperatures. Fig. 1 focuses on central car-
+bon metabolism, while Fig. 2 shows the link between central carbon metabolism and the
+production of higher alcohols. Fig. 3 summarizes theﬂux ratios showing the highest differ-
+ences between temperatures (base 2 logarithms of the fold change). The ﬂux ratios were
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 6
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 7 ---
+selected according to their magnitude (at least one of theﬂux ratios Si,D at 25°C and Si,D at
+12°C was .0.1 and their log2 ratio was .1).
+Figure 3 highlights several groups of enologically important metabolites showing
+relevant differences between temperatures. The most obvious difference is that mostﬂuxes
+were higher at close to optimal temperature. It is particularly relevant that redox balance
+was achieved differently at the two temperatures. For example, at 25°C, the cell showed a
+signiﬁcant ﬂux ratio (5 log
+2 fold higher than at 12°C) through the reaction r_0558, correspond-
+ing to the activation of 3-hydroxy-3-methylglutaryl coenzyme A (HMG-CoA) reductase,
+the rate-controlling enzyme of the mevalonate pathway. This would indicate that lipids
+are the main sink for exogenous acetate consumed by S. kudriavzevii at 25°C. Another
+Flux ratios at 12 ºC are higher 
+Flux ratios at 25 ºC are higher Produces NADPH
+Consumes NADPHConsumes NADH
+Produces NADH
+0.001
+0.0032
+0.01
+0.032
+0.1
+0.32
+3.2
+10
+1.0
+32
+0
+9.608
+-6.131
+6.539
+6.539
+6.539
+5.909
+5.387
+5.104
+5.104
+4.903
+4.156
+2.583
+3.167
+3.166
+2.824
+2.683
+2.309
+2.309
+2.309
+2.309
+2.259
+2.259
+2.259
+2.259
+2.178
+2.178
+1.850
+1.737
+1.650
+1.664
+1.658
+1.665
+1.648
+1.666
+1.655
+1.656
+1.648
+1.580
+1.495
+-1.490
+-1.490
+1.434
+1.431
+-1.374
+-1.331
+-1.331
+-1.331
+-1.331
+-1.326
+-1.326
+-1.324
+-1.322
+-1.129
+-1.129
+-1.129
+-0.716
+2.583
+2.583
+4.066
+0
+0
+0
+0.534
+0.200
+0.003
+0.118
+0.526
+0.002
+0.002
+0.002
+0.002
+0.099
+0.038
+0.038
+0.138
+0.053
+0.009
+0.179
+0.179
+0.179
+0.680
+0.681
+0.053
+0.025
+0.191
+0.191
+0.191
+0.191
+0.216
+0.216
+0.216
+0.216
+0.03
+0.03
+0.15
+0.042
+0.029
+0.071
+0.045
+0.041
+0.03
+0.046
+0.047
+0.046
+0.03
+0.416
+0.414
+0.694
+0.694
+0.417
+0.417
+1.065
+1.064
+1.064
+1.064
+1.064
+0.203
+0.203
+15.816
+0.201
+0.201
+0.201
+0.201
+0.103
+1.307
+1.307
+0.302
+0
+0
+2.185
+0
+0.008
+0.205
+0.205
+0.205
+0.198
+4.127
+1.307
+1.307
+4.129
+0.946
+0.146
+1.075
+1.075
+1.075
+6.109
+6.107
+0.375
+0.161
+0.945
+0.945
+0.945
+0.945
+1.034
+1.034
+1.034
+1.034
+0.136
+0.136
+0.538
+0.14
+0.091
+0.225
+0.142
+0.13
+0.094
+0.146
+0.148
+0.145
+0.094
+1.242
+1.167
+0.247
+0.247
+1.126
+1.123
+0.411
+0.423
+0.423
+0.423
+0.423
+0.081
+0.081
+6.319
+0.08
+0.092
+0.092
+0.092
+0.063
+-6
+-4
+-2
+0
+2
+4
+6
+8
+10
+acetyCoA C-acetyltransferase [c]
+hydroxymethylglutaryl CoA synthase [c]
+2-isopropylmalate transport [c] > [e]
+aldehyde dehydrogenase (isoamylol, NADP) [c]
+aldehyde dehydrogenase (isobutylol, NADP) [c]
+water diffusion [c] > [e]
+aldehyde dehydrogenase (PEA, NADP) [c]
+3-methylbutanal transport  [c] > [e]
+aldehyde dehydrogenase (isoamylol, NAD) [m]
+3-methylbutanal transport [c] > [m]
+isoamyl alcohol transport  [m] > [c]
+aldehyde dehydrogenase (isoamylol, NAD) [c]
+acetate transport [e] > [c]
+hydroxymethylglutaryl CoA reductase [c]
+mevalonate transport [c] > [e]
+acetyCoA synthetase [c]
+water diffusion [c] > [m]
+glutamate dehydrogenase (NADP) [c]
+mitochondrial alcohol dehydrogenase [m]
+acetaldehyde transport [c] > [m]
+ethanol transport, mitochondrial [m] > [c]
+adenylate kinase [c]
+inorganic diphosphatase [c]
+transketolase 2 [c]
+arginine transport [e] > [c]
+4-aminobutyrate transaminase [c]
+glutamate decarboxylase [c]
+succinate-semialdehyde dehydrogenase (NADP) [c]
+succinate transport [c] > [e]
+cis-aconitate(3-) to isocitrate [m]
+citrate synthase [m] 
+citrate to cis-aconitate(3-) [m]
+malate dehydrogenase [m]
+pyrroline-5-carboxylate reductase [c]
+glutamate 5-semialdehyde dehydratase [c]
+protein pseudoreaction [c]
+lysine transport [e] > [c]
+serine transport [e] > [c]
+alanine transport [e] > [c]
+glycine transport [e] > [c]
+valine transport [e] > [c]
+threonine transport [e] > [c]
+aspartate transport [e] > [c]
+glutamate transport [e] > [c]
+leucine transport [e] > [c]
+isoleucine transport [e] > [c]
+bicarbonate formation [c]
+pyruvate carboxylase [c]
+erythrose formation [c]
+erythritol formation [c]
+oxoglutarate/malate exchange [c] <> [m]
+malate dehydrogenase, cytoplasmic [c]
+4-methy2-oxopentanoate decarboxylase [c]
+2-isopropylmalate hydratase [c]
+2-oxo-4-methy3-carboxypentanoate decarboxylation [c]
+3-isopropylmalate dehydratase [c]
+3-isopropylmalate dehydrogenase [c]
+3-methy2-oxobutanoate decarboxylase
+valine transaminase [c]
+non-growth associated maintenance reaction [c]
+isobutanol transport [c] > [e]
+valine transaminase, mitochondiral [m]
+glutamate transport [c] > [m]
+valine transport [m] > [c]
+malic enzyme (NAD) [m]
+r_0103
+r_0559
+r_1573
+r_0181
+r_0184
+r_1277
+r_0171
+r_1599
+r_0180
+r_1600
+r_1864
+r_0179
+r_1106
+r_0558
+r_1096
+r_0112
+r_2096
+r_0471
+r_0165
+r_1632
+r_1763
+r_0148
+r_0568
+r_1050
+r_1184
+r_0068
+r_0469
+r_1023
+r_2057
+r_0280
+r_0300
+r_0302
+r_0713
+r_0957
+r_1887
+r_4047
+r_1213
+r_1217
+r_1183
+r_1173
+r_1224
+r_1218
+r_1190
+r_1196
+r_1211
+r_1205
+r_1667
+r_0958
+r_ery
+r_ery2
+r_2132
+r_0714
+r_0072
+r_0023
+r_0029
+r_0060
+r_0061
+r_0062
+r_1087
+r_4046
+r_1868
+r_1088
+r_1194
+r_2093
+r_0718
+Sk 25 oCSk 12 oC
+Flux ratios Log2 ratio
+log2(|Si,S(25)/Si,S(12)|)
+FIG 3 Comparative analysis of ﬂux ratios obtained at different temperatures. The ﬂux ratios were selected according to their magnitude
+(at least one of the ﬂux ratios Si;D at 25°C and Si;D at 12°C was .0.1) and their log 2 ratio (.1). Signiﬁcant differences were observed in
+the production of succinate and GABA, the TCA cycle (corresponding to the production of succinate), precursors, phosphate shuttles of
+glycerol 3 required to detoxify the mitochondria under anaerobic conditions, the PPP in the production of TKL2 and erythritol, and the
+uptake and use of branched-chain amino acids and the production of higher alcohols.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 7
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 8 ---
+important difference appears in the activation of glutamate decarboxylase (r_0469;
+2.309 log 2 fold), indicating a higher activity of the GABA shunt at 25°C. Signi ﬁcant dif-
+ferences also appear in the production of isoamyl alcohol and isobutyl alcohol. Cells
+use aldehyde dehydrogenase, although they activate different reactions at 12°C and at
+25°C. Reactions r_0181 and r_0184, with NADPH uptake, are selected at 12°C, while reactions
+r_0179 and r_0180, which consume NADH, are the preferred routes at 25°C. At 12°C, cells
+use r_0171 to contribute to produce 2-phenylethanol (PEA), while at 25°C, this route is not
+selected. These results exemplify the effect of temperature on secondary metabolism.
+Lipids are the main sink for exogenous acetate consumed by S. kudriavzevii at
+25°C. Under enological conditions, acetate is produced bySaccharomycesyeasts mainly at
+the beginning of fermentation (22). In this study, at 25°C, we found that a substantial frac-
+tion of the acetate produced in theﬁrst stages of fermentation was later consumed during
+the stationary phase by the strain S. kudriavzevii(Fig. 1D). Because acetate is the precursor
+of acetyl-CoA, itself a major building block of lipid metabolism, several groups (23) hypothe-
+sized that this intake of acetate could be related to lipid synthesis. To test whether the
+model would predict this hypothesis, we unconstrained excretion from a family of lipids
+(Table S6) during the stationary phase, without specifying additional objectives that would
+predictively affect lipid production.
+As shown in Fig. 1D, the model correctly ﬁts the extracellular data for acetate at both
+temperatures. Importantly, acetate uptake was much higher at 25°C (4.13 mmol/mmol of
+hexose [H]) than at cold temperature (0.10 mmol/mmol of H). According to the model,
+after transport, acetate would be fully converted to acetyl-CoA through acetyl-CoA syn-
+thetase (r_0112). After this ﬁrst intermediate step, the excretion of mevalonate (possibly
+acting as a proxy for a complex lipid) was the main ﬁnal destination of acetyl-CoA at 25°C
+(3 /C2 1.31 mmol/mmol of H), with a minor amount directed to the production of ethyl ace-
+tate (0.17 mmol/mmol of H).
+The conversion of acetate to acetyl-CoA (r_0112) by acetyl-CoA synthetase consumes
+ATP and produces AMP as a by-product. Interestingly, theﬂux through the cytoplasmic ad-
+enylate kinase (r_0148), a major AMP:ATP phosphotransferase inS. cerevisiae that provides
+ADP for oxidative phosphorylation and contributes to the maintenance of the energy charge
+(24), was calculated to be almost 10 times greater at 25°C (6.11 mmol/mmol of H) than at
+12°C (0.68 mmol/mmol of H) (Fig. 3). Consequently, the cytoplasmic conversion of acetate
+to acetyl-CoA is probably sustained by the higher recycling of AMP equivalents through
+adenylate kinase at 25°C. In addition to this cost in terms of ATP, as shown in Fig. 1J, three
+molecules of acetyl-CoA are consumed and two molecules of NADPH are oxidized for each
+mevalonate molecule produced from acetate.
+An increased NADPH requirement to support lipid biosynthesis at 25°C could
+explain the higher activity of the GABA shunt.Under fermentative conditions, succinate
+production can be achieved by a combination of the reductive and oxidative branches of
+the Krebs cycle. InS. cerevisiae, the reductive branch is the main route of succinate produc-
+tion during wine fermentation (17, 25) (Table S7). Importantly, the production of 2-oxoglu-
+tarate through the oxidative branch releases NADH, which must be reoxidized within the
+mitochondria to maintain a correct NADH/NAD
+1 ratio. Importantly, the model predicted
+mitochondrial ethanol production, which was 16-fold higher at 25°C (r_0165; 0.14 and
+2.25 mmol/mmol of H at 12 and 25°C, respectively). This reaction is catalyzed by ADH3-en-
+coded mitochondrial alcohol dehydrogenase inSaccharomyces(26) and helps to regenerate
+mitochondrial NAD
+1 at the level of the ethanol-acetaldehyde shuttle (r_1632 and r_1763
+[Fig. 1J]).
+As shown in Fig. 1J, the GABA shunt is related to the oxidative branch at the level of
+2-oxoglutarate. In this study, the model predicted that in our strain ofS. kudriavzevii, succi-
+nate production during the stationary phase would be derived exclusively from the GABA
+shunt pathway at both temperatures (0.19 and 0.94 mmol/mmol of H at 12 and 25°C,
+respectively), but with higher ﬂux at 25°C (r_0469 and r_0123 [Fig. 1J and Fig. 3]). This
+higher ﬂux through the GABA shunt at the high temperature was in line with the higher
+ﬁnal simulated succinate concentration at 25°C (2.56 g/L) than at the cold temperature
+(1.96 g/L). From the results shown in Fig. 3, it also appears that the higherﬂux at 25°C through
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 8
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 9 ---
+the GABA shunt could provide part of the NAPDH equivalents required for the synthesis of
+mevalonate (that is, 2 /C2 0.04 and 2 /C2 1.31 mmol/mmol of H at 12 and 25°C, respectively),
+since one NADPH per succinate is produced via this pathway. Furthermore, the preponder-
+ance of the GABA shunt in succinate synthesis in S. kudriavzevii is compatible with GC-MS
+data of the intracellular metabolite from previous chemostat experiments (D =0 . 0 4h
+21;
+12°C) (21) showing a 20.27-fold increase in intracellular GABA compared with that ofS. cer-
+evisiae (D =0 . 0 4h21; 28°C). In addition, the highest predicted ﬂux toward malate at 25°C
+through the cytoplasmic reductive branch of the tricarboxylic acid (TCA) (r_0714; 0.42 and
+1.12 mmol/mmol of H at 12 and 25°C, respectively) indirectly sustains the exchange of
+malate and 2-oxoglutarate through mitochondrial membranes (malate is internalized into
+mitochondria, while 2-oxoglutarate is exported to cytoplasm) at the level of the 2-oxodi-
+carboxylate carrier (Fig. 1J, r_2132), thus supplying the cytoplasmic GABA shunt with its
+precursor.
+Although the most relevant differences were detected in terms of NADPH production
+in the GABA shunt, the pentose phosphate pathway (PPP) also played a crucial role in pro-
+viding NADPH equivalents (Fig. 2A). In this regard, theﬂux through the reactions of the oxi-
+dative branch of the PPP —producing NADPH—were higher at 25°C (r_0466 and r_0889;
+1.798 and 1.913 mmol/mmol of H at 12 and 25°C, respectively). Erythritol, closely related
+to the PPP, was also detected in the extracellular medium during fermentation. As shown
+in Fig. 2A, the ﬂux through the reaction that produced erythritol was more than twice as
+low at high temperature (ery2; 0.69 and 0.25 mmol/mmol of H at 12 and 25°C, respectively).
+Interestingly, an increase in erythritol production at 12°C was associated with a large reduc-
+tion in the ﬂux through the transketolase 2 enzyme (r_1050; 0.05 and 0.37 mmol/mmol
+of H at 12 and 25°C, respectively).
+Effect of low temperature on the secondary metabolism of S. kudriavzevii . As
+shown in Fig. 2A, pyruvate, the end product of glycolysis, is at the branch point between
+cytosolic alcoholic fermentation and mitochondrial anaplerotic reactions of the Krebs
+cycle, thus providing the carbon skeletons (carboxylic acids) for the de novo synthesis
+of amino acids and important fermentative aromas (higher alcohols and their acetates).
+An interesting result related to this is that a higher ﬂux of cytosolic pyruvate was incor-
+porated into mitochondria at 12°C (r_2034; 3.72 and 3.32 mmol/mmol of H at 12 and 25°C,
+respectively).
+Once inside the mitochondria, a higher fraction of pyruvate was converted to 3-methyl-
+2-oxobutanoate (3-m-2-o) at 12°C (r_0352; 1.26 and 0.82 mmol/mmol of H at 12 and 25°C,
+respectively), while the opposite was observed for the ﬂux from pyruvate to acetyl-CoA
+(r_0961; 1.40 and 1.77 mmol/mmol of H at 12 and 25°C, respectively) (Fig. 2A). Acetyl-CoA
+and 3-m-2-o can condense to form isopropylmalate (IPM) and then ketoleucine, which is
+used in the de novo synthesis of isoamyl alcohol and the aldehyde 3-methylbutanal. In addi-
+tion to a higherde novo synthesis of isoamyl alcohol at the low temperature, the model pre-
+dicted a higherﬂux from IPM toward 3-methylbutanal at 12°C (r_0072; 1.065 and 0.411 mmol/
+mmol of H at 12 and 25°C, respectively) and isoamyl alcohol (r_0181; 0.534 and 0.00 mmol/
+mmol of H at 12 and 25°C, respectively).
+The production of isobutanol from its aldehyde precursor (isobutanal) was carried
+out primarily in the cytoplasm (r_0182; 0.104 and 0.022 mmol/mmol of H at 12 and 25°C,
+respectively) at the cold temperature, while the opposite pattern was observed at the stand-
+ard temperature (r_0183; 0.02 and 0.05 mmol/mmol of H at 12 and 25°C, respectively).
+Although the effect was smaller in relative terms, the same was also true for isoamyl alco-
+hol, with a higher cytoplasmic contribution at the cold temperature (r_0179; 0.40 and
+0.16 mmol/mmol of H at 12 and 25°C, respectively) and a higher mitochondrial contribu-
+tion at the standard temperature (r_0180; 0.14 and 0.23 mmol/mmol of H at 12 and 25°C,
+respectively).
+Regarding the aromatic higher alcohol 2-phenylethanol, its production was similar
+at both temperatures (r_1589; 0.09 and 0.12 mmol/mmol of H at 12 and 25°C, respectively).
+However, at 12°C, it was expected that most of the phenylacetaldehyde (PEA) would convert
+to higher alcohol using NADH (0.08 mmol/mmol of H), while at 25°C, NADPH was the main
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 9
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 10 ---
+redox cofactor. Together, these results suggest that greater availability of cytoplasmic
+NADPH at 25°C is obtained at the cost of increased mitochondrial activity and redox
+shuttles.
+DISCUSSION
+In this work, we have adapted the model presented by several groups (17) to
+explain the metabolism of S. kudriavzevii at different temperatures. The implementa-
+tion of the dynamic FBA (dFBA) approach with Yeast8 metabolic reconstruction was modi-
+ﬁed, taking into account the species genome, the production of erythritol, and the qualita-
+tively different dynamics ofL-arginine consumption (see Materials and Methods). The model
+was ﬁtted to time series data for S. kudriavzevii fermentations at cold (12°C) and standard
+(25°C) temperatures. At the extracellular level, our dynamic genome-scale metabolic
+model was able to reproduce the data satisfactorily; many of the observations we had
+made for the cold-tolerant strain S. uvarum (17) appear to also be compatible with the
+cold-tolerant strain S. kudriavzevii (see Table S7 in the supplemental material). A strik-
+ing example of this was the consumption of acetate during the stationary phase.
+All microorganisms must maintain their structural integrity against constant leakage
+of molecules over membranes (e.g., ethanol) and degradation of cellular polymers at the
+cost of cellular ATP (27, 28). To counteract these degrading processes, such as the pumping
+out of leaked molecules and the repair of degraded molecules, cells must spend energy at a
+continuous rate (maintenance rate), which requires energy and therefore substrate catabo-
+lism (29, 30). In this study, our model showed that a higher GAM than that reported
+for S. cerevisiae [60 mmol of ATP/(gDW/C1 h)] was needed to explain the low glucose-to-bio-
+mass yield of S. kudriavzevii, with a substantially higher estimated GAM at 12°C [137 mmol
+of ATP/(gDW/C1 h)] than at 25°C [99.8 mmol of ATP/(gDW/C1 h)]. The former is consistent with the
+results of Tronchoni et al. (15), in which genes related to translation machinery were found
+to be upregulated inS. kudriavzeviicompared to those inS. cerevisiae. To better understand
+the metabolic processes associated with this energy expenditure, we revisited GC-MS data
+for intracellular metabolites from previous experiments carried out in the chemostat (21).
+These data showed a large increase in the family of dipeptides, which hints at an increase in
+protein turnover. In addition, transcriptomic data further conﬁrmed the model prediction, as
+the expression of ribosomal proteins was signi ﬁcantly higher at 12°C than at 25°C.
+Consequently, previously reported increases in both oxidized and reduced forms of nicotina-
+mide (21) could be explained by a higher rate of reactions associated with amino acid metab-
+olism. As pointed out by Tronchoni et al. (15), this rapid turnover is likely to be an adaptive
+characteristic that allowsS. kudriavzeviito thrive at cold temperatures. However, given that
+S. kudriavzevii is often isolated from oak bark (8) and decayed leaves (7, 31), it would be
+plausible that the enhanced activity of protein hydrolysis is associated with the production
+of yeast assimilable nitrogen from extracellular protein.
+Simulation of intracellularﬂuxes during the stationary phase suggested that succinate
+production was entirely associated with the GABA shunt. This result is consistent with similar
+results obtained for S. uvarum (17) and is supported by GC-MS data from previous experi-
+ments carried out on a nitrogen-limited chemostat (21). Although the role of this pathway
+in yeast is not fully understood, the expression of glutamate decarboxylase (encoded by
+GAD1) is required for tolerance to oxidative stress (32) and heat stress (33) in S. cerevisiae.
+In addition, GAD1 has been shown to be upregulated during the stationary phase under
+nitrogen starvation (34–36). However, inS. cerevisiae, Bach et al. (34) observed that glutamate
+decarboxylase (encoded by GAD1) was poorly expressed when succinate was produced and
+that the GABA shunt played a minor role in redox metabolism.
+Similar to what we have previously reported for the other cold-tolerant species (11, 17, 23),
+we observed that our S. kudriavzevii strain consumed acetate once nitrogen sources were
+depleted. Noticeably, this consumption was more pronounced at the higher temperature
+(25°C) and appeared to correlate with succinate production. BecauseS. kudriavzeviiis a natural
+isolate, well adapted to cold temperatures, the observed differences in acetate consumption
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 10
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 11 ---
+at 12 and 25°C could be related to the variations in the diurnal temperature to which it is
+subjected in its natural environment.
+Previously, we hypothesized that the cold-tolerant species S. uvarum accumulates
+lipids or polyesters, downstream of mevalonate and GABA (17), which would serve as
+reducing equivalents to withstand low-temperature-induced stress. In this study, the
+simulations of the model indicated that the ﬁnal destination of acetate could be meval-
+onate (a precursor of several lipids). Furthermore, data from López-Malo et al. (21)
+show high intracellular GABA and 4-hydroxybutanoic acid (a GABA derivative) in cold-
+tolerant strains grown in synthetic must (without GABA). Bach et al. (34) showed the
+existence of a route for 3-hydroxybutyrate 4-hydroxybutyrate in the presence of GABA.
+Therefore, we hypothesize that polyester 3-hydroxybutyrate 4-hydroxybutyrate could
+be a candidate destination for the acetate consumed.
+S. kudriavzevii produced more erythritol and higher alcohols at the lower temperature.
+Interestingly, this observation coincided with the estimation of a higher protein content at
+the cold temperature. Although this observation seems counterintuitive (that is,S. kudriavzevii
+grows slower), transcriptomic data gathered conﬁrmed that at cold temperatures,S. kudriavze-
+vii upregulates genes associated with protein synthesis. These results are in line with the data
+previously published by Tronchoni et al. (15).
+In this work, we used a dynamic genome-scale model to study the effects of environ-
+mental temperature on the phenotype of S. kudriavzevii in wine fermentation. The model
+allowed us to link the observed phenotype to exact intracellular pathways at two different
+temperatures. Model-predictedﬂuxes are consistent with previousﬁndings but also led to
+novel results which we further conﬁrmed with intracellular data.S. kudriavzevii has a high
+protein turnover compared to that of S. cerevisiae , and this may indicate the ability of
+S. kudriavzevii to produce YAN from extracellular proteins in its natural environment.
+This ﬁnding suggests that not only the different growth temperature preferences but also
+this proteolytic activity may contribute to the sympatric association withS. cerevisiae.
+MATERIALS AND METHODS
+Fermentation experiments and samplings. In this study, we selected the Saccharomyces kudriavze-
+vii strain CR85 (SkCR85), a natural isolate of oak bark from Agudo, Ciudad Real, Spain. Fermentation
+assays and samplings were carried out in Merseguera white grapes using the same methodology as that
+used by several groups previously (11, 23). Two different temperature values were considered: 25°C,
+close to the optimal growth temperature (3), and 12°C, which represents a good compromise to simu-
+late the low fermentation temperatures used in different beverage bioprocesses, such as in the produc-
+tion of white and rosé wines (37), and several S. kudriavzevii-S. cerevisiae interspeciﬁc hybrids have been
+isolated from these processes (6).
+All fermentations were carried out in three independent biological replicates in 500-mL controlled
+bioreactors (MiniBio; Applikon, The Netherlands) ﬁlled with 470 mL of natural grape must. Each bioreactor
+was inoculated using an overnight starter culture cultivated in Erlenmeyer ﬂasks containing 25 mL of YPD
+medium (2% glucose, 0.5% peptone, 0.5% yeast extract) at 25°C and 12°C and at 120 rpm in an agitated in-
+cubator (Selecta, Barcelona, Spain). The yeast culture was inoculated at an optical density at 600 nm
+(OD600) of 0.100. The dynamics of fermentation was monitored using different probes and detectors to
+control and measure temperature, pH, dissolved oxygen (Applikon, The Netherlands), and the percentage
+of carbon dioxide in the gas phase leaving the fermentor (INNOVA 1316 multigas monitors; LumaSense
+Technologies). Fermentations were stopped when a constant sugar content was reached, as measured by
+high-performance liquid chromatography (HPLC).
+Quantiﬁcation of extracellular metabolites. Residual sugars (glucose and fructose), organic acids
+(acetate, succinate, citrate, malate, and tartrate) and the main fermentative by-products (ethanol, glycerol, and
+2.3 butanediol) were quantiﬁed using HPLC (Thermo Fisher Scientiﬁc, Waltham, MA) coupled with the refrac-
+tion index and UV-visible (UV-Vis) detectors (210 nm). Metabolites were separated through a HyperREZ XP car-
+bohydrate H1 column coupled with a HyperREZ XP carbohydrate guard (Thermo Fisher Scientiﬁc, Waltham,
+M A ) .T h ea n a l y s i sc o n d i t i o n sw e r ea sf o l l o w s :1 . 5m MH2SO4 as the eluent, 0.6-mL/minﬂux, and an oven tem-
+perature of 50°C. For sucrose determination, the same HPLC was equipped with a Hi-Plex Pb column (Agilent
+Technologies, CA, USA), the eluent was Milli-Q water at 0.6 mL/min, and the oven temperature was 50°C. The
+retention times of the eluted peaks were compared with those of commercial analytical standards (Sigma-
+Aldrich, Madrid, Spain). Metabolite concentrations were quantiﬁed using calibration graphs (R2 value . 0.99) of
+the standards previously obtained from a linear curveﬁt of the peak areas using 10 standard mixtures. The
+determination of yeast assimilable nitrogen in the form of amino acids and ammonia was carried out following
+the same protocol as described previously (38) using a Dionex Ultimate 3000 ultraperformance liquid chroma-
+tograph (UPLC; Thermo Fisher Scientiﬁc, Waltham, MA) equipped with an Accucore C18 (Thermo Scientiﬁc) LC
+column with acetonitrile and acetate buffer as mobile phases.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 11
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 12 ---
+Higher alcohols and esters. The quantiﬁcation of volatile compounds was performed following the
+protocol deﬁned previously (39). Extraction was performed using headspace solid-phase microextraction
+sampling (SPME) with polydimethylsiloxane (PDMS)ﬁbers (Supelco; Sigma-Aldrich, Barcelona, Spain). Aroma
+compounds were separated by gas chromatography using a TRACE GC ULTRA chromatograph (Thermo Fisher
+Scientiﬁc, Waltham, MA) equipped with aﬂame ionization detector (FID). The column used for separation was
+an HP-INNOWAX 30-m by 0.25-mm capillary column coated with a 0.25-mm layer of cross-linked polyethylene
+glycol (Agilent Technologies, CA). Helium was the carrier gas (ﬂow rate, 1 mL/min). The oven temperature pro-
+gram was 5 min at 60°C, 5 min at 190°C, 20 min at 250°C, and 2 min at 250°C. The detector temperature was
+280°C, and the injector temperature was 220°C under splitless conditions. 2-Heptanone (0.05% [wt/vol]) was
+used as an internal standard. The volatile compounds were identiﬁed by the retention time for the reference
+compounds. Quantiﬁcation of volatile compounds was performed using the calibration graphs of the corre-
+sponding standard volatile compounds.
+Transcriptomic analysis. For transcriptomic analysis, a volume of cells was harvested from the fer-
+mentation broth of each biological triplicate at three time points: during the growth phase (T1; 92 h and
+11.75 h at 25°C and 12°C, respectively), at the end of the growth phase (T2; 100.25 h and 167.25 h at 25°C
+and 12°C, respectively), and early stationary phase (T3; 115 h and 260 h at 25°C and 12°C, respectively). The
+broth volume was rapidly collected from the reactor, transferred to a polypropylene tube, and centrifuged
+(4,000 rpm, 5 min, 4°C) to pellet cells. The supernatant was discarded, and the tube was ﬂash-frozen in liq-
+uid nitrogen and stored at 280°C until total RNA extraction. Total RNA was extracted using the High Pure
+RNA isolation kit (Roche, Mannheim, Germany) following the manufacturer’s protocol. These samples were
+sequenced using the Illumina HiSeq 2000, paired-end reads 75 bases long, and sequences were deposited
+under BioProject number PRJNA473087
+. The complete set of transcriptomis data is reported in Table S4.
+Sequence reads were trimmed and quality ﬁltered using Sickle (40) (minimum read length of 50 and mini-
+mum quality per base of 23) and aligned to the CR85 genome (41) using bowtie2 (42). Gene counts were
+obtained using HTSeq-count version 0.9.0 (43).
+Orthology analysis and genome-scale metabolic reconstruction. The S. kudriavzevii CR85 genome
+was sequenced, assembled, and annotated in a previous study (41). We performed a whole-genome compara-
+tive analysis of orthologous clusters betweenS. kudriavzeviiand S. cerevisiaewith the OrthoVenn2 web server
+(https://orthovenn2.bioinfotoolkits.net/home)( 4 4). As both genomes are mainly colinear and S. kudriavzevii
+shares 5,398 orthologous clusters out of 5,447 with S. cerevisiae , we used for S. kudriavzevii the Yeast8
+metabolic reconstruction of Saccharomyces cerevisiae S288C (18) v.8.3.2 adapted in a previous study (17).
+Multiphase multiobjective ﬂux balance analysis framework. The modeling framework is based on
+knowledge of reaction stoichiometry and mass/charge balances. The model describes the dynamics of internal
+metabolites as a function of metabolic ﬂuxes. To ensure that a unique solution was obtained, we used a
+dynamicﬂux balance analysis (dFBA) (19) approach imposing constraints over theﬂuxes and cellular objectives.
+The model accounts for the dynamic nature of batch fermentation and divides the process into ﬁve
+phases: the lag phase, exponential growth, growth under nitrogen limitation, stationary phase, and
+decay. Their duration is imposed by the estimated parameters T
+L, TE, TS, and TD. Each phase is character-
+ized by a cellular objective and a set of constraints.
+The cellular objectives for the phases are as follows.
+1. For the lag phase, the objective is to maximize ATPase expenditure (equivalent to maximizing
+ATP production).
+2. For the exponential growth phase (up to the time the nitrogen sources were nearly exhausted),
+the objective is to maximize the growth rate.
+3. For growth under nitrogen limitation, the objective is to maximize the growth rate with a higher
+accumulation of carbohydrates.
+4. For the stationary and decay phases, the objective is to maximize the production of both ATP and
+protein.
+Constraints on the externalﬂuxes were modeled using kinetic models in ordinary differential equations.
+The transport of hexoses was described using Michaelis-Menten-type kinetics subject to noncompetitive inhibi-
+tion of ethanol (45). The production of ethanol, the highest alcohols, carboxylic acids, and esters was proportional
+to the amount of hexoses transported. The transport of nitrogen sources was encoded with Michaelis-Menten-
+type kinetics for the case of ammonia and mass action for the amino acids.
+The general formulation of the FBA problem results is as follows:
+maximize
+v Jp
+subject to
+S /C1 v 5 0
+vNH4 $ 2vmaxNH4
+/C1 NH4
+NH41kNH4
+vAAi $ 2kAAi /C1 AAi; 8i 5 1; /C1/C1/C1 ; 19
+VArg $ 2kArg /C1 Arg; t 2 tL ; tS½/C138
+VArg 5 0; t 2 tS ; tF½/C138
+vGlx 52 vmaxG /C1 Glx
+Glx1kG
+/C1 1
+11E=KEi
+vF 52 vmaxF /C1 F
+F1kF
+/C1 1
+11E=KEi
+vO2 52 kO2 /C1 O2
+vPj 52 XA /C1 kPi /C1 vGlx1vFðÞ ; 8j 5 1; /C1/C1/C1 ; 22
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 12
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 13 ---
+where Jp is the function to maximize in each phase p, S is the stoichiometric matrix, v is the vector of the
+ﬂuxes in millimoles per gram (DW) per hour,vGlx and vF are the glucose and fructoseﬂuxes, vO2 is the ﬂux of
+O2 present only at the beginning of fermentation,vNH4 is the ﬂux of ammonium, vAAi i st h ee x c h a n g er a t eo f
+the amino acid i (covering 19 amino acids), and vArg corresponds to the ﬂux of arginine. Note that here, we
+modiﬁed the equation to describe the dynamics of L-arginine to account for the inability ofS. kudriavzeviito
+consume this compound completely. Approximately 100 and 80 mg were not consumed at 12 and 25°C,
+respectively, which corresponds to a relevant fraction of YAN (Fig. S1).v
+Pj are the constraints associated with
+the j ¼ 1; ... ; 22 fermentation products considered. Glx, F,N H 4,O 2,A A i (i ¼ 1; ... ; 19), Arg, and Pj
+(i ¼ 1; ... ; 19) correspond to the concentrations of glucose, fructose, ammonium, O2,a m i n oa c i d s ,a n dp r o d -
+ucts (ethanol, glycerol, 2,3-butanediol, erythritol, PEA, isobutanol, isoamyl alcohol, 1-hexanol, benzyl alcohol,
+succinate, acetate, lactate, malate, isobutyl acetate, isoamyl acetate, penethyl acetate, ethyl caprate, and ethyl
+caprylate), all expressed in millimoles per liter. Interested readers canﬁnd a detailed description of the con-
+straints for the different phases in reference 17.
+The protein content in the biomass was dependent on YAN. The level of mRNA is assumed to be propor-
+tional to the protein content. In this framework, carbohydrates compensate for variations in protein and mRNA
+content. Maintenance of growth-associated maintenance ATP (GAM) was also updated to account for the poly-
+merization costs of the different macromolecules (proteins, RNA, DNA, and carbohydrates):
+GAM 5 GAM
+F 1 GAMProt 1 GAMRNA 1 GAMCarbs 1 GAMDNA
+where GAM F is a species- or strain-dependent parameter estimated from the data, and the rest are the
+polymerization costs of the different biomass precursors (adapted from reference 46).
+All scripts necessary to reproduce the results are available (https://sites.google.com/site/amigo2toolbox/
+examples).
+Parameter estimation. We formulated the parameter estimation problem as a nonlinear optimiza-
+tion problem to compute the unknown model parameters —growth-related constants and kinetic pa-
+rameters—that minimize the squared sum of the distance between the model and the data:
+Jlsq hðÞ 5
+Xnm
+j¼1
+Xnst
+i¼1
+yj;i hðÞ 2 ym
+j;i
+qj;i
+ ! 2
+;
+where nm is the number of measured variables, namely, biomass, hexoses, O 2, ammonium, amino acids,
+and metabolic products (alcohols, carboxylic acids, and esters), nst is the number of sampling times for
+each measured variable, ym
+j is the data vector for each measured variable, yj is the corresponding model
+prediction, and qi;j is a nonnegative de ﬁnite symmetric weighting matrix. In our case, we used the mean
+value of the observed readout to normalize the problem.
+Analysis of dynamic metabolicﬂuxes. We computed the integral of each ﬂux multiplied by the bio-
+mass (millimoles per hour) over time and normalized its value with the accumulated ﬂux of consumed
+hexoses (glucose and fructose):
+Si;G 5 100 /C2
+ðtS
+tL
+vi tðÞ /C1 DW tðÞ
+ðtS
+tL
+vGlx tðÞ /C1 DW tðÞ 1
+ðtS
+tL
+vFr tðÞ /C1 DW tðÞ
+Si;S 5100 /C2
+ðtD
+tS
+vi tðÞ /C1 DW tðÞ
+ðtD
+tS
+vGlx tðÞ /C1 DW tðÞ 1
+ðtD
+tS
+vFr tðÞ /C1 DW tðÞ
+Si;D 5 100 /C2
+ðtF
+t0
+vi tðÞ /C1 DW tðÞ
+ðtF
+t0
+vGlx tðÞ /C1 DW tðÞ 1
+ðtF
+t0
+vFr tðÞ /C1 DW tðÞ
+where Si;G , Si;S,a n d Si;D correspond to a given ﬂux ratio i during the growth, stationary, and decay phases,
+respectively,vi tðÞ (in millimoles per gram [DW] per hour) corresponds to a givenﬂux (the model includes 3,570
+ﬂuxes; the full list is reported in Table S5),vGlx tðÞ (in millimoles per gram [DW] per hour) is theﬂux of glucose,
+vFr tðÞ (in millimoles per gram [DW] per hour) is the fructoseﬂux, and DW is the predicted dry weight biomass (in
+grams). The results correspond to the millimoles of compound produced per millimole of hexose consumed
+times 100 (represented as millimoles per millimole of H). Flux ratios indicate the overall impact of each reaction
+on the net oxidation or reduction of electron carriers during the given phase of fermentation.
+Numerical tools. To automate the modeling pipeline, we used the AMIGO2 toolbox (46). We selected an
+Adams-Bashforth-Moulton method to solve the system of differential equations that describe the dynamics of
+biomass and extracellular metabolites. Note that this method allows discretizing the ordinary differential equa-
+tions in time and approximating the solutions with a variable-step, variable-order approach. This facilitates
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 13
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 14 ---
+convergence and improves the precision of the results (47). In particular, we used theode113 implementation
+of the method provided in MATLAB. At each time step used by ode113, the FBA problem was solved using
+the COBRA Toolbox (48) with the parsimonious FBA (pFBA) option.
+To solve the parameter estimation problem, we selected the Enhanced Scatter Search (eSS) (49) method
+as included in the AMIGO2 toolbox. This optimizer has global convergence properties, and it has been demon-
+strated to be a very efﬁcient alternative to solve parameter estimation problems.
+Integrals required for the dynamic ﬂux analysis were evaluated using the standard trapezoidal
+method (function trapz in MATLAB).
+All scripts necessary to reproduce the results are available inhttps://sites.google.com/site/amigo2toolbox/
+examples.
+SUPPLEMENTAL MATERIAL
+Supplemental material is available online only.
+SUPPLEMENTAL FILE 1, XLSX ﬁle, 1.6 MB.
+SUPPLEMENTAL FILE 2, PDF ﬁle, 0.06 MB.
+SUPPLEMENTAL FILE 3, PDF ﬁle, 0.8 MB.
+ACKNOWLEDGMENTS
+This work received funding from MCIU/AEI/FEDER, UE grant references AEI/10.13039/
+501100011033, CEX2021-001189-S, PID2021-126380OB-C31, PID2021-126380OB-C32, PID2021-
+126380OB-C33, and RTI2018-093744-B-C33, and from Xunta de Galicia (IN607B 2020/03).
+REFERENCES
+1. Parapouli M, Vasileiadis A, Afendra A-S, Hatziloukas E. 2020. Saccharomyces
+cerevisiae and its industrial applications. AIMS Microbiol 6:1–31. https://doi
+.org/10.3934/microbiol.2020001.
+2. Arroyo-López FN, Orli /C19c S, Querol A, Barrio E. 2009. Effects of temperature,
+pH and sugar concentration on the growth parameters of Saccharomyces
+cerevisiae, S. kudriavzevii and their interspeci ﬁc hybrid. Int J Food Micro-
+biol 131:120–127. https://doi.org/10.1016/j.ijfoodmicro.2009.01.035.
+3. Salvadó Z, Arroyo-López FN, Guillamón JM, Salazar G, Querol A, Barrio E.
+2011. Temperature adaptation markedly determines evolution within the
+genus Saccharomyces. Appl Environ Microbiol 77:2292 –2302. https://doi
+.org/10.1128/AEM.01861-10
+.
+4. Bisson LF. 1999. Stuck and sluggish fermentations. Am J Enol Vitic 50:
+107–119. https://doi.org/10.5344/ajev.1999.50.1.107.
+5. Varela C, Dry PR, Kutyna DR, Francis IL, Henschke PA, Curtin CD, Chambers
+PJ. 2015. Strategies for reducing alcohol concentration in wine. Aust J
+Grape Wine Res 21:670–679. https://doi.org/10.1111/ajgw.12187
+.
+6. Pérez-Torrado R, Barrio E, Querol A. 2018. Alternative yeasts for winemak-
+ing: Saccharomyces non-cerevisiae and its hybrids. Crit Rev Food Sci Nutr
+58:1780–1790. https://doi.org/10.1080/10408398.2017.1285751.
+7. Naumov GI, James SA, Naumova ES, Louis EJ, Roberts IN. 2000. Three new
+species in the Saccharomyces sensu stricto complex:Saccharomyces carioca-
+nus, Saccharomyces kudriavzeviiand Saccharomyces mikatae.I n tJS y s tE v o l
+Microbiol 50:1931–1942.https://doi.org/10.1099/00207713-50-5-1931.
+8. Sampaio JP, Gonçalves P. 2008. Natural populations of Saccharomyces
+kudriavzeviiin Portugal are associated with oak bark and are sympatric
+with S. cerevisiae and S. paradoxus. Appl Environ Microbiol 74:2144 –2152.
+https://doi.org/10.1128/AEM.02396-07.
+9. Lopes CA, Barrio E, Querol A. 2010. Natural hybrids of S. cerevisiae /C2 S.
+kudriavzeviishare alleles with European wild populations of Saccharomy-
+ces kudriavzevii . FEMS Yeast Res 10:412 –421. https://doi.org/10.1111/j
+.1567-1364.2010.00614.x.
+10. Erny C, Raoult P, Alais A, Butterlin G, Delobel P, Matei-Radoi F, Casaregola
+S, Legras JL. 2012. Ecological success of a group of Saccharomyces cerevi-
+siae/Saccharomyces kudriavzevii hybrids in the northern European wine-
+making environment. Appl Environ Microbiol 78:3256 –3265. https://doi
+.org/10.1128/AEM.06752-11.
+11. Minebois R, Pérez-Torrado R, Querol A. 2020. Metabolome segregation of
+four strains of Saccharomyces cerevisiae, S. uvarum and S. kudriavzevii con-
+ducted under low temperature oenological conditions. Environ Microbiol 22:
+3700–3721.https://doi.org/10.1111/1462-2920.15135
+.
+12. Stribny J, Gamero A, Pérez-Torrado R, Querol A. 2015.Saccharomyces kudriav-
+zevii and Saccharomyces uvarumdiffer from Saccharomyces cerevisiaeduring
+the production of aroma-active higher alcohols and acetate esters using their
+amino acidic precursors. Int J Food Microbiol 205:41–46. https://doi.org/10
+.1016/j.ijfoodmicro.2015.04.003
+.
+13. Alonso-del-Real J, Pérez-Torrado R, Querol A, Barrio E. 2019. Dominance
+of wine Saccharomyces cerevisiae strains over S. kudriavzevii in industrial
+fermentation competitions is related to an acceleration of nutrient uptake
+and utilization. Environ Microbiol 21:1627 –1644. https://doi.org/10.1111/
+1462-2920.14536.
+14. Paget CM, Schwartz J-M, Delneri D. 2014. Environmental systems biology
+of cold-tolerant phenotype inSaccharomycesspecies adapted to grow at differ-
+ent temperatures. Mol Ecol 23:5241–5257.https://doi.org/10.1111/mec.12930.
+15. Tronchoni J, Medina V, Guillamón JM, Querol A, Pérez-Torrado R. 2014.
+Transcriptomics of cryophilic Saccharomyces kudriavzevii reveals the key
+role of gene translation efﬁciency in cold stress adaptations. BMC Genomics
+15:432. https://doi.org/10.1186/1471-2164-15-432.
+16. Mo ML, Palsson BO, Herrgård MJ. 2009. Connecting extracellular metabolomic
+measurements to intracellularﬂux states in yeast. BMC Syst Biol 3:37.https://
+doi.org/10.1186/1752-0509-3-37.
+17. Henriques D, Minebois R, Mendoza SN, Macías LG, Pérez-Torrado R, Barrio
+E, Teusink B, Querol A, Balsa-Canto E. 2021. A multiphase multiobjective
+dynamic genome-scale model shows different redox balancing among yeast
+species of the Saccharomycesgenus in fermentation. mSystems 6:e00260-21.
+https://doi.org/10.1128/mSystems.00260-21
+.
+18. Liu Q, Yu T, Li X, Chen Y, Campbell K, Nielsen J, Chen Y. 2019. Rewiring car-
+bon metabolism in yeast for high level production of aromatic chemicals.
+Nat Commun 10:4976. https://doi.org/10.1038/s41467-019-12961-5.
+19. Orth JD, Thiele I, Palsson BØ. 2010. What is ﬂux balance analysis? Nat Bio-
+technol 28:245–248. https://doi.org/10.1038/nbt.1614.
+20. Moon HJ, Jeya M, Kim IW, Lee JK. 2010. Biotechnological production of
+erythritol and its applications. Appl Microbiol Biotechnol 86:1017 –1025.
+https://doi.org/10.1007/s00253-010-2496-4.
+21. López-Malo M, Querol A, Guillamon JM. 2013. Metabolomic comparison
+of Saccharomyces cerevisiae and the cryotolerant species S. bayanus var.
+uvarum and S. kudriavzevii during wine fermentation at low temperature.
+PLoS One 8:e60135. https://doi.org/10.1371/journal.pone.0060135.
+22. Vilela-Moura A, Schuller D, Mendes-Faia A, Silva RD, Chaves SR, Sousa MJ,
+Côrte-Real M. 2011. The impact of acetate metabolism on yeast fermenta-
+tive performance and wine quality: reduction of volatile acidity of grape
+musts and wines. Appl Microbiol Biotechnol 89:271 –280. https://doi.org/
+10.1007/s00253-010-2898-3
+.
+23. Minebois R, Pérez-Torrado R, Querol A. 2020. A time course metabolism
+comparison among Saccharomyces cerevisiae, S. uvarum and S. kudriavzevii
+species in wine fermentation. Food Microbiol 90:103484. https://doi.org/10
+.1016/j.fm.2020.103484.
+24. Konrad M. 1993. Identi ﬁcation and characterization of a yeast gene en-
+coding an adenylate kinase homolog. Biochim Biophys Acta 1172:12 –16.
+https://doi.org/10.1016/0167-4781(93)90262-c.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 14
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.
+
+
+
+--- PAGE 15 ---
+25. Camarasa C, Grivet J-P, Dequin S. 2003. Investigation by 13C-NMR and tri-
+carboxylic acid (TCA) deletion mutant analysis of pathways for succinate
+formation in Saccharomyces cerevisiaeduring anaerobic fermentation. Micro-
+biology (Reading) 149:2669–2678.https://doi.org/10.1099/mic.0.26007-0.
+26. Bakker BM, Bro C, Kötter P, Luttik MA, van Dijken JP, Pronk JT. 2000. The
+mitochondrial alcohol dehydrogenase Adh3p is involved in a redox shut-
+tle in Saccharomyces cerevisiae. J Bacteriol 182:4730 –4737. https://doi.org/
+10.1128/JB.182.17.4730-4737.2000.
+27. Anders S, Pyl PT, Huber W. 2009. Ef ﬂux-mediated drug resistance in bacte-
+ria: an update. Drugs 69:1555 –1623. https://doi.org/10.2165/11317030
+-000000000-00000.
+28. López PC, Peng C, Arneborg N, Junicke H, Gernaey KV. 2021. Analysis of
+t h er e s p o n s eo ft h ec e l lm e m b r a n eo fSaccharomyces cerevisiaeduring the
+detoxiﬁcation of common lignocellulosic inhibitors. Sci Rep 11:6853.https://
+doi.org/10.1038/s41598-021-86135-z.
+29. Monod J. 1942. Reserches sur la croissance des cultures bacteriennes. Herman
+& Cie, Paris, France.
+30. Pirt S. 1965. The maintenance energy of bacteria in growing cultures. Proc R
+Soc Lond B Biol Sci 163:224–231. https://doi.org/10.1098/rspb.1965.0069.
+31. Naumov GI, Lee C-F, Naumova ES. 2013. Molecular genetic diversity of
+the Saccharomyces yeasts in Taiwan: Saccharomyces arboricola, Saccharo-
+myces cerevisiae and Saccharomyces kudriavzevii . Antonie Van Leeuwen-
+hoek 103:217–228. https://doi.org/10.1007/s10482-012-9803-2.
+32. Coleman ST, Fang TK, Rovinsky SA, Turano FJ, Moye-Rowley WS. 2001.
+Expression of a glutamate decarboxylase homologue is required for nor-
+mal oxidative stress tolerance in Saccharomyces cerevisiae . J Biol Chem
+276:244–250. https://doi.org/10.1074/jbc.M007103200
+.
+33. Cao J, Barbosa JM, Singh N, Locy RD. 2013. GABA transaminases fromSaccha-
+romyces cerevisiaeand Arabidopsis thaliana complement function in cytosol
+and mitochondria. Yeast 30:279–289. https://doi.org/10.1002/yea.2962.
+34. Bach B, Sauvage F-X, Dequin S, Camarasa C. 2009. Role of g -aminobutyric
+acid as a source of nitrogen and succinate in wine. Am J Enol Vitic 60:
+508–516. https://doi.org/10.5344/ajev.2009.60.4.508
+.
+35. Mara P, Fragiadakis G, Gkountromichos F, Alexandraki D. 2018. The pleiotropic
+effects of the glutamate dehydrogenase (GDH) pathway inSaccharomyces cer-
+evisiae.M i c r o bC e l lF a c t1 7 : 1–13. https://doi.org/10.1186/s12934-018-1018-4.
+36. Rossignol T, Dulau L, Julien A, Blondin B. 2003. Genome-wide monitoring
+of wine yeast gene expression during alcoholic fermentation. Yeast 20:
+1369–1385. https://doi.org/10.1002/yea.1046.
+37. Boulton RB, Singleton VL, Bisson LF, Kunkee RE. 2013. Principles and prac-
+tices of winemaking. Springer Science & Business Media, Berlin, Germany.
+38. Su Y, Seguinot P, Sanchez I, Ortiz-Julien A, Heras JM, Querol A, Camarasa
+C, Guillamón JM. 2020. Nitrogen sources preferences of non-Saccharomyces
+yeasts to sustain growth and fermentation under winemaking conditions.
+Food Microbiol 85:103287.https://doi.org/10.1016/j.fm.2019.103287.
+39. Rojas V, Gil JV, Piñaga F, Manzanares P. 2001. Studies on acetate ester pro-
+duction by non-Saccharomyces wine yeasts. Int J Food Microbiol 70:
+283–289. https://doi.org/10.1016/s0168-1605(01)00552-9.
+40. Joshi N, Fass J. Sickle: a sliding-window, adaptive, quality-based trimming
+tool for FastQ ﬁles (version 1.33).
+41. Macías LG, Morard M, Toft C, Barrio E. 2019. Comparative genomics
+between Saccharomyces kudriavzevii and S. cerevisiae applied to identify
+mechanisms involved in adaptation. Front Genet 10:187. https://doi.org/
+10.3389/fgene.2019.00187.
+42. Langmead B, Salzberg SL. 2012. Fast gapped-read alignment with bowtie
+2. Nat Methods 9:357–359. https://doi.org/10.1038/nmeth.1923.
+43. Anders S, Pyl PT, Huber W. 2015. HTSeq —a python framework to work
+with high-throughput sequencing data. Bioinformatics 31:166–169. https://
+doi.org/10.1093/bioinformatics/btu638.
+44. Xu L, Dong Z, Fang L, Luo Y, Wei Z, Guo H, Zhang G, Gu YQ, Coleman-Derr
+D, Xia Q, Wang Y. 2019. OrthoVenn2: a web server for whole-genome compar-
+ison and annotation of orthologous clusters across multiple species. Nucleic
+Acids Res 47:W52–W58. https://doi.org/10.1093/nar/gkz333.
+45. Hjersted JL, Henson MA, Mahadevan R. 2007. Genome-scale analysis ofSaccha-
+romyces cerevisiaemetabolism and ethanol production in fed-batch culture. Bio-
+technol Bioeng 97:1190–1204.https://doi.org/10.1002/bit.21332.
+46. Balsa-Canto E, Henriques D, Gabor A, Banga JR. 2016. AMIGO2, a toolbox
+for dynamic modeling, optimization and control in systems biology. Bioinfor-
+matics 32:3357–3359.https://doi.org/10.1093/bioinformatics/btw411
+.
+47. Shampine LF, Reichelt MW. 1997. The MATLAB ODE suite. SIAM J Sci Com-
+put 18:1–22. https://doi.org/10.1137/S1064827594276424.
+48. Heirendt L, Arreckx S, Pfau T, Mendoza SN, Richelle A, Heinken A, Haraldsdóttir
+HS, Wachowiak J, Keating SM, Vlasov V, Magnusdóttir S, Ng CY, Preciat G,
+Žagare A, Chan SHJ, Aurich MK, Clancy CM, Modamio J, Sauls JT, Noronha
+A, Bordbar A, Cousins B, El Assal DC, Valcarcel LV, Apaolaza I, Ghaderi S,
+Ahookhosh M, Ben Guebila M, Kostromins A, Sompairac N, Le HM, Ma D,
+S u nY ,W a n gL ,Y u r k o v i c hJ T ,O l i v e i r aM A P ,V u o n gP T ,E lA s s a lL P ,K u p e r s t e i nI ,
+Zinovyev A, Hinton HS, Bryant WA, Aragón Artacho FJ, Planes FJ, Stalidzans E,
+Maass A, Vempala S, Hucka M, Saunders MA, Maranas CD, et al. 2019. Creation
+and analysis of biochemical constraint-based models using the COBRA tool-
+box v.3.0. Nat Protoc 14:639–702. https://doi.org/10.1038/s41596-018-0098-2
+.
+49. Egea JA, Vazquez E, Banga JR, Marti R. 2009. Improved scatter search for
+the global optimization of computationally expensive dynamic models. J
+Glob Optim 43:175–190. https://doi.org/10.1007/s10898-007-9172-y.
+dFBA Model of Cold Tolerance in S. kudriavzevii Microbiology Spectrum
+May/June 2023 Volume 11 Issue 3 10.1128/spectrum.03519-22 15
+Downloaded from https://journals.asm.org/journal/spectrum on 14 November 2024 by 132.174.251.250.

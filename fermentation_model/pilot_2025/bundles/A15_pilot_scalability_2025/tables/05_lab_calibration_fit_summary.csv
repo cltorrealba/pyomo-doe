@@ -1,0 +1,5 @@
+fit,n_batches,mediums,parameters,n_parameters,success,status,message,nfev,initial_wsse,final_wsse,n_residuals,dof,wsse_per_residual,wsse_per_dof,l2_lambda,l2_parameters
+natural_reduced11,9,natural,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",11,True,3,`xtol` termination condition is satisfied.,12,54080.57582283743,13409.522295474551,608,597,22.05513535439893,22.46151138270444,0.0,
+synthetic_reduced11,10,synthetic,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",11,True,3,`xtol` termination condition is satisfied.,16,54936.8559680952,10723.79414597916,542,531,19.785598055312104,20.195469201467343,0.0,
+mixed_reduced11,19,"natural,synthetic","mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",11,True,3,`xtol` termination condition is satisfied.,16,109017.43179093262,27138.922254566623,1150,1139,23.59906283005793,23.82697300664321,0.0,
+mixed_full17_l2,19,"natural,synthetic","mu0,sN,qN,qXG,qXF,betaG0,sG,betaF0,sF,qEG,qEF,iG,iE,Kd0,m0,gammaG0,gammaF0",17,True,3,`xtol` termination condition is satisfied.,9,27167.566680121334,26132.26235866635,1160,1143,22.527812378160647,22.86287170486995,1.0,"sN,qXG,qXF,sG,sF,iE,Kd0,m0,gammaG0,gammaF0"

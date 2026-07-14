@@ -1,0 +1,7 @@
+weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+1,0.038872370991647164,"kAldRed, kAcAld, kAcStress, kAldS_N, kPyrO2, kPyrDrain","1.000, 0.007, 0.000, 0.000, 0.000, 0.000"
+2,70.39878212125365,"kPyrO2, kPyrDrain, kPyrS_N, kAcAld, kAldS_N, kAldRed","0.842, 0.482, 0.240, 0.000, 0.000, 0.000"
+3,836.8319801177847,"kAcAld, kAldS_N, kAcStress, kAldRed, kPyrDrain, kPyrS_N","0.929, 0.287, 0.234, 0.007, 0.001, 0.001"
+4,1011.0373122684914,"kAcStress, kAcAld, kAldS_N, kAldRed, kPyrS_N, kPyrDrain","0.972, 0.225, 0.067, 0.001, 0.000, 0.000"
+5,1156.3150737098617,"kPyrS_N, kPyrDrain, kPyrO2, kAcAld, kAcStress, kAldS_N","0.822, 0.563, 0.088, 0.001, 0.000, 0.000"
+6,6654.920825843532,"kPyrDrain, kPyrO2, kPyrS_N, kAldS_N, kAcAld, kAcStress","0.671, 0.532, 0.517, 0.001, 0.000, 0.000"

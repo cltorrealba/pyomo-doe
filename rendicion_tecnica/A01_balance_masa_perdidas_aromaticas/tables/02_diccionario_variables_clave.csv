@@ -1,0 +1,15 @@
+symbol,description,data_or_model_source,role
+X,Biomasa viable,"Peso Seco, Viability, C_viable",Estado dinamico calibrado
+Xd,Biomasa muerta,"Viability, C_total/C_viable cuando disponible",Estado extendido para mortalidad
+N,Nitrogeno asimilable,"YAN, PAN, AMMONIA",Balance de consumo de nitrogeno
+G,Glucosa,GLUCOSE,Balance de consumo de azucar
+F,Fructosa,FRUCTOSE o FRUCTOSE_inferida,Balance de consumo de azucar
+E,Etanol,"ETANOL, Cf Alcolyzer",Producto fermentativo calibrado
+Gly,Glicerol,GLYCEROL,Producto secundario calibrado
+Pyr,Acido piruvico,PYRUVIC ACID,Estado secundario de diagnostico
+AcAld,Acetaldehido,ACETALDEHIDO,Estado secundario de diagnostico
+A_liq,Aroma en fase liquida,aroma total en liquido,Estado de aroma en el modelo
+A_loss,Aroma perdido por gas,prediccion de stripping,Estado acumulado de perdida
+A_cond,Aroma terminal en condensado,prediccion por eficiencia de trampa,Cierre de masa aromatico
+Q_CO2,Flujo volumetrico de CO2,CO2_rate modelado,Forzante de stripping
+K_lg,Coeficiente gas/liquido,UNIFAC/surrogado,Particion para perdida aromatica

@@ -1,0 +1,6 @@
+tema,resultado,soporte,interpretacion
+cierre_documental,Cobertura 100% del contenido minimo solicitado para A06.,02_matriz_cumplimiento_A06.csv; 00_manifest.csv,"El bundle documenta dataset, estrategia, parametros, funcion objetivo, metricas, incertidumbre y resultados."
+modelo_recomendado,plus_qx_iG_logL2_10 como candidato regularizado para ajuste core; secondary_v2_reduced_o2fixed para capa secundaria.,fit_strategy_summary.csv; fit_comparison.csv; metadata.json,Se privilegia estabilidad sin bounds activos y reduccion de error frente al modelo secundario v1.
+mejora_v2,secondary_v1_current=8.71e+03; secondary_v2_phase_o2free=5.4e+03; secondary_v2_phase_o2fixed=5.76e+03; secondary_v2_reduced_o2fixed=5.76e+03,tables/07_metricas_calibracion.csv,"La estructura v2 reduce el WSSE global respecto del ajuste secundario v1, pero conserva parametros debiles."
+identificabilidad,"kAldRed, mu0, sN, qXG, qXF, betaG0, sG, betaF0, sF, qEG, qEF, iG...",tables/08_incertidumbre_identificabilidad.csv,"Los parametros debiles o no identificables deben mantenerse fijos, regularizados o tratarse como sensibilidad."
+decision_tecnica,"Calibracion tecnica documentada con uso condicionado para simulacion, DOE y decision secuencial.",04_resultados_interpretacion_A06.md,No conviene declarar cierre parametrico definitivo para todos los parametros metabolicos.

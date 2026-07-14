@@ -1,0 +1,9 @@
+mode,start,success,status,message,nfev,data_wsse,n_data_residuals,active_bound_count,fit_selection_score,params_json,threshold_fraction
+threshold,0,True,2,`ftol` termination condition is satisfied.,7,244.73561197699314,308,0,244.73561197699314,{'threshold_fraction': 0.49810873336622563},0.49810873336622563
+threshold,1,True,2,`ftol` termination condition is satisfied.,6,244.73561484179936,308,0,244.73561484179936,{'threshold_fraction': 0.49812041265318374},0.49812041265318374
+threshold,2,True,2,`ftol` termination condition is satisfied.,6,244.73561203384577,308,0,244.73561203384577,{'threshold_fraction': 0.4981089663033839},0.4981089663033839
+threshold,3,True,2,`ftol` termination condition is satisfied.,10,244.73560926448948,308,0,244.73560926448948,{'threshold_fraction': 0.49809756401738725},0.49809756401738725
+threshold,4,True,2,`ftol` termination condition is satisfied.,6,244.73561485666158,308,0,244.73561485666158,{'threshold_fraction': 0.4981204729360928},0.4981204729360928
+threshold,5,True,2,`ftol` termination condition is satisfied.,3,244.73561505928993,308,0,244.73561505928993,{'threshold_fraction': 0.4981212945053709},0.4981212945053709
+threshold,6,True,2,`ftol` termination condition is satisfied.,5,244.73561625245532,308,0,244.73561625245532,{'threshold_fraction': 0.4981261204818409},0.4981261204818409
+threshold,7,True,2,`ftol` termination condition is satisfied.,4,244.73561203875983,308,0,244.73561203875983,{'threshold_fraction': 0.49810898643513335},0.49810898643513335

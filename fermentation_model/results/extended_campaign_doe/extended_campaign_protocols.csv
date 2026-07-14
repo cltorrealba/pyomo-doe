@@ -1,0 +1,10 @@
+candidate,family,horizon_h,temperature_c,X0,N0,G0,F0,E0,Xd0,rationale
+combined_stress_long_horizon,integrated,240.0,"15, 22, 25, 18",0.7,0.2,110.0,110.0,15.0,0.0,Broad stress/input design for integrated all-parameter information.
+fructose_rich_iG_probe,sugar_initial,192.0,"18, 20, 24, 22",0.45,0.26,25.0,150.0,0.0,0.0,Fructose-rich must plus glucose pulse separates fructose capacity from glucose inhibition iG.
+glucose_rich_growth_yield,sugar_initial,168.0,"18, 22, 24, 20",0.45,0.26,150.0,25.0,0.0,0.0,High glucose must isolates glucose growth/fermentation terms and tests fructose response after glucose history.
+high_biomass_low_N_maintenance,maintenance,168.0,"16, 18, 20, 18",2.2,0.025,70.0,70.0,15.0,0.0,High biomass and low N create low-growth sugar consumption windows for m0.
+low_temp_growth_separation_plus_co2,legacy_plus,168.0,"15, 17, 20, 22",0.55,0.24,75.0,70.0,0.0,0.0,"Previous robust N/T design, now measured with Xd and online CO2."
+ethanol_pulse_death_probe,death,216.0,"20, 25, 25, 22",0.75,0.18,80.0,80.0,5.0,0.0,Late ethanol stress with Xd observation targets iE/Kd0 separately from growth.
+ethanol_initial_challenge,ethanol,192.0,"18, 22, 25, 22",0.6,0.22,90.0,90.0,35.0,0.0,Initial ethanol decouples ethanol inhibition iE from ethanol produced by fermentation.
+glucose_pulse_after_N_depletion,pulse_separation,192.0,"17, 20, 24, 22",0.55,0.055,45.0,85.0,0.0,0.0,Glucose pulse after likely N limitation separates fermentation/maintenance from growth uptake.
+viable_biomass_step,biomass_input,168.0,"18, 22, 22, 18",0.3,0.22,90.0,90.0,0.0,0.0,Known viable biomass addition tests whether rates scale with X and improves q/yield separation.

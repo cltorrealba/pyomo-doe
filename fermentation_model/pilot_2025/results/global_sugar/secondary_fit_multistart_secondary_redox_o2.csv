@@ -1,0 +1,6 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count,fit_selection_score
+secondary_redox_o2,0,True,2,`ftol` termination condition is satisfied.,19,11903.41060352744,1898.5622127091256,1882.0146447249094,236,9,7.974638325105548,2,1932.0146447249094
+secondary_redox_o2,1,True,2,`ftol` termination condition is satisfied.,24,177536.73828995228,1898.5603586211744,1882.0127629031263,236,9,7.974630351284433,2,1932.0127629031263
+secondary_redox_o2,2,True,2,`ftol` termination condition is satisfied.,31,9382.955808345301,1898.5613224799172,1882.0136924639419,236,9,7.974634290101449,2,1932.0136924639419
+secondary_redox_o2,3,True,2,`ftol` termination condition is satisfied.,26,12816.589110856024,1898.5626740681914,1882.0150776206185,236,9,7.9746401594094,2,1932.0150776206185
+secondary_redox_o2,4,True,2,`ftol` termination condition is satisfied.,30,9372.139498045539,1898.5653481128306,1882.0177540712684,236,9,7.974651500301984,2,1932.0177540712684

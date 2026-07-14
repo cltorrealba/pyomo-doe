@@ -1,0 +1,9 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count
+ea_ethanol_temperature,0,True,2,`ftol` termination condition is satisfied.,22,9449.514444728411,7701.359159733956,7696.947938238738,261,11,29.490221985589034,3
+ea_ethanol_temperature,1,True,2,`ftol` termination condition is satisfied.,26,7787614.353474058,7701.346033993439,7696.934855588148,261,11,29.49017186049099,3
+ea_ethanol_temperature,2,True,2,`ftol` termination condition is satisfied.,9,20775.326725814128,7701.3470130722235,7696.935832036637,261,11,29.49017560167294,3
+ea_ethanol_temperature,3,True,2,`ftol` termination condition is satisfied.,21,222897.82036758997,7701.360697648261,7696.94957532117,261,11,29.49022825793552,3
+ea_ethanol_temperature,4,True,2,`ftol` termination condition is satisfied.,15,34129.167176787945,7701.358114194902,7696.946987004217,261,11,29.490218341012323,3
+ea_ethanol_temperature,5,True,2,`ftol` termination condition is satisfied.,28,164911193.12391394,7701.4205353742545,7697.009370982809,261,11,29.49045736008739,3
+ea_ethanol_temperature,6,True,2,`ftol` termination condition is satisfied.,32,7801617.801065142,7701.344759834798,7696.933599819051,261,11,29.490167049115136,3
+ea_ethanol_temperature,7,True,2,`ftol` termination condition is satisfied.,17,108044.61538840385,7701.344861305958,7696.933684722872,261,11,29.490167374417137,3

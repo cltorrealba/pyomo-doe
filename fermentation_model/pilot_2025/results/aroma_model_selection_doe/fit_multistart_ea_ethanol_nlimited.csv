@@ -1,0 +1,9 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count
+ea_ethanol_nlimited,0,True,2,`ftol` termination condition is satisfied.,18,9449.890798724911,7374.467396270084,7369.901803683246,261,11,28.23717166162163,2
+ea_ethanol_nlimited,1,True,2,`ftol` termination condition is satisfied.,17,43275.37439771092,7374.459463093246,7369.893799446703,261,11,28.237140994048673,2
+ea_ethanol_nlimited,2,True,2,`ftol` termination condition is satisfied.,19,200773.46384090628,7374.457145190795,7369.891522324867,261,11,28.237132269443933,2
+ea_ethanol_nlimited,3,True,2,`ftol` termination condition is satisfied.,23,52999.10676189583,7374.4593889402695,7369.893712985877,261,11,28.237140662781137,2
+ea_ethanol_nlimited,4,True,2,`ftol` termination condition is satisfied.,26,2422862.325686481,7701.303062978899,7696.891319890242,261,11,29.490005057050734,2
+ea_ethanol_nlimited,5,True,2,`ftol` termination condition is satisfied.,22,5361471.6939955745,7374.402174771487,7369.836459480551,261,11,28.236921300691765,2
+ea_ethanol_nlimited,6,True,2,`ftol` termination condition is satisfied.,20,146686.73624413638,7374.45126395389,7369.885509884227,261,11,28.2371092332729,2
+ea_ethanol_nlimited,7,True,2,`ftol` termination condition is satisfied.,9,20742.16895425588,7701.270923841101,7696.860071090896,261,11,29.489885329850175,2

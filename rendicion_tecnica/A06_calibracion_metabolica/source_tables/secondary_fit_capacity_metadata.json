@@ -1,0 +1,25 @@
+{
+  "n_batches": 27,
+  "fit_reduced_parameters": [
+    "kPyrS_N",
+    "kPyrO2",
+    "kPyrDrain",
+    "kAldS_N",
+    "kAldRed",
+    "kAcAld",
+    "kAcStress"
+  ],
+  "fit_all_parameters": [
+    "kPyrS_N",
+    "kPyrO2",
+    "kPyrDrain",
+    "kAldS_N",
+    "kAldRed",
+    "kAcAld",
+    "kAcStress",
+    "qO2",
+    "kLaO2",
+    "O2sat"
+  ],
+  "interpretation": "per-batch all-free fit is an upper bound on fit capacity, not an identifiable model"
+}

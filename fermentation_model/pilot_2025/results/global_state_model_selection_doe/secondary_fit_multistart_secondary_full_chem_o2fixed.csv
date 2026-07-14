@@ -1,0 +1,6 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count,fit_selection_score
+secondary_full_chem_o2fixed,0,True,2,`ftol` termination condition is satisfied.,35,9312.819099779583,1837.0348576240792,1816.8230986783415,236,12,7.698402960501447,3,1891.8230986783415
+secondary_full_chem_o2fixed,1,True,2,`ftol` termination condition is satisfied.,39,9647.456462463659,1837.0324217747893,1816.7999191676352,236,12,7.6983047422357425,1,1841.7999191676352
+secondary_full_chem_o2fixed,2,True,2,`ftol` termination condition is satisfied.,40,10417.927679630542,1837.0240509217424,1816.7938564413575,236,12,7.698279052717616,3,1891.7938564413575
+secondary_full_chem_o2fixed,3,True,2,`ftol` termination condition is satisfied.,36,9703.210738855902,1837.0300914823788,1816.8080753558154,236,12,7.69833930235515,2,1866.8080753558154
+secondary_full_chem_o2fixed,4,True,2,`ftol` termination condition is satisfied.,38,13981.680710270382,1837.0179833361394,1816.7839747184853,236,12,7.698237181010531,2,1866.7839747184853

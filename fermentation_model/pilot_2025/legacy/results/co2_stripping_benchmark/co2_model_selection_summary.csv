@@ -1,0 +1,7 @@
+mode,data_wsse,n_data_residuals,n_parameters,active_bound_count,bic,params,description,selected_by_bic
+lag_threshold,222.43170985801467,308,2,0,233.8919094239618,"{'tau_h': 36.38236217778723, 'threshold_fraction': 0.8419628866863644}",Thresholded production-rate transform followed by first-order gas-release lag.,True
+lag_power,226.75843907411954,308,2,1,238.21863864006667,"{'tau_h': 61.46629257205183, 'power_p': 2.499999999998967}",Nonlinear production-rate transform followed by first-order gas-release lag.,False
+threshold,244.73560926448948,308,1,0,250.46570904746306,{'threshold_fraction': 0.49809756401738725},Gas flow activates only above a fraction of the median production rate.,False
+lag,246.6245654063397,308,1,0,252.3546651893133,{'tau_h': 25.853734739141235},First-order gas-release/headspace lag: tau dq/dt = q_prod - q_out.,False
+instant,258.528010973103,308,0,0,264.2581107560766,{},Current model: stripping gas flow is directly proportional to instantaneous ethanol-derived CO2 production.,False
+power,259.2975155395299,308,1,0,265.0276153225035,{'power_p': 1.0945677001893517},Nonlinear effective gas flow: q_out = q_ref (q_prod/q_ref)^p.,False

@@ -1,0 +1,8 @@
+evidencia_minima_requerida,estado_bundle,archivos_bundle,detalle
+Ecuaciones y supuestos del balance,cubierto,03_ecuaciones_y_supuestos_A02.md; code_sources/*.py,"Incluye balances base X/Xd/N/G/F/E/Gly, capa A_liq/A_loss/A_cond y supuestos UNIFAC/CO2."
+Datos de calibracion,cubierto,data_sources/*.xlsx; tables/02_resumen_datos_fuente.csv; tables/02_diccionario_variables_clave.csv,"Incluye libros VL3 y mosto sintetico, mas resumen de hojas, columnas y variables."
+Parametros,cubierto,tables/05_parametros_cineticos.csv; tables/05_parametros_particion_aromas.csv,Incluye theta calibrado y parametros de particion aromaticos derivados de UNIFAC.
+Cierre de masa,cubierto,tables/06_cierre_masa_aromatico.csv; 03_ecuaciones_y_supuestos_A02.md,"Cierre por especie/candidato: integral de sintesis, liquido final, perdida final y condensado esperado."
+Metricas de ajuste,cubierto,tables/04_metricas_calibracion.csv; source_reports/*fit*; source_reports/*glycerol*,"Incluye WSSE, residuales, grados de libertad, exito de ajuste y capacidad de ajuste secundaria."
+Version de codigo,cubierto,08_version_codigo.md; 00_manifest.csv,"Incluye commit, rama, estado git, diff stat y hashes SHA256 de artefactos."
+Analisis de sensibilidad,cubierto,tables/07_sensibilidad_estimabilidad.csv; source_reports/*eigen*; source_reports/*campaign*,"Incluye FIM, reduccion de varianza, ranking DOE, eigenvalores y direcciones debiles."

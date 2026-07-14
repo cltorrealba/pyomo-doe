@@ -1,0 +1,33 @@
+{
+  "prior_batches": [
+    "25026",
+    "25086",
+    "25150",
+    "25170"
+  ],
+  "campaign_size": 9,
+  "step": 0.01,
+  "pulse_slots": 3,
+  "liquid_interval_h": 12.0,
+  "co2_interval_h": 6.0,
+  "parameters": [
+    "mu0",
+    "sN",
+    "qN",
+    "qXG",
+    "qXF",
+    "betaG0",
+    "sG",
+    "betaF0",
+    "sF",
+    "qEG",
+    "qEF",
+    "iG",
+    "iE",
+    "Kd0",
+    "m0"
+  ],
+  "n_candidates": 12,
+  "n_successful_candidates": 12,
+  "forced_x_pulse_coverage": true
+}

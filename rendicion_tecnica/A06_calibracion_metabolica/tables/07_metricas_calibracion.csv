@@ -1,0 +1,20 @@
+workflow,modelo_o_estrategia,metrica_principal,valor,wsse,n_obs,estado,comentario
+fit_strategy_analysis,plus_qx_iG_unregularized,direct_plus_l2_total,5972.547411621428,5972.547411621428,286,ok,active_bounds=2; lambda=0.0
+fit_strategy_analysis,plus_qx_unregularized,direct_plus_l2_total,5983.45484334653,5983.45484334653,286,ok,active_bounds=2; lambda=0.0
+fit_strategy_analysis,plus_qx_iG_logL2_10,direct_plus_l2_total,5998.054500708604,5992.323835014267,286,ok,active_bounds=0; lambda=10.0
+fit_strategy_analysis,plus_iG_unregularized,direct_plus_l2_total,6001.98278070728,6001.98278070728,286,ok,active_bounds=0; lambda=0.0
+fit_strategy_analysis,plus_qx_iG_pso_pilot_logL2_50,direct_plus_l2_total,6005.649337491055,6002.10466303318,286,ok,active_bounds=0; lambda=50.0
+fit_strategy_analysis,plus_qx_iG_logL2_50,direct_plus_l2_total,6005.649340729168,6002.101747040763,286,ok,active_bounds=0; lambda=50.0
+fit_strategy_analysis,plus_iG_logL2_50,direct_plus_l2_total,6007.175048302548,6005.058199919435,286,ok,active_bounds=0; lambda=50.0
+fit_strategy_analysis,plus_qx_iG_logL2_100,direct_plus_l2_total,6007.718573729761,6005.283058791395,286,ok,active_bounds=0; lambda=100.0
+secondary_v2_model_evaluation,secondary_v1_current,final_wsse,8706.95625298179,8706.95625298179,588,ok,wsse_per_residual=14.807748729560869; mejora_vs_v1_pct=
+secondary_v2_model_evaluation,secondary_v2_phase_o2free,final_wsse,5400.341991941201,5400.341991941201,592,ok,wsse_per_residual=9.122199310711489; mejora_vs_v1_pct=37.976695471603
+secondary_v2_model_evaluation,secondary_v2_phase_o2fixed,final_wsse,5756.227087268427,5756.227087268427,590,ok,wsse_per_residual=9.75631709706513; mejora_vs_v1_pct=33.88933032370359
+secondary_v2_model_evaluation,secondary_v2_reduced_o2fixed,final_wsse,5756.427666344939,5756.427666344939,589,ok,wsse_per_residual=9.773221844388692; mejora_vs_v1_pct=33.88702665901659
+secondary_fit_capacity,batch_v2_all_o2free,wsse_per_obs,1.629070050640295,957.8931897764936,588,diagnostico,Cota de capacidad de ajuste; no equivale a modelo transferible.
+secondary_fit_capacity,batch_v2_reduced_o2fixed,wsse_per_obs,2.2937772172759057,1348.7410037582324,588,diagnostico,Cota de capacidad de ajuste; no equivale a modelo transferible.
+secondary_fit_capacity,global_v2_reduced_o2fixed,wsse_per_obs,9.785874700216558,5754.094323727336,588,diagnostico,Cota de capacidad de ajuste; no equivale a modelo transferible.
+secondary_fit_capacity,medium_v2_reduced_o2fixed,wsse_per_obs,8.038957228960598,4726.906850628831,588,diagnostico,Cota de capacidad de ajuste; no equivale a modelo transferible.
+overnight_multistart,multistart_07,final_wsse,23914.053825661373,23914.053825661373,1160,ok,wsse_per_residual=20.615563642811527; lambda=1.0
+overnight_multistart,multistart_06,final_wsse,24775.172321819,24775.172321819,1160,ok,wsse_per_residual=21.357907173981896; lambda=1.0
+overnight_multistart,multistart_05,final_wsse,24864.51536680058,24864.51536680058,1160,ok,wsse_per_residual=21.43492704034533; lambda=1.0

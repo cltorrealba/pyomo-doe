@@ -1,0 +1,10 @@
+campaign_order,candidate,initial_volume_ml,final_volume_ml,net_volume_removed_ml,below_min_final_volume,max_single_pulse_volume_ml
+1,synthetic_lit_SM410_18C_highN_ester,2000.0,1252.0,748.0,False,0.0
+2,synthetic_high_biomass_low_N_maintenance,2000.0,1371.0881077806123,628.9118922193877,False,61.92857142857143
+3,synthetic_fructose_rich_glucose_pulse,2000.0,1337.71425,662.28575,False,81.12925
+4,synthetic_glucose_rich_fructose_pulse,2000.0,1337.71425,662.28575,False,81.12925
+5,synthetic_lit_SM410_24C_highN_strip,2000.0,1368.0,632.0,False,0.0
+6,synthetic_viable_biomass_step,2000.0,1273.81085,726.1891499999999,False,17.22585
+7,synthetic_high_sugar_reference,2000.0,1256.585,743.415,False,4.585
+8,natural_glucose_pulse_after_growth,2000.0,1340.78855,659.21145,False,86.03755
+9,synthetic_fast_CO2_aroma_strip_highN,2000.0,1368.0,632.0,False,0.0

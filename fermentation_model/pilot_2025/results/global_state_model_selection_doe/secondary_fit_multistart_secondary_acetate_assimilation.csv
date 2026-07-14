@@ -1,0 +1,6 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count,fit_selection_score
+secondary_acetate_assimilation,0,True,2,`ftol` termination condition is satisfied.,10,12226.639143647018,2798.5339011879423,2798.5339011141664,236,8,11.858194496246467,2,2848.5339011141664
+secondary_acetate_assimilation,1,True,2,`ftol` termination condition is satisfied.,8,5928.6136329134915,2798.5236353383207,2798.5234668416015,236,8,11.858150283227125,1,2823.5234668416015
+secondary_acetate_assimilation,2,True,2,`ftol` termination condition is satisfied.,13,7980.993013074627,2798.531389254698,2798.531389180885,236,8,11.858183852461378,2,2848.531389180885
+secondary_acetate_assimilation,3,True,2,`ftol` termination condition is satisfied.,11,12226.444636072622,2798.524681859052,2798.5245769755566,236,8,11.858154987184562,1,2823.5245769755566
+secondary_acetate_assimilation,4,True,2,`ftol` termination condition is satisfied.,12,42291.036022899745,2798.521479274252,2798.5214572721466,236,8,11.858141768102316,2,2848.5214572721466

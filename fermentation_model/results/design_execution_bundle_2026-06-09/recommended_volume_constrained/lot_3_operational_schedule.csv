@@ -1,0 +1,100 @@
+campaign_order,lot,candidate,event,relative_time_h,datetime,weekday,details,channel,amount,volume_ml,operational,volume_before_ml,volume_after_ml
+7,3,synthetic_high_sugar_reference,DO_measurement,0.0,2026-07-13 08:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,2000.0,2000.0
+7,3,synthetic_high_sugar_reference,DO_measurement,2.0,2026-07-13 10:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,2000.0,2000.0
+7,3,synthetic_high_sugar_reference,full_liquid_sample,2.0,2026-07-13 10:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,2000.0,1950.0
+7,3,synthetic_high_sugar_reference,DO_measurement,4.0,2026-07-13 12:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1950.0,1950.0
+7,3,synthetic_high_sugar_reference,small_liquid_sample,4.0,2026-07-13 12:00:00,Monday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1950.0,1942.0
+7,3,synthetic_high_sugar_reference,DO_measurement,6.0,2026-07-13 14:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1942.0,1942.0
+7,3,synthetic_high_sugar_reference,small_liquid_sample,6.0,2026-07-13 14:00:00,Monday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1942.0,1934.0
+7,3,synthetic_high_sugar_reference,DO_measurement,8.0,2026-07-13 16:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1934.0,1934.0
+7,3,synthetic_high_sugar_reference,full_liquid_sample,8.0,2026-07-13 16:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1934.0,1884.0
+7,3,synthetic_high_sugar_reference,DO_measurement,26.0,2026-07-14 10:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1884.0,1884.0
+7,3,synthetic_high_sugar_reference,full_liquid_sample,26.0,2026-07-14 10:00:00,Tuesday,ethanol+aromas+full panel,,,50.0,True,1884.0,1834.0
+7,3,synthetic_high_sugar_reference,manual_pulse,26.0,2026-07-14 10:00:00,Tuesday,manual N addition from stock,N,0.05,4.585,True,1834.0,1838.585
+7,3,synthetic_high_sugar_reference,DO_measurement,28.0,2026-07-14 12:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1838.585,1838.585
+7,3,synthetic_high_sugar_reference,small_liquid_sample,28.0,2026-07-14 12:00:00,Tuesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1838.585,1830.585
+7,3,synthetic_high_sugar_reference,DO_measurement,30.0,2026-07-14 14:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1830.585,1830.585
+7,3,synthetic_high_sugar_reference,small_liquid_sample,30.0,2026-07-14 14:00:00,Tuesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1830.585,1822.585
+7,3,synthetic_high_sugar_reference,DO_measurement,32.0,2026-07-14 16:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1822.585,1822.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,32.0,2026-07-14 16:00:00,Tuesday,ethanol+aromas+full panel,,,50.0,True,1822.585,1772.585
+7,3,synthetic_high_sugar_reference,DO_measurement,50.0,2026-07-15 10:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1772.585,1772.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,50.0,2026-07-15 10:00:00,Wednesday,ethanol+aromas+full panel,,,50.0,True,1772.585,1722.585
+7,3,synthetic_high_sugar_reference,DO_measurement,52.0,2026-07-15 12:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1722.585,1722.585
+7,3,synthetic_high_sugar_reference,small_liquid_sample,52.0,2026-07-15 12:00:00,Wednesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1722.585,1714.585
+7,3,synthetic_high_sugar_reference,DO_measurement,54.0,2026-07-15 14:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1714.585,1714.585
+7,3,synthetic_high_sugar_reference,small_liquid_sample,54.0,2026-07-15 14:00:00,Wednesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1714.585,1706.585
+7,3,synthetic_high_sugar_reference,DO_measurement,56.0,2026-07-15 16:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1706.585,1706.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,56.0,2026-07-15 16:00:00,Wednesday,ethanol+aromas+full panel,,,50.0,True,1706.585,1656.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,74.0,2026-07-16 10:00:00,Thursday,ethanol+aromas+full panel,,,50.0,True,1656.585,1606.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,80.0,2026-07-16 16:00:00,Thursday,ethanol+aromas+full panel,,,50.0,True,1606.585,1556.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,98.0,2026-07-17 10:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1556.585,1506.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,100.0,2026-07-17 12:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1506.585,1456.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,102.0,2026-07-17 14:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1456.585,1406.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,104.0,2026-07-17 16:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1406.585,1356.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,170.0,2026-07-20 10:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1356.585,1306.585
+7,3,synthetic_high_sugar_reference,full_liquid_sample,176.0,2026-07-20 16:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1306.585,1256.585
+7,3,synthetic_high_sugar_reference,terminal_condensate_retrieval,218.0,2026-07-22 10:00:00,Wednesday,single terminal condensate sample,,,0.0,True,1256.585,1256.585
+8,3,natural_glucose_pulse_after_growth,DO_measurement,0.0,2026-07-13 08:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,2000.0,2000.0
+8,3,natural_glucose_pulse_after_growth,DO_measurement,2.0,2026-07-13 10:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,2000.0,2000.0
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,2.0,2026-07-13 10:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,2000.0,1950.0
+8,3,natural_glucose_pulse_after_growth,DO_measurement,4.0,2026-07-13 12:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1950.0,1950.0
+8,3,natural_glucose_pulse_after_growth,small_liquid_sample,4.0,2026-07-13 12:00:00,Monday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1950.0,1942.0
+8,3,natural_glucose_pulse_after_growth,DO_measurement,6.0,2026-07-13 14:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1942.0,1942.0
+8,3,natural_glucose_pulse_after_growth,small_liquid_sample,6.0,2026-07-13 14:00:00,Monday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1942.0,1934.0
+8,3,natural_glucose_pulse_after_growth,DO_measurement,8.0,2026-07-13 16:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1934.0,1934.0
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,8.0,2026-07-13 16:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1934.0,1884.0
+8,3,natural_glucose_pulse_after_growth,DO_measurement,26.0,2026-07-14 10:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1884.0,1884.0
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,26.0,2026-07-14 10:00:00,Tuesday,ethanol+aromas+full panel,,,50.0,True,1884.0,1834.0
+8,3,natural_glucose_pulse_after_growth,manual_pulse,26.0,2026-07-14 10:00:00,Tuesday,manual N addition from stock,N,0.03,2.7510000000000003,True,1834.0,1836.751
+8,3,natural_glucose_pulse_after_growth,DO_measurement,28.0,2026-07-14 12:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1836.751,1836.751
+8,3,natural_glucose_pulse_after_growth,small_liquid_sample,28.0,2026-07-14 12:00:00,Tuesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1836.751,1828.751
+8,3,natural_glucose_pulse_after_growth,DO_measurement,30.0,2026-07-14 14:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1828.751,1828.751
+8,3,natural_glucose_pulse_after_growth,small_liquid_sample,30.0,2026-07-14 14:00:00,Tuesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1828.751,1820.751
+8,3,natural_glucose_pulse_after_growth,DO_measurement,32.0,2026-07-14 16:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1820.751,1820.751
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,32.0,2026-07-14 16:00:00,Tuesday,ethanol+aromas+full panel,,,50.0,True,1820.751,1770.751
+8,3,natural_glucose_pulse_after_growth,DO_measurement,50.0,2026-07-15 10:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1770.751,1770.751
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,50.0,2026-07-15 10:00:00,Wednesday,ethanol+aromas+full panel,,,50.0,True,1770.751,1720.751
+8,3,natural_glucose_pulse_after_growth,manual_pulse,50.0,2026-07-15 10:00:00,Wednesday,manual G addition from stock,G,35.0,86.03755,True,1720.751,1806.78855
+8,3,natural_glucose_pulse_after_growth,DO_measurement,52.0,2026-07-15 12:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1806.78855,1806.78855
+8,3,natural_glucose_pulse_after_growth,small_liquid_sample,52.0,2026-07-15 12:00:00,Wednesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1806.78855,1798.78855
+8,3,natural_glucose_pulse_after_growth,DO_measurement,54.0,2026-07-15 14:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1798.78855,1798.78855
+8,3,natural_glucose_pulse_after_growth,small_liquid_sample,54.0,2026-07-15 14:00:00,Wednesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1798.78855,1790.78855
+8,3,natural_glucose_pulse_after_growth,DO_measurement,56.0,2026-07-15 16:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1790.78855,1790.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,56.0,2026-07-15 16:00:00,Wednesday,ethanol+aromas+full panel,,,50.0,True,1790.78855,1740.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,74.0,2026-07-16 10:00:00,Thursday,ethanol+aromas+full panel,,,50.0,True,1740.78855,1690.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,80.0,2026-07-16 16:00:00,Thursday,ethanol+aromas+full panel,,,50.0,True,1690.78855,1640.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,98.0,2026-07-17 10:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1640.78855,1590.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,100.0,2026-07-17 12:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1590.78855,1540.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,102.0,2026-07-17 14:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1540.78855,1490.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,104.0,2026-07-17 16:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1490.78855,1440.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,170.0,2026-07-20 10:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1440.78855,1390.78855
+8,3,natural_glucose_pulse_after_growth,full_liquid_sample,176.0,2026-07-20 16:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1390.78855,1340.78855
+8,3,natural_glucose_pulse_after_growth,terminal_condensate_retrieval,218.0,2026-07-22 10:00:00,Wednesday,single terminal condensate sample,,,0.0,True,1340.78855,1340.78855
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,0.0,2026-07-13 08:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,2000.0,2000.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,2.0,2026-07-13 10:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,2000.0,2000.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,2.0,2026-07-13 10:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,2000.0,1950.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,4.0,2026-07-13 12:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1950.0,1950.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,small_liquid_sample,4.0,2026-07-13 12:00:00,Monday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1950.0,1942.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,6.0,2026-07-13 14:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1942.0,1942.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,small_liquid_sample,6.0,2026-07-13 14:00:00,Monday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1942.0,1934.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,8.0,2026-07-13 16:00:00,Monday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1934.0,1934.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,8.0,2026-07-13 16:00:00,Monday,ethanol+aromas+full panel,,,50.0,True,1934.0,1884.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,26.0,2026-07-14 10:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1884.0,1884.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,26.0,2026-07-14 10:00:00,Tuesday,ethanol+aromas+full panel,,,50.0,True,1884.0,1834.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,28.0,2026-07-14 12:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1834.0,1834.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,small_liquid_sample,28.0,2026-07-14 12:00:00,Tuesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1834.0,1826.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,30.0,2026-07-14 14:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1826.0,1826.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,small_liquid_sample,30.0,2026-07-14 14:00:00,Tuesday,small panel: biomass/YAN/sugars/glycerol/secondary acids; no ethanol/aromas,,,8.0,True,1826.0,1818.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,32.0,2026-07-14 16:00:00,Tuesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1818.0,1818.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,32.0,2026-07-14 16:00:00,Tuesday,ethanol+aromas+full panel,,,50.0,True,1818.0,1768.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,50.0,2026-07-15 10:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1768.0,1768.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,50.0,2026-07-15 10:00:00,Wednesday,ethanol+aromas+full panel,,,50.0,True,1768.0,1718.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,DO_measurement,56.0,2026-07-15 16:00:00,Wednesday,DO spot measurement; no controlled oxygen pulse,,,0.0,True,1718.0,1718.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,56.0,2026-07-15 16:00:00,Wednesday,ethanol+aromas+full panel,,,50.0,True,1718.0,1668.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,74.0,2026-07-16 10:00:00,Thursday,ethanol+aromas+full panel,,,50.0,True,1668.0,1618.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,80.0,2026-07-16 16:00:00,Thursday,ethanol+aromas+full panel,,,50.0,True,1618.0,1568.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,98.0,2026-07-17 10:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1568.0,1518.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,100.0,2026-07-17 12:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1518.0,1468.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,102.0,2026-07-17 14:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1468.0,1418.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,full_liquid_sample,104.0,2026-07-17 16:00:00,Friday,ethanol+aromas+full panel,,,50.0,True,1418.0,1368.0
+9,3,synthetic_fast_CO2_aroma_strip_highN,terminal_condensate_retrieval,170.0,2026-07-20 10:00:00,Monday,single terminal condensate sample,,,0.0,True,1368.0,1368.0

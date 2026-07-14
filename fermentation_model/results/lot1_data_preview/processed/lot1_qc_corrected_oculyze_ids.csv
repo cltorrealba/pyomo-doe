@@ -1,0 +1,6 @@
+process,sample_datetime,sample_id_raw,sample_id_clean,sample_id_resolution,source_file
+F1,2026-06-17 16:00:00,DOE-LAB001-7,DOE-LAB001-8,chronology_inferred,fermentation_model\data\Laboratorio 2026\DOE_Lote_1\DOE26-F01_F1_Lot1_synthetic_lit_SM410_18C_highN_ester\Oculyze_Biomasa_F1.csv
+F2,2026-06-17 16:00:00,DOE-LAB002-7,DOE-LAB002-8,chronology_inferred,fermentation_model\data\Laboratorio 2026\DOE_Lote_1\DOE26-F02_F2_Lot1_synthetic_high_biomass_low_N_maintenance\Oculyze_F2.csv
+F2,2026-06-26 12:00:00,DOE-LAB002-2,DOE-LAB002-21,chronology_inferred,fermentation_model\data\Laboratorio 2026\DOE_Lote_1\DOE26-F02_F2_Lot1_synthetic_high_biomass_low_N_maintenance\Oculyze_F2.csv
+F3,2026-06-15 15:30:00,DOE-LAB002,DOE-LAB003-1,chronology_inferred,fermentation_model\data\Laboratorio 2026\DOE_Lote_1\DOE26-F03_F3_Lot1_synthetic_fructose_rich_glucose\Oculyze_F3.csv
+F3,2026-06-17 16:00:00,PI-DOE-LAB003-7,DOE-LAB003-8,chronology_inferred,fermentation_model\data\Laboratorio 2026\DOE_Lote_1\DOE26-F03_F3_Lot1_synthetic_fructose_rich_glucose\Oculyze_F3.csv

@@ -1,0 +1,9 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count
+ea_biomass_background,0,True,2,`ftol` termination condition is satisfied.,21,9450.313223939402,8253.531199635709,8249.575687430617,261,10,31.60756968364221,2
+ea_biomass_background,1,True,2,`ftol` termination condition is satisfied.,13,107218.38453942948,8253.493762178668,8249.538135074938,261,10,31.60742580488482,2
+ea_biomass_background,2,True,2,`ftol` termination condition is satisfied.,15,110252.88793861619,8253.560297931133,8249.6048638953,261,10,31.607681470863216,2
+ea_biomass_background,3,True,2,`ftol` termination condition is satisfied.,12,24628.934629344913,8253.501837465174,8249.546232913031,261,10,31.607456831084413,2
+ea_biomass_background,4,True,2,`ftol` termination condition is satisfied.,16,149449.7053733722,8253.556257700544,8249.6008137081,261,10,31.6076659529046,2
+ea_biomass_background,5,True,2,`ftol` termination condition is satisfied.,15,116781.46101259094,8253.570734212011,8249.615327549314,261,10,31.607721561491626,2
+ea_biomass_background,6,True,2,`ftol` termination condition is satisfied.,13,9343.147842829416,8253.566817875871,8249.611401403283,261,10,31.607706518786525,2
+ea_biomass_background,7,True,2,`ftol` termination condition is satisfied.,23,2513927.954386574,8253.4622366027,8249.506452413749,261,10,31.607304415378348,2

@@ -1,0 +1,50 @@
+{
+  "templates": [
+    "25026",
+    "25085",
+    "25170"
+  ],
+  "prior_batches": [
+    "25026",
+    "25086",
+    "25150",
+    "25170"
+  ],
+  "step": 0.01,
+  "pulse_slots": 5,
+  "n_candidates": 22,
+  "target_primary": [
+    "mu0",
+    "qN",
+    "betaG0",
+    "betaF0",
+    "qEG",
+    "qEF",
+    "iG",
+    "qXG",
+    "qXF"
+  ],
+  "target_final7": [
+    "mu0",
+    "qN",
+    "betaG0",
+    "betaF0",
+    "qEG",
+    "qEF",
+    "iG"
+  ],
+  "target_extended12": [
+    "mu0",
+    "qN",
+    "betaG0",
+    "betaF0",
+    "qEG",
+    "qEF",
+    "iG",
+    "qXG",
+    "qXF",
+    "sN",
+    "sG",
+    "sF"
+  ]
+}

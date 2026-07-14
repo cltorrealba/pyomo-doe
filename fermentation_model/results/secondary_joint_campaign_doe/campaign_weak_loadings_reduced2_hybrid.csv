@@ -1,0 +1,9 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+reduced2_hybrid,1,0.9377261264044976,"gammaF0, gammaG0, betaF0, iG, alpha_EA_loss, alpha_IAA_loss, iE, alpha_EO_loss","1.000, 0.012, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002"
+reduced2_hybrid,2,27.126855317812886,"alpha_EA_loss, k_EA_stationary, alpha_IAA_loss, k_EA_growth, kAldPyr, alpha_EO_loss, betaF0, k_IAA_growth","0.994, 0.078, 0.047, 0.040, 0.026, 0.017, 0.006, 0.006"
+reduced2_hybrid,3,33.22201270315178,"alpha_IAA_loss, kAldPyr, k_IAA_growth, k_IAA_stationary, alpha_EA_loss, alpha_EO_loss, qO2, kPyrD","0.977, 0.169, 0.086, 0.079, 0.052, 0.029, 0.013, 0.008"
+reduced2_hybrid,4,34.48850341130503,"kAldPyr, alpha_IAA_loss, qO2, kPyrD, kAcStress, kAldS, kAcAld, alpha_EA_loss","0.978, 0.170, 0.083, 0.053, 0.044, 0.031, 0.029, 0.018"
+reduced2_hybrid,5,47.126202457171615,"alpha_EO_loss, k_EO_stationary, k_EO_growth, alpha_IAA_loss, kAldPyr, alpha_EA_loss, betaF0, iG","0.992, 0.088, 0.078, 0.027, 0.019, 0.016, 0.008, 0.006"
+reduced2_hybrid,6,156.88710279911353,"k_IAA_growth, k_EO_growth, k_EA_growth, alpha_IAA_loss, k_IAA_stationary, alpha_EO_loss, mu0, qN","0.906, 0.395, 0.101, 0.085, 0.046, 0.036, 0.023, 0.022"
+reduced2_hybrid,7,184.6576223055301,"k_EO_growth, k_IAA_growth, alpha_EO_loss, k_EA_growth, k_EO_stationary, alpha_IAA_loss, k_IAA_stationary, mu0","0.908, 0.402, 0.075, 0.052, 0.052, 0.036, 0.024, 0.009"
+reduced2_hybrid,8,293.87188397056167,"k_EA_growth, k_EO_growth, k_EA_stationary, k_IAA_growth, alpha_EA_loss, iG, betaF0, iE","0.987, 0.090, 0.083, 0.072, 0.045, 0.028, 0.024, 0.022"

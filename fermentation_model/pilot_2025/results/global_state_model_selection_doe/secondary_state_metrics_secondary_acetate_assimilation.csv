@@ -1,0 +1,3 @@
+group,n,rmse,mae,bias,obs_scale,median_obs,median_pred,relative_rmse,relative_bias,corr,state,adequacy_flag,adequacy_reason,model
+secondary,107,33.34293219478434,26.575731753820378,-1.090491007094443,206.0,206.0,199.76512640717723,0.16185889414943855,-0.005293645665507004,0.5682248459672339,AcAld,adequate,error is within the pragmatic adequacy thresholds,secondary_acetate_assimilation
+secondary,129,16.194870426558897,12.550757771692698,-0.3558138046535083,48.0,48.0,48.465219804795815,0.33739313388664366,-0.00741278759694809,0.4159739116900825,Pyr,adequate,error is within the pragmatic adequacy thresholds,secondary_acetate_assimilation

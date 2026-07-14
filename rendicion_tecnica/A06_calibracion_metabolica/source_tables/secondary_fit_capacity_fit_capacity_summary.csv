@@ -1,0 +1,59 @@
+fit_label,success,status,message,nfev,n_parameters_fit,n_batches,n_residuals,initial_wsse,final_wsse,wsse_per_residual
+global_v2_reduced_o2fixed,True,,loaded from v2 reduced evaluation,,7,27,588,,5754.094323727336,9.785874700216558
+medium_v2_reduced_o2fixed_historical_vl3,True,2.0,`ftol` termination condition is satisfied.,25.0,7,8,251,2503.146908943022,2418.6293525403867,9.635973516097158
+medium_v2_reduced_o2fixed_natural,True,2.0,`ftol` termination condition is satisfied.,9.0,7,9,253,2647.608011027774,1949.821824201535,7.706805629255079
+medium_v2_reduced_o2fixed_synthetic,True,2.0,`ftol` termination condition is satisfied.,16.0,7,10,87,603.3394037565398,365.7702256760441,4.204255467540737
+batch_v2_reduced_o2fixed_historical_vl3_25026,True,2.0,`ftol` termination condition is satisfied.,44.0,7,1,11,123.34343218885243,6.3331581857372745,0.5757416532488432
+batch_v2_all_o2free_historical_vl3_25026,True,2.0,`ftol` termination condition is satisfied.,46.0,10,1,11,123.34343218885243,4.752188364963883,0.43201712408762577
+batch_v2_reduced_o2fixed_historical_vl3_25027,True,2.0,`ftol` termination condition is satisfied.,22.0,7,1,13,260.4547147902283,61.41483679027395,4.7242182146364575
+batch_v2_all_o2free_historical_vl3_25027,False,0.0,The maximum number of function evaluations is exceeded.,80.0,10,1,13,260.4547147902283,32.86028281516993,2.527714062705379
+batch_v2_reduced_o2fixed_historical_vl3_25085,True,2.0,`ftol` termination condition is satisfied.,19.0,7,1,34,153.52107686464302,26.888749509820588,0.7908455738182526
+batch_v2_all_o2free_historical_vl3_25085,True,2.0,`ftol` termination condition is satisfied.,42.0,10,1,34,153.52107686464302,25.771597477773025,0.7579881611109713
+batch_v2_reduced_o2fixed_historical_vl3_25086,True,2.0,`ftol` termination condition is satisfied.,18.0,7,1,34,242.32957851562543,33.47809056314318,0.9846497224453877
+batch_v2_all_o2free_historical_vl3_25086,True,2.0,`ftol` termination condition is satisfied.,60.0,10,1,34,242.32957851562543,21.08086417729848,0.6200254169793671
+batch_v2_reduced_o2fixed_historical_vl3_25150,True,2.0,`ftol` termination condition is satisfied.,20.0,7,1,27,458.6726677088429,37.22805331180726,1.3788167893261947
+batch_v2_all_o2free_historical_vl3_25150,True,2.0,`ftol` termination condition is satisfied.,30.0,10,1,27,458.6726677088429,26.701951163780105,0.9889611542140779
+batch_v2_reduced_o2fixed_historical_vl3_25151,True,2.0,`ftol` termination condition is satisfied.,15.0,7,1,27,420.8444466717561,36.65189510160236,1.3574775963556431
+batch_v2_all_o2free_historical_vl3_25151,True,2.0,`ftol` termination condition is satisfied.,18.0,10,1,27,420.8444466717561,29.636302412675075,1.0976408300990768
+batch_v2_reduced_o2fixed_historical_vl3_25170,True,2.0,`ftol` termination condition is satisfied.,47.0,7,1,52,481.60580026361873,113.3086009759851,2.1790115572304827
+batch_v2_all_o2free_historical_vl3_25170,True,2.0,`ftol` termination condition is satisfied.,36.0,10,1,52,481.60580026361873,108.75414350614936,2.0914258366567187
+batch_v2_reduced_o2fixed_historical_vl3_25171,True,2.0,`ftol` termination condition is satisfied.,17.0,7,1,52,362.3751919394556,196.64814160998725,3.781695030961293
+batch_v2_all_o2free_historical_vl3_25171,True,2.0,`ftol` termination condition is satisfied.,58.0,10,1,52,362.3751919394556,183.69508920941075,3.5325978694117453
+batch_v2_reduced_o2fixed_natural_LAB004,True,2.0,`ftol` termination condition is satisfied.,22.0,7,1,26,177.62646591496488,25.352926467628837,0.9751125564472629
+batch_v2_all_o2free_natural_LAB004,True,2.0,`ftol` termination condition is satisfied.,49.0,10,1,26,177.62646591496488,22.9799135844607,0.8838428301715654
+batch_v2_reduced_o2fixed_natural_LAB005,True,2.0,`ftol` termination condition is satisfied.,19.0,7,1,26,139.71420700260788,27.849251324224543,1.0711250509317132
+batch_v2_all_o2free_natural_LAB005,True,2.0,`ftol` termination condition is satisfied.,63.0,10,1,26,139.71420700260788,19.442360454522145,0.7477830944046979
+batch_v2_reduced_o2fixed_natural_LAB006,True,2.0,`ftol` termination condition is satisfied.,20.0,7,1,30,532.4837234954603,207.79301696238264,6.926433898746088
+batch_v2_all_o2free_natural_LAB006,True,2.0,`ftol` termination condition is satisfied.,23.0,10,1,30,532.4837234954603,91.77006962913693,3.059002320971231
+batch_v2_reduced_o2fixed_natural_LAB007,True,2.0,`ftol` termination condition is satisfied.,19.0,7,1,50,577.1074080031151,141.88780848794391,2.8377561697588782
+batch_v2_all_o2free_natural_LAB007,True,2.0,`ftol` termination condition is satisfied.,26.0,10,1,50,577.1074080031151,124.24775158850335,2.484955031770067
+batch_v2_reduced_o2fixed_natural_LAB008,True,2.0,`ftol` termination condition is satisfied.,19.0,7,1,50,550.5771088082952,119.84221078686835,2.396844215737367
+batch_v2_all_o2free_natural_LAB008,True,2.0,`ftol` termination condition is satisfied.,27.0,10,1,50,550.5771088082952,99.62851409527758,1.9925702819055515
+batch_v2_reduced_o2fixed_natural_LAB009,True,2.0,`ftol` termination condition is satisfied.,13.0,7,1,46,507.55880976025094,176.78798684390222,3.843217105302222
+batch_v2_all_o2free_natural_LAB009,True,2.0,`ftol` termination condition is satisfied.,20.0,10,1,46,507.55880976025094,107.08059150649889,2.327838945793454
+batch_v2_reduced_o2fixed_natural_LAB010,True,2.0,`ftol` termination condition is satisfied.,25.0,7,1,8,84.11085364604098,1.0147994848858928,0.1268499356107366
+batch_v2_all_o2free_natural_LAB010,True,2.0,`ftol` termination condition is satisfied.,40.0,10,1,8,84.11085364604098,0.962384391174671,0.12029804889683388
+batch_v2_reduced_o2fixed_natural_LAB011,True,2.0,`ftol` termination condition is satisfied.,13.0,7,1,8,57.67279639203829,1.6700740817953579,0.20875926022441973
+batch_v2_all_o2free_natural_LAB011,False,0.0,The maximum number of function evaluations is exceeded.,80.0,10,1,8,57.67279639203829,1.3602441434829324,0.17003051793536655
+batch_v2_reduced_o2fixed_natural_LAB012,True,2.0,`ftol` termination condition is satisfied.,56.0,7,1,8,20.756638005000877,1.0497400349876669,0.13121750437345836
+batch_v2_all_o2free_natural_LAB012,True,3.0,`xtol` termination condition is satisfied.,35.0,10,1,8,20.756638005000877,1.0527451374432895,0.13159314218041118
+batch_v2_reduced_o2fixed_synthetic_MS007,False,0.0,The maximum number of function evaluations is exceeded.,80.0,7,1,9,22.037486749056118,1.9897021680431495,0.22107801867146104
+batch_v2_all_o2free_synthetic_MS007,True,2.0,`ftol` termination condition is satisfied.,43.0,10,1,9,22.037486749056118,0.8759579607279926,0.09732866230311028
+batch_v2_reduced_o2fixed_synthetic_MS008,True,2.0,`ftol` termination condition is satisfied.,76.0,7,1,9,18.622732974152576,8.720450805149143,0.9689389783499048
+batch_v2_all_o2free_synthetic_MS008,True,2.0,`ftol` termination condition is satisfied.,32.0,10,1,9,18.622732974152576,4.213337851128433,0.4681486501253814
+batch_v2_reduced_o2fixed_synthetic_MS009,True,2.0,`ftol` termination condition is satisfied.,22.0,7,1,9,81.10850468808725,21.662439370355095,2.406937707817233
+batch_v2_all_o2free_synthetic_MS009,True,2.0,`ftol` termination condition is satisfied.,62.0,10,1,9,81.10850468808725,5.411407290730648,0.6012674767478497
+batch_v2_reduced_o2fixed_synthetic_MS010,True,2.0,`ftol` termination condition is satisfied.,79.0,7,1,9,41.00917492693211,15.400091133605708,1.7111212370673008
+batch_v2_all_o2free_synthetic_MS010,True,2.0,`ftol` termination condition is satisfied.,28.0,10,1,9,41.00917492693211,10.882264806276636,1.2091405340307373
+batch_v2_reduced_o2fixed_synthetic_MS011,True,2.0,`ftol` termination condition is satisfied.,18.0,7,1,9,114.14134601898778,16.68729207708548,1.854143564120609
+batch_v2_all_o2free_synthetic_MS011,True,2.0,`ftol` termination condition is satisfied.,29.0,10,1,9,114.14134601898779,10.405019662152982,1.1561132957947757
+batch_v2_reduced_o2fixed_synthetic_MS012,True,2.0,`ftol` termination condition is satisfied.,17.0,7,1,9,96.31815912834259,11.095238388674105,1.2328042654082338
+batch_v2_all_o2free_synthetic_MS012,True,2.0,`ftol` termination condition is satisfied.,15.0,10,1,9,96.31815912834259,10.452653291802777,1.1614059213114196
+batch_v2_reduced_o2fixed_synthetic_MS013,False,0.0,The maximum number of function evaluations is exceeded.,80.0,7,1,8,39.127885233973295,5.94223557625448,0.74277944703181
+batch_v2_all_o2free_synthetic_MS013,True,2.0,`ftol` termination condition is satisfied.,13.0,10,1,8,39.127885233973295,2.890397288899119,0.36129966111238987
+batch_v2_reduced_o2fixed_synthetic_MS014,True,2.0,`ftol` termination condition is satisfied.,72.0,7,1,8,46.95887962141124,13.890313168150438,1.7362891460188048
+batch_v2_all_o2free_synthetic_MS014,True,2.0,`ftol` termination condition is satisfied.,30.0,10,1,8,46.95887962141124,2.7081020041559563,0.33851275051949453
+batch_v2_reduced_o2fixed_synthetic_MS015,True,2.0,`ftol` termination condition is satisfied.,13.0,7,1,8,30.556456046108323,12.195885221568414,1.5244856526960517
+batch_v2_all_o2free_synthetic_MS015,True,2.0,`ftol` termination condition is satisfied.,22.0,10,1,8,30.556456046108323,6.992832557265073,0.8741040696581341
+batch_v2_reduced_o2fixed_synthetic_MS016,True,2.0,`ftol` termination condition is satisfied.,67.0,7,1,8,113.45877836948848,25.958015326369804,3.2447519157962255
+batch_v2_all_o2free_synthetic_MS016,False,0.0,The maximum number of function evaluations is exceeded.,80.0,10,1,8,113.45877836948848,1.2842234056327375,0.1605279257040922

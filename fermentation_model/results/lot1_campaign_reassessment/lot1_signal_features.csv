@@ -1,0 +1,4 @@
+process,candidate,last_t_h,last_sugar_g_l,last_G_g_l,last_F_g_l,y15_n,oculyze_n,co2_peak_raw_sccm,co2_peak_t_h,co2_mean_positive_sccm,last_Xviable_g_l,last_Xdead_g_l,last_viability_pct,glycerol_peak_g_l,glycerol_peak_t_h,acetic_peak_g_l,acetic_peak_t_h,pyruvic_peak_mg_l,pyruvic_peak_t_h,acetaldehyde_peak_mg_l,acetaldehyde_peak_t_h
+F1,synthetic_lit_SM410_18C_highN_ester,211.5,13.73,1.41,12.32,19,19,9.2302,47.833333333333336,2.642890958213255,1.1703248699999997,0.07377513000000015,94.07,7.46,162.5,0.93,211.5,107,45,287,45
+F2,synthetic_high_biomass_low_N_maintenance,383.8,26.8,1.97,24.830000000000002,22,21,4.80655,46,1.9132845592897885,1.6612516799999997,0.04154832000000013,97.56,6.05,383.8,1.17,383.8,81,168.5,87,260.5
+F3,synthetic_fructose_rich_glucose_pulse,211.5,13.71,1.3,12.41,19,18,13.68465,55.5,4.155871540656204,0.75345159,0.018448410000000023,97.61,6.44,211.5,0.63,96.5,93,48.5,230,48.5

@@ -1,0 +1,13 @@
+Final identifiable effective model after deep model-selection run
+
+Estimated parameters: mu0, qN, betaG0, betaF0, qEG, qEF, iG
+Fixed parameters: sN, qXG, qXF, sG, sF, iE, Kd0, m0
+Objective WSSE: 6001.982781
+AIC-like: 12017.965561
+BIC-like: 12043.557504
+FIM condition number (10% relative perturbation): 8381.224
+Minimum relative FIM eigenvalue: 0.000119314
+Profile likelihood: all seven estimated parameters cross both sides at 95% chi-square threshold 3.841459.
+Bayesian Laplace: weak lognormal priors with log-sd=1.0 are data-dominated for all seven estimated parameters.
+Rejected structural extension: qXG/qXF remain fixed because the unregularized free fit drives both to lower bounds and produces a near-null FIM direction dominated by qXF/qXG.
+Regularized curve-fit scenario: plus_qx_iG_logL2_10 improves visual/direct WSSE but is retained only as a Bayesian regularized sensitivity scenario, not as the structural model.

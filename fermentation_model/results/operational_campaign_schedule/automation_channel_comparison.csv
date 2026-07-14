@@ -1,0 +1,6 @@
+automated_channel,large_manual_pulse_shifts,max_abs_manual_pulse_shift_h,max_total_manual_events_per_day,max_manual_samples_per_day,max_manual_pulses_per_day
+none,1,16.0,15,12,3
+N,1,16.0,14,12,3
+G,1,16.0,15,12,3
+F,1,16.0,15,12,3
+E,0,8.0,15,12,3

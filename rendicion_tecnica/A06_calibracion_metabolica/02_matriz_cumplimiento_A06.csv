@@ -1,0 +1,8 @@
+contenido_minimo,estado_bundle,archivos_bundle,detalle
+Dataset de calibracion,cubierto,data_sources/*.xlsx; source_tables/secondary_joint_campaign_doe__secondary_joint_input_data.csv; tables/03_dataset_resumen.csv,"Incluye base historica VL3, mosto natural, mosto sintetico y dataset integrado de 27 lotes para calibracion secundaria."
+Estrategia de calibracion,cubierto,tables/04_estrategia_calibracion.csv; 03_metodologia_calibracion_A06.md; source_reports/*.md,"Documenta ajuste regularizado, evaluacion v2, diagnostico de capacidad y validacion por multistart/perfiles."
+Parametros metabolicos,cubierto,tables/06_parametros_metabolicos.csv; source_tables/*theta*.csv; source_tables/*estimability*.csv,"Incluye parametros del ajuste regularizado y parametros v2 de piruvato, acetaldehido, acetato y oxigeno."
+Funcion objetivo,cubierto,tables/05_funcion_objetivo.csv; code_sources/run_fit_strategy_analysis.py; code_sources/run_secondary_v2_model_evaluation.py,"Describe WSSE, penalizacion log-L2, residuos escalados por sigma y diagnosticos de robustez."
+Metricas,cubierto,tables/07_metricas_calibracion.csv; source_tables/*fit*.csv; source_tables/*state*.csv,"Incluye WSSE, SSE, residuos por estado, n observaciones, convergencia y comparacion de modelos."
+Incertidumbre/identificabilidad,cubierto,tables/08_incertidumbre_identificabilidad.csv; source_tables/*profile*.csv; source_tables/*fim*.csv,"Incluye FIM, espectro propio, perfiles de verosimilitud y clasificacion de parametros debiles/confundidos."
+Resultados e interpretacion,cubierto,tables/09_resultados_interpretacion.csv; 04_resultados_interpretacion_A06.md; ANEXO_A06_borrador.md,"Resume decision tecnica, uso recomendado, brechas y limites de cierre parametrico."

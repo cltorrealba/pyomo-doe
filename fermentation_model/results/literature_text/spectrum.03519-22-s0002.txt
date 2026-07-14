@@ -1,0 +1,39 @@
+
+
+--- PAGE 1 ---
+RESEARCH ARTICLE
+A dynamic genome-scale model identi/uniFB01es1
+metabolic pathways associated with cold2
+tolerance in Saccharomyces kudriavzevii3
+Compiled March 29, 2023
+This is a draft manuscript, pre-submission
+Address correspondence to .
+4
+SUPPLEMENTAL MATERIAL5
+FIGURE S1. Best /uniFB01ts to biomass, carboxylic acids, esters, and assimilable nitro-6
+gen sources. Continuous lines represent model predictions, while circles represent7
+experimental data. Orange: 25 ºC; Blue:12ºC. Figure A1 illustrates the good quality of8
+/uniFB01t for biomass R2>0.92 in both cases. Figures A2-A10 show the model explained the9
+data at 25 ºC reasonably well (R 2 median >0.9) while the quality of the model is lower10
+at 12 ºC. Remarkably also at this temperature, the data are noisier and the presence11
+of several outliers is detected. Figures B show the quality of the /uniFB01t to YAN sources12
+data is particularly good for most of the amino acids and ammonium chloride (me-13
+dian R2 >0.90 for both temperatures). However, the /uniFB01t is particularly poor for histidine14
+and glycine for which the R 2 values are aﬀected by a high noise-to-signal ratio and the15
+presence of outliers.16
+TABLE S1. The whole-genome comparative analysis of orthologous clusters between17
+S. kudriavzevii and S. cerevisiae with OrthoVenn2 (? ) showed that S. kudriavzevii shares18
+5398 orthologous clusters out of 5447 with S. cerevisiae.19
+TABLE S2. Optimal parameter values found in parameter estimation for both temper-20
+atures 12ºC and 25 ºC)21
+TABLE S3. Best /uniFB01t R2 scores for the measured variables at 12 ºC and 25 ºC.22
+TABLE S4. Intracellular LC-MS data showing an increase in dipeptides, indicative of an23
+increase in proteolytic activity.24
+TABLE S5. Intracellular /uniFB02ux ratios calculated for the stationary phase at 12ºC and 25ºC.25
+TABLE S6. List of unconstrained lipid exchange reactions.26
+TABLE S7. Comparison of intracellular /uniFB02ux ratios forS. cerevisiae and S. kudriavzevii at27
+25ºC.28
+CODE S1. Experimental data and code for reproducing results can be found in https:29
+//sites.google.com/site/amigo2toolbox/examples). DOI:10.5281/zenodo.776404630
+mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template mSystems Submission Template
+1

@@ -1,0 +1,4 @@
+workflow,funcion_objetivo,formula_operativa,residuos_o_estados,ponderacion,archivo_codigo
+fit_strategy_analysis,WSSE + penalizacion log-L2,ParmEst SSE_weighted + 0.5 * lambda * sum(log(theta/theta_ref)^2) * n_batches,"E,F,G,N,X",residuos ponderados por funcion SSE_weighted del notebook de calibracion,code_sources/run_fit_strategy_analysis.py
+secondary_v2_model_evaluation,least_squares robusto sobre residuos escalados,sum(((pred-obs)/sigma_estado)^2) con loss soft_l1 y priors log para parametros seleccionados,"Pyr,AcAld,Acetate,O2","SIGMA: Pyr=6.0, AcAld=8.0, Acetate=0.035, O2=0.20",code_sources/run_secondary_v2_model_evaluation.py
+secondary_fit_capacity,least_squares por medio/lote,misma base de residuos escalados; parametros liberados por lote como diagnostico de capacidad,"Pyr,AcAld,Acetate,O2",no se usa como modelo final; solo cota superior de ajuste,code_sources/run_secondary_fit_capacity.py

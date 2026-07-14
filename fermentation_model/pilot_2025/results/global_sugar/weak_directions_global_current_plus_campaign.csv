@@ -1,0 +1,9 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+global_current_plus_campaign,1,1.2773052475194353e-07,"kAcAssim, k_EA_XE, kAldRed, k_EA_growth, kAldO2, kPyrS_stat, kAldPyr, kAcAld","1.000, 0.001, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current_plus_campaign,2,1.5507647780652653e-06,"k_EA_XE, k_EA_growth, kAcAssim, k_EA_XE_Nlim, k_EA_stationary, gammaF0, betaF0, kPyrS_stat","0.998, 0.062, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current_plus_campaign,3,0.0002285455777317369,"k_EA_growth, k_EA_XE, k_EA_stationary, alpha_EA_loss, kAldRed, kPyrS_stat, gammaF0, kAcAssim","0.998, 0.062, 0.002, 0.000, 0.000, 0.000, 0.000, 0.000"
+global_current_plus_campaign,4,0.002386630121618646,"kAldRed, kPyrS_stat, kAldPyr, kAldO2, kPyrO2, kAldS_stat, kAcAssim, kPyrDrain","1.000, 0.022, 0.009, 0.003, 0.002, 0.001, 0.001, 0.001"
+global_current_plus_campaign,5,0.09776140210301805,"kPyrS_stat, kPyrO2, kAldRed, kPyrDrain, kPyrS_N, kAldS_stat, kAldO2, gammaF0","0.997, 0.079, 0.023, 0.012, 0.006, 0.002, 0.002, 0.001"
+global_current_plus_campaign,6,0.9093389365759852,"gammaF0, gammaG0, betaF0, iG, qEF, iE, qEG, k_EA_stationary","0.999, 0.042, 0.011, 0.007, 0.004, 0.004, 0.003, 0.002"
+global_current_plus_campaign,7,23.947307753265978,"k_EA_stationary, k_EA_XE_Nlim, alpha_EA_loss, betaF0, iG, kPyrO2, kAldPyr, qEF","0.984, 0.159, 0.076, 0.028, 0.013, 0.011, 0.010, 0.010"
+global_current_plus_campaign,8,39.687608308942,"kPyrO2, kPyrDrain, kAldO2, kAldPyr, kPyrS_N, kAldS_stat, kAcStress, kPyrS_stat","0.761, 0.480, 0.308, 0.207, 0.138, 0.128, 0.077, 0.067"

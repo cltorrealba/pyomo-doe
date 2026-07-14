@@ -1,0 +1,9 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+selected_current,1,-6.374046833345011e-14,"kAcStress, k_EA_XE, k_EA_growth, k_EA_XE_Nlim, k_EA_stationary, kAldRed, gammaF0, alpha_EA_loss","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+selected_current,2,1.8836438128807087e-08,"k_EA_XE, k_EA_growth, k_EA_XE_Nlim, kAldRed, k_EA_stationary, alpha_EA_loss, gammaF0, betaG0","0.998, 0.057, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+selected_current,3,0.00012154772408975225,"k_EA_growth, k_EA_XE, k_EA_stationary, kAldRed, gammaF0, alpha_EA_loss, k_EA_XE_Nlim, betaF0","0.998, 0.057, 0.003, 0.001, 0.000, 0.000, 0.000, 0.000"
+selected_current,4,0.004216895508649596,"kAldRed, kAcAld, gammaF0, k_EA_growth, iG, betaF0, kAldS_N, qEF","1.000, 0.002, 0.001, 0.001, 0.001, 0.001, 0.001, 0.000"
+selected_current,5,0.2477561037402507,"gammaF0, gammaG0, betaF0, iG, qEF, iE, qEG, k_IAA_growth","0.999, 0.041, 0.021, 0.015, 0.009, 0.008, 0.004, 0.002"
+selected_current,6,6.83829935215557,"k_EA_stationary, k_EA_XE_Nlim, alpha_EA_loss, Kd0, kPyrO2, kPyrDrain, iG, betaF0","0.989, 0.122, 0.076, 0.020, 0.019, 0.010, 0.005, 0.004"
+selected_current,7,9.11239682350215,"kPyrO2, kPyrDrain, kPyrS_N, iG, betaF0, k_EA_stationary, qEF, iE","0.882, 0.443, 0.153, 0.033, 0.027, 0.022, 0.016, 0.012"
+selected_current,8,12.017410042163728,"betaF0, iG, qEF, iE, gammaG0, qEG, kPyrO2, gammaF0","0.650, 0.627, 0.327, 0.230, 0.108, 0.092, 0.042, 0.024"

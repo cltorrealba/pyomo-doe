@@ -1,0 +1,22 @@
+Campo homologado,Campo fuente / regla,Comentario
+ID,Codigo,Identificador de muestra original.
+fecha_hora,DateTime,Serial Excel del archivo de origen.
+t,Horas,Tiempo de fermentación en horas.
+temperatura,Temperatura,Temperatura operacional/de diseño. No corresponde a Temperatura Medida.
+Temperatura Medida,Temperatura Medida,Variable conservada como control/contraste térmico.
+densidad,Densidad,Directo.
+Brix,Brix,Directo; se detectó un valor anómalo en MS009-2.
+GLUCOSE,GLUCOSE-320,Directo.
+FRUCTOSE,GLU-FRU-320 - GLUCOSE-320,Calculado por fórmula en la planilla.
+PAN,PAN,Directo.
+AMMONIA,AMMONIA,Directo.
+YAN,YAN,Directo.
+GLYCEROL,GLYCEROL,Directo.
+PYRUVIC ACID,PYRUVIC_ACID,Directo.
+ETANOL,ETANOL,Directo.
+pulso_nut,Adicion,Mapeado para compatibilidad con estructura piloto; Adicion también se conserva como factor CCD.
+Oculyze Concentration,C_total,Conservado en campo compatible y también como C_total.
+Oculyze Budding,Budding_Index,Conservado en campo compatible y también como Budding_Index.
+Y15 Glucosa-Fructosa,GLU-FRU-320,Azúcar total medido como GLU-FRU-320 en origen.
+Condición,Temperatura + Adicion,Texto compuesto para trazabilidad del diseño experimental.
+Código ensayo,Cubada,Identificador de proceso/cubada.

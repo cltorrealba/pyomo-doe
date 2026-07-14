@@ -1,0 +1,4 @@
+epoch,evaluations,cache_hits,successful_evaluations,failed_evaluations,best_objective,relative_improvement_since_checkpoint
+1,5,1,1,4,6010.753438696366,inf
+6,35,1,26,9,6010.753438696366,0.0
+12,71,1,61,10,6010.753438696366,0.0

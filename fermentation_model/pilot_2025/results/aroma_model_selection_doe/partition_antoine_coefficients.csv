@@ -1,0 +1,4 @@
+species,method,chemical,type,A,B,C,base,Tmin,Tmax,process_min_temp_c,process_max_temp_c,extrapolated_for_process_window,range_gap_K
+ethyl_acetate,ANTOINE_POLING,ethyl acetate,Antoine,9.13361,1195.13,-60.68,10.0,265.5,372.51,10.0,30.0,False,0.0
+isoamyl_acetate,LANDOLT,isoamyl acetate,Antoine,21.334602179136333,3441.9249202733367,-64.067,2.718281828459045,273.0,415.0,10.0,30.0,False,0.0
+ethyl_octanoate,LANDOLT,ethyl octanoate,Antoine,24.37438291550335,5961.452672974002,-13.227,2.718281828459045,330.0,414.0,10.0,30.0,True,46.85000000000002

@@ -1,0 +1,9 @@
+mode,start,success,status,message,nfev,data_wsse,n_data_residuals,active_bound_count,fit_selection_score,params_json,tau_h
+lag,0,True,2,`ftol` termination condition is satisfied.,35,246.63088489098737,308,0,246.63088489098737,{'tau_h': 25.872679969773813},25.872679969773813
+lag,1,True,2,`ftol` termination condition is satisfied.,38,246.628282370506,308,0,246.628282370506,{'tau_h': 25.864880630966425},25.864880630966425
+lag,2,True,2,`ftol` termination condition is satisfied.,38,246.63716913442335,308,0,246.63716913442335,{'tau_h': 25.891496862837627},25.891496862837627
+lag,3,True,2,`ftol` termination condition is satisfied.,23,246.82239847495015,308,0,246.82239847495015,{'tau_h': 26.436434544260777},26.436434544260777
+lag,4,True,2,`ftol` termination condition is satisfied.,40,246.6245654063397,308,0,246.6245654063397,{'tau_h': 25.853734739141235},25.853734739141235
+lag,5,True,2,`ftol` termination condition is satisfied.,36,246.62802901510145,308,0,246.62802901510145,{'tau_h': 25.864121157694555},25.864121157694555
+lag,6,True,2,`ftol` termination condition is satisfied.,27,246.63290627737302,308,0,246.63290627737302,{'tau_h': 25.87873506473259},25.87873506473259
+lag,7,True,2,`ftol` termination condition is satisfied.,40,246.62500231344154,308,0,246.62500231344154,{'tau_h': 25.85504528463506},25.85504528463506

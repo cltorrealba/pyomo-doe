@@ -1,0 +1,2 @@
+fit,success,status,message,nfev,initial_wsse,final_wsse,n_residuals,wsse_per_residual
+secondary_current_l2,True,2,`ftol` termination condition is satisfied.,23,24922.989235152556,8713.71949379122,591,14.7440262162288

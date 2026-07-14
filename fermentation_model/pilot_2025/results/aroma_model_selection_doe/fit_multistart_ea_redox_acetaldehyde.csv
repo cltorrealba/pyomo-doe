@@ -1,0 +1,9 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count
+ea_redox_acetaldehyde,0,True,2,`ftol` termination condition is satisfied.,20,9449.827380856075,7701.3029483824,7696.892020485491,261,11,29.490007741323723,2
+ea_redox_acetaldehyde,1,True,2,`ftol` termination condition is satisfied.,23,40340704.30605164,7701.317715564357,7696.906839585794,261,11,29.490064519485802,2
+ea_redox_acetaldehyde,2,True,2,`ftol` termination condition is satisfied.,11,17112.8956987879,7701.311176246602,7696.900266580314,261,11,29.49003933555676,2
+ea_redox_acetaldehyde,3,True,2,`ftol` termination condition is satisfied.,21,38771929.29271568,7701.286906040815,7696.875950614671,261,11,29.489946170937436,2
+ea_redox_acetaldehyde,4,True,2,`ftol` termination condition is satisfied.,28,3158642.331160446,7701.328392924994,7696.9175344847035,261,11,29.490105496109976,2
+ea_redox_acetaldehyde,5,True,2,`ftol` termination condition is satisfied.,22,18261692.23576337,7701.314934926015,7696.90405234038,261,11,29.490053840384597,2
+ea_redox_acetaldehyde,6,True,2,`ftol` termination condition is satisfied.,25,21797078.640821315,7701.28899324025,7696.878014368594,261,11,29.48995407804059,2
+ea_redox_acetaldehyde,7,True,2,`ftol` termination condition is satisfied.,11,45614.26055221312,7498.7872196483,7493.343816960221,261,11,28.7101295668974,2

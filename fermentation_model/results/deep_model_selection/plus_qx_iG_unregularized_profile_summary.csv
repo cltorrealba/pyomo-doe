@@ -1,0 +1,4 @@
+profiled_theta,n_success,theta_hat,min_profile_objective,max_lr_stat,crosses_left,crosses_right,chi2_threshold,candidate,objective_kind,profile_identifiable_2sided
+iG,8,0.0174100915417625,5972.5474116214245,351.7144414954819,True,True,3.841458820694124,plus_qx_iG_unregularized,SSE_weighted,True
+qXF,8,0.005,5972.5474116214245,115.75614378308273,False,True,3.841458820694124,plus_qx_iG_unregularized,SSE_weighted,False
+qXG,8,0.005,5972.5474116214245,224.61833516845945,False,True,3.841458820694124,plus_qx_iG_unregularized,SSE_weighted,False

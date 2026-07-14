@@ -1,0 +1,1095 @@
+
+
+--- PAGE 1 ---
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/319202999
+Minimizing methanol content in experimental charentais alembic
+distillations
+Article  in  Journal of Industrial and Engineering Chemistry · August 2017
+DOI: 10.1016/j.jiec.2017.08.018
+CITATIONS
+8
+READS
+587
+3 authors:
+Some of the authors of this publication are also working on these related projects:
+Polyphenols extraction and separation View project
+Vinegar View project
+Ricardo Luna
+Viña Concha y Toro
+11 PUBLICATIONS   36 CITATIONS   
+SEE PROFILE
+Francisco López
+Facultat d'Enologia, Universitat Rovira i Virgili
+81 PUBLICATIONS   1,780 CITATIONS   
+SEE PROFILE
+José Ricardo Pérez-Correa
+Pontificia Universidad Católica de Chile
+177 PUBLICATIONS   2,694 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Ricardo Luna on 08 February 2018.
+The user has requested enhancement of the downloaded file.
+
+
+--- PAGE 2 ---
+Minimizing methanol content in experimental charentais alembic
+distillations
+Ricardo Lunaa, Francisco Lópezb, José R. Pérez-Correaa,*
+a Departamento de Ingeniería Química y Bioprocesos, Pontiﬁcia Universidad Católica de Chile, Vicuña Mackenna 4860, Casilla 306, Santiago 22, Chile
+b Departament d’Enginyeria Química, Universitat Rovira i Virgili, Av. Països Catalans 26, 43007 Tarragona, Spain
+A R T I C L E I N F O
+Article history:
+Received 27 June 2017
+Received in revised form 9 August 2017
+Accepted 11 August 201 7
+Available online 20 August 2017
+Keywords:
+Aromas
+Distillation
+Multi-objective
+ optimization
+Dynamic optimization
+Spirits
+A B S T R A C T
+This study focuses on using modern engineering tools to consistently produce spirits with low methanol
+content in Charentais alembics. The method involves developing a dynamic model, formulating a multi-
+objective dynamic optimization problem, and implementing an automatic process control system.
+Optimization yielded a variable temperature in the partial condenser, which was tracked by an automatic
+control system that manipulated the heat addition in the boiler. The procedure was experimentally
+validated in triplicate using a ternary mixture. With the optimal operation, distillates with 12% less
+methanol than standard distillates were reproducibly obtained, with a moderate reduction (2.4%) in the
+ethanol recovery.
+© 2017 The Korean Society of Industrial and Engineering Chemistry. Published by Elsevier B.V. All rights
+reserved.
+Introduction
+Distilled alcoholic beverages are produced worldwide from
+local raw materials. For example, whisky (UK, Ireland) is produced
+from cereals, cachaça from cane juice (Brazil), tequila from agave
+(Mexico), cognac/brandy (France, Spain) and pisco (Peru, Chile)
+from grapes [1]. Young distillates are characterized by a delicate
+aroma that resembles the original fruit. In addition, high quality
+spirits should be free from off-ﬂavors and toxic compounds. In
+spirits production processes, distillation plays a key role to ensure
+that the standards of quality of the product are met. This is an
+operation already used by ancient cultures to produce medicines
+and perfumes, and nowadays are used in almost every chemical
+processing plant. Distillation is a method for separating substances
+of different volatility. Most spirits production processes use either
+batch distillation columns or Charentais alembics. The latter are
+most frequently used in small-scale production facilities. In this
+system, three cuts (head, heart and tail) are collected sequentially;
+high quality spirits are produced from the heart cut. Even though
+the operation of alembics is relatively simple compared to batch
+distillation columns, it is subjected to many uncontrolled and
+unmeasured disturbances that generate variability in the
+composition of the ﬁnal product. Hence, it is still difﬁcult to
+ensure that the produced spirit consistently meets a deﬁned
+quality criterion. It is even more difﬁcult to adapt the production
+process to meet changing market trends.
+There are many published studies dealing with the production
+of fruit distillates in Charentais alembics and distillation columns
+[2–9]. Many of these studies were concerned with the impact of the
+fruit variety or the distillation equipment on the aroma composi-
+tion of the spirit. In addition, in these studies distillation strategies
+were not changed and were deﬁned heuristically. Recent studies
+have explored the impact of different operating strategies on the
+composition of Muscat wine distillates obtained in a packed batch
+distillation column [10,1 1]. It was found by trial and error that low
+reﬂux rates at the beginning of the heart cut could produce
+distillates with an enhanced ﬂoral aroma. Although establishing
+suitable alembic distillation strategies by trial and error is a valid
+option that has been used for centuries in the production of spirits,
+medicines and perfumes, these strategies can be developed much
+faster and reliably using model based optimization [12,13].
+Several techniques have long been applied to design optimal
+operating strategies for batch distillation processes relevant in
+chemical engineering. Most of these methods transform the
+strategy design into an optimal control problem, where the usual
+goals are to minimize time, maximize distillate, maximize
+concentration of a key component or maximize proﬁt [14,15]. As
+a result, most of the time, difﬁcult nonlinear programing problems
+(NLP) should be solved numerically, either by the sequential
+* Corresponding author.
+E-mail addresses: rlluna@uc.cl (R. Luna), francisco.lopez@urv.cat (F. López),
+perez@ing.puc.cl (J.R. Pérez-Correa).
+http://dx.doi.org/10.1016/j.jiec.2017.08.018
+1226-086X/© 201 7 The Korean Society of Industrial and Engineering Chemistry. Published by Elsevier B.V. All rights reserved.
+Journal of Industrial and Engineering Chemistry 57 (2018) 160–170
+Contents lists available at ScienceDirect
+Journal of Industrial and Engineering Chemistry
+journal  home  page  : www.elsevier.com/loca  te/jiec
+
+
+
+--- PAGE 3 ---
+approach (partial discretization) or the simultaneous approach
+(full discretization) [16]. The sequential approach is relatively easy
+to code and apply, especially if a reliable process model is already
+available. In this formulation, the control variables are discretized
+as piecewise polynomials and optimization is performed with
+respect to the polynomials’ coefﬁcients [17–19]. Alternatively, the
+simultaneous approach is faster and can handle many more
+decision variables and constraints than the sequential approach.
+This method does nevertheless require sophisticated optimization
+routines for handling large-scale problems as well as additional
+techniques to avoid numerical difﬁculties and to guarantee
+convergence. In this formulation, the control and state variables
+are discretized in time, using for example collocation on ﬁnite
+elements.
+Although the sequential approach [20–23] and the simulta-
+neous approach [24–28] have been widely used to solve batch
+distillation optimization problems, few of these studies include
+experimental validation. Previous studies with experimental
+validation involve distillation of binary mixtures [29–31], distilla-
+tion of ternary mixtures [32] and reactive distillation [33].
+Nevertheless, studies involving optimization with experimental
+validation in the distillation of alcoholic beverages are scarce. Fruit
+wines are complex mixtures where water and ethanol represent
+around 96% of the total mass, and the delicate aroma of the spirit is
+deﬁned by the remaining 4% made up of hundreds of volatile
+compounds [34]. Osorio et al. [12] solved a multi-objective optimal
+control problem for the distillation of a spirit in a tray column,
+ﬁnding a suboptimal path for the cooling ﬂow rate in the partial
+condenser that simultaneously maximized the recovery of
+terpenes (ﬂoral aroma in Muscat wines) and minimized the
+recovery of fatty acids (off-ﬂavors). The process model was
+complex, with many differential and implicit algebraic equations;
+therefore, the formulation and solution of a full optimization
+problem was difﬁcult. To simplify the numerical solution of the
+optimization problem, the control path was parametrized using a
+smooth time-varying function with variable coefﬁcients. With
+their method, Osorio et al. [12] were able to experimentally obtain
+a distillate with three times more linalool (ﬂoral aroma) than
+commercial piscos (Muscat grape brandies) and six times more
+linalool than a distillate obtained by applying a standard
+distillation policy to the same batch distillation column. In
+addition, the optimum distillate contained on average four times
+less octanoic acid (off-ﬂavor) than commercial and standard
+distilled piscos. More recently, De Lucca et al. [35] explored by
+simulation several operating policies to minimize the methanol
+content in the distillate obtained in a batch packed bed column
+[36]. These authors used the same predeﬁned function with
+variable coefﬁcients of Osorio et al. [12] to ﬁnd an optimal cooling
+ﬂow rate path. Simulations showed that the best operating
+strategy could not reduce the relative methanol concentration in
+the distillate more than 23% compared with the relative methanol
+concentration in the wine.
+Our long-term aim is to apply model-based techniques to
+design and implement batch distillation strategies to produce
+young fruit distillates that consistently meet a given standard of
+quality, i.e., rich in fruity and ﬂoral aromas and low in off-ﬂavors
+and toxic compounds. Speciﬁcally, in this paper we focus on
+designing a distillation strategy that minimizes the methanol
+content in a distillate obtained in a Charentais alembic, without
+sacriﬁcing ethanol recovery. Methanol metabolizes slowly in the
+human body, producing formaldehyde and formic acid, which are
+extremely toxic in high concentrations. Excessive intake of
+methanol generates various ailments such as fatigue, thirst,
+headache, stomachache, nausea, vomiting, sensitivity to light
+and noise, lack of concentration and attention, tremors, excessive
+sweating and hypertension [37]. Hence, in many countries,
+methanol content in alcoholic beverages is regulated.
+First the calibration procedure of a dynamic alembic model
+adapted from [38] is described. Then, a suitable multi-objective
+dynamic optimization problem is formulated and solved using
+both the sequential and simultaneous approaches. Finally, the
+obtained experimental results are shown and discussed.
+Materials and methods
+Distillation system
+The automatic Charentais copper alembic (Fig. 1) used in our
+experiments consists of a 4.8 L capacity boiler, a natural convection
+partial condenser (head), a swan neck and a total condenser.
+PT100 sensors measured the boiler, head and room temperatures.
+The heating power (1200 W) applied to the boiler was manipulated
+using a PAC2 regulator module that controls the phase angle of the
+AC supply. A S7-200 Siemens PLC (Programmable Logic Controller)
+received the temperature data from the PT100 sensors and sent the
+controller output to the PAC2 module to adjust the heating power.
+The human-machine interface (HMI) and the control algorithms
+were coded in MATLAB1/SimulinkTM using the OPC Toolbox in a PC
+Fig. 1. P&ID of the distillation system.
+R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170 161
+
+
+--- PAGE 4 ---
+(Intel1 CoreTM 2 Hewlett-Packard). A cascade control system was
+applied: the primary controller (outer loop) read the head
+temperature and provided the heating power set point for the
+secondary controller; the secondary controller (inner loop)
+adjusted the applied heating power to follow the set point
+provided by the primary controller. Both controllers used an
+internal model control (IMC) algorithm [39].
+Experiments
+In this study, a synthetic ternary mixture was prepared with a
+composition usually found in wine, i.e., 13% v/v of ethanol and
+1.37 g/L.a.a. of methanol (grams of methanol per liter of absolute
+alcohol). The solution was prepared once and in sufﬁcient amount
+before all the experimental distillations. The Alembic was initially
+loaded with 1.8 L of synthetic wine in each experiment. Distillation
+strategies were deﬁned in terms of the heating power applied to
+the boiler. Three strategies (performed in triplicate) were assessed:
+(i) slow distillation at constant low heating power (230 W); (ii) fast
+distillation at constant high heating power (400 W); and (iii)
+optimal distillation applying a variable heating power. The ﬁrst two
+strategies are common practice in small-scale spirits production
+facilities: slow distillations tend to increase spirits quality while
+fast distillations tend to increase ethanol recovery. The third
+strategy was deﬁned to balance two objectives; low methanol
+content and high ethanol recovery (see section 2.7). In all
+distillation runs, three fractions were collected according to
+predeﬁned volumes: 85 mL of head, 375 mL of heart and 115 mL
+of tail. The corresponding total distillation times were 168, 67 and
+87 min for the slow, fast and optimal distillations respectively.
+Chemical analysis
+Ethanol content was determined (in triplicate) with a
+pycnometer, correcting the density to 20 /C14 C. Methanol content
+was determined (in duplicate) using the method proposed by the
+International Organization of Vine and Wine (OIV) [40]. Distillate
+samples were diluted up to an ethanol content of 5% v/v and the
+methanol in the diluted samples was oxidized to formaldehyde
+with a solution of 3% w/v potassium permanganate and 15% v/v
+phosphoric acid. Then, the diluted oxidized samples were bleached
+with dry sodium bisulﬁte. The amount of formaldehyde was
+deﬁned by the intensity of the violet color followed by the reaction
+of 5% w/w chromotropic acid in a sulfuric medium. This intensity
+was determined by spectrophotometry UV–vis (T70 UV/VIS
+spectrometer PG Instruments) at 575 nm. All reagents were
+analytical grade. We used these low cost analytical techniques
+instead of gas chromatography (GC) or high-pressure liquid
+chromatography (HPLC), since these are too expensive to be
+implemented in small-scale distilleries.
+Data reconciliation
+Total mass, alcoholic strength and methanol concentrations were
+measured in the synthetic wine initially charged in the boiler, in all
+the distillate samples and in the residue left in the boiler after
+distillation. Discrepancies were found in the global mass balances
+due to measurement errors. Therefore, measurements were
+corrected with a standard data reconciliation procedure normally
+applied in the process industries [41]. Hence, reconciled values
+closed the global mass balances (total mass, ethanol and methanol).
+Modelling
+A simpliﬁed version of the model presented in Sacher et al. [38]
+is used here, which considers a mixture of water, methanol and
+ethanol. The model comprises total mass, ethanol and energy
+dynamic balances in the boiler, as well as total mass, ethanol and
+energy stationary balances in the partial condenser. Several
+constitutive equations were included to describe the heat loss to
+the environment and the vapor/liquid equilibrium. The complete
+model is given in Appendix A and further details and speciﬁc
+assumptions can be found in Sacher et al. [38].
+Model calibration
+The data obtained in the constant heat rate distillations (see
+Section 2.2) were used to calibrate the dynamic alembic model.
+The ﬁtting parameters were:
+u ¼ UAb; UAc; M0; xe
+0; xm
+0
+/C2  /C3
+ð1Þ
+where UAb and UAc represent the global heat transfer coefﬁcient
+multiplied by the corresponding heat transfer area in the boiler
+and head respectively. M0,xe
+0 and xm
+0
+are the initial total moles,
+ethanol molar fraction and methanol molar fraction in the boiler
+just at the moment when the ﬁrst drop of distillate is recovered.
+These unmeasured values were different from those of the initial
+mixture. For the optimal strategy, the heat transfer parameters
+(UA) were not ﬁtted; instead, they were modeled as linear
+functions of the heat transfer parameters ﬁtted with the constant
+heating experiments.
+The calibration cost function was:
+J uð Þ ¼
+Xnvar
+j
+Xnobs
+i¼1
+^yij u; u; tð Þ /C0  yij u; tð Þ
+max yij
+/C16  /C17
+!20
+@ ð2Þ
+where index j represents the measured variables and index i the
+sample times. The measured variables were: alcoholic strength GA,
+methanol concentration Meth, distilled volume V and head
+temperature Tc. Max (yij) corresponds to the maximum measured
+value of variable j during the distillation run. The optimization
+problem was solved within MATLAB1 R2015a with the scatter
+search metaheuristic code (SSM) [42].
+Eqs. (A.20), (A.21) and (A.22) in Appendix A, that represent the
+instant concentration of ethanol, methanol and relative methanol
+respectively, were modiﬁed. Hence, Eqs. (3)–(5) represent the
+average concentration of the distillate stream leaving the system at
+the corresponding time interval where the sample was collected:
+GAi ¼ DGA
+DV ¼ Me
+D texp;i
+/C0 /C1
+/C0  Me
+D texp;i/C0 1
+/C0 /C1
+V texp;i
+/C0 /C1
+/C0  V texp;i/C0 1
+/C0 /C1
+  !
+/C1  PME /C1 1
+re
+/C1  100 ð3Þ
+Met;i ¼ DMet
+DV ¼ Mm
+D texp;i
+/C0 /C1
+/C0  Mm
+D texp;i/C0 1
+/C0 /C1
+V texp;i
+/C0 /C1
+/C0  V texp;i/C0 1
+/C0 /C1
+  !
+/C1  PMM /C1  1 /C1  10/C0 6 ð4Þ
+Cmeth;i ¼ DCmeth
+DV
+¼ Mm
+D texp;i
+/C0 /C1
+/C0  Mm
+D texp;i/C0 1
+/C0 /C1
+V texp;i
+/C0 /C1
+/C0  V texp;i/C0 1
+/C0 /C1/C0 /C1
+/C1  GAi=100ð Þ
+  !
+/C1  PMM /C1  1000 ð5Þ
+Finally, the heart cut of the three distillation strategies were
+compared. In model calibrations, the cut times of head/heart and
+heart/tail for each strategy were deﬁned by the volumes collected,
+i.e., 85 mL of head and 375 mL of heart (see Section 2.2).
+Dynamic optimization
+A multi-objective cost function, J uð Þ, was deﬁned to get a good
+compromise between low relative methanol concentration in the
+162 R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170
+
+
+--- PAGE 5 ---
+distillate and high ethanol recovery.
+mi
+u
+n JðuÞ ¼ a/C1 Cmeth ðtf Þ
+1:5 /C0  ð1 /C0  aÞ/C1 Receth ðtf Þ
+100 ð6Þ
+here, a is an arbitrary positive scalar (/C20 1) that deﬁnes the relative
+weight of each objective [43,44] and Cmeth is the relative methanol
+concentration. Ethanol recovery was deﬁned by:
+Receth ¼
+Z tf
+t0
+VD tð Þ/C1 xeth tð Þð Þdt
+M0/C1 xeth t0ð Þ ð7Þ
+where VD is the molar ﬂow rate of distillate, xeth is the ethanol mole
+fraction, M0 is the initial amount of moles, and ﬁnally, t0 and tf are
+the initial and ﬁnal distillation times respectively. Both objectives
+were scaled by their maximum values: the maximum methanol
+concentration in spirits allowed in the Chilean law [45] is 1.5 g/L.a.
+a, while the maximum ethanol recovery is 100%.
+The only input variable that could be manipulated in the
+alembic was the heating power. Hence, the optimization problem
+looked for a heating path that minimized the relative methanol
+concentration in the distillate and simultaneously maximized
+ethanol recovery.
+Only the heart cut was considered in computing the cost
+function (Eq. (6)). Based on experience, the head/heart cut was
+ﬁxed at 5.5 min and the heart/tail cut was set at 120 min.
+Additional optimization constraints were: (i) the heating power
+varied between 230 and 400 W; (ii) the minimum distillate ﬂow
+rate was 2 mL/min.
+Two numerical methods were applied to solve the optimization
+problem [46]: the sequential solution/optimization method (SEM)
+and the simultaneous solution/optimization method (SIM). In SEM,
+the control variable was discretized into 18 equally spaced time
+steps where the control value was kept constant:
+u Dti
+/C0 /C1
+¼ ai ð8Þ
+where index i represents the 18 time intervals and ai represents the
+value of the control u in the i-th time interval. The scatter search
+code mentioned above was used to solve the resulting optimiza-
+tion problem within MATLAB1 R2015a. The dynamic model of the
+alembic was solved with MATLAB’s solver ode15s [47]. In turn, in
+SIM, the control and state variables were discretized in time using
+3 Radau collocation points on 18 ﬁnite elements [16,27]. The
+resulting optimal control problem was:
+min
+u
+JðuÞ ð9Þ
+Subject to,
+8 i ¼ 1 . . . ne; j ¼ 1 . . . ncp
+xi;j ¼ xi/C0 1 þ hi
+Xncp
+j¼1
+Vj tj
+/C0 /C1
+/C1 dx
+dti;j
+ð10Þ
+g xi;j; yi;j; ui;j; u
+/C16  /C17
+¼ 0 ð11Þ
+uL /C20  ui;j /C20  uU ; xL /C20  xi;j /C20  xU ; yL /C20  yi;j /C20  yU ; uL /C20  u /C20  uU ð12Þ
+dx
+dti;j
+¼ f xi;j; yi;j; ui;j; u
+/C16  /C17
+ð13Þ
+where ne represents the number of ﬁnite elements (18), ncp the
+number of collocation points (3), x the state variables, y the
+algebraic variables, u the control variables, u the model parameters
+vector, hi the length of the ﬁnite elements (total process time
+divided by the number of ﬁnite elements), and ﬁnally, V the
+interpolation polynomial functions in each ﬁnite element. The
+optimization problem was coded in AMPL [48] and solved with the
+IPOPT code [49].
+Results
+Model
+ calibration
+Figs. 2 and 3 show measured values and model outputs of the
+head temperature, alcoholic strength, methanol concentration,
+distillate volume and distillate ﬂow rate of the three replicates of
+the constant high heating rate distillation. The 95% conﬁdence
+intervals shown in the ﬁgures were obtained by simulation,
+02 0 4 0 6 0
+86
+88
+90
+92
+94
+96
+98
+ 0 2 04 06 0
+Alcoholic strength (%v/v)
+0
+10
+20
+30
+40
+50
+60
+0 2 04 06 0
+Relative methanol concentration (g/L.a.a)
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+4
+4.5
+Fig. 2. Head temperature, alcoholic strength and relative methanol concentration for a constant heating power rate of 400 W. Experimental data: run 1 (/C2 ), run 2 (&) and run
+3 (D). Simulation (solid line) and conﬁdence interval (dashed line).
+R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170 163
+
+
+--- PAGE 6 ---
+considering the standard deviation in the estimated parameter set
+(u /C6  2su). Table 1 shows the ﬁtted parameters for the two constant
+heating distillations (230 W and 400 W); for the optimal strategy,
+the initial concentrations were ﬁtted only, since heat transfer
+parameters were deﬁned by linear functions (see section 2.6).
+Model ﬁtting was better for the high heating rate distillation
+(Figs. 2 and 3) than for the low heating rate distillation (data not
+shown). At low heating, distillate ﬂow rates were extremely low
+(less than 6 mL/C0 1) and distillation times were high (180 min);
+consequently, measurements were more sensitive to disturbances.
+The alcoholic strength and the distilled volume were the best-
+ﬁtted variables in both distillation experiments. Simulated values
+did not represent well the measurements of relative methanol
+concentrations at the end of the distillation, especially for low
+heating operation (data not shown). In this case, low concentration
+and ﬂow rate values were observed. Absolute errors of these
+measurements were approximately constant; hence, relative
+errors were higher at low concentration and ﬂow rate values.
+Table 1 shows that under low heating, the heat transfer
+parameters (UA) were practically the same for the boiler and the
+partial condenser. In turn, under high heating, the heat transfer
+parameter of the head was higher than that of the boiler. Sacher
+et al. [38] found the same behavior in a similar system; however,
+our heat transfer parameters were higher due to differences in the
+heating methods used. Sacher et al. [38] applied a hot plate to heat
+the boiler; hence, they could not measure the effective heat
+supplied, which was estimated instead. They argue also that low
+heating powers induced low convective air streams, reducing the
+heat transfer in the head. This explains why we observed a low heat
+transfer parameter of the head at low heating powers. The heat
+transfer parameter of the boiler was less dependent on the heating
+power in our case, since the heating element is inside the boiler.
+Optimal operation
+Tables 2 and 3 show the optimization results with the SEM and
+SIM methods respectively, including the optimal values of relative
+methanol concentration (Cmeth), ethanol and methanol recoveries
+(Receth, Recmeth), as well as alcohol strength (GAd) for different
+values of the weight of the cost function (0 /C20  a /C20  0.5). For values of
+a /C21  0.5, the same results were obtained, where the heating power
+was the lower limit. In the case of SIM, the optimization routine did
+not converge for some a values. Fig. 4 shows the optimum
+trajectories of the heating power, the head temperature and
+alcoholic strength variation for a = 0.05 and a = 0.06 obtained by
+SEM and SIM respectively. Fig. 5 shows the optimum trajectories of
+the heating power, the head temperature and alcoholic strength
+variation for a = 0.2 obtained by SEM and SIM. Fig. 6 shows the
+Pareto front yielded by both dynamic optimization methods.
+Both optimization methods provided different heating trajec-
+tories, where the SIM heating trajectories were easier to
+implement in real time experiments since they were much
+smoother. Even though different evolutions of head temperature
+and distillate alcoholic strengths were obtained for the same
+values of a, both methods yielded practically the same values of
+relative methanol concentration and ethanol recovery (Fig. 6, and
+Tables 2 and 3). Therefore, the optimal solutions found were
+reliable, since both methods, using different discretization
+techniques and optimization solvers, reached the same objective
+values. In addition, SEM was easier to apply than SIM, since the
+Fig. 3. Distillate volume and distillate ﬂow rate for a constant heating power rate of 400 W. Experimental data: run 1 (/C2 ), run 2 (&) and run 3 (D). Simulation (solid line) and
+conﬁdence interval (dashed line).
+Table 1
+Fitted parameters for distillation strategies.
+Strategy UAb UAc M0 xe
+0 xm
+0
+(W//C14 C) (W//C14 C) (mol) (mol/mol) (mol/mol)
+230 W 0.82 /C6  0.06 0.81 /C6  0.10 90.4 /C6  1.2 37.1e-3 /C6  0.7e-3 10.12e-5 /C6  0.13e-5
+400 W 0.37 /C6  0.10 1.48 /C6  0.13 90.4 /C6  0.9 38.5e-3 /C6  2.0e-3 10.41e-5 /C6  0.16e-5
+Optimal a b 89.5 /C6  1.7 36.6e-3 /C6  1.4e-3 9.40e-5 /C6  0.53e-5
+a Linear function between UAb values obtained from 230 and 400 W.
+b Linear function between UAc values obtained from 230 and 400 W.
+164 R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170
+
+
+--- PAGE 7 ---
+model was already coded in MATLAB1 and the DAE system was
+efﬁciently solved with the ode15s routine. Therefore, we only had
+to add the optimization routine, code the multi-objective cost
+function and discretize the control variable. For the SIM approach,
+the code was adapted to AMPL language (which was rather
+difﬁcult) and the model was fully discretized, generating many
+equations, variables and inequality constraints in the state
+variables and the control variable.
+SEM solved the optimization problem much slower than SIM
+(5–10 h for SEM and 1–5 s for SIM). The SEM approach solved the
+numerical integration of the DAE system at each iteration step.
+Instead, SIM solved the optimization problem once at the optimal
+point. However, in many cases the SIM method could not solve the
+optimization problem since the model did not converge due to
+numerical limitations.
+For a = 0.06 for SEM and 0.05 for SIM, the high-limit heating rate
+(400 W) was obtained, resulting in the highest ethanol recovery
+(objective 1) at the expense of the highest methanol concentration
+(objective 2). In turn, for a /C21  0.5, the low-limit heating rate (230 W)
+was obtained, yielding the lowest ethanol recovery and lowest
+Table 2
+Results obtained with the sequential solution/optimization method for head/heart cut at 5 min and heart/tail cut at 120 min.
+Adjustable weight (a) Objective function
+(J)
+Relative methanol concentration
+(Cmeth)
+Ethanol recovery
+(Receth)
+Methanol recovery
+(Recmeth)
+Alcohol strength (GAd)
+0 /C0 0.915 1.40 91.5 94.3 24.8
+0.05 /C0 0.823 1.40 91.5 94.1 26.7
+0.10 /C0 0.730 1.39 91.4 93.5 29.9
+0.15 /C0 0.638 1.38 91.4 92.8 32.0
+0.20 /C0 0.547 1.37 91.2 91.9 34.2
+0.25 /C0 0.456 1.36 91.0 90.9 36.1
+0.30 /C0 0.365 1.35 90.6 89.5 38.2
+0.35 /C0 0.276 1.33 90.2 88.2 40.0
+0.40 /C0 0.186 1.31 89.5 86.3 42.0
+0.45 /C0 0.0985 1.30 88.5 84.2 44. 1
+0.50 /C0 0.01 16 1.27 86.7 80.5 47.1
+Table 3
+Results obtained with the simultaneous solution/optimization method for head/heart cut at 5 min and heart/tail cut at 120 min.
+Adjustable weight (a) Objective function
+(J)
+Relative methanol concentration
+(Cmeth)
+Ethanol recovery
+(Receth)
+Methanol recovery
+(Recmeth)
+Alcohol strength (GAd)
+0.06 /C0 0.805 1.40 91.5 94.0 27.6
+0.10 /C0 0.731 1.39 91.5 93.5 29.9
+0.15 /C0 0.639 1.38 91.4 92.8 32.4
+0.20 /C0 0.547 1.37 91.2 91.9 34.5
+0.25 /C0 0.456 1.36 91.0 90.8 36.6
+0.30 /C0 0.366 1.35 90.7 89.6 38.5
+0.36 /C0 0.258 1.33 90.1 87.8 40.8
+0.40 /C0 0.187 1.31 89.5 86.3 42.4
+0.43 /C0 0.134 1.30 89.0 85.1 43.6
+0.45 /C0 0.0987 1.29 88.6 84.2 44.4
+0.48 /C0 0.0465 1.28 87.8 82.7 45.6
+0.50 /C0 0.0120 1.27 87.2 81.5 46.5
+Time (min)
+05 0 100
+Heating power (W)
+220
+240
+260
+280
+300
+320
+340
+360
+380
+400
+Time (min)
+05 0 1 0 0
+Head temperature (°C)
+86
+88
+90
+92
+94
+96
+98
+100
+Time (min)
+05 0 1 0 0
+Alcoholic strength (%v/v)
+0
+10
+20
+30
+40
+50
+60
+70
+80
+Fig. 4. Heating power, head temperature and instant alcoholic strength optimal curves obtained by SEM (a = 0.05, dotted line) and SIM (a = 0.06, dash-dot line).
+R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170 165
+
+
+--- PAGE 8 ---
+methanol concentration. In this case, it was possible to reduce the
+relative methanol concentration 7.3% compared to the concentra-
+tion in the initial mixture (1.37 g/L.a.a.), recovering 87.2% of the
+ethanol (Table 3). De Lucca et al. [35] were able to reduce the
+relative methanol concentration in the distillate by 22.7% in
+relation to the initial mixture, recovering 75% of the ethanol in a
+simulated packed column. In addition, these authors observed that
+smaller head/heart and heart/tail cut times yielded lower
+methanol concentrations, independently of the distillation strate-
+gy. Thus, to compare both distillation methods (Charentais alembic
+and packed distillation column) in their ability to reduce the
+distillate methanol content, we solved the optimization problem
+with a = 1, reducing the head/heart cut time and ﬁxing the ethanol
+recovery at 75%. We were able to reduce the methanol content in
+the distillate by 16.8% (1.14 g/L.a.a) in relation to the initial mixture.
+A batch packed column distillation system has a much higher
+rectiﬁcation capacity than a Charentais alembic; therefore, it can
+reduce the methanol concentration in the distillate 35% more than
+the Charentais alembic.
+Experimental validation
+A good compromise between both optimization objectives was
+achieved with a = 0.2, where the methanol concentration was
+below the legal limit without sacriﬁcing ethanol recovery. Hence,
+we performed the validation experiments (in triplicate) with this
+solution, using the SIM head temperature as a variable set point to
+be tracked by the control system. Fig. 7 shows the temperature set
+point (optimal path), the measured head temperature, the room
+temperature (disturbance) and the heating power (manipulated
+variable).
+The measured head temperature evolutions were the same in
+the three experimental runs, closely tracking the optimal path
+despite the different evolutions of the room temperature. Small
+variations in the manipulated variable efﬁciently compensated
+these disturbances. It is worth noticing that the optimal experi-
+ment ﬁnished earlier than predicted by the model. In the
+experiments, the cuts were deﬁned by the recovered volumes,
+in order to simplify the comparison with the constant heating
+Fig. 5. Heating power, head temperature and instant alcoholic strength optimal curves obtained by a = 0.2. SEM (dotted line) and SIM (dash-dot line).
+1.26
+1.28
+1.3
+1.32
+1.34
+1.36
+1.38
+1.4
+Pareto Front
+Fig. 6. Relative methanol concentration (objective 1) vs ethanol recovery (objective 2). Sequential method (D) and simultaneous method (+).
+166 R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170
+
+
+--- PAGE 9 ---
+strategies (see Section 2.2). Moreover, the ﬁnal distillate corre-
+sponds to the tail fraction cut which was not part of the
+optimization objective.
+Figs. 8 and 9 show a good agreement between simulations and
+measured values, where most of them lie within the conﬁdence
+interval. Like in the model calibration experiments, alcoholic
+strength and distilled volume were the best-ﬁtted variables.
+We compared the heart cut ethanol recovery and relative
+methanol concentration obtained in the three distillation strate-
+gies. Simulations of all strategies considered 85 mL of head and
+375 mL of heart (see Section 2.2), and these were compared with
+experimental values (Fig. 10). Experiments conﬁrmed that the
+optimal strategy achieved the lowest methanol concentration in
+the heart cut (1.23 g/L.a.a.).
+The experimental relative methanol concentrations were
+practically the same for high and low heating power strategies,
+while simulated values (based on cut times) were signiﬁcantly
+different (see Tables 2 and 3). In the experiments, for simplicity, the
+fractions were deﬁned by volume, while in the simulations the
+fractions were deﬁned by ﬁxed cut times. Nevertheless, simu-
+lations of methanol concentrations in the heart fractions based on
+volumes were quite accurate in all experiments (see Fig. 10).
+Simulations of ethanol recovery were inaccurate only for the
+optimal heating strategy, which was overestimated by 9%. This
+overestimation can be due to differences between simulated and
+experimental heating, where the latter covered a wider range of
+values (0–500 W) to provide the control system more ﬂexibility to
+cope with unmeasured disturbances. In addition, our model
+included several approximations regarding the energy balances: (i)
+the heat transfer parameters in the optimal strategy (UA) were a
+linear function of the heating power applied in the boiler between
+230–400 W; (ii) the energy balances did not consider the thermal
+Fig. 7. Experimental optimal strategy in triplicate. Top ﬁgure: head temperature set point (solid line) and measured temperatures (dotted lines). Bottom ﬁgures: room
+temperature (thin lines) and heating power (thick lines).
+Fig. 8. Experimental optimal strategy: head temperature, alcoholic strength and methanol concentration. Experimental data: run 1 (/C2 ), run 2 (&) and run 3 (D). Simulation
+(solid line) and conﬁdence interval (dashed line).
+R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170 167
+
+
+--- PAGE 10 ---
+inertia contribution of the 2.5 kg of copper of the alembic; and (iii)
+the accumulation term in the energy balance in the head of the
+alembic (partial condenser) was neglected. Since ethanol content
+in the distillate depends strongly on the equilibrium temperature
+and varied widely in all distillation runs (between 5 and 65%),
+simulations of the heart cut ethanol recovery were quite sensitive
+to the small errors in the simulated instantaneous values due to the
+assumptions above. In turn, relative methanol concentrations were
+less dependent on the equilibrium temperature and varied in a
+much narrower range (between 1.23 and 1.45); hence, those small
+errors due to the energy balance assumptions had much less
+impact on the predictions of the relative methanol concentration
+in the heart cut. Nevertheless, by applying the methodology
+described above, we were able to reproducibly obtain in
+experimental runs a distillate with 12% less methanol than
+standard strategy distillates, with a moderate reduction (2.4%)
+in the ethanol recovery.
+Conclusions
+A reliable method was presented to develop optimal operating
+strategies for Charentais alembics that simultaneously achieved
+high ethanol recoveries and low methanol concentrations in the
+distillate. The developed model accurately reproduced the
+experimentally observed methanol concentrations in the optimal
+strategy. Experimental ethanol recoveries were 9% lower than
+simulated for the optimal strategy, due to model approximations
+and the wider operating range of the control variable of the
+experimental system. With the optimal strategy tested experi-
+mentally, we were able to reduce the methanol concentration in
+the distillate by 12% compared with standard operating strategies
+(constant heating rates), without a signiﬁcant reduction in the
+ethanol recovery. In particular, our results showed that a volatile
+impurity such as methanol could be reduced in the spirit by
+applying a low heating power during the head cut. In addition,
+Fig. 9. Experimental optimal strategy: distillate volume and distillate ﬂow rate. Experimental data: run 1 (/C2 ), run 2 (&) and run 3 (D). Simulation (solid line) and conﬁdence
+interval (dashed line).
+Fig. 10. Relative methanol concentration and ethanol recovery in the heart cut for each distillation strategy: predicted values (&) and experimental data (&).
+168 R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170
+
+
+--- PAGE 11 ---
+increasing the heating power at the beginning of the heart cut will
+favor the recovery of ethanol. Much better distilled spirits can be
+obtained by applying model-based engineering tools than those
+achieved by trial and error experimentation or intuitively. In
+addition, the methodology proposed in this study could be easily
+applied to tackle objectives that are more challenging. For example,
+to produce spirits with enhanced ﬂoral aroma and reduced off-
+ﬂavors. This technology can be applied in small and medium
+distilleries since the system implementation is relatively simple
+and low cost.
+Acknowledgements
+Ricardo Luna appreciates a PhD scholarship from CONICYT-
+PCHA/Doctorado Nacional/2014-21 140890. We are grateful to Lisa
+Gingles who review the English style of the manuscript.
+Appendix A. Alembic model
+Mass (total, ethanol, methanol) and energy balances in the
+boiler,
+d MBð Þ
+dt ¼ L /C0  VB ðA:1Þ
+d MB/C1 xe
+B
+/C0 /C1
+dt ¼ L/C1 xe
+L /C0  VB/C1 ye
+B
+ðA:2Þ
+d MB/C1 xm
+B
+/C0 /C1
+dt ¼ L/C1 xm
+L /C0  VB/C1 ym
+B
+ðA:3Þ
+dðMB/C1 uBÞ
+dt ¼ L/C1 hL /C0  VB/C1 HB þ _QB ðA:4Þ
+Mass (total, ethanol, methanol) and energy balances in the
+partial condenser (negligible liquid holdup),
+VB /C0  L /C0  VD ¼ 0 ðA:5Þ
+VB/C1 ye
+B /C0  L/C1 xe
+L
+/C0  VD/C1 ye
+D
+¼ 0 ðA:6Þ
+VB/C1 ym
+B /C0  L/C1 xm
+L
+/C0  VD/C1 ym
+D
+¼ 0 ðA:7Þ
+VB/C1 HB /C0  L/C1 hL /C0  VD/C1 HD /C0 _QC ¼ 0 ðA:8Þ
+Thermodynamic equilibrium relationships for methanol,
+ym
+D ¼ Km
+C /C1 xm
+L ðA:9Þ
+ym
+B ¼ Km
+B /C1 xm
+B ðA:10Þ
+Km
+B;C xe
+B; xe
+L
+/C0 /C1
+¼
+ym
+B;D
+xm
+B;L
+¼ Pm xe
+B; xe
+L
+/C0 /C1
+/C1 gm xe
+B; xe
+L
+/C0 /C1
+P ðA:11Þ
+The activity coefﬁcient for methanol gm is estimated using the
+UNIFAC contribution groups method. Given the assumption of a
+quasi-binary mixture, the activity coefﬁcient only depends on the
+ethanol concentration since an inﬁnite dilution of methanol in a
+mixture of water-ethanol is assumed.
+Heat transfer model
+_QB ¼ _Qcal /C0  UAb/C1  TB /C0  Tenvð Þ ðA:12Þ
+_QC ¼ UAc/C1  TC /C0  Tenvð Þ ðA:13Þ
+Where _Qcal and Tenv are input variables corresponding to the
+control variable and disturbance of the system respectively. This
+model has only one empirical parameter, U /C1  A, which can be easily
+ﬁtted with data normally available in commercial distillation
+facilities [50].
+(A.14) Simulation
+To simulate the model, a reordering of equations is convenient.
+The distillate molar ﬂow rate is obtained from mass and energy
+balances in the partial condenser (Eqs. (A.5), (A.6) and (A.8))
+VD ¼ QC
+HB /C0  HDð Þ þ
+ye
+B /C0 ye
+Dð Þ
+xe
+L
+/C0 ye
+Dð Þ/C1  HD /C0  hLð Þ
+/C0 /C0 QC
+hL /C0  HDð Þ þ
+xe
+L /C0 ye
+Dð Þ
+ye
+B
+/C0 ye
+Dð Þ/C1  HD /C0  HBð Þ
+ðA:14Þ
+To calculate the volume of distillate, an empirical correlation
+which calculates the density of the mixture from ethanol
+composition is used [51],
+rL ye
+D
+/C0 /C1
+¼ ye
+D/C1 PME þ 1 /C0  ye
+D
+/C0 /C1
+/C1 PMW
+f/C1 ye
+D þ 1 /C0  ye
+D
+/C0 /C1
+/C1 PMW =rW
+ðA:15Þ
+f ¼ f ye
+D; TD
+/C0 /C1
+ðA:16Þ
+To simulate the model outputs, the distilled volume (V), as well
+as the accumulated ethanol and methanol, must be calculated by
+three differential equations.
+dV
+dt ¼ VD /C1  ye
+D/C1 PME þ 1 /C0  ye
+D
+/C0 /C1
+/C1 PMW
+/C0 /C1
+rL ye
+D
+/C0 /C1 ðA:17Þ
+dMe
+D
+dt ¼ ye
+D /C1  VD ðA:18Þ
+dMm
+D
+dt ¼ ym
+D /C1  VD ðA:19Þ
+where Me
+D and Mm
+D
+are the ethanol and methanol moles in the
+accumulated distillate, respectively. However, the ethanol concen-
+tration was measured in alcoholic strength (GA), the methanol
+concentration in mg/L (Meth) and relative methanol concentration
+in g/L.a.a (Cmeth).
+GA ¼ Me
+D /C1  PME /C1  1=rEð Þ
+V /C1  100 ðA:20Þ
+Meth ¼ Mm
+D /C1  PMM
+V /C1  1 /C1  10/C0 6 ðA:21Þ
+Cmeth ¼ Mm
+D /C1  PMM
+V /C1  GA=100ð Þ /C1  1000 ðA:22Þ
+R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170 169
+
+
+--- PAGE 12 ---
+Finally, to calculate the composition of ethanol in the partial
+condenser, a rearrangement of the energy balance (Eq. (A.4)) from
+mass balances in the boiler (Eqs. (A.1) and (A.2)) is required,
+L xe
+L /C0  xe
+B
+/C0 /C1
+/C0  VB ye
+B /C0  xe
+B
+/C0 /C1/C0 /C1 @hB
+@xB
+þ @hB
+@TB
+dTB
+dxB
+/C18  /C19
+¼ L hL /C0  hBð Þ /C0  VB HB /C0  hBð Þ þ _QB ðA:23Þ
+This equation is an implicit function that depends on the value
+of xe
+L. This equation was solved iteratively using MATLAB’s fsolve
+routine (in the sequential method) and in the AMPL code was
+included as an additional constraint in the optimization problem
+(in the simultaneous method).
+References
+[1] R.W. Small, M. Couturier, M. Godfrey, Beverage Basics: Understanding and
+Appreciating Wine, Beer, and Spirits, Wiley, 201 1.
+[2] Y. Arrieta-Garay, L. García-Llobodanin, J.R. Pérez-Correa, C. López-Vázquez, I.
+Orriols, F. López, J. Agric. Food Chem. 61 (2013) 4936.
+[3] Y. Arrieta-Garay, C. López-Vázquez, P. Blanco, J.R. Pérez-Correa, I. Orriols, F.
+López, J. Inst. Brew. 120 (2014) 111.
+[4] Y. Arrieta-Garay, P. Blanco, C. López-Vázquez, J.J. Rodríguez-Bencomo, J.R.
+Pérez-Correa, F. López, I. Orriols, J. Agric. Food Chem. 62 (2014) 10552.
+[5] M.J. Claus, K.A. Berglund, J. Food Process Eng. 28 (2005) 53.
+[6] C. Da Porto, D. Decorti, Int. J. Food Sci. Technol. 43 (2008) 638.
+[7] L. García-Llobodanin, J. Roca, J.R. López, J.R. Pérez-Correa, F. López, Int. J. Food
+Sci. Technol. 46 (9) (201 1) 1956.
+[8] L.F. Hernández-Gómez, J. Úbeda, A. Briones, Food Chem. 82 (2003) 539.
+[9] R.V. Reche, A.F.L. Neto, A.A. Da Silva, C.A. Galinaro, R.Z. De Osti, D.W. Franco, J.
+Agric. Food Chem. 55 (2007) 6603.
+[10] P. Matias-Guiu, J.J. Rodríguez-Bencomo, I. Orriols, J.R. Pérez-Correa, F. López,
+Food Chem. 213 (2016) 40.
+[1 1] J.J. Rodríguez-Bencomo, J.R. Pérez-Correa, I. Orriols, F. López, Food Bioprocess
+Technol. 9 (2016) 1885.
+[12] D. Osorio, J.R. Pérez-Correa, L.T. Biegler, E. Agosin, J. Agric. Food Chem. 53 (16)
+(2005) 6326.
+[13] J. Sacher, L. García-Llobodanin, F. López, H. Segura, J.R. Pérez-Correa, Chem.
+Eng. 910 (2017) 32.
+[14] U. Diwekar, Batch Distillation: Simulation, Optimal Design, and Control, Taylor
+& Francis, 1995.
+[15] I.M. Mujtaba, Batch Distillation: Design and Operation, Imperial College Press,
+2004.
+[16] S. Kameswaran, L.T. Biegler, Comput. Chem. Eng. 30 (2006) 1560.
+[17] P.I. Barton, R.J. Allgor, W.F. Feehery, S. Galán, Ind. Eng. Chem. Res. 37 (97) (1998)
+966.
+[18] V.S. Vassiliadis, R.W.H. Sargent, C.C. Pantelides, Ind. Eng. Chem. Res. 33 (1994)
+2111.
+[19] V.S. Vassiliadis, R.W.H. Sargent, C.C. Pantelides, Ind. Eng. Chem. Res. 33 (1994)
+2123.
+[20] Y. Han Kim, Chem. Eng. Process. 38 (1999) 61.
+[21] S. Jain, J.K. Kim, R. Smith, Ind. Eng. Chem. Res. 51 (2012) 5749.
+[22] I.M. Mujtaba, S. Macchietto, Comput. Chem. Eng. 17 (12) (1993) 1191.
+[23] I.M. Mujtaba, S. Macchietto, Ind. Eng. Chem. Res. 36 (1997) 2287.
+[24] J.S. Logsdon, U.M. Diwekar, L.T. Biegler, Chem. Eng. Res. Des. 68 (1990) 434.
+[25] I.M. Mujtaba, S. Macchietto, J. Process Control 6 (1) (1996) 27.
+[26] L.T. Biegler, A.M. Cervantes, A. Wächter, Chem. Eng. Sci. 57 (2002) 575.
+[27] L.T. Biegler, Chem. Eng. Process. 46 (2007) 1043.
+[28] J.C. Zavala, C. Coronado, Ind. Eng. Chem. Res. 47 (2) (2008) 2788.
+[29] S.M. Safdarnejad, J.R. Gallacher, J.D. Hedengren, Comput. Chem. Eng. 86 (2016)
+18.
+[30] P. Li, H.A. Garcia, G. Wozny, E. Reuter, Ind. Eng. Chem. Res. 37 (97) (1998) 1341.
+[31] S. Elgue, L. Prat, M. Cabassud, J.M. Le Lann, J. Cézerac, Comput. Chem. Eng. 28
+(2004) 2735.
+[32] A. Bonsﬁlls, L. Puigjaner, Chem. Eng. Process. 43 (2004) 1239.
+[33] C. Noeres, K. Dadhe, R. Gesthuisen, S. Engell, A. Górak, Chem. Eng. Process. 43
+(2004) 421.
+[34] D. Osorio, R. Pérez-Correa, A. Belancic, E. Agosin, Food Control 15 (7) (2004)
+515.
+[35] F. De Lucca, R. Munizaga-Miranda, D. Jopia-Castillo, C.A. Gelmi, J.R. Pérez-
+Correa, Int. J. Food Eng. 9 (3) (2013) 259.
+[36] J. Carvallo, M. Labbe, J.R. Pérez-Correa, C. Zaror, J. Wisniak, Food Control 22 (8)
+(201 1) 1322.
+[37] R. Swift, D. Davidson, Alcohol Health Res. World 22 (1) (1998) 54.
+[38] J. Sacher, L. García-Llobodanin, F. López, H. Segura, J.R. Pérez-Correa, Food
+Bioprod. Process. 91 (4) (2013) 447.
+[39] C. Brosilow, B. Joseph, Techniques of Model-Based Control, Prentice Hall, 2002.
+[40] International Organisation of Vine and Wine, Compendium of International
+Methods of Analisys-OIV: Methanol, Method OIV-MA-AS312-03B, Interna-
+tional Organisation of Vine and Wine, 2009.
+[41] S. Narasimhan, C. Jordache, Data Reconciliation and Gross Error Detection: An
+Intelligent Use of Process Data, Gulf Professional Publishing, 2000.
+[42] J.A. Egea, M. Rodríguez-Fernández, J.R. Banga, R. Martí, J. Glob. Optim. 37
+(2007) 481.
+[43] V. Bhaskar, S.K. Gupta, A.K. Ray, Rev. Chem. Eng. 16 (2000) 1.
+[44] K. Miettinen, J. Hakanen, Multi-Objective Optimization: Techniques and
+Applications in Chemical Engineering, Mcdm, 2009, pp. 153.
+[45] Biblioteca del congreso nacional de Chile, Ministerio de Agricultura,
+Reglamenta Ley N (18.455 que ﬁja normas sobre producción, elaboración y
+comercialización de alcoholes etílicos, bebidas alcohólicas y vinages, (2012) .
+[46] B. Srinivasan, D. Bonvin, E. Visser, S. Palanki, Comput. Chem. Eng. 27 (2003) 27.
+[47] L.F. Shampine, M.W. Reichelt, SIAM J. Sci. Comput. 18 (1) (1997) 1.
+[48] R. Fourer, D.M. Gay, B.W. Kernighan, Manag. Sci. 36 (5) (1990) 519.
+[49] A. Waechter, L.T. Biegler, Math. Program. 106 (2006) 25.
+[50] J.R. Pérez-Correa, R. Luna-Hérnandez, D. Jopia, S. Díaz, F. Huerta, F. López, XII
+Congreso de los Grupos de Investigación Enológica (Gienol), Madrid, 2013 p. 8.
+[51] H.J. Neuburg, J.R. Pérez-Correa, Lat. Am. Appl. Res. 24 (1) (1994) 1.
+170 R. Luna et al. / Journal of Industrial and Engineering Chemistry 57 (2018) 160–170
+View publication statsView publication stats

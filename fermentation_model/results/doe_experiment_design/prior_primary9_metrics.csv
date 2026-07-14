@@ -1,0 +1,10 @@
+,prior_primary9_metrics
+prior_logdet,51.25970706717109
+prior_min_eigenvalue,0.6251931450266233
+prior_min_relative_eigenvalue,4.081716932297091e-06
+prior_condition_number,244994.94124332242
+prior_trace,205958.348797681
+prior_trace_inv,2.2138867909877877
+prior_diag_qXG,43.50739600893668
+prior_diag_qXF,23.457097724232817
+prior_diag_iG,1261.6831224701746

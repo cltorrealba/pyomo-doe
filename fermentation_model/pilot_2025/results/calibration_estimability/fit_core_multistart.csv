@@ -1,0 +1,3 @@
+fit,n_batches,mediums,parameters,n_parameters,success,status,message,nfev,initial_wsse,final_wsse,n_residuals,dof,wsse_per_residual,wsse_per_dof,l2_lambda,l2_parameters
+pilot_core_l2_multistart_00,8,natural,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",11,True,3,`xtol` termination condition is satisfied.,7,22183.64922788489,22046.294701398947,786,775,28.048720994146244,28.446831872772833,0.35,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0"
+pilot_core_l2_multistart_01,8,natural,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",11,True,3,`xtol` termination condition is satisfied.,11,78166.14880684718,15675.571085969037,786,775,19.943474664082743,20.22654333673424,0.35,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0"

@@ -1,0 +1,7 @@
+layer,lab_synthetic_evidence,pilot_evidence,transferability,action
+primary_kinetics,"CCD synthetic VL3 excites sugar, temperature and nitrogen directions.",Pilot natural must reproduces primary trends but with matrix and scale deviations.,partial_to_good,Use shared structure; keep recalibrated pilot priors for MPCC.
+glycerol,Glycerol state added and fitted in mixed lab dataset.,Pilot final relative RMSE for Gly is low compared with other primary states.,good,Retain glycerol state in scale-up model.
+nitrogen,Synthetic low/high YAN informs qN and sN but sN remains weak.,YAN residuals remain high and natural must has remanent YAN behavior.,limited,Use stronger priors; consider ammonium/PAN split in future.
+CO2,Not present in synthetic VL3 model stage.,Online pilot CO2 required dissolved CO2 and O2-transition structure.,requires_pilot_extension,Use pilot-specific CO2 model for MPCC constraints.
+aromas,Not directly calibrated in synthetic VL3 stage.,Pilot aroma/condensate data enabled EA/IAA/EO synthesis-loss layer.,requires_pilot_extension,Use pilot aroma structure; keep ethyl acetate uncertainty explicit.
+DOE,Synthetic designs ranked high for separating sugar and weak kinetic directions.,Pilot designs favor natural-must temperature and N perturbations.,complementary,Use synthetic for mechanism separation; pilot for scale/matrix validation.

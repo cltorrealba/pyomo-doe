@@ -1,0 +1,9 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+integrated_current,1,-1.2759970050222003e-14,"kAcAssim, kAcStress, k_EA_XE, kAldRed, gammaF0, k_EA_XE_Nlim, kPyrS_stat, k_EA_stationary","0.764, 0.646, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+integrated_current,2,2.8491367731810037e-15,"kAcStress, kAcAssim, k_EA_XE, kAldRed, gammaF0, k_EA_XE_Nlim, kPyrS_stat, k_EA_stationary","0.764, 0.646, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+integrated_current,3,1.389941866864957e-08,"k_EA_XE, k_EA_XE_Nlim, k_EA_growth, kAldRed, gammaF0, k_EA_stationary, betaF0, iG","1.000, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+integrated_current,4,0.0008469288906658913,"kAldRed, kAldPyr, kPyrS_stat, kAldO2, kAldS_stat, kPyrO2, kAldS_N, kPyrDrain","1.000, 0.012, 0.006, 0.005, 0.003, 0.002, 0.001, 0.001"
+integrated_current,5,0.0362869115574092,"kPyrS_stat, kPyrO2, kPyrDrain, kAldS_stat, kAldO2, kAldRed, kPyrS_N, kAldPyr","0.997, 0.070, 0.009, 0.008, 0.006, 0.006, 0.003, 0.002"
+integrated_current,6,0.24851739570590128,"gammaF0, gammaG0, betaF0, iG, qEF, iE, qEG, alpha_EA_loss","0.999, 0.042, 0.020, 0.014, 0.008, 0.007, 0.004, 0.003"
+integrated_current,7,10.684847519747468,"kPyrO2, kPyrDrain, kAldO2, kPyrS_N, kAldPyr, kPyrS_stat, kAcAld, betaF0","0.829, 0.431, 0.273, 0.161, 0.105, 0.065, 0.055, 0.052"
+integrated_current,8,12.519079931611257,"betaF0, iG, qEF, iE, gammaG0, kAldO2, qEG, alpha_EA_loss","0.633, 0.632, 0.326, 0.224, 0.106, 0.091, 0.090, 0.061"

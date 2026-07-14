@@ -1,0 +1,6 @@
+model,start,success,status,message,nfev,initial_objective_wsse,final_objective_wsse,data_wsse,n_data_residuals,n_parameters,wsse_per_data_residual,active_bound_count,fit_selection_score
+secondary_phase_split,0,True,2,`ftol` termination condition is satisfied.,12,9568.155721046778,2591.005986925323,2587.5986162510553,236,9,10.96440091631803,1,2612.5986162510553
+secondary_phase_split,1,True,2,`ftol` termination condition is satisfied.,15,9074.392585411964,2590.971507338565,2587.5443260590137,236,9,10.964170873131414,1,2612.5443260590137
+secondary_phase_split,2,True,2,`ftol` termination condition is satisfied.,25,48656.924137359296,2591.0151925633954,2587.591352063278,236,9,10.964370135861348,1,2612.591352063278
+secondary_phase_split,3,True,2,`ftol` termination condition is satisfied.,13,50107.64809783295,2590.9778566016107,2587.569527115224,236,9,10.964277657267898,1,2612.569527115224
+secondary_phase_split,4,True,2,`ftol` termination condition is satisfied.,22,12452.990515263258,2591.041293725576,2587.6242040530797,236,9,10.964509339207964,1,2612.6242040530797

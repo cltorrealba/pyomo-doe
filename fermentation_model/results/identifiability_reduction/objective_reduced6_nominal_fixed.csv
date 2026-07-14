@@ -1,0 +1,8 @@
+,objective_reduced6_nominal_fixed
+n_observations,286
+SSE_raw_sum,18605.42929271618
+WSSE_raw_sum,6010.753438696358
+objective_scale_mode,measurement_error
+objective_scale_scope,state
+objective_normalized_by_state_count,False
+objective_normalized_by_experiment_state_count,False

@@ -1,0 +1,9 @@
+mode,start,success,status,message,nfev,data_wsse,n_data_residuals,active_bound_count,fit_selection_score,params_json,power_p
+power,0,True,2,`ftol` termination condition is satisfied.,7,259.299311824029,308,0,259.299311824029,{'power_p': 1.0947088804577125},1.0947088804577125
+power,1,True,2,`ftol` termination condition is satisfied.,9,259.2975155395299,308,0,259.2975155395299,{'power_p': 1.0945677001893517},1.0945677001893517
+power,2,True,2,`ftol` termination condition is satisfied.,8,259.3133647449586,308,0,259.3133647449586,{'power_p': 1.0958083081374514},1.0958083081374514
+power,3,True,2,`ftol` termination condition is satisfied.,9,259.3138570567867,308,0,259.3138570567867,{'power_p': 1.095846662593057},1.095846662593057
+power,4,True,2,`ftol` termination condition is satisfied.,9,259.3156643629319,308,0,259.3156643629319,{'power_p': 1.0959873712853532},1.0959873712853532
+power,5,True,2,`ftol` termination condition is satisfied.,8,259.3174433383591,308,0,259.3174433383591,{'power_p': 1.096125732155482},1.096125732155482
+power,6,True,2,`ftol` termination condition is satisfied.,9,259.32010616089826,308,0,259.32010616089826,{'power_p': 1.0963325722538744},1.0963325722538744
+power,7,True,2,`ftol` termination condition is satisfied.,9,259.3155663566551,308,0,259.3155663566551,{'power_p': 1.0959797446952808},1.0959797446952808

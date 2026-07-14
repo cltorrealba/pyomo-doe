@@ -1,0 +1,4 @@
+item,type,description,model_action
+CO2 25150/25151,sensor_data_exclusion,Los archivos CO2 de 25150 y 25151 fueron marcados como no usables para calibración.,Excluir del ajuste CO2; mantener datos offline de composición.
+25171,process_incident,Inóculo inicial con baja/no viabilidad; el proceso útil se reancla al punto post reinóculo.,Usar el punto ING25-SB012-Pre reinóculo como t=0 efectivo.
+Configuración física piloto,metadata_gap,"El workbook no codifica volumen de estanque, geometría, agitación ni detalle de equipamiento.",Reportar como brecha documental; el análisis usa variables operacionales medidas.

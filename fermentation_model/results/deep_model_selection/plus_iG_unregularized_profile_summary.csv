@@ -1,0 +1,8 @@
+profiled_theta,n_success,theta_hat,min_profile_objective,max_lr_stat,crosses_left,crosses_right,chi2_threshold,candidate,objective_kind,profile_identifiable_2sided
+betaF0,9,0.2834958243326065,6001.982780707294,512.4253259959041,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True
+betaG0,9,0.3950395346620634,6001.982780707294,846.9872237239761,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True
+iG,8,0.0188579076202898,6001.982780707294,239.48408432991164,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True
+mu0,9,0.1568304913955837,6001.982780707294,1012.7412149018946,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True
+qEF,10,0.5022583722548266,6001.982780707294,231939.89619971294,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True
+qEG,9,0.5138651627122065,6001.982780707294,213053.94425401092,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True
+qN,10,0.0134153553148961,6001.982780707294,169808.61896401574,True,True,3.841458820694124,plus_iG_unregularized,SSE_weighted,True

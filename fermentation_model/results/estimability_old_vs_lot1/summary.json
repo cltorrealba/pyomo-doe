@@ -1,0 +1,14 @@
+{
+  "profile_parameters": [
+    "Kd0",
+    "qN"
+  ],
+  "grid_points": 3,
+  "fit_nfev": 300,
+  "profile_nfev": 45,
+  "step": 0.04,
+  "n_historical_batches": 19,
+  "n_lot1_batches": 3,
+  "n_combined_batches": 22,
+  "note": "Extended FIM includes observed core/secondary residuals. Lot 1 online CO2 is included as an information-time block, not as a calibrated flow residual."
+}

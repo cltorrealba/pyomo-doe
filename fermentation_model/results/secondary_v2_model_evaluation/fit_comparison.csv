@@ -1,0 +1,5 @@
+model,success,status,message,nfev,initial_wsse,final_wsse,n_residuals,wsse_per_residual
+secondary_v1_current,True,,loaded from current secondary_joint fit,,,8706.95625298179,588,14.807748729560869
+secondary_v2_phase_o2free,True,2.0,`ftol` termination condition is satisfied.,16.0,10286.21002087805,5400.341991941201,592,9.122199310711489
+secondary_v2_phase_o2fixed,True,2.0,`ftol` termination condition is satisfied.,12.0,10286.21002087805,5756.227087268427,590,9.75631709706513
+secondary_v2_reduced_o2fixed,True,2.0,`ftol` termination condition is satisfied.,8.0,16950.376379158566,5756.427666344939,589,9.773221844388692

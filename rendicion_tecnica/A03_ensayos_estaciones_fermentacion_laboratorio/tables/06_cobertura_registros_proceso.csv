@@ -1,0 +1,11 @@
+registro,columnas_esperadas_o_equivalentes,columnas_presentes,n_observaciones_no_nulas,estado,comentario
+temperatura,temperatura;Temperatura Medida;Temperatura,temperatura;Temperatura Medida;Temperatura,258,disponible,Registro de condicion termica
+nutrientes,YAN;PAN;AMMONIA;pulso_nut;Adicion,YAN;PAN;AMMONIA;pulso_nut;Adicion,421,disponible,Nutrientes y factor/adicion
+densidad,densidad;Densidad;Brix,densidad;Densidad;Brix,258,disponible,Seguimiento de avance fermentativo
+azucares,GLUCOSE;FRUCTOSE;GLU-FRU-320;GLUCOSE-320,GLUCOSE;FRUCTOSE;GLU-FRU-320;GLUCOSE-320,344,disponible,Sustratos
+biomasa,Viability;Peso Seco;C_total;C_viable,Viability;Peso Seco;C_total;C_viable,238,disponible,Biomasa y viabilidad
+etanol,ETANOL,ETANOL,40,disponible,Producto fermentativo
+glicerol,GLYCEROL,GLYCEROL,85,disponible,Producto secundario
+metabolitos,PYRUVIC ACID;PYRUVIC_ACID;ACETALDEHIDO,PYRUVIC ACID;PYRUVIC_ACID;ACETALDEHIDO,172,disponible,Metabolitos secundarios
+aromas,Ethyl_Acetate_total;isoamil_acetate_total;octanoate_de_etilo_total,Ethyl_Acetate_total;isoamil_acetate_total;octanoate_de_etilo_total,0,disponible,Aromas totales en datos homologados
+CO2,CO2;CO₂;CO2_rate;Q_CO2,,0,no_disponible_justificado,No registrado en estos ensayos; sensores aun no instalados

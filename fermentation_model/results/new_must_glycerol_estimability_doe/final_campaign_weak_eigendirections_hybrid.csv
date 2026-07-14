@@ -1,0 +1,7 @@
+analysis,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+mixed_prior_plus_hybrid_campaign,1,0.11184363631068646,"m0, qXG, iG, gammaF0, qXF, qEF, sN","0.999, 0.018, 0.018, 0.013, 0.012, 0.010, 0.004"
+mixed_prior_plus_hybrid_campaign,2,3.465286021770783,"sN, mu0, qN, sG, qXG, sF, iE","1.000, 0.018, 0.018, 0.008, 0.008, 0.007, 0.007"
+mixed_prior_plus_hybrid_campaign,3,8.924186913030997,"qXG, gammaF0, qXF, iG, sG, qEG, m0","0.939, 0.329, 0.073, 0.038, 0.031, 0.031, 0.022"
+mixed_prior_plus_hybrid_campaign,4,11.354033884022908,"gammaF0, qXG, gammaG0, qXF, sF, iG, m0","0.942, 0.328, 0.059, 0.032, 0.009, 0.007, 0.007"
+mixed_prior_plus_hybrid_campaign,5,31.05944553273181,"qXF, iG, iE, qXG, sG, sF, betaG0","0.930, 0.319, 0.137, 0.086, 0.047, 0.047, 0.031"
+mixed_prior_plus_hybrid_campaign,6,115.37961000393067,"sF, iG, qXF, qEF, iE, betaF0, betaG0","0.895, 0.372, 0.178, 0.128, 0.070, 0.069, 0.049"
