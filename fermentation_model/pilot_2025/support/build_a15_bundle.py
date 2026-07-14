@@ -20,10 +20,12 @@ REPO_ROOT = FERMENTATION_MODEL_DIR.parent
 LAB_DATA = FERMENTATION_MODEL_DIR / "data" / "Laboratorio 2025" / "mosto_sintetico_vl3.xlsx"
 PILOT_DATA = FERMENTATION_MODEL_DIR / "data" / "Piloto 2025" / "Calibration_data_vl3.xlsx"
 
-LAB_LOADING = FERMENTATION_MODEL_DIR / "results" / "new_must_data_loading"
-LAB_DOE = FERMENTATION_MODEL_DIR / "results" / "new_must_glycerol_estimability_doe"
-LAB_OVERNIGHT = FERMENTATION_MODEL_DIR / "results" / "new_must_glycerol_overnight_validation"
-MEDIUM_TRANSFER = FERMENTATION_MODEL_DIR / "results" / "medium_transfer_diagnostics"
+SHARED_DIR = FERMENTATION_MODEL_DIR / "shared"
+SHARED_RESULTS = SHARED_DIR / "results"
+LAB_LOADING = SHARED_RESULTS / "new_must_data_loading"
+LAB_DOE = SHARED_RESULTS / "new_must_glycerol_estimability_doe"
+LAB_OVERNIGHT = SHARED_RESULTS / "new_must_glycerol_overnight_validation"
+MEDIUM_TRANSFER = FERMENTATION_MODEL_DIR / "legacy" / "development_2026" / "results" / "medium_transfer_diagnostics"
 
 PILOT_CO2 = PILOT_DIR / "results" / "co2_solubility_integrated_doe"
 PILOT_GLOBAL = PILOT_DIR / "results" / "global_state_model_selection_doe"
@@ -623,9 +625,9 @@ def write_source_snapshot(source: Path, data_dir: Path) -> None:
         SCRIPT_DIR / "run_pilot_2025_calibration_estimability.py",
         SCRIPT_DIR / "run_pilot_2025_global_model_selection_doe.py",
         SCRIPT_DIR / "run_pilot_2025_aroma_model_selection_doe.py",
-        FERMENTATION_MODEL_DIR / "run_new_must_data_loading.py",
-        FERMENTATION_MODEL_DIR / "run_new_must_glycerol_estimability_doe.py",
-        FERMENTATION_MODEL_DIR / "run_secondary_joint_campaign_doe.py",
+        SHARED_DIR / "new_must_data_loader.py",
+        SHARED_DIR / "run_new_must_glycerol_estimability_doe.py",
+        SHARED_DIR / "run_secondary_joint_campaign_doe.py",
     ]
     manifest = []
     for src in source_files:

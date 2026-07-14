@@ -14,6 +14,8 @@ that preceded the current integrated pilot notebook:
   fit-capacity notebooks.
 - `notebooks/preliminary_design/`: early extended and aroma DOE notebooks.
 - `scripts/`: runners and utilities that generated those iterations.
+- `results/`: the matching superseded result families and initial-calibration
+  exports formerly mixed with active outputs.
 
 No source file was deleted during archival. Historical notebooks may contain
 absolute paths or references to their original root-level location; use them as
@@ -26,4 +28,6 @@ a new results directory. Do not overwrite current priors.
 ## `rendicion/`
 
 Administrative `AXX` bundle builders and retained rendition ZIP files. These
-artifacts are preserved but excluded from the scientific workflow map.
+artifacts are preserved but excluded from the scientific workflow map. The
+former repository-root `rendicion_tecnica/` tree is retained under
+`rendicion/technical_reports/`.

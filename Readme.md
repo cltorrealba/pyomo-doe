@@ -1,5 +1,18 @@
 # Optimizing Experiments with Pyomo.DoE
 
+## Fermentation research workspace
+
+The repository also contains the four wine-fermentation experimental campaigns
+and their model-based design workflows. Start with the
+[fermentation workspace guide](./fermentation_model/README.md) and use the
+[repository map](./fermentation_model/REPOSITORY_MAP.md) to locate raw data,
+experiments, active runners, authoritative results and archived development.
+
+The machine-readable navigation indexes are
+[`campaigns.csv`](./fermentation_model/campaigns/campaigns.csv),
+[`experiments.csv`](./fermentation_model/campaigns/experiments.csv) and
+[`workflows.csv`](./fermentation_model/campaigns/workflows.csv).
+
 Welcome to the interactive tutorial workshop for parameter estimation and model-based design of experiments in the Pyomo ecosystem!
 
 ![Pyomo workflow](./images/pyomo_workflow_new.png)

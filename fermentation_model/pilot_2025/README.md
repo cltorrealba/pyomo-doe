@@ -28,13 +28,13 @@ python fermentation_model\pilot_2025\run_pilot_2025_co2_solubility_integrated_do
 current workflow. They are active code dependencies, even though their own
 notebooks are no longer recommended endpoints.
 
-The current runner also imports these shared modules from the parent directory:
+The current runner imports these modules from the `../shared/` package:
 
-- `run_new_must_glycerol_estimability_doe.py`
-- `run_secondary_metabolite_data_review.py`
-- `run_secondary_joint_campaign_doe.py`
-- `run_secondary_v2_model_evaluation.py`
-- `aroma_partition_unifac.py`
+- `shared/run_new_must_glycerol_estimability_doe.py`
+- `shared/run_secondary_metabolite_data_review.py`
+- `shared/run_secondary_joint_campaign_doe.py`
+- `shared/run_secondary_v2_model_evaluation.py`
+- `shared/aroma_partition_unifac.py`
 
 The following result families provide the calibrated starting point:
 

@@ -33,13 +33,13 @@ if str(SCRIPT_DIR) not in sys.path:
 if str(FERMENTATION_MODEL_DIR) not in sys.path:
     sys.path.insert(0, str(FERMENTATION_MODEL_DIR))
 
-import run_new_must_glycerol_estimability_doe as base
+from shared import run_new_must_glycerol_estimability_doe as base
 import run_pilot_2025_aroma_model_selection_doe as aroma_sel
 import run_pilot_2025_calibration_estimability as pilot
 import run_pilot_2025_co2_stripping_benchmark as old_co2
 import run_pilot_2025_global_model_selection_doe as global_sel
-import run_secondary_joint_campaign_doe as joint
-import run_secondary_v2_model_evaluation as v2
+from shared import run_secondary_joint_campaign_doe as joint
+from shared import run_secondary_v2_model_evaluation as v2
 
 
 RESULTS_DIR = SCRIPT_DIR / "results" / "co2_solubility_integrated_doe"

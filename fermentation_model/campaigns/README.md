@@ -18,8 +18,9 @@ The campaign workspaces are:
 - `../laboratory_2026/`
 - `../pilot_2026/`
 
-Shared kinetic, secondary-metabolite and aroma code remains in the
-`fermentation_model/` root during the transition. See `../shared/README.md`.
+Shared kinetic, secondary-metabolite and aroma code is owned by the
+`../shared/` package. Campaign-specific runners and outputs stay in their
+campaign workspace.
 
 ## Status vocabulary
 

@@ -15,12 +15,15 @@ identifies `ING26-LAB004`, `ING26-LAB005`, `ING26-LAB006`, `ING26-LAB010`,
 
 The authoritative design is the volume-constrained nine-protocol campaign:
 
-- Design handoff: `../results/design_execution_bundle_2026-06-09/`
-- Rich execution copy: `../../db_20260609/` (`rec/` is current; `ref/` is historical)
+- Design handoff: `results/design_execution_bundle_2026-06-09/`
+- Rich execution copy: `archive/design_execution_copy_2026-06-09/`
+  (`rec/` is current; `ref/` is historical)
 - Raw Lot 1: `../data/Laboratorio 2026/DOE_Lote_1/`
 - Raw Lot 2: `../data/Laboratorio 2026/DOE_Lote_2/`
 - Raw Lot 3: expected at `../data/Laboratorio 2026/DOE_Lote_3/`
 - Current notebooks: `notebooks/`
+- Current runners: the `run_*.py` files in this directory
+- Campaign-owned derived outputs: `results/`
 
 As of 2026-07-14, raw folders are present for `DOE26-F01` through `DOE26-F06`.
 The analytical exports for Lot 2 and the entire Lot 3 source folder are still

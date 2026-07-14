@@ -73,6 +73,18 @@ def audit(check_hashes: bool = False) -> dict[str, object]:
     errors: list[str] = []
     warnings: list[str] = []
 
+    root_python = sorted(path.name for path in FERMENTATION_DIR.glob("*.py"))
+    if root_python:
+        errors.append(
+            "active Python files must belong to shared/ or a campaign workspace: "
+            f"{root_python}"
+        )
+    if (FERMENTATION_DIR / "results").exists():
+        errors.append(
+            "fermentation_model/results is ambiguous; use shared/results or a "
+            "campaign-owned results directory"
+        )
+
     campaign_ids = [row["campaign_id"] for row in campaigns]
     if len(campaign_ids) != len(set(campaign_ids)):
         errors.append("campaigns.csv contains duplicate campaign_id values")
@@ -104,6 +116,14 @@ def audit(check_hashes: bool = False) -> dict[str, object]:
         if output and not (REPO_DIR / output).exists():
             errors.append(
                 f"missing workflow output: {workflow['workflow_id']}: {output}"
+            )
+        if workflow["path"].startswith("fermentation_model/run_"):
+            errors.append(
+                f"root-owned workflow is not allowed: {workflow['workflow_id']}"
+            )
+        if output.startswith("fermentation_model/results/"):
+            errors.append(
+                f"ambiguous root result is not allowed: {workflow['workflow_id']}"
             )
 
     campaign_file_counts: dict[str, int] = {}
