@@ -169,11 +169,18 @@ def audit(check_hashes: bool = False) -> dict[str, object]:
                 if sha256(path) != row["sha256"]:
                     errors.append(f"raw file hash changed: {row['path']}")
 
+    pilot_2026_rows = [
+        row for row in experiments if row["campaign_id"] == "pilot_2026"
+    ]
+    if len(pilot_2026_rows) != 9:
+        errors.append(
+            f"pilot_2026 must contain exactly 9 confirmed runs; found {len(pilot_2026_rows)}"
+        )
+    elif any(row["data_status"] != "processed_qc_confirmed" for row in pilot_2026_rows):
+        errors.append("all pilot_2026 runs must be processed_qc_confirmed")
+
     if not (FERMENTATION_DIR / "data" / "Laboratorio 2026" / "DOE_Lote_3").exists():
         warnings.append("Laboratory 2026 Lot 3 raw folder is not present")
-    warnings.append(
-        "Pilot 2026 still uses a composite placeholder; individual run mapping is pending"
-    )
 
     return {
         "campaigns": len(campaigns),

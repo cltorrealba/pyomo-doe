@@ -1,0 +1,55 @@
+{
+  "campaign_id": "pilot_2026",
+  "timezone": "America/Santiago",
+  "raw_directory": "fermentation_model/data/Piloto 2026/Lotes1a3/raw",
+  "sources": {
+    "co2": "co2_massview_lotes1a3.zip",
+    "temperature": "temperature_controller_2026.zip",
+    "master": "Planilla_Maestra_ID_2026_14_07_26.xlsx",
+    "gc": "GC_162_2026_Condensados_CT.xlsx",
+    "protocol": "Ensayos_ID_Piloto_2026_Borrador.pdf"
+  },
+  "output_directory": "fermentation_model/pilot_2026/results/data_integration_2026",
+  "rules": {
+    "process_window": "inclusive interval from first to last primary-result sample",
+    "lot2_date_correction": "for Lot 2 only, Excel dates 2026-06-04 through 2026-12-04 are day/month swaps and map to 2026-04-06 through 2026-04-12",
+    "same_second": "arithmetic mean after removing raw 2.621 sentinel values",
+    "massview_unit": "Ln/min",
+    "massview_normalization": "already normalized by the instrument; no additional temperature or pressure conversion",
+    "massview_factory_reference_temperature_c": 20,
+    "massview_factory_reference_status": "owner_estimate_unverified",
+    "massview_reference_pressure": "factory_default_unverified",
+    "invalid_raw_value": 2.621,
+    "zero_rule": "leading and trailing zeros are valid; zeros between the first and last positive active-process observation are invalid",
+    "edge_gap_rule": "missing seconds before first acquisition and after last acquisition inside the sampling window are filled with explicit artificial zero flags; internal gaps are not imputed",
+    "active_end_rule": "first IMPOSTA_CTA event after 24 h with Modo=2 and TempMin=9 and TempMax=11; the event second belongs to postprocess/cooling",
+    "gc_report_basis": "diluted vial concentration",
+    "gc_dilution_factor": 1000,
+    "gc_preparation": "50 mL stock prepared; 10 mL transferred to analyst",
+    "condensate_volume_source": "09_Aromas_Cond columns Vol CA (mL) and Vol CB (mL)",
+    "lot1_condensates_analyzed": false,
+    "modbus_26136": "single non-blocking acquisition gap; do not impute"
+  },
+  "runs": [
+    {"experiment_id":"26134","lot":"Lote 1","reactor":"TK-31","condition":"A","replicate":"R1","protocol":"A","temperature_program":"18_to_21_to_16C"},
+    {"experiment_id":"26135","lot":"Lote 1","reactor":"TK-32","condition":"A","replicate":"R2","protocol":"A","temperature_program":"18_to_21_to_16C"},
+    {"experiment_id":"26136","lot":"Lote 1","reactor":"TK-33","condition":"B","replicate":"R1","protocol":"B","temperature_program":"21_to_18_to_16C"},
+    {"experiment_id":"26157","lot":"Lote 2","reactor":"TK-31","condition":"A","replicate":"R3","protocol":"A","temperature_program":"18_to_21_to_16C"},
+    {"experiment_id":"26158","lot":"Lote 2","reactor":"TK-32","condition":"A","replicate":"R4","protocol":"A","temperature_program":"18_to_21_to_16C"},
+    {"experiment_id":"26159","lot":"Lote 2","reactor":"TK-33","condition":"C","replicate":"R1","protocol":"C","temperature_program":"16_to_18_to_21C"},
+    {"experiment_id":"26210","lot":"Lote 3","reactor":"TK-31","condition":"A","replicate":"R5","protocol":"A","temperature_program":"18_to_21_to_16C"},
+    {"experiment_id":"26211","lot":"Lote 3","reactor":"TK-32","condition":"A","replicate":"R6","protocol":"A","temperature_program":"18_to_21_to_16C"},
+    {"experiment_id":"26212","lot":"Lote 3","reactor":"TK-33","condition":"B","replicate":"R2","protocol":"B","temperature_program":"21_to_18_to_16C"}
+  ],
+  "expected_totals": {
+    "fermentations": 9,
+    "massview_rows": 5239087,
+    "flow_rows_in_sampling_windows": 4752937,
+    "same_second_groups_before_sentinel_filter": 4272044,
+    "same_second_repetitions_absorbed_before_sentinel_filter": 480893,
+    "raw_2_621_observations": 3970,
+    "modbus_events_26136": 1,
+    "out_of_order_flow_timestamps": 0,
+    "maximum_flow_gap_seconds": 10
+  }
+}

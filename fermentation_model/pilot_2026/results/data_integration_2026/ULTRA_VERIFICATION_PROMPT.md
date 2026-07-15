@@ -1,0 +1,3 @@
+# Independent Ultra verification prompt
+
+Act as an independent scientific-data and code auditor. Re-run `fermentation_model/pilot_2026/run_data_integration.py`, inspect `data_integration_config.json`, verify every expected count in `qc_summary.json`, and visually review all four PNG figures. Confirm the Lot 2 day/month correction, nine primary-sample windows, raw 2.621 removal before same-second means, zero classification, explicit artificial edge fills, controller-event active-end logic, protocol C 16→18→21 handling, exclusion of postprocess/out-of-window events, and GC ×1000 correction from diluted-vial results. Confirm hashes and ZIP CRCs. Do not modify files. Report PASS, PASS CONDITIONAL, or FAIL with reproducible evidence.

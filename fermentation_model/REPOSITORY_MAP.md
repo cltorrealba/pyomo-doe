@@ -1,6 +1,6 @@
 # Repository map
 
-Status date: 2026-07-14.
+Status date: 2026-07-15.
 
 This is the canonical navigation map for the fermentation work. Every active
 artifact now has one explicit owner: the shared model layer or one experimental
@@ -94,8 +94,10 @@ processing and design updates live beside it under `laboratory_2026/results/`.
 ### Pilot campaigns
 
 Pilot 2025 owns its integrated model, support code, notebooks and results under
-`pilot_2025/`. Pilot 2026 owns its future processed data and results under
-`pilot_2026/`; the individual reactor/sample registry is still pending.
+`pilot_2025/`. Pilot 2026 has nine confirmed reactor/run mappings and owns the
+lossless integration runner, QC tables and figures under `pilot_2026/`. Its
+processed dataset is conditional for calibration pending independent Ultra
+verification and confirmation of the MassView factory normal reference.
 
 ### Frozen history
 

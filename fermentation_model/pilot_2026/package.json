@@ -1,0 +1,8 @@
+{
+  "name": "pilot-2026-data-integration",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "mdb-reader": "^3.0.1"
+  }
+}

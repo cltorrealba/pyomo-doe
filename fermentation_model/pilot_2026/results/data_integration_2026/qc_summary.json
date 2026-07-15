@@ -1,0 +1,128 @@
+{
+  "campaign_id": "pilot_2026",
+  "verdict": "processed_qc_ready_conditional_for_calibration",
+  "calibration_gate": [
+    "independent Ultra verification of code, tables, and figures",
+    "confirm MassView factory normal reference temperature and pressure"
+  ],
+  "expected_value_checks": {
+    "fermentations": {
+      "expected": 9,
+      "observed": 9,
+      "pass": true
+    },
+    "massview_rows": {
+      "expected": 5239087,
+      "observed": 5239087,
+      "pass": true
+    },
+    "flow_rows_in_sampling_windows": {
+      "expected": 4752937,
+      "observed": 4752937,
+      "pass": true
+    },
+    "same_second_groups_before_sentinel_filter": {
+      "expected": 4272044,
+      "observed": 4272044,
+      "pass": true
+    },
+    "same_second_repetitions_absorbed_before_sentinel_filter": {
+      "expected": 480893,
+      "observed": 480893,
+      "pass": true
+    },
+    "raw_2_621_observations": {
+      "expected": 3970,
+      "observed": 3970,
+      "pass": true
+    },
+    "modbus_events_26136": {
+      "expected": 1,
+      "observed": 1,
+      "pass": true
+    },
+    "out_of_order_flow_timestamps": {
+      "expected": 0,
+      "observed": 0,
+      "pass": true
+    },
+    "maximum_flow_gap_seconds": {
+      "expected": 10,
+      "observed": 10.0,
+      "pass": true
+    }
+  },
+  "co2": {
+    "massview_total_rows": 5239087,
+    "massview_row_types": {
+      "flow": 5239062,
+      "meta": 18,
+      "manual": 6,
+      "error": 1
+    },
+    "flow_rows_in_sampling_windows": 4752937,
+    "same_second_groups_before_sentinel_filter": 4272044,
+    "same_second_repetitions_absorbed_before_sentinel_filter": 480893,
+    "raw_2_621_observations_global": 3970,
+    "valid_raw_rows_after_sentinel_filter_in_windows": 4749184,
+    "same_second_groups_after_sentinel_filter": 4268662,
+    "same_second_repetitions_absorbed_after_sentinel_filter": 480522,
+    "sentinel_only_seconds_removed": 3382,
+    "out_of_order_flow_timestamps": 0,
+    "maximum_flow_gap_seconds": 10.0,
+    "invalid_intermediate_zero_seconds": 500958,
+    "valid_observed_edge_zero_seconds": 72740,
+    "postprocess_observed_seconds": 153446,
+    "artificial_initial_zero_seconds": 86709,
+    "artificial_final_zero_seconds": 9,
+    "modbus_events_26136": 1
+  },
+  "temperature": {
+    "raw_relevant_temperature_rows": 15617,
+    "duplicate_temperature_seconds_removed": 3,
+    "normalized_temperature_rows": 15614,
+    "active_end": {
+      "26134": "2026-04-02T08:00:00",
+      "26135": "2026-04-02T08:00:00",
+      "26136": "2026-04-02T08:00:00",
+      "26157": "2026-04-13T16:22:18",
+      "26158": "2026-04-13T16:24:31",
+      "26159": "2026-04-15T08:00:00",
+      "26210": "2026-04-24T16:15:35",
+      "26211": "2026-04-25T11:00:00",
+      "26212": "2026-04-24T16:16:12"
+    }
+  },
+  "gc": {
+    "gc_mix_samples": 33,
+    "gc_analyte_results": 198,
+    "gc_numeric_results": 111,
+    "gc_status_counts": {
+      "Decanoato de Etilo:below_loq": 19,
+      "Decanoato de Etilo:quantified": 14,
+      "Etil Acetato:NQ": 31,
+      "Etil Acetato:below_loq": 2,
+      "Feniletil Acetato:NQ": 33,
+      "Hexil Acetato:NQ": 3,
+      "Hexil Acetato:quantified": 30,
+      "Isoamil Acetato:NQ": 20,
+      "Isoamil Acetato:quantified": 13,
+      "Octanoato de Etilo:below_loq": 14,
+      "Octanoato de Etilo:quantified": 19
+    },
+    "lot1_gc_mix_samples_in_model_scope": 0
+  },
+  "profile_c": {
+    "confirmed_protocol": "16_to_18_to_21C",
+    "setpoints_inside_calibration_window": [
+      16.0,
+      18.0
+    ],
+    "reached_21C_inside_calibration_window": false,
+    "interpretation": "The planned 21 C segment was not observed inside the primary-sample/calibration window and must not be treated as executed calibration input."
+  },
+  "events_outside_sampling_window_excluded": 1,
+  "mapping_status": "confirmed",
+  "massview_unit": "Ln/min",
+  "massview_second_normalization_applied": false
+}
