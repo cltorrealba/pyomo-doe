@@ -1,6 +1,6 @@
 {
   "campaign_id": "pilot_2026",
-  "status": "processed_qc_confirmed",
+  "status": "processed_qc_owner_rules_integrated",
   "matrix": "natural_grape_must",
   "reactors": 3,
   "controls": {
@@ -11,6 +11,7 @@
   "individual_experiment_registry": "confirmed_nine_runs",
   "integration_runner": "fermentation_model/pilot_2026/run_data_integration.py",
   "authoritative_results": "fermentation_model/pilot_2026/results/data_integration_2026",
-  "calibration_status": "conditional_pending_independent_ultra_verification_and_massview_factory_reference_confirmation",
+  "mapping_status": "confirmed",
+  "calibration_status": "conditional_pending_owner_notebook_review_independent_verification_and_massview_factory_reference_confirmation",
   "registry": "fermentation_model/campaigns/experiments.csv"
 }

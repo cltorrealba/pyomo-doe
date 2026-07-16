@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import json
 import os
+import platform
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import warnings
 import zipfile
@@ -50,11 +53,33 @@ def normalize_datetime(value: object, run_id: str) -> pd.Timestamp:
         return pd.NaT
     if isinstance(value, (pd.Timestamp, np.datetime64)) or hasattr(value, "year"):
         timestamp = pd.Timestamp(value)
-        if run_id in {"26157", "26158", "26159"}:
-            if timestamp.year == 2026 and timestamp.day == 4 and 6 <= timestamp.month <= 12:
-                timestamp = timestamp.replace(month=4, day=timestamp.month)
-        return timestamp
-    return pd.to_datetime(value, dayfirst=True, errors="coerce")
+    else:
+        text_value = str(value).strip()
+        # The master workbook contains strings such as "19-04-2026 15:00 PM".
+        # The 24-hour clock is authoritative; the redundant AM/PM suffix is invalid.
+        text_value = re.sub(
+            r"(\s(?:1[3-9]|2[0-3]):\d{2}(?::\d{2})?)\s*(?:AM|PM)$",
+            r"\1",
+            text_value,
+            flags=re.IGNORECASE,
+        )
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", UserWarning)
+            timestamp = pd.to_datetime(text_value, dayfirst=True, errors="coerce")
+    if pd.isna(timestamp):
+        return pd.NaT
+    if run_id in {"26157", "26158", "26159"}:
+        if timestamp.year == 2026 and timestamp.day == 4 and 6 <= timestamp.month <= 12:
+            timestamp = timestamp.replace(month=4, day=timestamp.month)
+    return timestamp
+
+
+def canonical_primary_sample_id(value: object) -> str:
+    sample_id = str(value).strip()
+    short = re.fullmatch(r"(26\d{3})-(\d{2})", sample_id)
+    if short:
+        return f"{short.group(1)}-P-{short.group(2)}"
+    return sample_id
 
 
 def atomic_savefig(fig: plt.Figure, path: Path) -> None:
@@ -77,7 +102,12 @@ def read_master_sheet(path: Path, sheet_name: str) -> pd.DataFrame:
 
 
 def build_primary_and_windows(
-    master: Path, runs: list[str], run_metadata: dict[str, dict[str, object]], output: Path
+    master: Path,
+    runs: list[str],
+    run_metadata: dict[str, dict[str, object]],
+    initial_volume_l: float,
+    yeast: str,
+    output: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     primary = read_master_sheet(master, "06_Resultados_primarios")
     primary["experiment_id"] = (
@@ -94,8 +124,23 @@ def build_primary_and_windows(
         "parsed_or_day_month_corrected",
         "unchanged",
     )
+    ethanol_column = "Cf Alcolyzer Real (% v/v)"
+    raw_ethanol_column = "Cf Alcolyzer (% v/v)"
+    primary["ethanol_real_original_percent_vv"] = primary[ethanol_column]
+    artificial_negative = primary[ethanol_column].eq(-0.3) & primary[raw_ethanol_column].isna()
+    primary.loc[artificial_negative, ethanol_column] = 0.0
+    primary["ethanol_correction"] = np.where(
+        artificial_negative,
+        "owner_confirmed_negative_formula_artifact_set_to_zero",
+        "none",
+    )
+    for field in ["lot", "reactor", "condition", "replicate", "protocol"]:
+        primary[field] = primary["experiment_id"].map(
+            {run: metadata[field] for run, metadata in run_metadata.items()}
+        )
+    primary["initial_volume_l"] = initial_volume_l
+    primary["yeast"] = yeast
     primary = primary.sort_values(["experiment_id", "timestamp", "Código muestra"])
-    primary.to_csv(output / "primary_results_qc.csv", index=False)
 
     rows = []
     for run, group in primary.groupby("experiment_id", sort=True):
@@ -118,7 +163,35 @@ def build_primary_and_windows(
     windows = pd.DataFrame(rows).sort_values("experiment_id")
     if len(windows) != 9 or windows["experiment_id"].nunique() != 9:
         raise ValueError("Expected exactly nine Pilot 2026 sampling windows")
+    primary["sampling_start"] = primary["experiment_id"].map(
+        windows.set_index("experiment_id")["sampling_start"]
+    )
+    primary["time_h"] = (
+        primary["timestamp"] - primary["sampling_start"]
+    ).dt.total_seconds() / 3600.0
+    primary.to_csv(output / "primary_results_qc.csv", index=False)
     return primary, windows
+
+
+def finalize_primary_process_phase(
+    primary: pd.DataFrame, windows: pd.DataFrame, output: Path
+) -> pd.DataFrame:
+    primary = primary.copy()
+    lookup = windows.set_index("experiment_id")
+    primary["active_end"] = primary["experiment_id"].map(lookup["active_end"])
+    active_end = pd.to_datetime(primary["active_end"])
+    sampling_end = pd.to_datetime(primary["experiment_id"].map(lookup["sampling_end"]))
+    endpoint_is_active = active_end.ge(sampling_end)
+    primary["calibration_include"] = np.where(
+        endpoint_is_active,
+        primary["timestamp"].le(active_end),
+        primary["timestamp"].lt(active_end),
+    )
+    primary["process_phase"] = np.where(
+        primary["calibration_include"], "active_process", "postprocess_cooling"
+    )
+    primary.to_csv(output / "primary_results_qc.csv", index=False)
+    return primary
 
 
 def export_temperature_source(raw_zip: Path, output: Path) -> pd.DataFrame:
@@ -328,6 +401,7 @@ def process_co2(
     runs: list[str],
     active_end: dict[str, str],
     invalid_value: float,
+    model_excluded_runs: set[str],
     output: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, object]]:
     windows_by_run = windows.set_index("experiment_id")
@@ -431,6 +505,8 @@ def process_co2(
             seconds["calibration_eligible"] = seconds["qc_state"].isin(
                 ["valid_nonzero", "valid_observed_edge_zero"]
             )
+            if run in model_excluded_runs:
+                seconds["calibration_eligible"] = False
 
             artificial_initial = max(
                 0, int((consolidated.index.min() - start).total_seconds())
@@ -451,7 +527,7 @@ def process_co2(
                             "experiment_id": run,
                             "qc_state": "artificial_initial_zero",
                             "artificial": True,
-                            "calibration_eligible": True,
+                            "calibration_eligible": run not in model_excluded_runs,
                         }
                     )
                 )
@@ -467,7 +543,7 @@ def process_co2(
                             "experiment_id": run,
                             "qc_state": "artificial_final_zero",
                             "artificial": True,
-                            "calibration_eligible": True,
+                            "calibration_eligible": run not in model_excluded_runs,
                         }
                     )
                 )
@@ -494,6 +570,12 @@ def process_co2(
                 .reset_index()
             )
             minute = base.merge(counts, on=["experiment_id", "minute"], how="left")
+            minute["co2_model_include"] = run not in model_excluded_runs
+            minute["co2_model_exclusion_reason"] = (
+                "owner_confirmed_poor_signal_lot1"
+                if run in model_excluded_runs
+                else ""
+            )
             minute["expected_seconds"] = [
                 int(
                     (
@@ -531,6 +613,12 @@ def process_co2(
                     "first_flow_timestamp": raw_window["timestamp"].min(),
                     "last_flow_timestamp": raw_window["timestamp"].max(),
                     "modbus_events": int(run_type_counts.get("error", 0)),
+                    "co2_model_include": run not in model_excluded_runs,
+                    "co2_model_exclusion_reason": (
+                        "owner_confirmed_poor_signal_lot1"
+                        if run in model_excluded_runs
+                        else ""
+                    ),
                 }
             )
 
@@ -570,12 +658,20 @@ def process_co2(
         "artificial_initial_zero_seconds": int(run_summary["artificial_initial_zero_seconds"].sum()),
         "artificial_final_zero_seconds": int(run_summary["artificial_final_zero_seconds"].sum()),
         "modbus_events_26136": int(run_summary.loc[run_summary["experiment_id"].eq("26136"), "modbus_events"].sum()),
+        "model_excluded_runs": sorted(model_excluded_runs),
     }
     return minute_qc, run_summary, stats
 
 
 def process_operational_events(
-    master: Path, windows: pd.DataFrame, runs: list[str], output: Path
+    master: Path,
+    windows: pd.DataFrame,
+    runs: list[str],
+    lot3_reference_map: dict[str, str],
+    initial_volume_l: float,
+    organic_yan_mg_per_mg: float,
+    dap_yan_mg_per_mg: float,
+    output: Path,
 ) -> pd.DataFrame:
     events = read_master_sheet(master, "03_Eventos_operacion")
     events["experiment_id"] = events["Código ensayo"].astype(str).str.extract(
@@ -588,27 +684,142 @@ def process_operational_events(
         for value, run in zip(events["Fecha-hora"], events["experiment_id"])
     ]
     lookup = windows.set_index("experiment_id")
+    events["event_origin"] = "master_workbook"
+    events["reference_experiment_id"] = events["experiment_id"]
+    events["event_timestamp_status"] = np.select(
+        [
+            pd.to_datetime(events["Fecha de ejecución"], errors="coerce").notna(),
+            events["experiment_id"].isin({"26134", "26135", "26136"}),
+        ],
+        ["recorded_execution", "owner_confirmed_master_schedule"],
+        default="master_schedule_execution_time_unconfirmed",
+    )
+
+    reconstructed = []
+    for target, reference in lot3_reference_map.items():
+        reference_events = events[events["experiment_id"].eq(reference)].copy()
+        if reference_events.empty:
+            raise ValueError(f"Missing Lot 1 reference events for {reference}")
+        reference_start = pd.Timestamp(lookup.loc[reference, "sampling_start"])
+        target_start = pd.Timestamp(lookup.loc[target, "sampling_start"])
+        relative_time = reference_events["timestamp"] - reference_start
+        reference_events["experiment_id"] = target
+        reference_events["Código ensayo"] = target
+        reference_events["Código evento"] = reference_events["Código evento"].astype(str).str.replace(
+            reference, target, regex=False
+        )
+        reference_events["timestamp"] = target_start + relative_time
+        reference_events["timestamp_original"] = reference_events["timestamp"].astype(str)
+        reference_events["Fecha-hora"] = reference_events["timestamp"]
+        reference_events["Fecha"] = reference_events["timestamp"].dt.date
+        reference_events["Hora"] = reference_events["timestamp"].dt.time
+        reference_events["Fecha de ejecución"] = pd.NaT
+        reference_events["Estado"] = "Reconstruido confirmado"
+        reference_events["event_origin"] = "reconstructed_from_lot1_relative_schedule"
+        reference_events["reference_experiment_id"] = reference
+        reference_events["event_timestamp_status"] = "owner_confirmed_relative_reconstruction"
+        reconstructed.append(reference_events)
+    if reconstructed:
+        events = pd.concat([events, *reconstructed], ignore_index=True)
+
     events["sampling_start"] = events["experiment_id"].map(lookup["sampling_start"])
     events["sampling_end"] = events["experiment_id"].map(lookup["sampling_end"])
+    events["active_end"] = events["experiment_id"].map(lookup["active_end"])
+    events["relative_time_h"] = (
+        events["timestamp"] - pd.to_datetime(events["sampling_start"])
+    ).dt.total_seconds() / 3600.0
     events["inside_sampling_window"] = events["timestamp"].between(
         events["sampling_start"], events["sampling_end"], inclusive="both"
     )
-    events["calibration_include"] = events["inside_sampling_window"]
+    active_end = pd.to_datetime(events["active_end"])
+    sampling_end = pd.to_datetime(events["sampling_end"])
+    events["inside_active_process"] = np.where(
+        active_end.ge(sampling_end),
+        events["timestamp"].le(active_end),
+        events["timestamp"].lt(active_end),
+    )
+    events["calibration_include"] = (
+        events["inside_sampling_window"] & events["inside_active_process"]
+    )
+
+    nutrient = events["Tipo evento"].astype(str).str.contains("Pulso nutricional", na=False)
+    doses = events["Dosis"].astype(str).str.extract(
+        r"^\s*([0-9]+(?:[.,][0-9]+)?)\s*\+\s*([0-9]+(?:[.,][0-9]+)?)\s*$"
+    )
+    events["organic_product_g"] = pd.to_numeric(
+        doses[0].str.replace(",", ".", regex=False), errors="coerce"
+    ).where(nutrient)
+    events["dap_product_g"] = pd.to_numeric(
+        doses[1].str.replace(",", ".", regex=False), errors="coerce"
+    ).where(nutrient)
+    events["yan_added_mg_l"] = (
+        events["organic_product_g"] * 1000.0 * organic_yan_mg_per_mg
+        + events["dap_product_g"] * 1000.0 * dap_yan_mg_per_mg
+    ) / initial_volume_l
+    events["dose_parse_status"] = np.where(
+        nutrient & events["organic_product_g"].notna() & events["dap_product_g"].notna(),
+        "parsed_springferm_organic_plus_fda",
+        np.where(nutrient, "unparsed", "not_applicable"),
+    )
+    events["model_input_note"] = np.where(
+        events["Tipo evento"].astype(str).str.contains("Cambio temperatura", na=False),
+        "use_measured_controller_setpoint_and_sensor_trace",
+        np.where(
+            events["Tipo evento"].astype(str).eq("Pulso nutricional 2"),
+            "density_triggered_time_proxy",
+            "event_table",
+        ),
+    )
+    events = events.sort_values(["experiment_id", "timestamp", "Código evento"])
     events.to_csv(output / "operational_events_qc.csv", index=False)
     return events
 
 
-def process_gc(master: Path, report: Path, runs: list[str], output: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, object]]:
+def process_gc(
+    master: Path,
+    report: Path,
+    runs: list[str],
+    windows: pd.DataFrame,
+    output: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, object]]:
+    pilot_gc_runs = set(runs) - {"26134", "26135", "26136"}
+    window_lookup = windows.set_index("experiment_id")
     aromas = read_master_sheet(master, "09_Aromas_Cond")
     aromas = aromas[aromas["Código condensado / mix"].notna()].copy()
     aromas["mix_id"] = aromas["Código condensado / mix"].astype(str).str.strip()
     aromas["experiment_id"] = aromas["mix_id"].str.extract(r"^(26\d{3})", expand=False)
     aromas = aromas[aromas["experiment_id"].isin(runs)].copy()
+    aromas["paired_wine_sample_id"] = aromas["Código muestra MEF"].map(
+        canonical_primary_sample_id
+    )
+    aromas["timestamp_original"] = aromas["Fecha-hora"].astype(str)
+    aromas["timestamp"] = [
+        normalize_datetime(value, run)
+        for value, run in zip(aromas["Fecha-hora"], aromas["experiment_id"])
+    ]
+    aromas["date_normalization"] = np.where(
+        aromas["timestamp_original"] != aromas["timestamp"].astype(str),
+        "parsed_or_day_month_corrected",
+        "unchanged",
+    )
     aromas["volume_a_ml"] = pd.to_numeric(aromas["Vol CA (mL)"], errors="coerce")
     aromas["volume_b_ml"] = pd.to_numeric(aromas["Vol CB (mL)"], errors="coerce")
     aromas["total_condensate_ml"] = aromas["volume_a_ml"].fillna(0) + aromas["volume_b_ml"].fillna(0)
     aromas["fraction_a"] = aromas["volume_a_ml"].fillna(0).div(aromas["total_condensate_ml"].replace(0, np.nan))
     aromas["fraction_b"] = aromas["volume_b_ml"].fillna(0).div(aromas["total_condensate_ml"].replace(0, np.nan))
+    aromas = aromas.sort_values(["experiment_id", "timestamp", "mix_id"])
+    aromas["capture_interval_start"] = aromas.groupby("experiment_id")["timestamp"].shift(1)
+    aromas["capture_interval_start"] = aromas["capture_interval_start"].fillna(
+        aromas["experiment_id"].map(window_lookup["sampling_start"])
+    )
+    aromas["capture_interval_end"] = aromas["timestamp"]
+    aromas["capture_interval_h"] = (
+        aromas["capture_interval_end"] - aromas["capture_interval_start"]
+    ).dt.total_seconds() / 3600.0
+    aromas["time_h"] = (
+        aromas["timestamp"]
+        - pd.to_datetime(aromas["experiment_id"].map(window_lookup["sampling_start"]))
+    ).dt.total_seconds() / 3600.0
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -624,6 +835,17 @@ def process_gc(master: Path, report: Path, runs: list[str], output: Path) -> tup
     sample_map = sample_map[sample_map["sample_number"].notna()]
     sample_map["experiment_id"] = sample_map["original_sample_id"].str.extract(
         r"^(26\d{3})", expand=False
+    )
+    sample_map["sample_id"] = sample_map["original_sample_id"].map(
+        canonical_primary_sample_id
+    )
+    sample_map["sample_type"] = np.select(
+        [
+            sample_map["sample_id"].str.contains("-MIX-", na=False),
+            sample_map["sample_id"].str.contains("-P-", na=False),
+        ],
+        ["condensate_mix", "wine_mef"],
+        default="other",
     )
 
     analytes = [
@@ -641,54 +863,220 @@ def process_gc(master: Path, report: Path, runs: list[str], output: Path) -> tup
     loq = {analyte: parse_number(raw.iloc[201, offset]) for offset, analyte in enumerate(analytes, start=3)}
 
     combined = sample_map.merge(result_table, on="lab_sample_id", how="left", validate="one_to_one")
-    mix_samples = combined[
-        combined["original_sample_id"].str.contains("-MIX-", na=False)
-        & combined["experiment_id"].isin({"26157", "26158", "26159", "26210", "26211", "26212"})
+    pilot_samples = combined[
+        combined["experiment_id"].isin(pilot_gc_runs)
+        & combined["sample_type"].isin({"condensate_mix", "wine_mef"})
     ].copy()
-    long = mix_samples.melt(
-        id_vars=["sample_number", "original_sample_id", "lab_sample_id", "experiment_id"],
+    mix_samples = pilot_samples[pilot_samples["sample_type"].eq("condensate_mix")].copy()
+    wine_samples = pilot_samples[pilot_samples["sample_type"].eq("wine_mef")].copy()
+    long = pilot_samples.melt(
+        id_vars=[
+            "sample_number",
+            "original_sample_id",
+            "sample_id",
+            "sample_type",
+            "lab_sample_id",
+            "experiment_id",
+        ],
         value_vars=analytes,
         var_name="analyte",
         value_name="reported_value",
     )
-    long["loq_ug_l"] = long["analyte"].map(loq)
+    long["vial_loq_ug_l"] = long["analyte"].map(loq)
     long["vial_concentration_ug_l"] = long["reported_value"].map(parse_number)
     long["result_status"] = np.select(
         [
             long["reported_value"].astype(str).str.strip().str.upper().eq("NQ"),
             long["vial_concentration_ug_l"].notna()
-            & long["vial_concentration_ug_l"].lt(long["loq_ug_l"]),
+            & long["vial_concentration_ug_l"].lt(long["vial_loq_ug_l"]),
             long["vial_concentration_ug_l"].notna(),
         ],
         ["NQ", "below_loq", "quantified"],
         default="missing",
     )
-    long["dilution_factor"] = 1000
-    long["mix_concentration_ug_l"] = long["vial_concentration_ug_l"] * long["dilution_factor"]
-    long["reported_basis"] = "diluted_GC_vial"
-    long["preparation_stock_ml"] = 50
-    long["volume_transferred_to_analyst_ml"] = 10
-    long.to_csv(output / "gc_results_long_qc.csv", index=False)
+    long["dilution_factor"] = np.where(long["sample_type"].eq("condensate_mix"), 1000, 1)
+    long["sample_concentration_ug_l"] = (
+        long["vial_concentration_ug_l"] * long["dilution_factor"]
+    )
+    long["sample_basis_loq_ug_l"] = long["vial_loq_ug_l"] * long["dilution_factor"]
+    long["reported_basis"] = np.where(
+        long["sample_type"].eq("condensate_mix"),
+        "diluted_GC_vial",
+        "undiluted_wine_sample",
+    )
+    long["preparation_stock_ml"] = np.where(
+        long["sample_type"].eq("condensate_mix"), 50, np.nan
+    )
+    long["volume_transferred_to_analyst_ml"] = np.where(
+        long["sample_type"].eq("condensate_mix"), 10, np.nan
+    )
+    long["model_observation_type"] = np.select(
+        [
+            long["result_status"].isin({"NQ", "below_loq"}),
+            long["result_status"].eq("quantified"),
+        ],
+        ["left_censored", "observed"],
+        default="missing",
+    )
+    long["censoring_lower_bound_ug_l"] = np.where(
+        long["model_observation_type"].eq("left_censored"), 0.0, np.nan
+    )
+    long["censoring_upper_bound_ug_l"] = np.where(
+        long["model_observation_type"].eq("left_censored"),
+        long["sample_basis_loq_ug_l"],
+        np.nan,
+    )
 
-    analyzed = aromas[aromas["experiment_id"].isin({"26157", "26158", "26159", "26210", "26211", "26212"})].copy()
+    primary_results = read_master_sheet(master, "06_Resultados_primarios")
+    primary_results["sample_id"] = primary_results["Código muestra"].astype(str).str.strip()
+    primary_results["experiment_id"] = primary_results["sample_id"].str.extract(
+        r"^(26\d{3})", expand=False
+    )
+    primary_results["sample_timestamp"] = [
+        normalize_datetime(value, run)
+        for value, run in zip(primary_results["Fecha-hora"], primary_results["experiment_id"])
+    ]
+    wine_timestamp = primary_results.set_index("sample_id")["sample_timestamp"]
+    mix_timestamp = aromas.set_index("mix_id")["timestamp"]
+    long["sample_timestamp"] = np.where(
+        long["sample_type"].eq("condensate_mix"),
+        long["sample_id"].map(mix_timestamp),
+        long["sample_id"].map(wine_timestamp),
+    )
+    long["sample_timestamp"] = pd.to_datetime(long["sample_timestamp"])
+    long["time_h"] = (
+        long["sample_timestamp"]
+        - pd.to_datetime(long["experiment_id"].map(window_lookup["sampling_start"]))
+    ).dt.total_seconds() / 3600.0
+    mix_volume = aromas.set_index("mix_id")["total_condensate_ml"]
+    long["total_condensate_ml"] = long["sample_id"].map(mix_volume).where(
+        long["sample_type"].eq("condensate_mix")
+    )
+    long["captured_mass_ug"] = (
+        long["sample_concentration_ug_l"] * long["total_condensate_ml"] / 1000.0
+    )
+    long["captured_mass_upper_bound_ug"] = (
+        long["censoring_upper_bound_ug_l"] * long["total_condensate_ml"] / 1000.0
+    )
+    long.to_csv(output / "gc_results_long_qc.csv", index=False)
+    long[long["sample_type"].eq("wine_mef")].to_csv(
+        output / "gc_wine_results_long_qc.csv", index=False
+    )
+
+    analyzed = aromas[aromas["experiment_id"].isin(pilot_gc_runs)].copy()
     analyzed = analyzed.merge(
-        mix_samples[["original_sample_id", "lab_sample_id"]],
+        mix_samples[["sample_id", "lab_sample_id"]],
         left_on="mix_id",
-        right_on="original_sample_id",
+        right_on="sample_id",
         how="left",
         validate="one_to_one",
     )
     analyzed["gc_prepared"] = analyzed["lab_sample_id"].notna()
     analyzed["gc_scope"] = "confirmed_lots_2_and_3_only"
+    analyzed["paired_wine_gc_lab_sample_id"] = analyzed["paired_wine_sample_id"].map(
+        wine_samples.set_index("sample_id")["lab_sample_id"]
+    )
+    analyzed["wine_pair_available"] = analyzed["paired_wine_gc_lab_sample_id"].notna()
     analyzed.to_csv(output / "gc_condensate_mix_qc.csv", index=False)
 
+    pair_columns = [
+        "experiment_id",
+        "mix_id",
+        "paired_wine_sample_id",
+        "timestamp",
+        "capture_interval_start",
+        "capture_interval_end",
+        "capture_interval_h",
+        "time_h",
+        "volume_a_ml",
+        "volume_b_ml",
+        "total_condensate_ml",
+        "fraction_a",
+        "fraction_b",
+        "lab_sample_id",
+        "paired_wine_gc_lab_sample_id",
+        "wine_pair_available",
+    ]
+    pairs = analyzed[pair_columns].copy()
+    pairs.to_csv(output / "gc_mix_wine_pairs_qc.csv", index=False)
+
+    mix_long = long[long["sample_type"].eq("condensate_mix")][
+        [
+            "sample_id",
+            "analyte",
+            "result_status",
+            "model_observation_type",
+            "vial_concentration_ug_l",
+            "sample_concentration_ug_l",
+            "sample_basis_loq_ug_l",
+            "captured_mass_ug",
+            "captured_mass_upper_bound_ug",
+        ]
+    ].rename(
+        columns={
+            "sample_id": "mix_id_result",
+            "result_status": "mix_result_status",
+            "model_observation_type": "mix_model_observation_type",
+            "vial_concentration_ug_l": "mix_vial_concentration_ug_l",
+            "sample_concentration_ug_l": "mix_concentration_ug_l",
+            "sample_basis_loq_ug_l": "mix_loq_ug_l",
+        }
+    )
+    wine_long = long[long["sample_type"].eq("wine_mef")][
+        [
+            "sample_id",
+            "analyte",
+            "result_status",
+            "model_observation_type",
+            "sample_concentration_ug_l",
+            "sample_basis_loq_ug_l",
+        ]
+    ].rename(
+        columns={
+            "sample_id": "wine_sample_id_result",
+            "result_status": "wine_result_status",
+            "model_observation_type": "wine_model_observation_type",
+            "sample_concentration_ug_l": "wine_concentration_ug_l",
+            "sample_basis_loq_ug_l": "wine_loq_ug_l",
+        }
+    )
+    pair_long = pairs.merge(
+        mix_long,
+        left_on="mix_id",
+        right_on="mix_id_result",
+        how="left",
+        validate="one_to_many",
+    ).merge(
+        wine_long,
+        left_on=["paired_wine_sample_id", "analyte"],
+        right_on=["wine_sample_id_result", "analyte"],
+        how="left",
+        validate="many_to_one",
+    )
+    pair_long.to_csv(output / "gc_mix_wine_pairs_long_qc.csv", index=False)
+
     stats = {
+        "gc_report_samples_total": int(len(sample_map)),
         "gc_mix_samples": int(len(mix_samples)),
+        "gc_wine_samples": int(len(wine_samples)),
+        "gc_initial_wine_samples_without_mix": int(
+            len(set(wine_samples["sample_id"]) - set(analyzed["paired_wine_sample_id"]))
+        ),
+        "gc_mix_wine_pairs": int(len(pairs)),
+        "gc_mix_wine_pair_coverage": float(pairs["wine_pair_available"].mean()),
         "gc_analyte_results": int(len(long)),
+        "gc_mix_analyte_results": int(long["sample_type"].eq("condensate_mix").sum()),
+        "gc_wine_analyte_results": int(long["sample_type"].eq("wine_mef").sum()),
+        "gc_paired_analyte_results": int(len(pair_long)),
         "gc_numeric_results": int(long["vial_concentration_ug_l"].notna().sum()),
+        "gc_numeric_mix_results": int(
+            (long["sample_type"].eq("condensate_mix") & long["vial_concentration_ug_l"].notna()).sum()
+        ),
         "gc_status_counts": {
-            f"{analyte}:{status}": int(count)
-            for (analyte, status), count in long.groupby(["analyte", "result_status"]).size().items()
+            f"{sample_type}:{analyte}:{status}": int(count)
+            for (sample_type, analyte, status), count in long.groupby(
+                ["sample_type", "analyte", "result_status"]
+            ).size().items()
         },
         "lot1_gc_mix_samples_in_model_scope": 0,
     }
@@ -762,15 +1150,26 @@ def make_figures(
     atomic_savefig(fig, output / "temperature_sensor_vs_setpoint.png")
     plt.close(fig)
 
-    status = gc_long.groupby(["analyte", "result_status"]).size().unstack(fill_value=0)
-    status = status.reindex(columns=["quantified", "below_loq", "NQ", "missing"], fill_value=0)
-    fig, axis = plt.subplots(figsize=(11, 5.5))
-    status.plot.bar(stacked=True, ax=axis, color=["#54a24b", "#eeca3b", "#e45756", "#bab0ac"])
-    axis.set_ylabel("Results")
-    axis.set_xlabel("")
-    axis.set_title("GC condensate results by analytical status")
-    axis.legend(title="Status", loc="upper left", bbox_to_anchor=(1.01, 1.0))
-    axis.tick_params(axis="x", rotation=25)
+    fig, axes = plt.subplots(1, 2, figsize=(16, 5.5), sharey=True)
+    colors = ["#54a24b", "#eeca3b", "#e45756", "#bab0ac"]
+    for axis, (sample_type, title) in zip(
+        axes, [("wine_mef", "Wine MEF"), ("condensate_mix", "Condensate MIX")]
+    ):
+        status = (
+            gc_long[gc_long["sample_type"].eq(sample_type)]
+            .groupby(["analyte", "result_status"])
+            .size()
+            .unstack(fill_value=0)
+            .reindex(columns=["quantified", "below_loq", "NQ", "missing"], fill_value=0)
+        )
+        status.plot.bar(stacked=True, ax=axis, color=colors, legend=False)
+        axis.set_ylabel("Results")
+        axis.set_xlabel("")
+        axis.set_title(title)
+        axis.tick_params(axis="x", rotation=25)
+    handles, labels = axes[1].get_legend_handles_labels()
+    fig.legend(handles, labels, title="Status", loc="upper center", ncol=4)
+    fig.suptitle("Pilot GC results by matrix and analytical status", y=1.02)
     fig.tight_layout()
     atomic_savefig(fig, output / "gc_condensate_result_status.png")
     plt.close(fig)
@@ -787,9 +1186,40 @@ def build_manifest(raw_files: list[Path], output: Path) -> dict[str, object]:
             outputs.append(
                 {"path": path.relative_to(REPO).as_posix(), "size_bytes": path.stat().st_size, "sha256": sha256(path)}
             )
+    pipeline_path = Path(__file__).resolve()
+    git_head = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=REPO, check=True, capture_output=True, text=True
+    ).stdout.strip()
+    git_status = subprocess.run(
+        ["git", "status", "--porcelain"],
+        cwd=REPO,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    node_version = subprocess.run(
+        ["node", "--version"], check=True, capture_output=True, text=True
+    ).stdout.strip()
     manifest = {
-        "pipeline": "fermentation_model/pilot_2026/run_data_integration.py",
-        "config": "fermentation_model/pilot_2026/data_integration_config.json",
+        "pipeline": {
+            "path": pipeline_path.relative_to(REPO).as_posix(),
+            "sha256": sha256(pipeline_path),
+        },
+        "config": {
+            "path": CONFIG_PATH.relative_to(REPO).as_posix(),
+            "sha256": sha256(CONFIG_PATH),
+        },
+        "execution_context": {
+            "git_head_at_run": git_head,
+            "git_worktree_dirty_at_run": bool(git_status),
+            "python": sys.version.split()[0],
+            "platform": platform.platform(),
+            "node": node_version,
+            "packages": {
+                name: importlib.metadata.version(name)
+                for name in ["numpy", "pandas", "matplotlib", "openpyxl"]
+            },
+        },
         "sources": sources,
         "outputs": outputs,
     }
@@ -811,7 +1241,14 @@ def main() -> None:
     runs = [item["experiment_id"] for item in config["runs"]]
     run_metadata = {item["experiment_id"]: item for item in config["runs"]}
 
-    primary, windows = build_primary_and_windows(sources["master"], runs, run_metadata, output)
+    primary, windows = build_primary_and_windows(
+        sources["master"],
+        runs,
+        run_metadata,
+        config["rules"]["initial_volume_l"],
+        config["rules"]["yeast"],
+        output,
+    )
     temperature, transitions, temperature_summary, temperature_stats = process_temperature(
         sources["temperature"], windows, runs, output
     )
@@ -824,12 +1261,30 @@ def main() -> None:
     )
     windows["postprocess_excluded_from_calibration"] = True
     windows.to_csv(output / "process_windows.csv", index=False)
+    primary = finalize_primary_process_phase(primary, windows, output)
 
     minute, co2_summary, co2_stats = process_co2(
-        sources["co2"], windows, runs, active_end, config["rules"]["invalid_raw_value"], output
+        sources["co2"],
+        windows,
+        runs,
+        active_end,
+        config["rules"]["invalid_raw_value"],
+        set(config["rules"]["co2_model_excluded_runs"]),
+        output,
     )
-    events = process_operational_events(sources["master"], windows, runs, output)
-    condensates, gc_long, gc_stats = process_gc(sources["master"], sources["gc"], runs, output)
+    events = process_operational_events(
+        sources["master"],
+        windows,
+        runs,
+        config["rules"]["lot3_operational_reference_map"],
+        config["rules"]["initial_volume_l"],
+        config["rules"]["organic_product_yan_mg_per_mg"],
+        config["rules"]["dap_product_yan_mg_per_mg"],
+        output,
+    )
+    condensates, gc_long, gc_stats = process_gc(
+        sources["master"], sources["gc"], runs, windows, output
+    )
 
     c_transitions = transitions[
         transitions["experiment_id"].eq("26159")
@@ -860,30 +1315,75 @@ def main() -> None:
         "calibration_gate": [
             "independent Ultra verification of code, tables, and figures",
             "confirm MassView factory normal reference temperature and pressure",
+            "reconcile nominal 80 mg/L YAN per pulse with 90.435 mg/L derived from 116 g organic + 46 g FDA at 230 L",
         ],
         "expected_value_checks": checks,
         "co2": co2_stats,
         "temperature": temperature_stats,
         "gc": gc_stats,
+        "primary_results": {
+            "rows": int(len(primary)),
+            "postprocess_rows_excluded": int((~primary["calibration_include"]).sum()),
+            "ethanol_negative_formula_artifacts_set_to_zero": int(
+                primary["ethanol_correction"].ne("none").sum()
+            ),
+        },
+        "operational_events": {
+            "rows": int(len(events)),
+            "runs": int(events["experiment_id"].nunique()),
+            "reconstructed_lot3_rows": int(
+                events["event_origin"].eq("reconstructed_from_lot1_relative_schedule").sum()
+            ),
+            "outside_active_process_excluded": int((~events["calibration_include"]).sum()),
+            "parsed_nutrition_rows": int(
+                events["dose_parse_status"].eq("parsed_springferm_organic_plus_fda").sum()
+            ),
+            "derived_yan_per_pulse_mg_l": sorted(
+                events.loc[
+                    events["dose_parse_status"].eq("parsed_springferm_organic_plus_fda"),
+                    "yan_added_mg_l",
+                ]
+                .dropna()
+                .round(6)
+                .unique()
+                .tolist()
+            ),
+            "nominal_protocol_yan_per_pulse_mg_l": config["rules"][
+                "nominal_protocol_yan_per_pulse_mg_l"
+            ],
+            "yan_reconciliation_status": "pending_owner_confirmation_of_80_vs_90_435_mg_l",
+        },
         "profile_c": {
             "confirmed_protocol": "16_to_18_to_21C",
             "setpoints_inside_calibration_window": protocol_c_setpoints,
             "reached_21C_inside_calibration_window": profile_c_reached_21_in_calibration_window,
             "interpretation": "The planned 21 C segment was not observed inside the primary-sample/calibration window and must not be treated as executed calibration input.",
         },
-        "events_outside_sampling_window_excluded": int((~events["calibration_include"]).sum()),
+        "events_outside_sampling_window_excluded": int(
+            (~events["inside_sampling_window"]).sum()
+        ),
         "mapping_status": "confirmed",
         "massview_unit": "Ln/min",
         "massview_second_normalization_applied": False,
+        "owner_decisions_applied": [
+            "Lot 2 day/month swaps normalized to April",
+            "39 pilot wine GC samples retained: 33 paired to MIX and 6 initial baselines",
+            "MIX observations modeled as interval accumulations",
+            "NQ and below-LOQ results retained as left-censored observations",
+            "Lot 3 operational events reconstructed from Lot 1 relative schedules",
+            "eight -0.3 percent v/v ethanol formula artifacts set to zero",
+            "Lot 1 CO2 retained for QC but excluded from model calibration",
+            "Sonda1 is the authoritative executed-temperature measurement",
+        ],
     }
     (output / "qc_summary.json").write_text(
         json.dumps(qc_summary, indent=2, ensure_ascii=False, default=str), encoding="utf-8"
     )
 
     make_figures(minute, temperature, gc_long, windows, runs, output)
-    readme = """# Pilot 2026 data integration results\n\nThis directory is regenerated by `python fermentation_model/pilot_2026/run_data_integration.py`.\n\nThe sampling window is defined by the first and last primary-result sample. MassView values are retained in Ln/min and are not normalized a second time. Raw 2.621 values are removed before same-second averaging. Leading/trailing zeros are retained, intermediate zeros are invalid, and edge fills are explicit artificial zeros. Controller mode 2 with a 9-11 °C band marks postprocess cooling; its event second is excluded from dynamic calibration. GC report values are diluted-vial concentrations and numeric values are multiplied by 1000 to recover MIX concentration. Lot 1 condensates are outside GC model scope.\n\nThe dataset remains conditional for calibration until the independent Ultra audit and confirmation of the MassView factory normal reference.\n"""
+    readme = """# Pilot 2026 data integration results\n\nThis directory is regenerated by `python fermentation_model/pilot_2026/run_data_integration.py`.\n\nThe sampling window is defined by the first and last primary-result sample. Controller mode 2 with a 9-11 °C band marks cooling/postprocess, and observations at or after that transition are excluded when it precedes the final primary sample. Sonda1 is the authoritative executed-temperature measurement.\n\nMassView values remain in Ln/min without a second normalization. Raw 2.621 values are removed before same-second averaging; same-second records are averaged. Leading/trailing zeros are valid, intermediate zeros are invalid and edge fills are explicitly artificial. Lot 1 CO2 is retained for visual QC but `co2_model_include=false` because the owner confirmed that its signals are unsuitable for calibration.\n\nThe GC layer contains 39 pilot wine MEF samples and 33 condensate MIX samples. The six extra wine samples are the initial baselines without condensate; every MIX is paired 1:1 with its contemporaneous wine sample. MIX dates for Lot 2 are normalized to April. Reported MIX values describe the diluted vial and are multiplied by 1000; wine results are not multiplied. NQ and below-LOQ results remain left-censored. Captured aroma mass is represented over each collection interval as MIX concentration times recovered A+B volume.\n\nLot 3 operational events are owner-confirmed reconstructions obtained by shifting the matching Lot 1 schedule to the Lot 3 process start. Temperature calibration must use the measured controller trace; second nutrient-pulse times remain identified as density-triggered schedule proxies. Eight negative ethanol formula artifacts were set to zero according to the owner's instruction, while their original values and correction flags remain preserved.\n\nThe dataset remains conditional for calibration until the owner reviews the executed loading-QC notebook and the MassView factory normal reference is documented.\n"""
     (output / "README.md").write_text(readme, encoding="utf-8")
-    ultra_prompt = """# Independent Ultra verification prompt\n\nAct as an independent scientific-data and code auditor. Re-run `fermentation_model/pilot_2026/run_data_integration.py`, inspect `data_integration_config.json`, verify every expected count in `qc_summary.json`, and visually review all four PNG figures. Confirm the Lot 2 day/month correction, nine primary-sample windows, raw 2.621 removal before same-second means, zero classification, explicit artificial edge fills, controller-event active-end logic, protocol C 16→18→21 handling, exclusion of postprocess/out-of-window events, and GC ×1000 correction from diluted-vial results. Confirm hashes and ZIP CRCs. Do not modify files. Report PASS, PASS CONDITIONAL, or FAIL with reproducible evidence.\n"""
+    ultra_prompt = """# Independent Ultra verification prompt\n\nAct as an independent scientific-data and code auditor. Re-run `fermentation_model/pilot_2026/run_data_integration.py`, inspect `data_integration_config.json`, verify every expected count in `qc_summary.json`, and execute `pilot_2026/notebooks/pilot_2026_data_loading_qc.ipynb`. Confirm hashes and ZIP CRCs. Verify: nine sampling windows; Lot 2 GC dates in April; 39 wine samples, 33 MIX, six initial wine baselines and 33/33 pairing; ×1000 only for MIX; interval aroma mass using A+B volume; NQ/below-LOQ preserved as left-censored; eight -0.3 ethanol artifacts changed to zero with the originals retained; 15 Lot 3 events reconstructed from the matching Lot 1 relative schedules; Lot 1 CO2 retained for QC but excluded from calibration; Sonda1 as measured temperature; and exclusion of cooling or unexecuted setpoint stages. Do not modify files. Report PASS, PASS CONDITIONAL, or FAIL with reproducible evidence.\n"""
     (output / "ULTRA_VERIFICATION_PROMPT.md").write_text(ultra_prompt, encoding="utf-8")
 
     manifest = build_manifest(list(sources.values()), output)
