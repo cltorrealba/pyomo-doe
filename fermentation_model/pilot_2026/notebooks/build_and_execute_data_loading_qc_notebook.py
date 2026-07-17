@@ -5,10 +5,13 @@ import contextlib
 import io
 import json
 import os
+import tempfile
 import traceback
 from pathlib import Path
 
-os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
+os.environ.setdefault(
+    "MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "pilot_2026_matplotlib")
+)
 import matplotlib
 
 matplotlib.use("Agg")
@@ -80,9 +83,10 @@ def find_repo_root(start: Path) -> Path:
     raise FileNotFoundError("No se encontró la raíz del repositorio pyomo-doe")
 
 REPO = find_repo_root(Path.cwd().resolve())
-RESULTS = REPO / "fermentation_model" / "pilot_2026" / "results" / "data_integration_2026"
-print(f"Repositorio: {REPO}")
-print(f"Resultados:  {RESULTS}")
+RESULTS_RELATIVE = Path("fermentation_model/pilot_2026/results/data_integration_2026")
+RESULTS = REPO / RESULTS_RELATIVE
+print("Repositorio: raíz detectada")
+print(f"Resultados:  {RESULTS_RELATIVE.as_posix()}")
 """
         ),
         markdown("## Datos"),

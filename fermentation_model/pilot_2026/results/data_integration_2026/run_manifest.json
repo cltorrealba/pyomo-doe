@@ -1,22 +1,22 @@
 {
   "pipeline": {
     "path": "fermentation_model/pilot_2026/run_data_integration.py",
-    "sha256": "8632d17d53807a66813bcb084f983857b54ede03fed8c66bd815d4853231634a"
+    "sha256": "2a4f4f39d4b8ae91221060407d91c3aefb3a81f40f0fa259f81f3a7886da9a18"
   },
   "config": {
     "path": "fermentation_model/pilot_2026/data_integration_config.json",
-    "sha256": "fd629affc69208ae79af12c6e09a750451280c8b0ad3392ebe1f84fe0703f837"
+    "sha256": "bc44b7b50886bacfc62f76c21b4b5c148fe844771baecd25e81c906aaf0dbed0"
   },
   "execution_context": {
-    "git_head_at_run": "035c7554c8d550b53945c9c433958c21d6f18bab",
+    "git_head_at_run": "29615cbe5c3e21f2623b6175e066e692e3d48870",
     "git_worktree_dirty_at_run": true,
-    "python": "3.12.13",
-    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
-    "node": "v24.14.0",
+    "python": "3.12.3",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "node": "v20.19.4",
     "packages": {
-      "numpy": "2.3.5",
-      "pandas": "2.2.3",
-      "matplotlib": "3.10.8",
+      "numpy": "1.26.4",
+      "pandas": "2.2.2",
+      "matplotlib": "3.9.2",
       "openpyxl": "3.1.5"
     }
   },
@@ -49,109 +49,109 @@
   ],
   "outputs": [
     {
-      "path": "fermentation_model/pilot_2026/results/data_integration_2026/README.md",
-      "size_bytes": 1993,
-      "sha256": "cd77a3b9073e12b61dca16d01eaec22673e5843ce3ac5506a955e2d95a2709e3"
-    },
-    {
-      "path": "fermentation_model/pilot_2026/results/data_integration_2026/ULTRA_VERIFICATION_PROMPT.md",
-      "size_bytes": 957,
-      "sha256": "9917a533283fa6476abf1ebcfc624b493e774712db17602316ccad9a24585b94"
-    },
-    {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/co2_intermediate_zero_heatmap.png",
-      "size_bytes": 71877,
-      "sha256": "13f87eaa6af2691746d3d5227959cd0406a48598194c2b37f5f4d84921524af0"
+      "size_bytes": 66567,
+      "sha256": "2111dd6a7b46506424735a929a1a9790ea6994fbb27d5f98632e53b9370aa5bb"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/co2_minute_qc.csv",
-      "size_bytes": 9966383,
-      "sha256": "ea066d3bae25b43c891ea9f2c105ef3218fa4502dd5408a278f76f6455663cdb"
+      "size_bytes": 10069068,
+      "sha256": "840b8a0cf8fd92114f4d7cb0ca528c515d5db9d703807f3a6dd766107cec3c97"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/co2_profiles_qc.png",
-      "size_bytes": 416929,
-      "sha256": "283e12f54677409acfea29eb6e2e129845803d41b353a46ad6eb9dc50315d416"
+      "size_bytes": 408623,
+      "sha256": "6a8de382b335aae288d2cf6af670fb493e0073937bc8bc7bcc5d719e3708e561"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/co2_run_qc_summary.csv",
-      "size_bytes": 2447,
-      "sha256": "76596225fb0da4e8dde636b06cc17eb15bfb8be24ad5b508e7592b2e0728ce90"
+      "size_bytes": 2457,
+      "sha256": "e49f58e83d46dc41b33ba9d7e80dc59f3b88c6488ec8f3e747456faf60cbc415"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_condensate_mix_qc.csv",
-      "size_bytes": 14616,
-      "sha256": "376e5c7ddb4dbb4709a6b9506d0d068106a6b699077f96c4218f20cebcfbab0c"
+      "size_bytes": 14650,
+      "sha256": "29d200cb8a69c000e703f0abb37584bbcda213feb63bf9959f9a29e0a262113a"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_condensate_result_status.png",
-      "size_bytes": 94291,
-      "sha256": "89036f3e8ebf3036e674909826a9e5e45f77fe17d9e9ce86a68533f6cc21c10d"
+      "size_bytes": 91035,
+      "sha256": "2d72291a9c9f15a5c9def938b32e50f982bc943040e5ff569b95a8b83487c8b9"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_mix_wine_pairs_long_qc.csv",
-      "size_bytes": 63904,
-      "sha256": "a2a490b81531b63de6a4b8d6e7487e82b938669ff86b835de6eb9d971ed3fca2"
+      "size_bytes": 64103,
+      "sha256": "5d9be5ab9cf14ddc6b9e53a7a2b74fc1e2836705bbf2b72d29336c134af5b37f"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_mix_wine_pairs_qc.csv",
-      "size_bytes": 6048,
-      "sha256": "061e892d24298f91d869fe5a2310ed1624c2cdfc98c525b0ed78989ffcfcd6ec"
+      "size_bytes": 6082,
+      "sha256": "4661146fb4587bb826ff9262e4e4cb95c7fe1d6e26da1ac2cddf4627a96cc4d4"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_results_long_qc.csv",
-      "size_bytes": 92940,
-      "sha256": "9a5dc60f88e42078f6d8782cc43c1828233acfa649ee27681bfb21c9fb781d7c"
+      "size_bytes": 93373,
+      "sha256": "bff72882d41692c09dac97bbc9d51459a579bb342a0f0585a7d4bfcc51d8170d"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_wine_results_long_qc.csv",
-      "size_bytes": 48263,
-      "sha256": "e699e4d89c6d80785d4f90c3fdeb830b2892e836d91b6faa8e58035e5556a1df"
+      "size_bytes": 48498,
+      "sha256": "e3274ba0e07537377c2d4810fd04c52756ed60126e3cde767e2d65e67063f5a3"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/operational_events_qc.csv",
-      "size_bytes": 21714,
-      "sha256": "7f34da1a7817e066bc0cd12570503118106af9435e7a37052674b475b6df4478"
+      "size_bytes": 21760,
+      "sha256": "f83ec23c62f5156f6b7f495f4edefeaf745f4f2833ea8736f46a35b54952606a"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/primary_results_qc.csv",
-      "size_bytes": 41080,
-      "sha256": "2e7b36e25f394e4e89e631425bde25256874a9229cfd467379e3548e9cc246a3"
+      "size_bytes": 41213,
+      "sha256": "95348a55b51e7c2630732189f71e1cafcf292ec5d1b4ed1d7f7748827dc0314b"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/process_windows.csv",
-      "size_bytes": 1519,
-      "sha256": "d1007f010e264135f4798ad19e6672db5a01bb1f0af6c9882922709bfd0ce561"
+      "size_bytes": 1529,
+      "sha256": "e71c6ad04b5ae1d124eb439e38c622599e03db50c1c973799502f12a0e12b245"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/qc_summary.json",
-      "size_bytes": 6057,
-      "sha256": "1b2c1b7de7880af10a4a8a1680920fdaca115113a71bab573e69eff2e97cea47"
+      "size_bytes": 6235,
+      "sha256": "0bd0c94e95553429b5db8591cabbac441be1bc90aaaeca031c8dd778aa12a945"
+    },
+    {
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/README.md",
+      "size_bytes": 2006,
+      "sha256": "d825c3512cda8a01921ff1e09ec672aecbb1d0a5a9e2d8bc7e80fe7b8daf4969"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_controller_lossless_export.csv",
-      "size_bytes": 1768991,
-      "sha256": "3a914b3f70470ed9b50628d99ec3035748c3a8ea930471cce4a4fef8f4615673"
+      "size_bytes": 1784609,
+      "sha256": "d4ca6ebe6779055dc1c12ed978b3da2b7783d3113cbb3d2c72b86f06069164c8"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_controller_qc.csv",
-      "size_bytes": 1726344,
-      "sha256": "f671c25a58d314e68ba6fcf5ee257767c9027fb037116f913ba52458b0485431"
+      "size_bytes": 1741959,
+      "sha256": "0eccbc5f6c753fd561c1cb9b6e858dd3bbae2187ec469a01431d0e93d135cbf5"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_sensor_vs_setpoint.png",
-      "size_bytes": 370774,
-      "sha256": "b9d7551067d2103aeb7a3460d60f3ec43268a51edad8b9fb7f35d6cddb8d4c3d"
+      "size_bytes": 361514,
+      "sha256": "cd20b62e688b6c38f580608e1a7d7c4aa4a5b06bf63813e05088d40967506ffc"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_summary.csv",
-      "size_bytes": 1337,
-      "sha256": "911918f7d0971c7c51d560a349e56e93e2af99f30d88cc8cd18a882f67f531fd"
+      "size_bytes": 1347,
+      "sha256": "73b241432a98ffe6c6761634d7bbe0e3ff03ec5057cda2f214a695134ed98015"
     },
     {
       "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_transitions_qc.csv",
-      "size_bytes": 12831,
-      "sha256": "ed03fe94ae79e3a01554ab25de2aad64f675485273eb309856afc27821a7c3f8"
+      "size_bytes": 12911,
+      "sha256": "729e25a501448e35de94e54d238a8272aa2fb2964e15107c7bf4b5639e77f300"
+    },
+    {
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/ULTRA_VERIFICATION_PROMPT.md",
+      "size_bytes": 960,
+      "sha256": "10d6dc88886d1b21ce42f19ddba38689c1ade1866b768ced885adde34e8fbabc"
     }
   ]
 }
