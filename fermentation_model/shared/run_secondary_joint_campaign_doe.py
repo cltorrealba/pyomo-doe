@@ -40,6 +40,12 @@ NOTEBOOK_PATH = (
 
 SECONDARY_STATES = ("Pyr", "AcAld", "Acetate", "O2")
 AROMA_SPECIES = ("ethyl_acetate", "isoamyl_acetate", "ethyl_octanoate")
+TRAP_EFFICIENCY = unifac_partition.TRAP_EFFICIENCY
+if set(TRAP_EFFICIENCY) != set(AROMA_SPECIES):
+    raise ValueError(
+        "The authoritative aroma trap-efficiency table must cover exactly "
+        f"{AROMA_SPECIES}; found {tuple(TRAP_EFFICIENCY)}"
+    )
 AROMA_SHORT = {"ethyl_acetate": "EA", "isoamyl_acetate": "IAA", "ethyl_octanoate": "EO"}
 AROMA_COLUMNS = {
     "ethyl_acetate": "ethyl_acetate_total",
@@ -399,8 +405,12 @@ def integrate_aroma_euler(batch: base.BatchData | base.FutureDesign, theta: dict
     arr = np.asarray(rows, dtype=float)
     liq = pd.DataFrame(arr[:, : len(AROMA_SPECIES)], index=time, columns=AROMA_SPECIES)
     loss = pd.DataFrame(arr[:, len(AROMA_SPECIES) :], index=time, columns=AROMA_SPECIES)
-    trap_eff = {"ethyl_acetate": 0.75, "isoamyl_acetate": 0.80, "ethyl_octanoate": 0.90}
-    cond = pd.Series({species: float(loss[species].iloc[-1]) * trap_eff[species] for species in AROMA_SPECIES})
+    cond = pd.Series(
+        {
+            species: float(loss[species].iloc[-1]) * TRAP_EFFICIENCY[species]
+            for species in AROMA_SPECIES
+        }
+    )
     return liq, loss, cond
 
 
