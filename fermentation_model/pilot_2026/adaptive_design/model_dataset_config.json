@@ -1,6 +1,6 @@
 {
   "campaign_id": "pilot_2026",
-  "adapter_schema_version": 1,
+  "adapter_schema_version": 2,
   "random_seed": 20260716,
   "sugar_observation_policy": "components_preferred",
   "co2_downsampling": {
@@ -16,7 +16,7 @@
     "reported_unit": "Ln/min",
     "second_normalization_applied": false,
     "normal_molar_volume_l_per_mol": 22.414,
-    "reference_status": "owner_estimate_temperature_and_factory_pressure_unverified"
+    "reference_status": "factory_normalized_signal_used_as_reported_no_second_conversion"
   },
   "metadata_defaults": {
     "storage_history": "not_available_in_integration_outputs",

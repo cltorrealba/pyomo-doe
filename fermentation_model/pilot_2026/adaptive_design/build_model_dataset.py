@@ -49,7 +49,7 @@ EXCLUDED_CO2_RUNS = frozenset({"26134", "26135", "26136"})
 @dataclass(frozen=True)
 class AdapterConfig:
     campaign_id: str = "pilot_2026"
-    adapter_schema_version: int = 1
+    adapter_schema_version: int = 2
     random_seed: int = 20260716
     sugar_observation_policy: str = "components_preferred"
     co2_bin_minutes: int = 10
@@ -57,7 +57,7 @@ class AdapterConfig:
     lag1_clip_upper: float = 0.999
     normal_molar_volume_l_per_mol: float = 22.414
     massview_reference_status: str = (
-        "owner_estimate_temperature_and_factory_pressure_unverified"
+        "factory_normalized_signal_used_as_reported_no_second_conversion"
     )
     required_integration_verdict: str = (
         "processed_qc_ready_conditional_for_calibration"
@@ -195,6 +195,10 @@ def _primary_observations(primary: pd.DataFrame) -> pd.DataFrame:
     primary = primary.copy()
     primary["experiment_id"] = _run_id(primary["experiment_id"])
     primary["calibration_include"] = _read_bool(primary["calibration_include"])
+    # The model-ready table is a kinetic input, not a QC mirror.  Cooling and
+    # post-process samples remain available in the authoritative integration
+    # outputs, but must never enter parameter estimation implicitly.
+    primary = primary[primary["calibration_include"]].copy()
     records: list[dict[str, Any]] = []
     common = [
         "experiment_id",
@@ -301,14 +305,15 @@ def _temperature_inputs(
         temperature["inside_sampling_window"]
     )
     temperature["active_process"] = _read_bool(temperature["active_process"])
-    result = temperature[temperature["inside_sampling_window"]].copy()
+    result = temperature[
+        temperature["inside_sampling_window"] & temperature["active_process"]
+    ].copy()
     starts = windows.set_index("experiment_id")["sampling_start"]
     result["time_h"] = (
         result["timestamp"] - result["experiment_id"].map(starts)
     ).dt.total_seconds() / 3600.0
-    result["process_phase"] = np.where(
-        result["active_process"], "active_process", "cooling_or_postprocess"
-    )
+    result["process_phase"] = "active_process"
+    result["kinetic_include"] = True
     result["executed_temperature_c"] = pd.to_numeric(
         result["sensor_1_c"], errors="coerce"
     )
@@ -320,6 +325,7 @@ def _temperature_inputs(
         "timestamp",
         "time_h",
         "process_phase",
+        "kinetic_include",
         "executed_temperature_c",
         "commanded_setpoint_c",
         "executed_temperature_operator",
@@ -401,6 +407,9 @@ def _co2_observations(co2: pd.DataFrame, config: AdapterConfig) -> pd.DataFrame:
         aggregated["effective_sample_size_minutes"] = neff_minutes
         aggregated["likelihood_weight"] = neff_minutes / max(n_bins, 1)
         aggregated["sigma_multiplier"] = math.sqrt(max(n_bins, 1) / neff_minutes)
+        aggregated["weight_basis"] = (
+            "provisional_signal_lag1_only; calibration_must_replace_with_residual_ESS"
+        )
         frames.append(aggregated.reset_index(drop=True))
     if not frames:
         raise ValueError("No usable Pilot 2026 CO2 observations remain after masks")
@@ -452,6 +461,7 @@ def _density_trigger_intervals(events: pd.DataFrame, primary: pd.DataFrame) -> p
         pd.to_datetime(events["timing_interval_end"]) - starts
     ).dt.total_seconds() / 3600.0
     events["calibration_include"] = _read_bool(events["calibration_include"])
+    events = events[events["calibration_include"]].copy()
     return events.sort_values(["experiment_id", "timestamp"]).reset_index(drop=True)
 
 
@@ -569,7 +579,7 @@ def _run_metadata(
     result["temperature_sensor"] = defaults["temperature_sensor"]
     result["temperature_command"] = defaults["temperature_command"]
     result["sensor_metadata_status"] = (
-        "signal_identity_confirmed; factory_reference_conditions_unverified"
+        "signal_identity_confirmed; factory-normalized Ln/min used as reported"
     )
     return result
 
@@ -667,8 +677,12 @@ def _quality_summary(dataset: ModelDataset, integration_qc: dict[str, Any]) -> d
     censored_condensate = condensate["mix_model_observation_type"].eq("left_censored")
     checks = {
         "nine_runs": dataset.run_metadata["experiment_id"].nunique() == 9,
-        "active_cooling_separated": set(dataset.temperature_inputs["process_phase"])
-        == {"active_process", "cooling_or_postprocess"},
+        "cooling_formally_excluded_from_kinetics": bool(
+            dataset.temperature_inputs["process_phase"].eq("active_process").all()
+            and dataset.temperature_inputs["kinetic_include"].all()
+            and primary["calibration_include"].all()
+            and events["calibration_include"].all()
+        ),
         "sugar_not_double_counted": no_sugar_double_count,
         "excluded_lot1_co2_absent": not excluded_reentered,
         "co2_is_downsampled": len(co2) < integration_qc["co2"]["flow_rows_in_sampling_windows"],
@@ -701,8 +715,10 @@ def _quality_summary(dataset: ModelDataset, integration_qc: dict[str, Any]) -> d
             "condensate_interval_observations": len(condensate),
         },
         "scientific_limitations": [
-            "MassView factory reference temperature and pressure remain unverified.",
-            "The 80 versus 90.435 mg/L YAN-per-pulse discrepancy remains unresolved.",
+            "MassView factory reference temperature and pressure do not affect the "
+            "reported Ln/min signal; no second normalization is applied.",
+            "YAN delivery is parameterized in calibration between the 80 mg/L protocol "
+            "value and the 90.435 mg/L mass-derived value.",
             "Storage history is not present in the authoritative integration outputs.",
             "Carbon recovery is diagnostic-only and is not a closed elemental balance.",
         ],

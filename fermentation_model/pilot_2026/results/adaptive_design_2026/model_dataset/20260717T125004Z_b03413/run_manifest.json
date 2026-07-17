@@ -1,0 +1,159 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py",
+      "fermentation_model/pilot_2026/adaptive_design/model_dataset_config.json",
+      "fermentation_model/pilot_2026/adaptive_design/run_artifacts.py"
+    ],
+    "sha256": "06d23fd133be5892205387bcdae20d461158d19001d75758af68b84e8343bdb7"
+  },
+  "configuration": {
+    "payload": {
+      "adapter_schema_version": 2,
+      "campaign_id": "pilot_2026",
+      "co2_bin_minutes": 10,
+      "lag1_clip_lower": 0.0,
+      "lag1_clip_upper": 0.999,
+      "massview_reference_status": "factory_normalized_signal_used_as_reported_no_second_conversion",
+      "normal_molar_volume_l_per_mol": 22.414,
+      "random_seed": 20260716,
+      "required_integration_verdict": "processed_qc_ready_conditional_for_calibration",
+      "sugar_observation_policy": "components_preferred"
+    },
+    "sha256": "b03413a4be05a3c9bb99cd110697940703543c70945aae7da64710f6a9e5041b"
+  },
+  "created_utc": "2026-07-17T12:50:05.091564+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": null,
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "name": "phase_A_model_ready_adapter",
+    "profiles_for_physical_execution": false,
+    "verdict": "PASS"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "d3795f79e1fc9830cbc5191c31f4291d6d2f56f6",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/adapter_config.json": {
+      "bytes": 450,
+      "sha256": "e270ec3268a43cb404b16d2e8d4b94cfa6f3a01c4d1b4f5e8f15769cd447241e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/carbon_balance_diagnostic.csv": {
+      "bytes": 2980,
+      "sha256": "b64e16f907abebd09c4815b829fe0cf24ce6167dfcd3189eba6a8ae6a12a0cdd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/co2_observations.csv": {
+      "bytes": 2056102,
+      "sha256": "d15cb04b644c0b52b0b1629212485712181b3c5f4fec4e8ef406e2312bfc85b6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/condensate_observations.csv": {
+      "bytes": 57217,
+      "sha256": "0a443e6e8f67526fbac859fab122a15b2b5741ed1decb7be270b658924e1e29d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/dataset_qc.json": {
+      "bytes": 1212,
+      "sha256": "d4dd195188136aa0ea4ac147786fefe09c4f75c3a4c9a092b2caa7e9610b0100"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/operational_events.csv": {
+      "bytes": 23999,
+      "sha256": "05b08b455a498d884a1c29ea965e23d4bbf8cb960a7785baa1d5b5be78b68eb5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/primary_observations.csv": {
+      "bytes": 267727,
+      "sha256": "2038005ce900dd2e6b02387c8eb0be48b0c01dca642856bfa365f3fa8d8c4d5f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/run_metadata.csv": {
+      "bytes": 3536,
+      "sha256": "ebafc7a633a47ac0304f5771261edd9ecb8a0293fa37c4d01135ae4ecb3efd40"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/temperature_inputs.csv": {
+      "bytes": 1960947,
+      "sha256": "341607d8c95449950e692db80432d2e4872ae3acfe7e5786bfbb10fd026bd972"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/wine_aroma_observations.csv": {
+      "bytes": 45166,
+      "sha256": "9085a5e53c583ef204a6f36f099c3ed4c00109f15ba9b2790590e8e3afbcf40e"
+    }
+  },
+  "random_seeds": [
+    20260716
+  ],
+  "run_id": "20260717T125004Z_b03413",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "adapter_qc": "PASS",
+    "solver": "not_applicable"
+  },
+  "sources": {
+    "co2_minute": {
+      "bytes": 9966383,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/co2_minute_qc.csv",
+      "sha256": "ea066d3bae25b43c891ea9f2c105ef3218fa4502dd5408a278f76f6455663cdb"
+    },
+    "gc_pairs": {
+      "bytes": 63904,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_mix_wine_pairs_long_qc.csv",
+      "sha256": "a2a490b81531b63de6a4b8d6e7487e82b938669ff86b835de6eb9d971ed3fca2"
+    },
+    "gc_results": {
+      "bytes": 92940,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_results_long_qc.csv",
+      "sha256": "9a5dc60f88e42078f6d8782cc43c1828233acfa649ee27681bfb21c9fb781d7c"
+    },
+    "integration_config": {
+      "bytes": 5105,
+      "path": "fermentation_model/pilot_2026/data_integration_config.json",
+      "sha256": "fd629affc69208ae79af12c6e09a750451280c8b0ad3392ebe1f84fe0703f837"
+    },
+    "integration_qc": {
+      "bytes": 6057,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/qc_summary.json",
+      "sha256": "1b2c1b7de7880af10a4a8a1680920fdaca115113a71bab573e69eff2e97cea47"
+    },
+    "operational_events": {
+      "bytes": 21714,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/operational_events_qc.csv",
+      "sha256": "7f34da1a7817e066bc0cd12570503118106af9435e7a37052674b475b6df4478"
+    },
+    "primary_results": {
+      "bytes": 41080,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/primary_results_qc.csv",
+      "sha256": "2e7b36e25f394e4e89e631425bde25256874a9229cfd467379e3548e9cc246a3"
+    },
+    "process_windows": {
+      "bytes": 1519,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/process_windows.csv",
+      "sha256": "d1007f010e264135f4798ad19e6672db5a01bb1f0af6c9882922709bfd0ce561"
+    },
+    "temperature_controller": {
+      "bytes": 1726344,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_controller_qc.csv",
+      "sha256": "f671c25a58d314e68ba6fcf5ee257767c9027fb037116f913ba52458b0485431"
+    }
+  },
+  "stage": "model_dataset",
+  "status": "completed"
+}

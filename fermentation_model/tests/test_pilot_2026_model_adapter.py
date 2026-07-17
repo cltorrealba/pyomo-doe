@@ -53,12 +53,8 @@ class Pilot2026ModelAdapterTests(unittest.TestCase):
         primary = self.dataset.primary_observations
         self.assertTrue(primary["unit"].notna().all())
         self.assertTrue(primary["observation_operator"].notna().all())
-        self.assertEqual(
-            set(primary["process_phase"]), {"active_process", "postprocess_cooling"}
-        )
-        excluded = primary[~primary["calibration_include"]]
-        self.assertGreater(len(excluded), 0)
-        self.assertTrue(excluded["process_phase"].eq("postprocess_cooling").all())
+        self.assertEqual(set(primary["process_phase"]), {"active_process"})
+        self.assertTrue(primary["calibration_include"].all())
 
     def test_total_and_component_sugars_are_never_double_counted(self) -> None:
         sugar = self.dataset.primary_observations[
@@ -84,8 +80,8 @@ class Pilot2026ModelAdapterTests(unittest.TestCase):
         self.assertTrue(
             temperature["command_operator"].eq("controller setpoint").all()
         )
-        self.assertIn("active_process", set(temperature["process_phase"]))
-        self.assertIn("cooling_or_postprocess", set(temperature["process_phase"]))
+        self.assertEqual(set(temperature["process_phase"]), {"active_process"})
+        self.assertTrue(temperature["kinetic_include"].all())
 
     def test_co2_is_reproducible_weighted_and_excludes_lot1(self) -> None:
         co2 = self.dataset.co2_observations
@@ -146,6 +142,8 @@ class Pilot2026ModelAdapterTests(unittest.TestCase):
 
     def test_density_triggered_pulses_have_data_derived_timing_intervals(self) -> None:
         events = self.dataset.operational_events
+        self.assertTrue(events["calibration_include"].all())
+        self.assertEqual(len(events), 44)
         uncertain = events[events["timing_uncertain"]]
         self.assertEqual(len(uncertain), 9)
         self.assertTrue(uncertain["timing_interval_start"].notna().all())
