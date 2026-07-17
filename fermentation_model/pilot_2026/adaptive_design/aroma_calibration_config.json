@@ -1,0 +1,67 @@
+{
+  "campaign_id": "pilot_2026",
+  "schema_version": 1,
+  "status": "ready_for_implementation_not_yet_fitted",
+  "priority_analytes": {
+    "ethyl_acetate": "Etil Acetato",
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "objective": "maximize_information_on_aroma_formation_and_loss",
+  "source_contract": {
+    "model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
+    "fixed_yan_baseline_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b",
+    "wine_observations_per_analyte": 39,
+    "condensate_intervals_per_analyte": 33
+  },
+  "observed_and_censored_counts": {
+    "ethyl_acetate": {
+      "wine_observed": 39,
+      "wine_left_censored": 0,
+      "condensate_observed": 0,
+      "condensate_left_censored": 33
+    },
+    "ethyl_octanoate": {
+      "wine_observed": 39,
+      "wine_left_censored": 0,
+      "condensate_observed": 19,
+      "condensate_left_censored": 14
+    },
+    "isoamyl_acetate": {
+      "wine_observed": 33,
+      "wine_left_censored": 6,
+      "condensate_observed": 13,
+      "condensate_left_censored": 20
+    }
+  },
+  "observation_operators": {
+    "wine": "instantaneous_liquid_concentration",
+    "condensate": "interval_integral_of_captured_mass",
+    "left_censoring": "normal_CDF_at_sample_specific_upper_bound"
+  },
+  "candidate_parameters_per_analyte": [
+    "growth_associated_formation",
+    "stationary_associated_formation",
+    "effective_volatilization_and_capture_scale"
+  ],
+  "thermodynamics": {
+    "backend": "original_UNIFAC_or_versioned_precomputed_UNIFAC_surrogate",
+    "runtime_dependencies": ["thermo", "chemicals"],
+    "silent_fallback_prohibited": true,
+    "capture_stages_c": [0.0, -40.0],
+    "capture_train_interpretation": "one_two_stage_train_per_tank"
+  },
+  "calibration_policy": {
+    "fit_analytes_separately_before_joint_polish": true,
+    "use_log_parameters": true,
+    "multiple_global_starts": true,
+    "propagate_primary_multistart_ensemble": true,
+    "marginalize_primary_and_oculyze_nuisance": true,
+    "reject_bound_dominated_parameters": true,
+    "require_profile_likelihood_or_equivalent": true
+  },
+  "identifiability_warning": {
+    "ethyl_acetate_loss": "Pilot 2026 condensate values are all left-censored; formation and loss cannot be declared separately identified without a physical prior, a coherent additional campaign, or a deliberately wide uncertainty set.",
+    "design_policy": "retain the weak ethyl-acetate loss direction in the robust MBDoE ensemble rather than fixing it to one local estimate"
+  }
+}

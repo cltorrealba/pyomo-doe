@@ -1,6 +1,6 @@
 {
   "campaign_id": "pilot_2026",
-  "schema_version": 2,
+  "schema_version": 3,
   "random_seeds": [20260716, 20260731, 20260819, 20260907, 20261003],
   "target_yeast": "Zymaflore X5",
   "parameterization": "strictly_positive_parameters_in_log_space",
@@ -27,11 +27,10 @@
   "yan": {
     "input_basis": "116_g_organic_at_0.1_mg_YAN_per_mg_plus_46_g_DAP_at_0.2_mg_YAN_per_mg_in_230_L",
     "mass_derived_per_pulse_mg_l": 90.434783,
-    "protocol_nominal_per_pulse_mg_l": 80.0,
-    "dynamic_pulse_policy": "time_zero_pulse_is_already_in_measured_initial_YAN; fit_delivery_fraction_for_later_pulse",
-    "delivery_fraction_bounds": [0.884615, 1.0],
-    "delivery_fraction_prior": 0.942307,
-    "delivery_fraction_log_prior_sigma": 0.08
+    "fixed_historical_pulse_mg_l": 80.0,
+    "dynamic_pulse_policy": "time_zero_pulse_is_already_in_measured_initial_YAN; every later historical pulse is fixed at owner-confirmed 80 mg/L",
+    "mass_derived_value_policy": "retained_in_integration_tables_for_audit_only; not_used_as_kinetic_input",
+    "owner_approval": "confirmed_2026-07-17"
   },
   "oculyze": {
     "measurement_operator": "million_cells_per_ml_times_viability_times_dry_mass_scale",
@@ -107,7 +106,8 @@
     "require_covariance_and_multistart_ensemble": true
   },
   "owner_review": {
-    "loading_qc_notebook_review": "pending_final_owner_review",
+    "loading_qc_notebook_review": "approved_2026-07-17",
+    "active_fermentation_vs_cooling_separation": "approved_2026-07-17",
     "independent_ultra_verification": "pending_final_owner_review",
     "storage_history": "not_required_for_current_consumed_lots; required_before_reserved_aliquot_use",
     "physical_execution_authorized": false

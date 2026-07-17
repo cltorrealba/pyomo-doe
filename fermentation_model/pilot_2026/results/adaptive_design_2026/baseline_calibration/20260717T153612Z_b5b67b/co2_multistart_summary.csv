@@ -1,0 +1,11 @@
+stage,start_index,seed,success,nfev,robust_objective,initial_wsse,final_wsse,message
+provisional_unweighted,3,20260907,True,7,35769.06612379468,195330.00561209908,143445.20795350024,`ftol` termination condition is satisfied.
+provisional_unweighted,4,20261003,True,8,35769.06612379511,412833.7977819304,143445.20791997676,`ftol` termination condition is satisfied.
+provisional_unweighted,0,20260716,True,6,35769.06612380639,174027.0205344674,143445.20771594063,`ftol` termination condition is satisfied.
+provisional_unweighted,2,20260819,True,9,35769.066123853125,255720.16491430893,143445.2080363176,`ftol` termination condition is satisfied.
+provisional_unweighted,1,20260731,True,6,35769.06612413457,188385.83434203803,143445.20633999698,`ftol` termination condition is satisfied.
+residual_ESS_weighted,0,20260716,True,7,5104.848303489836,10295.734964177313,9169.49784804996,`ftol` termination condition is satisfied.
+residual_ESS_weighted,4,20261003,True,6,5104.848303489841,14997.04752084676,9169.497848774716,`ftol` termination condition is satisfied.
+residual_ESS_weighted,1,20260731,True,7,5104.848303489851,14168.647140591525,9169.497846325405,`ftol` termination condition is satisfied.
+residual_ESS_weighted,3,20260907,True,6,5104.84830349227,10664.85730447298,9169.497866926438,`ftol` termination condition is satisfied.
+residual_ESS_weighted,2,20260819,True,9,5104.848303502198,17211.16170181102,9169.49775731691,`ftol` termination condition is satisfied.

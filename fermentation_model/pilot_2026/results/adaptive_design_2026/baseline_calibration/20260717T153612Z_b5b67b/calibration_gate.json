@@ -1,0 +1,47 @@
+{
+  "computational_verdict": "PASS",
+  "conditions": [
+    "Independent Ultra audit remains required before physical design release.",
+    "The Oculyze conversion is an estimated nuisance parameter, not a confirmed physical constant.",
+    "Broad primary multistarts found alternative minima and the empirical state-specific discrepancy multipliers must propagate into the MBDoE posterior ensemble.",
+    "Aroma censoring is fully specified, but aroma kinetic parameters are outside this reduced Stage-B fit.",
+    "No temperature/nutrition profile is approved for physical execution by this calibration run."
+  ],
+  "cooling_excluded_from_kinetics": true,
+  "entry_gate": {
+    "blockers": [],
+    "checks": {
+      "existing_pilot_2025_integrated_result_not_used": true,
+      "phase_A_manifest_complete": true,
+      "phase_A_model_dataset_pass": true,
+      "repository_raw_hash_audit_pass": true,
+      "scipy_least_squares_available": true
+    },
+    "fit_executed": false,
+    "gate": "phase_B_computational_calibration_entry",
+    "profiles_for_physical_execution": false,
+    "verdict": "PASS"
+  },
+  "fit_executed": true,
+  "gate": "phase_B_hierarchical_calibration",
+  "parameters_estimated": [
+    "mu0",
+    "qN",
+    "betaG0",
+    "betaF0",
+    "qEG",
+    "qEF",
+    "gammaG0",
+    "gammaF0",
+    "oculyze_biomass_scale_kg_m3_per_million_cells_ml",
+    "co2_yield",
+    "sensor_gain_TK31",
+    "sensor_gain_TK32",
+    "sensor_gain_TK33",
+    "co2_background_Ln_min"
+  ],
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "residual_ESS_recomputed": true,
+  "verdict": "PASS_CONDITIONAL"
+}

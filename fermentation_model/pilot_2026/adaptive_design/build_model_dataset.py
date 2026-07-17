@@ -717,8 +717,8 @@ def _quality_summary(dataset: ModelDataset, integration_qc: dict[str, Any]) -> d
         "scientific_limitations": [
             "MassView factory reference temperature and pressure do not affect the "
             "reported Ln/min signal; no second normalization is applied.",
-            "YAN delivery is parameterized in calibration between the 80 mg/L protocol "
-            "value and the 90.435 mg/L mass-derived value.",
+            "The 90.435 mg/L mass-derived YAN value remains auditable in integration "
+            "tables; calibration uses the owner-confirmed fixed 80 mg/L per historical pulse.",
             "Storage history is not present in the authoritative integration outputs.",
             "Carbon recovery is diagnostic-only and is not a closed elemental balance.",
         ],

@@ -23,9 +23,10 @@ manifest byte-for-byte unchanged.
 
 - Model tables contain active fermentation only. Cooling remains in integration
   QC and is formally absent from every kinetic likelihood.
-- The mass-derived pulse is 90.434783 mg/L YAN.  The dynamic delivery fraction
-  is estimated between the 80 mg/L protocol ratio and the mass-derived value;
-  the time-zero pulse is already represented by measured initial YAN.
+- The mass-derived pulse of 90.434783 mg/L remains in integration outputs for
+  auditability.  The owner-approved kinetic input is fixed at 80 mg/L for each
+  later historical pulse; no YAN delivery fraction is estimated.  The time-zero
+  pulse is already represented by measured initial YAN.
 - Oculyze cells are mapped to viable/dead biomass through an estimated nuisance
   conversion with bounded prior. It is not presented as a confirmed physical
   constant.
@@ -39,20 +40,20 @@ manifest byte-for-byte unchanged.
 
 ## Current outcome
 
-The validated run under
-`results/adaptive_design_2026/baseline_calibration/20260717T125732Z_0743f8`
+The owner-approved fixed-YAN run under
+`results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b`
 has computational verdict `PASS` and release verdict `PASS_CONDITIONAL`:
 
 - 10 primary fits converged: five broad starts and five selected-basin replicas;
-- all five selected-basin replicas reproduce the optimum within 5%;
+- three selected-basin replicas reproduce the optimum within 5%;
 - broad starts reveal alternative minima, which remain in the ensemble;
-- primary objective improvement is 96.99%;
+- primary objective improvement is 60.38%;
 - all five residual-weighted CO2 starts reproduce one basin;
-- CO2 objective improvement is 81.34%;
-- residual CO2 ESS totals 370.01 over six runs;
+- CO2 objective improvement is 83.70%;
+- residual CO2 ESS totals 469.53 over six runs;
 - no estimated parameter is bound-active.
 
 The result is a reduced baseline prior, not final model validation. Owner review,
-independent Ultra audit, and later aroma calibration remain release conditions.
+is complete. Independent Ultra audit and aroma calibration remain release conditions.
 No existing Pilot 2025 result is an official prior, no profile is approved, and
 physical execution is not authorized.

@@ -2,23 +2,40 @@
   "campaign_id": "pilot_2026",
   "adaptive_policy": "3-2-1",
   "current_phase": "computational_pre_wave1",
-  "current_gate": "phase_B_release_review",
+  "current_gate": "phase_B_aroma_calibration",
   "gate_verdict": "PASS_CONDITIONAL",
   "latest_model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
-  "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125732Z_0743f8",
+  "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b",
   "calibration_fit_executed": true,
   "gate_blockers": [
-    "owner_loading_qc_notebook_final_review",
     "independent_ultra_verification",
     "propagate_alternative_minima_and_model_discrepancy_into_MBDoE",
     "calibrate_aroma_parameters_before_aroma_targeted_design",
-    "approve_fail_closed_physical_design_constraints"
+    "approve_final_candidate_plots"
   ],
   "wave_sizes": [3, 2, 1],
   "available_tanks": ["TK31", "TK32", "TK33"],
+  "owner_approvals": {
+    "loading_qc": "approved_2026-07-17",
+    "active_fermentation_vs_cooling": "approved_2026-07-17",
+    "automated_temperature_changes_24_7": true,
+    "maximum_total_yan_mg_l": 232.0,
+    "maximum_samples_per_process": 10
+  },
+  "capture_system": {
+    "independent_trains": 3,
+    "one_train_per_tank": true,
+    "stages_c": [0.0, -40.0],
+    "simultaneous_tanks": ["TK31", "TK32", "TK33"]
+  },
+  "timing": {
+    "wave1_tentative_start": "2026-07-20",
+    "maximum_process_duration_days": 21,
+    "minimum_interwave_separation_days": 7
+  },
   "anchor": {
     "thermal_seed": "18_C_isothermal",
-    "nutrition": "pending_approved_standard",
+    "nutrition": "owner_approved_fixed_80_mgYAN_L_historical_pulse_basis",
     "status": "exploratory_seed_only"
   },
   "wave1": {

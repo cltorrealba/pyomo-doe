@@ -13,7 +13,6 @@ from scipy.optimize import least_squares
 
 KINETIC_STATES = ("X", "Xd", "N", "G", "F", "E", "Gly")
 NUISANCE_PARAMETERS = (
-    "yan_delivery_fraction",
     "oculyze_biomass_scale_kg_m3_per_million_cells_ml",
 )
 
@@ -128,10 +127,9 @@ def _bounds(config: dict[str, Any]) -> tuple[tuple[str, ...], np.ndarray, np.nda
         lb, ub = model.PARAMETER_BOUNDS[name]
         lower.append(math.log(float(lb)))
         upper.append(math.log(float(ub)))
-    yan_lb, yan_ub = config["yan"]["delivery_fraction_bounds"]
     ocu_lb, ocu_ub = config["oculyze"]["scale_bounds"]
-    lower.extend([math.log(float(yan_lb)), math.log(float(ocu_lb))])
-    upper.extend([math.log(float(yan_ub)), math.log(float(ocu_ub))])
+    lower.append(math.log(float(ocu_lb)))
+    upper.append(math.log(float(ocu_ub)))
     return names, np.asarray(lower), np.asarray(upper)
 
 
@@ -141,8 +139,6 @@ def _initial_vector(config: dict[str, Any], names: tuple[str, ...]) -> np.ndarra
     for name in names:
         if name in model.DEFAULT_THETA:
             values.append(math.log(float(model.DEFAULT_THETA[name])))
-        elif name == "yan_delivery_fraction":
-            values.append(math.log(float(config["yan"]["delivery_fraction_prior"])))
         elif name == "oculyze_biomass_scale_kg_m3_per_million_cells_ml":
             values.append(math.log(float(config["oculyze"]["scale_prior"])))
         else:  # pragma: no cover - guarded by the fixed name list
@@ -170,6 +166,7 @@ def _first_finite(values: np.ndarray, default: float) -> float:
 def build_batches(
     tables: CalibrationTables,
     nuisance: dict[str, float],
+    config: dict[str, Any],
 ) -> list[Any]:
     model = _model_module()
     wide = _pivot_primary(tables.primary)
@@ -217,9 +214,7 @@ def build_batches(
         pulses = tuple(
             (
                 float(row.relative_time_h),
-                float(row.yan_added_mg_l)
-                / 1000.0
-                * nuisance["yan_delivery_fraction"],
+                float(config["yan"]["fixed_historical_pulse_mg_l"]) / 1000.0,
             )
             for row in event_rows.itertuples()
         )
@@ -275,7 +270,7 @@ def _primary_residuals(
 ) -> np.ndarray | tuple[np.ndarray, pd.DataFrame]:
     model = _model_module()
     theta, nuisance = _decode(log_values, names, config)
-    batches = build_batches(tables, nuisance)
+    batches = build_batches(tables, nuisance, config)
     residuals: list[np.ndarray] = []
     records: list[dict[str, Any]] = []
     for batch in batches:
@@ -315,8 +310,6 @@ def _primary_residuals(
         for index, name in enumerate(names):
             if name in config["primary_fit"]["parameters"]:
                 sigma = kinetic_sigma
-            elif name == "yan_delivery_fraction":
-                sigma = float(config["yan"]["delivery_fraction_log_prior_sigma"])
             else:
                 sigma = float(config["oculyze"]["scale_log_prior_sigma"])
             priors.append((float(log_values[index]) - float(x0[index])) / sigma)
@@ -574,7 +567,9 @@ def fit_primary(
         "maximum_postscale_state_rmse": float(
             error_scales["postscale_standardized_rmse"].max()
         ),
-        "yan_delivery_fraction": nuisance["yan_delivery_fraction"],
+        "fixed_historical_pulse_mg_l": float(
+            config["yan"]["fixed_historical_pulse_mg_l"]
+        ),
         "oculyze_scale": nuisance[
             "oculyze_biomass_scale_kg_m3_per_million_cells_ml"
         ],
@@ -599,7 +594,9 @@ def _co2_base_predictions(
 ) -> pd.DataFrame:
     model = _model_module()
     theta, nuisance = _decode(primary_fit.values, primary_fit.parameter_names, config)
-    batches = {batch.batch: batch for batch in build_batches(tables, nuisance)}
+    batches = {
+        batch.batch: batch for batch in build_batches(tables, nuisance, config)
+    }
     reactor = tables.metadata.set_index("experiment_id")["reactor"].astype(str)
     volume = tables.metadata.set_index("experiment_id")["initial_volume_l"].astype(float)
     rows: list[pd.DataFrame] = []
@@ -962,7 +959,6 @@ def validate_fit(
         "primary": primary.validation,
         "co2": co2.validation,
         "conditions": [
-            "Final owner review of the loading/QC notebook remains required.",
             "Independent Ultra audit remains required before physical design release.",
             "The Oculyze conversion is an estimated nuisance parameter, not a confirmed physical constant.",
             "Broad primary multistarts found alternative minima and the empirical state-specific discrepancy multipliers must propagate into the MBDoE posterior ensemble.",

@@ -1,0 +1,12 @@
+{
+  "calibration_backend": "scipy.optimize.least_squares_trf",
+  "errors": [
+    "Pyomo/IPOPT: ModuleNotFoundError: No module named 'pyomo'"
+  ],
+  "ipopt_available": false,
+  "notes": [
+    "IPOPT is reserved for the later local MBDoE refinement; the present bounded multistart calibration is solved with SciPy TRF."
+  ],
+  "pyomo_doe_importable": false,
+  "scipy_least_squares_available": true
+}
