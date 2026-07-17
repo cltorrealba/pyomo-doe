@@ -98,16 +98,19 @@ Pilot 2025 owns its integrated model, support code, notebooks and results under
 lossless integration runner, QC tables, figures and executed loading-QC notebook
 under `pilot_2026/`. Its corrected data contract includes paired wine/MIX aroma
 observations, reconstructed Lot 3 operations and explicit CO2/model masks. The
-processed dataset is conditional for calibration pending owner notebook review,
-independent verification and confirmation of the MassView factory normal
-reference.
+processed dataset is model-ready under the confirmed rule that the MassView
+Ln/min signal is already normalized and must not receive a second conversion.
 
 Pilot 2026 also owns `adaptive_design/`, which contains the model-ready adapter,
-calibration gate configuration and fail-closed campaign/design state. Immutable
-adapter and gate evaluations live under
+calibration configuration and fail-closed campaign/design state. Immutable
+adapter and calibration evaluations live under
 `pilot_2026/results/adaptive_design_2026/`. The Phase A adapter is runtime
-validated. The Phase B calibration gate failed on 2026-07-16 without invoking a
-fit; PSO, IPOPT refinement and physical experiment scheduling remain blocked.
+validated with active-process-only kinetic tables. The reduced Phase B primary
+and residual-ESS CO2 calibration ran on 2026-07-17 and is computationally
+`PASS`, with release `PASS_CONDITIONAL`. Alternative primary minima and
+empirical model-discrepancy scales must propagate into MBDoE. PSO/IPOPT design
+computation can be prepared, while physical scheduling remains blocked by
+owner/Ultra review and unapproved fail-closed constraints.
 
 ### Frozen history
 

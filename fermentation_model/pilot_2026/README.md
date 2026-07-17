@@ -85,10 +85,11 @@ python fermentation_model/pilot_2026/notebooks/build_and_execute_model_ready_qc_
 
 The adapter writes only under
 `results/adaptive_design_2026/model_dataset/<run-id>/`. It keeps observation
-operators and units explicit, separates active process from cooling, prevents
+operators and units explicit, excludes cooling from the kinetic tables, prevents
 total/individual sugar double counting, retains GC censoring and capture
 intervals, excludes Lot 1 CO2 by assertion, and applies deterministic
-10-minute CO2 bins with lag-1 effective-sample weights. Density-triggered
+10-minute CO2 bins. Signal-based weights are provisional; calibration replaces
+them with residual-based effective-sample weights. Density-triggered
 second pulses carry data-derived timing intervals. The carbon balance is
 explicitly diagnostic-only, not a closed elemental balance.
 
@@ -98,10 +99,13 @@ Evaluate the calibration gate with:
 python fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py
 ```
 
-The 2026-07-16 gate verdict is `FAIL`; no fit was executed. IPOPT and
-Pyomo-DOE are available, but raw-data hash drift and the owner/scientific
-prerequisites recorded in `adaptive_design/calibration_config.json` remain
-open. `adaptive_design/design_constraints.json` deliberately leaves
-unapproved dose, pulse, completion and topology limits as `null`. Therefore
-the PSO/design phases are blocked and no executable fermentation schedule has
-been issued.
+The reconstructed 2026-07-17 reduced calibration executes five broad primary
+multistarts, five selected-basin replicas, and two-pass CO2 fitting with ESS
+computed from final standardized residuals. Its computational verdict is
+`PASS` and its release verdict is `PASS_CONDITIONAL`. The result explicitly
+parameterizes YAN delivery and the Oculyze cell-to-biomass conversion, estimates
+model-discrepancy scales, and preserves alternative broad minima. It is suitable
+as a conditional reduced prior for the next computational MBDoE stage, not as a
+final physical schedule. `adaptive_design/design_constraints.json` deliberately
+leaves unapproved dose, pulse, completion and topology limits as `null`;
+therefore no executable fermentation schedule has been issued.

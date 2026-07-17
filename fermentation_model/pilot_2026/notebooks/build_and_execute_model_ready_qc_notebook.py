@@ -23,7 +23,15 @@ def latest_completed_run() -> Path:
     candidates = []
     for manifest_path in RESULT_ROOT.glob("*/run_manifest.json"):
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        if manifest.get("status") == "completed":
+        adapter_path = manifest_path.parent / "adapter_config.json"
+        adapter = (
+            json.loads(adapter_path.read_text(encoding="utf-8"))
+            if adapter_path.exists()
+            else {}
+        )
+        if manifest.get("status") == "completed" and int(
+            adapter.get("adapter_schema_version", 0)
+        ) >= 2:
             candidates.append(manifest_path.parent)
     if not candidates:
         raise FileNotFoundError(
@@ -48,13 +56,13 @@ def build_notebook(run_dir: Path) -> nbformat.NotebookNode:
 
 The campaign adapter gate is **{qc['verdict']}** for run `{run_dir.name}`. It contains
 {counts['primary_observations']:,} primary observations, {counts['temperature_inputs']:,}
-temperature input rows, {counts['co2_observations']:,} autocorrelation-weighted CO₂ bins,
+active-process temperature rows, {counts['co2_observations']:,} CO₂ bins,
 {counts['wine_aroma_observations']:,} wine-aroma observations, and
 {counts['condensate_interval_observations']:,} interval-condensate observations.
 
-This is a data-contract pass, **not a calibration pass**. MassView reference conditions,
-the 80 versus 90.435 mg/L YAN discrepancy, independent verification, and owner review
-remain open. No profile in this notebook is approved for physical execution.
+This is a data-contract pass, **not a calibration pass**. YAN delivery and Oculyze
+conversion are parameterized downstream; independent verification and owner review
+remain release conditions. No profile in this notebook is approved for physical execution.
 """
         ),
         nbformat.v4.new_markdown_cell(
@@ -66,8 +74,10 @@ remain open. No profile in this notebook is approved for physical execution.
 - Total glucose+fructose is omitted whenever either component is modeled, preventing
   duplicate likelihood contributions.
 - Pilot Lot 1 CO₂ is QC-only and cannot enter the model table.
-- CO₂ is aggregated in deterministic relative-time bins and weighted by a clipped
-  lag-1 effective sample size.
+- Cooling and postprocess observations remain in integration QC but are absent from
+  these kinetic tables.
+- CO₂ is aggregated in deterministic relative-time bins. Signal-lag weights here are
+  provisional and calibration must replace them with residual-based ESS.
 - NQ and below-LOQ GC rows are interval-censored observations, not zero-valued points.
 - Carbon recovery is diagnostic-only because biomass, unmeasured products, sampling
   losses, masked CO₂ intervals, and verified normal reference conditions are absent.
@@ -128,7 +138,10 @@ sugar_sets = primary[primary["state"].isin(["glucose", "fructose", "total_sugar"
 double_counted = sugar_sets.apply(lambda states: "total_sugar" in states and bool(states.intersection({"glucose", "fructose"})))
 print(f"Sugar samples double counted: {int(double_counted.sum())}")
 assert not double_counted.any()
-assert set(temperature["process_phase"]) == {"active_process", "cooling_or_postprocess"}
+assert set(primary["process_phase"]) == {"active_process"}
+assert primary["calibration_include"].astype(str).str.lower().isin(["true", "1"]).all()
+assert set(temperature["process_phase"]) == {"active_process"}
+assert temperature["kinetic_include"].astype(str).str.lower().isin(["true", "1"]).all()
 """
         ),
         nbformat.v4.new_markdown_cell("### 2. CO₂ exclusion, reduction, and effective sample size"),
@@ -149,7 +162,7 @@ fig, ax = plt.subplots(figsize=(9, 4))
 ax.bar(co2_summary["experiment_id"].astype(str), co2_summary["effective_fraction"], color="#4c78a8")
 ax.set_ylabel("Effective / valid minute observations")
 ax.set_xlabel("Experiment")
-ax.set_title("CO₂ lag-1 effective sample fraction")
+ax.set_title("CO₂ provisional signal-lag fraction — replaced after calibration")
 ax.set_ylim(0, max(0.05, co2_summary["effective_fraction"].max() * 1.15))
 fig.tight_layout()
 plt.show()
@@ -205,7 +218,7 @@ plt.show()
 display(checks)
 assert checks["PASS"].all()
 print("PHASE A MODEL-READY ADAPTER: PASS")
-print("CALIBRATION GATE: NOT PASSED — owner and repository audit blockers remain")
+print("CALIBRATION STATUS: evaluate the separate immutable calibration run")
 print("PHYSICAL EXECUTION STATUS: EXPLORATORY ONLY; no schedule issued")
 """
         ),
@@ -214,11 +227,12 @@ print("PHYSICAL EXECUTION STATUS: EXPLORATORY ONLY; no schedule issued")
 
 - The adapter enforces the Pilot 2026 observation contract and fails if Lot 1 CO₂
   re-enters calibration.
-- Correlated minute CO₂ data no longer dominate by raw row count.
+- Cooling is formally absent from kinetic inputs.
+- Correlated minute CO₂ data no longer dominate by raw row count; final ESS is
+  calculated from fit residuals in the calibration workflow.
 - GC censoring and interval-condensate accumulation remain explicit in model space.
 - Density-triggered second pulses are intervals/latent timing inputs, not exact timestamps.
-- Missing storage history and unverified MassView reference conditions remain visible.
-- The next authorized step is a **failed/conditional calibration-gate report**, not an
+- The next authorized step is the conditional computational MBDoE workflow, not an
   executable thermal or nutrition schedule.
 """
         ),
