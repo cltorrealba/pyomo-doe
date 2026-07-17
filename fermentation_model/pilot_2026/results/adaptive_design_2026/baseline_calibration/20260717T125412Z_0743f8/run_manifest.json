@@ -1,0 +1,398 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/resolve_historical_audit.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_artifacts.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py",
+      "fermentation_model/shared/run_new_must_glycerol_estimability_doe.py"
+    ],
+    "sha256": "7dc01a4ffbdd956a677084779b3ea777e42d6509ba3c10e91dbe4948a20452b5"
+  },
+  "configuration": {
+    "payload": {
+      "audit_policy": {
+        "base_commit": "d3795f79e1fc9830cbc5191c31f4291d6d2f56f6",
+        "forbid_raw_or_manifest_rebaseline": true,
+        "historical_error_count": 53,
+        "require_current_hash_audit_pass": true
+      },
+      "calibration_scope": "reduced_primary_kinetics_plus_residual_weighted_co2",
+      "campaign_hierarchy": {
+        "laboratory_2026": "mechanistic_support_only_after_own_QC_with_matrix_and_scale_effects",
+        "pilot_2025": "weak_physical_structure_only_after_coherent_regeneration",
+        "pilot_2026": "target_kinetics_and_target_matrix"
+      },
+      "campaign_id": "pilot_2026",
+      "censoring": {
+        "analyte_relative_sigma": 0.2,
+        "condensate": "left_censored_captured_mass_using_corrected_MIX_LOQ_times_A_plus_B_volume",
+        "likelihood": "normal_CDF_at_upper_bound_with_configured_analyte_scale",
+        "minimum_sigma_ug_l": 0.5,
+        "status": "operator_and_scale_defined; aroma_parameters_not_in_reduced_stage_B_fit",
+        "wine": "left_censored_at_sample_basis_LOQ"
+      },
+      "co2_fit": {
+        "bounds": {
+          "co2_background_Ln_min": [
+            0.0,
+            1.5
+          ],
+          "co2_yield": [
+            0.1,
+            3.0
+          ],
+          "sensor_gain": [
+            0.25,
+            4.0
+          ]
+        },
+        "ess_clip": [
+          0.0,
+          0.999
+        ],
+        "ess_method": "per_run_AR1_from_final_standardized_residuals",
+        "max_nfev": 120,
+        "model": "stoichiometric_ethanol_rate_times_global_yield_times_tank_sensor_gain_plus_nonnegative_background",
+        "parameters": [
+          "co2_yield",
+          "sensor_gain_TK31",
+          "sensor_gain_TK32",
+          "sensor_gain_TK33",
+          "co2_background_Ln_min"
+        ],
+        "refit_after_residual_ess": true
+      },
+      "observation_error": {
+        "absolute_floor": {
+          "E": 2.0,
+          "F": 2.5,
+          "G": 2.5,
+          "Gly": 0.35,
+          "N": 0.012,
+          "X": 0.06,
+          "Xd": 0.06,
+          "co2_Ln_min": 0.05
+        },
+        "model": "sigma=max(absolute_floor, relative_fraction*abs(observation))",
+        "relative_fraction": {
+          "E": 0.025,
+          "F": 0.025,
+          "G": 0.025,
+          "Gly": 0.05,
+          "N": 0.08,
+          "X": 0.08,
+          "Xd": 0.12,
+          "co2_Ln_min": 0.08
+        },
+        "status": "explicit_working_likelihood_scales_subject_to_future_replicate_update"
+      },
+      "oculyze": {
+        "interpretation": "estimated_nuisance_conversion_not_an_owner_confirmed_physical_constant",
+        "measurement_operator": "million_cells_per_ml_times_viability_times_dry_mass_scale",
+        "scale_bounds": [
+          0.005,
+          0.08
+        ],
+        "scale_log_prior_sigma": 0.55,
+        "scale_parameter": "oculyze_biomass_scale_kg_m3_per_million_cells_ml",
+        "scale_prior": 0.03
+      },
+      "owner_review": {
+        "independent_ultra_verification": "pending_final_owner_review",
+        "loading_qc_notebook_review": "pending_final_owner_review",
+        "physical_execution_authorized": false,
+        "storage_history": "not_required_for_current_consumed_lots; required_before_reserved_aliquot_use"
+      },
+      "parameterization": "strictly_positive_parameters_in_log_space",
+      "phase_policy": {
+        "cooling_policy": "retain_in_integration_QC_but_exclude_from_all_kinetic_likelihoods",
+        "kinetic_phase": "active_process_only"
+      },
+      "pilot_2025_policy": {
+        "required_action_before_use": "regenerate_one_coherent_run_from_source_and_treat_as_weak_physical_structure_only",
+        "use_existing_integrated_result_as_prior": false
+      },
+      "primary_fit": {
+        "f_scale": 1.0,
+        "loss": "soft_l1",
+        "max_nfev": 90,
+        "multistart_log_sigma": 0.45,
+        "parameters": [
+          "mu0",
+          "qN",
+          "betaG0",
+          "betaF0",
+          "qEG",
+          "qEF",
+          "gammaG0",
+          "gammaF0"
+        ],
+        "selected_basin_replication_log_sigma": 0.03,
+        "selected_basin_replication_max_nfev": 60,
+        "states": [
+          "X",
+          "Xd",
+          "N",
+          "G",
+          "F",
+          "E",
+          "Gly"
+        ],
+        "weak_log_prior_sigma": 1.2
+      },
+      "random_seeds": [
+        20260716,
+        20260731,
+        20260819,
+        20260907,
+        20261003
+      ],
+      "schema_version": 2,
+      "stop_rules": {
+        "do_not_generate_or_approve_design_profiles_in_this_stage": true,
+        "reject_bound_dominated_target_profiles": true,
+        "reject_large_structural_residuals": true,
+        "require_all_multistarts_convergence_summary": true,
+        "require_posterior_ensemble_and_covariance": true
+      },
+      "target_yeast": "Zymaflore X5",
+      "validation": {
+        "maximum_active_bound_fraction": 0.5,
+        "minimum_co2_objective_improvement_fraction": 0.02,
+        "minimum_converged_multistarts": 3,
+        "minimum_primary_objective_improvement_fraction": 0.02,
+        "objective_relative_basin_tolerance": 0.05,
+        "require_covariance_and_multistart_ensemble": true,
+        "require_residual_ess_for_every_CO2_run": true
+      },
+      "yan": {
+        "delivery_fraction_bounds": [
+          0.884615,
+          1.0
+        ],
+        "delivery_fraction_log_prior_sigma": 0.08,
+        "delivery_fraction_prior": 0.942307,
+        "dynamic_pulse_policy": "time_zero_pulse_is_already_in_measured_initial_YAN; fit_delivery_fraction_for_later_pulse",
+        "input_basis": "116_g_organic_at_0.1_mg_YAN_per_mg_plus_46_g_DAP_at_0.2_mg_YAN_per_mg_in_230_L",
+        "mass_derived_per_pulse_mg_l": 90.434783,
+        "protocol_nominal_per_pulse_mg_l": 80.0
+      }
+    },
+    "sha256": "0743f8ab18254f85b7a12621caff1f6a936785d666b2f3df5af82ceba70c01fa"
+  },
+  "created_utc": "2026-07-17T12:56:18.470479+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": null,
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "computational_verdict": "PASS",
+    "conditions": [
+      "Final owner review of the loading/QC notebook remains required.",
+      "Independent Ultra audit remains required before physical design release.",
+      "The Oculyze conversion is an estimated nuisance parameter, not a confirmed physical constant.",
+      "Aroma censoring is fully specified, but aroma kinetic parameters are outside this reduced Stage-B fit.",
+      "No temperature/nutrition profile is approved for physical execution by this calibration run."
+    ],
+    "cooling_excluded_from_kinetics": true,
+    "entry_gate": {
+      "blockers": [],
+      "checks": {
+        "existing_pilot_2025_integrated_result_not_used": true,
+        "phase_A_manifest_complete": true,
+        "phase_A_model_dataset_pass": true,
+        "repository_raw_hash_audit_pass": true,
+        "scipy_least_squares_available": true
+      },
+      "fit_executed": false,
+      "gate": "phase_B_computational_calibration_entry",
+      "profiles_for_physical_execution": false,
+      "verdict": "PASS"
+    },
+    "fit_executed": true,
+    "gate": "phase_B_hierarchical_calibration",
+    "parameters_estimated": [
+      "mu0",
+      "qN",
+      "betaG0",
+      "betaF0",
+      "qEG",
+      "qEF",
+      "gammaG0",
+      "gammaF0",
+      "yan_delivery_fraction",
+      "oculyze_biomass_scale_kg_m3_per_million_cells_ml",
+      "co2_yield",
+      "sensor_gain_TK31",
+      "sensor_gain_TK32",
+      "sensor_gain_TK33",
+      "co2_background_Ln_min"
+    ],
+    "physical_execution_authorized": false,
+    "profiles_for_physical_execution": false,
+    "residual_ESS_recomputed": true,
+    "verdict": "PASS_CONDITIONAL"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "d3795f79e1fc9830cbc5191c31f4291d6d2f56f6",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/audit_resolution.json": {
+      "bytes": 1709,
+      "sha256": "085b8715d27490e954423f25dfff52affd7568d021a24d457fec9886dad7aefe"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/calibration_config.json": {
+      "bytes": 5127,
+      "sha256": "2537f825e610eee747f6c61f413fe73ad98117cfd6cc189d4c7513d72bcde583"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/calibration_gate.json": {
+      "bytes": 1575,
+      "sha256": "9f66c4a4f6a22949f0bd8073bf23d61be5c8dd4ba696abcb5c28d85915b6e3ef"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/calibration_validation.json": {
+      "bytes": 1924,
+      "sha256": "62725c4736885dcb52257a623a0ba6f0a74e24a2e3e3cb7ca0e10f406691c629"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/censoring_contract.json": {
+      "bytes": 629,
+      "sha256": "9f6c1826988683ce17172f02b9c33db632ffbf2180b9d181cd1b88d09b8bc068"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/co2_multistart_summary.csv": {
+      "bytes": 1474,
+      "sha256": "0e2672bcb93b566287030d5a2eec66ec114d1ac94492641c7565da312f6bb24b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/co2_parameter_estimates.csv": {
+      "bytes": 406,
+      "sha256": "9ac17793fddfe575ae5f3f499ac1416bbb71a3437c32d5e08aef652b0d452a6f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/co2_predictions.csv": {
+      "bytes": 1063946,
+      "sha256": "9931f301f97ab5af2b4f99d73ae12a01ab401980ccd1abf887b890cfa88a1042"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/co2_residual_ess.csv": {
+      "bytes": 741,
+      "sha256": "b803f403c29b485393e5b0dac5c45255d492dde1faae3f75c3cda50be021307a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/posterior_multistart_ensemble.csv": {
+      "bytes": 3684,
+      "sha256": "cde252d0793045141103485a2e829c88a92d6f9e6427e76ec9f032c429a5cd79"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/primary_covariance_log_space.csv": {
+      "bytes": 2408,
+      "sha256": "9344b36910929f35937b2bfed847cebdb4ef8f547524d3f00010f4922140b706"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/primary_multistart_summary.csv": {
+      "bytes": 3684,
+      "sha256": "cde252d0793045141103485a2e829c88a92d6f9e6427e76ec9f032c429a5cd79"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/primary_parameter_estimates.csv": {
+      "bytes": 1030,
+      "sha256": "39028c21608fed6453bc1fb7c38b38306158674de74d355bc745ad9f2e4380a0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/primary_predictions.csv": {
+      "bytes": 72191,
+      "sha256": "63d46aaa7874f094d64fd54262cd4d54f5c60deb71fd7f85c8a5d1b8e61a5bbc"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/primary_residual_summary.csv": {
+      "bytes": 4349,
+      "sha256": "984833770e6dc9226c529179b835d071b9bbe9f00511da16c3b81643e34adec3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125412Z_0743f8/solver_capabilities.json": {
+      "bytes": 398,
+      "sha256": "f01b26330223bd9569f4443c4d4aac1e771f89e0e9cdfeb3113cacdef91b14f8"
+    }
+  },
+  "random_seeds": [
+    20260716,
+    20260731,
+    20260819,
+    20260907,
+    20261003
+  ],
+  "run_id": "20260717T125412Z_0743f8",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "co2_multistarts": {
+      "co2_objective_improvement_fraction": 0.8134320696994097,
+      "co2_rows_fitted": 6027,
+      "co2_runs_fitted": 6,
+      "converged_multistarts": 5,
+      "ess_available_for_every_run": true,
+      "multistarts_in_best_basin": 5,
+      "residual_ess_total": 370.0082380161392,
+      "weights_recomputed_from_residuals": true
+    },
+    "primary_multistarts": {
+      "active_bound_fraction": 0.0,
+      "alternative_broad_minima_observed": true,
+      "broad_multistarts": 5,
+      "broad_multistarts_in_best_basin": 1,
+      "converged_multistarts": 10,
+      "covariance_finite": true,
+      "multistarts_in_best_basin": 5,
+      "objective_relative_basin_tolerance": 0.05,
+      "oculyze_scale": 0.04178452355701551,
+      "primary_objective_improvement_fraction": 0.9698911736601522,
+      "selected_basin_replicates": 5,
+      "yan_delivery_fraction": 0.9768956118304386
+    },
+    "solver": "scipy.optimize.least_squares_trf"
+  },
+  "sources": {
+    "calibration_config": {
+      "bytes": 4839,
+      "path": "fermentation_model/pilot_2026/adaptive_design/calibration_config.json",
+      "sha256": "e70d290e476d450ea6618df082202ab29d5c116ebc6880d6a4d36d03b5af5472"
+    },
+    "integration_config": {
+      "bytes": 5105,
+      "path": "fermentation_model/pilot_2026/data_integration_config.json",
+      "sha256": "fd629affc69208ae79af12c6e09a750451280c8b0ad3392ebe1f84fe0703f837"
+    },
+    "integration_qc": {
+      "bytes": 6057,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/qc_summary.json",
+      "sha256": "1b2c1b7de7880af10a4a8a1680920fdaca115113a71bab573e69eff2e97cea47"
+    },
+    "model_dataset_manifest": {
+      "bytes": 6866,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/run_manifest.json",
+      "sha256": "6db24e1281268b7de7aab628c074938f61558ac00379f8a396f517672bc3e976"
+    },
+    "model_dataset_qc": {
+      "bytes": 1212,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/dataset_qc.json",
+      "sha256": "d4dd195188136aa0ea4ac147786fefe09c4f75c3a4c9a092b2caa7e9610b0100"
+    },
+    "raw_data_manifest": {
+      "bytes": 12894,
+      "path": "fermentation_model/campaigns/raw_data_manifest.csv",
+      "sha256": "84c82cd00d28c35131a69dcdfd787c85f97ab8c94bba45b39f05bcda424b33e2"
+    }
+  },
+  "stage": "baseline_calibration",
+  "status": "completed"
+}

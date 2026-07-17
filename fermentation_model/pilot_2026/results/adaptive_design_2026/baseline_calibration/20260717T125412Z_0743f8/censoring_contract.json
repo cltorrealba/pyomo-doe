@@ -1,0 +1,20 @@
+{
+  "calibration_scope_note": "operator_and_scale_defined; aroma_parameters_not_in_reduced_stage_B_fit",
+  "condensate": {
+    "all_censored_upper_bounds_positive": true,
+    "left_censored": 122,
+    "observed": 76,
+    "operator": "left_censored_captured_mass_using_corrected_MIX_LOQ_times_A_plus_B_volume"
+  },
+  "likelihood": "normal_CDF_at_upper_bound_with_configured_analyte_scale",
+  "scales": {
+    "minimum_sigma_ug_l": 0.5,
+    "relative_sigma": 0.2
+  },
+  "wine": {
+    "all_censored_upper_bounds_positive": true,
+    "left_censored": 14,
+    "observed": 220,
+    "operator": "left_censored_at_sample_basis_LOQ"
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/pilot_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py"
+    ],
+    "sha256": "a51ae118711e20855a09cddebd76bea8e0ccf28f38093a35ff3d9a7de50bf394"
+  },
+  "configuration": {
+    "payload": {
+      "audit_policy": {
+        "base_commit": "d3795f79e1fc9830cbc5191c31f4291d6d2f56f6",
+        "forbid_raw_or_manifest_rebaseline": true,
+        "historical_error_count": 53,
+        "require_current_hash_audit_pass": true
+      },
+      "calibration_scope": "reduced_primary_kinetics_plus_residual_weighted_co2",
+      "campaign_hierarchy": {
+        "laboratory_2026": "mechanistic_support_only_after_own_QC_with_matrix_and_scale_effects",
+        "pilot_2025": "weak_physical_structure_only_after_coherent_regeneration",
+        "pilot_2026": "target_kinetics_and_target_matrix"
+      },
+      "campaign_id": "pilot_2026",
+      "censoring": {
+        "analyte_relative_sigma": 0.2,
+        "condensate": "left_censored_captured_mass_using_corrected_MIX_LOQ_times_A_plus_B_volume",
+        "likelihood": "normal_CDF_at_upper_bound_with_configured_analyte_scale",
+        "minimum_sigma_ug_l": 0.5,
+        "status": "operator_and_scale_defined; aroma_parameters_not_in_reduced_stage_B_fit",
+        "wine": "left_censored_at_sample_basis_LOQ"
+      },
+      "co2_fit": {
+        "bounds": {
+          "co2_background_Ln_min": [
+            0.0,
+            1.5
+          ],
+          "co2_yield": [
+            0.1,
+            3.0
+          ],
+          "sensor_gain": [
+            0.25,
+            4.0
+          ]
+        },
+        "ess_clip": [
+          0.0,
+          0.999
+        ],
+        "ess_method": "per_run_AR1_from_final_standardized_residuals",
+        "max_nfev": 120,
+        "model": "stoichiometric_ethanol_rate_times_global_yield_times_tank_sensor_gain_plus_nonnegative_background",
+        "parameters": [
+          "co2_yield",
+          "sensor_gain_TK31",
+          "sensor_gain_TK32",
+          "sensor_gain_TK33",
+          "co2_background_Ln_min"
+        ],
+        "refit_after_residual_ess": true
+      },
+      "observation_error": {
+        "absolute_floor": {
+          "E": 2.0,
+          "F": 2.5,
+          "G": 2.5,
+          "Gly": 0.35,
+          "N": 0.012,
+          "X": 0.06,
+          "Xd": 0.06,
+          "co2_Ln_min": 0.05
+        },
+        "model": "sigma=max(absolute_floor, relative_fraction*abs(observation))",
+        "relative_fraction": {
+          "E": 0.025,
+          "F": 0.025,
+          "G": 0.025,
+          "Gly": 0.05,
+          "N": 0.08,
+          "X": 0.08,
+          "Xd": 0.12,
+          "co2_Ln_min": 0.08
+        },
+        "status": "explicit_working_likelihood_scales_subject_to_future_replicate_update"
+      },
+      "oculyze": {
+        "interpretation": "estimated_nuisance_conversion_not_an_owner_confirmed_physical_constant",
+        "measurement_operator": "million_cells_per_ml_times_viability_times_dry_mass_scale",
+        "scale_bounds": [
+          0.005,
+          0.08
+        ],
+        "scale_log_prior_sigma": 0.55,
+        "scale_parameter": "oculyze_biomass_scale_kg_m3_per_million_cells_ml",
+        "scale_prior": 0.03
+      },
+      "owner_review": {
+        "independent_ultra_verification": "pending_final_owner_review",
+        "loading_qc_notebook_review": "pending_final_owner_review",
+        "physical_execution_authorized": false,
+        "storage_history": "not_required_for_current_consumed_lots; required_before_reserved_aliquot_use"
+      },
+      "parameterization": "strictly_positive_parameters_in_log_space",
+      "phase_policy": {
+        "cooling_policy": "retain_in_integration_QC_but_exclude_from_all_kinetic_likelihoods",
+        "kinetic_phase": "active_process_only"
+      },
+      "pilot_2025_policy": {
+        "required_action_before_use": "regenerate_one_coherent_run_from_source_and_treat_as_weak_physical_structure_only",
+        "use_existing_integrated_result_as_prior": false
+      },
+      "primary_fit": {
+        "f_scale": 1.0,
+        "loss": "soft_l1",
+        "max_nfev": 90,
+        "multistart_log_sigma": 0.45,
+        "parameters": [
+          "mu0",
+          "qN",
+          "betaG0",
+          "betaF0",
+          "qEG",
+          "qEF",
+          "gammaG0",
+          "gammaF0"
+        ],
+        "states": [
+          "X",
+          "Xd",
+          "N",
+          "G",
+          "F",
+          "E",
+          "Gly"
+        ],
+        "weak_log_prior_sigma": 1.2
+      },
+      "random_seeds": [
+        20260716,
+        20260731,
+        20260819,
+        20260907,
+        20261003
+      ],
+      "schema_version": 2,
+      "stop_rules": {
+        "do_not_generate_or_approve_design_profiles_in_this_stage": true,
+        "reject_bound_dominated_target_profiles": true,
+        "reject_large_structural_residuals": true,
+        "require_all_multistarts_convergence_summary": true,
+        "require_posterior_ensemble_and_covariance": true
+      },
+      "target_yeast": "Zymaflore X5",
+      "validation": {
+        "maximum_active_bound_fraction": 0.5,
+        "minimum_co2_objective_improvement_fraction": 0.02,
+        "minimum_converged_multistarts": 3,
+        "minimum_primary_objective_improvement_fraction": 0.02,
+        "objective_relative_basin_tolerance": 0.05,
+        "require_covariance_and_multistart_ensemble": true,
+        "require_residual_ess_for_every_CO2_run": true
+      },
+      "yan": {
+        "delivery_fraction_bounds": [
+          0.884615,
+          1.0
+        ],
+        "delivery_fraction_log_prior_sigma": 0.08,
+        "delivery_fraction_prior": 0.942307,
+        "dynamic_pulse_policy": "time_zero_pulse_is_already_in_measured_initial_YAN; fit_delivery_fraction_for_later_pulse",
+        "input_basis": "116_g_organic_at_0.1_mg_YAN_per_mg_plus_46_g_DAP_at_0.2_mg_YAN_per_mg_in_230_L",
+        "mass_derived_per_pulse_mg_l": 90.434783,
+        "protocol_nominal_per_pulse_mg_l": 80.0
+      }
+    },
+    "sha256": "c17f7441cdb368c08084c985fe7fb84d4637488e2156edcba27ee0a1c9d0945b"
+  },
+  "created_utc": "2026-07-17T12:50:13.571014+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": "6.10.1",
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "exception": "No module named 'nbformat'",
+    "exception_type": "ModuleNotFoundError",
+    "fit_executed": false,
+    "gate": "phase_B_hierarchical_calibration",
+    "profiles_for_physical_execution": false,
+    "verdict": "FAIL"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "d3795f79e1fc9830cbc5191c31f4291d6d2f56f6",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125012Z_c17f74",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T125012Z_c17f74/calibration_gate.json": {
+      "bytes": 227,
+      "sha256": "01028ea675f3a8e03df225fcedbcaa9686e41560354ee17a2d6042e8bc62d56c"
+    }
+  },
+  "random_seeds": [
+    20260716,
+    20260731,
+    20260819,
+    20260907,
+    20261003
+  ],
+  "run_id": "20260717T125012Z_c17f74",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "exception": "No module named 'nbformat'",
+    "exception_type": "ModuleNotFoundError"
+  },
+  "sources": {
+    "calibration_config": {
+      "bytes": 4742,
+      "path": "fermentation_model/pilot_2026/adaptive_design/calibration_config.json",
+      "sha256": "bbf74ff45092589f7ba59f0961207fb4e425f28303ebb36b7b58b6712bdbdf87"
+    },
+    "model_dataset_manifest": {
+      "bytes": 6866,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/run_manifest.json",
+      "sha256": "6db24e1281268b7de7aab628c074938f61558ac00379f8a396f517672bc3e976"
+    },
+    "model_dataset_qc": {
+      "bytes": 1212,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/dataset_qc.json",
+      "sha256": "d4dd195188136aa0ea4ac147786fefe09c4f75c3a4c9a092b2caa7e9610b0100"
+    }
+  },
+  "stage": "baseline_calibration",
+  "status": "failed"
+}

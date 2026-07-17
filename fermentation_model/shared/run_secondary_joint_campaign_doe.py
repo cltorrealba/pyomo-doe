@@ -13,11 +13,15 @@ from typing import Iterable
 os.environ.setdefault("MPLBACKEND", "Agg")
 
 import matplotlib.pyplot as plt
-import nbformat
 import numpy as np
 import pandas as pd
 from scipy.integrate import solve_ivp
 from scipy.optimize import least_squares
+
+try:  # Notebook export is optional when importing model constants/functions.
+    import nbformat
+except ModuleNotFoundError:  # pragma: no cover - depends on runtime extras
+    nbformat = None
 
 SHARED_DIR = Path(__file__).resolve().parent
 FERMENTATION_MODEL_DIR = SHARED_DIR.parent

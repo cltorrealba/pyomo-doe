@@ -1,0 +1,6 @@
+parameter,estimate,lower_bound,upper_bound,active_bound,role
+co2_yield,0.7927728660919748,0.10000000000000002,3.0000000000000004,False,physical
+sensor_gain_TK31,1.101956458783584,0.25,4.0,False,nuisance
+sensor_gain_TK32,1.028952621363082,0.25,4.0,False,nuisance
+sensor_gain_TK33,0.8800458167322759,0.25,4.0,False,nuisance
+co2_background_Ln_min,0.20946410311058594,1.0000000000000004e-06,1.5,False,nuisance

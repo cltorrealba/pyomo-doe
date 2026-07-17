@@ -1,0 +1,45 @@
+{
+  "base_commit": "d3795f79e1fc9830cbc5191c31f4291d6d2f56f6",
+  "checks": {
+    "ambiguous_legacy_result_root_absent": true,
+    "current_hash_audit_has_zero_errors": true,
+    "historical_count_is_53": true,
+    "historical_partition_is_52_raw_plus_1_structural": true,
+    "raw_manifest_byte_identical_to_base": true,
+    "raw_tree_clean_in_worktree": true,
+    "raw_tree_unchanged_since_base_commit": true
+  },
+  "classification": {
+    "ambiguous_generated_result_root": 1,
+    "raw_worktree_size_drift": 52,
+    "unclassified": []
+  },
+  "current_audit": {
+    "campaigns": 4,
+    "errors": [],
+    "experiments": 42,
+    "raw_file_counts": {
+      "laboratory_2025": 1,
+      "laboratory_2026": 57,
+      "pilot_2025": 5,
+      "pilot_2026": 6
+    },
+    "warnings": [
+      "Laboratory 2026 Lot 3 raw folder is not present"
+    ],
+    "workflows": 22
+  },
+  "historical_artifact": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T002128Z_62fd66/repository_audit.json",
+  "historical_error_count": 53,
+  "provenance": {
+    "base_raw_manifest_sha256": "84c82cd00d28c35131a69dcdfd787c85f97ab8c94bba45b39f05bcda424b33e2",
+    "raw_diff_paths": [],
+    "raw_manifest_sha256": "84c82cd00d28c35131a69dcdfd787c85f97ab8c94bba45b39f05bcda424b33e2",
+    "raw_worktree_paths": []
+  },
+  "resolution": {
+    "ambiguous_generated_result_root": "Resolved by using campaign-owned result directories; the legacy aggregate directory is absent.",
+    "raw_worktree_size_drift": "Resolved by reproducing from the committed clean tree and checking every raw byte against the existing manifest. No raw file or manifest entry was changed or rebaselined."
+  },
+  "verdict": "PASS"
+}

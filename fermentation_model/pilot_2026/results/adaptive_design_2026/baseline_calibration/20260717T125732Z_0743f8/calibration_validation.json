@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "censoring_bounds_valid": true,
+    "co2_ESS_recomputed_from_final_residuals": true,
+    "co2_basin_replicated": true,
+    "co2_multistarts_converged": true,
+    "co2_objective_improved": true,
+    "covariance_available": true,
+    "historical_audit_resolved_without_rebaseline": true,
+    "primary_basin_replicated": true,
+    "primary_error_and_model_discrepancy_scales_estimated": true,
+    "primary_multistarts_converged": true,
+    "primary_objective_improved": true,
+    "target_fit_not_bound_dominated": true
+  },
+  "co2": {
+    "co2_objective_improvement_fraction": 0.8134320696994097,
+    "co2_rows_fitted": 6027,
+    "co2_runs_fitted": 6,
+    "converged_multistarts": 5,
+    "ess_available_for_every_run": true,
+    "multistarts_in_best_basin": 5,
+    "residual_ess_total": 370.0082380161392,
+    "weights_recomputed_from_residuals": true
+  },
+  "computational_verdict": "PASS",
+  "conditions": [
+    "Final owner review of the loading/QC notebook remains required.",
+    "Independent Ultra audit remains required before physical design release.",
+    "The Oculyze conversion is an estimated nuisance parameter, not a confirmed physical constant.",
+    "Broad primary multistarts found alternative minima and the empirical state-specific discrepancy multipliers must propagate into the MBDoE posterior ensemble.",
+    "Aroma censoring is fully specified, but aroma kinetic parameters are outside this reduced Stage-B fit.",
+    "No temperature/nutrition profile is approved for physical execution by this calibration run."
+  ],
+  "primary": {
+    "active_bound_fraction": 0.0,
+    "alternative_broad_minima_observed": true,
+    "broad_multistarts": 5,
+    "broad_multistarts_in_best_basin": 1,
+    "converged_multistarts": 10,
+    "covariance_finite": true,
+    "error_scale_model": "nominal_measurement_sigma_times_state_specific_empirical_model_discrepancy_multiplier",
+    "maximum_postscale_state_rmse": 1.0,
+    "multistarts_in_best_basin": 5,
+    "objective_relative_basin_tolerance": 0.05,
+    "oculyze_scale": 0.04178452355701551,
+    "primary_objective_improvement_fraction": 0.9698911736601522,
+    "selected_basin_replicates": 5,
+    "yan_delivery_fraction": 0.9768956118304386
+  },
+  "profiles_for_physical_execution": false,
+  "release_verdict": "PASS_CONDITIONAL"
+}

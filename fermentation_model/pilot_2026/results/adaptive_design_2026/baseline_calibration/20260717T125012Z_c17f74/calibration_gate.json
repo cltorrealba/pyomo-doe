@@ -1,0 +1,8 @@
+{
+  "exception": "No module named 'nbformat'",
+  "exception_type": "ModuleNotFoundError",
+  "fit_executed": false,
+  "gate": "phase_B_hierarchical_calibration",
+  "profiles_for_physical_execution": false,
+  "verdict": "FAIL"
+}

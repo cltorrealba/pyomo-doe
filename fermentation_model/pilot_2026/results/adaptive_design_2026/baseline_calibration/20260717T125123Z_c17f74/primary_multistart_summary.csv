@@ -1,0 +1,6 @@
+start_index,seed,success,status,nfev,robust_objective,initial_wsse,final_wsse,message
+1,20260731,True,3,22,4365.817287652028,391627.96629996254,17932.073474368874,`xtol` termination condition is satisfied.
+0,20260716,True,3,16,4962.376781649033,692766.847543776,20858.396706699372,`xtol` termination condition is satisfied.
+3,20260907,True,3,28,5682.3903181511,2755746.1038876977,28421.05071564844,`xtol` termination condition is satisfied.
+4,20261003,True,3,21,9304.993266783866,879613.1470025792,78039.91642176214,`xtol` termination condition is satisfied.
+2,20260819,True,3,16,11239.58087997599,5108414.215160567,89655.96718608458,`xtol` termination condition is satisfied.

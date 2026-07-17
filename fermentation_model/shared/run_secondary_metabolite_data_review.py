@@ -4,9 +4,13 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import nbformat
 import numpy as np
 import pandas as pd
+
+try:  # Notebook export is optional for reuse as a data/model dependency.
+    import nbformat
+except ModuleNotFoundError:  # pragma: no cover - depends on runtime extras
+    nbformat = None
 
 SHARED_DIR = Path(__file__).resolve().parent
 FERMENTATION_MODEL_DIR = SHARED_DIR.parent

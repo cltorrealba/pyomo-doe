@@ -13,14 +13,23 @@ from typing import Iterable
 os.environ.setdefault("MPLBACKEND", "Agg")
 
 import matplotlib.pyplot as plt
-import nbformat
 import numpy as np
 import pandas as pd
-import pyomo.environ as pyo
-from pyomo.contrib.doe import DesignOfExperiments
 from scipy.integrate import solve_ivp
 from scipy.optimize import least_squares
 from scipy.stats import chi2
+
+try:  # Notebook export is optional for model/calibration reuse.
+    import nbformat
+except ModuleNotFoundError:  # pragma: no cover - depends on runtime extras
+    nbformat = None
+
+try:  # Pyomo-DOE is needed only by the design entry points below.
+    import pyomo.environ as pyo
+    from pyomo.contrib.doe import DesignOfExperiments
+except ModuleNotFoundError:  # pragma: no cover - calibration can use SciPy only
+    pyo = None
+    DesignOfExperiments = None
 
 SHARED_DIR = Path(__file__).resolve().parent
 FERMENTATION_MODEL_DIR = SHARED_DIR.parent
