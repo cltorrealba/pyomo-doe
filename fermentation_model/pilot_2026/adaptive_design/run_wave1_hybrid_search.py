@@ -150,7 +150,7 @@ def _ipopt_surrogate_refine(
         symmetric_h = 0.5 * (hp + hm)
         curvature.append(max((fp - 2.0 * f0 + fm) / (symmetric_h**2), 1e-4))
     model = pyo.ConcreteModel()
-    model.index = pyo.RangeSet(0, len(local_indices) - 1)
+    model.local_index = pyo.RangeSet(0, len(local_indices) - 1)
     trust = float(config["search"]["local_trust_fraction"])
     local_bounds = []
     for index in local_indices:
@@ -159,7 +159,7 @@ def _ipopt_surrogate_refine(
             (max(bounds[index, 0], x[index] - radius), min(bounds[index, 1], x[index] + radius))
         )
     model.z = pyo.Var(
-        model.index,
+        model.local_index,
         bounds=lambda _m, i: local_bounds[int(i)],
         initialize=lambda _m, i: float(x[local_indices[int(i)]]),
     )

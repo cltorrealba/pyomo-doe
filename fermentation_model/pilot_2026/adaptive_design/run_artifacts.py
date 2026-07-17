@@ -169,7 +169,16 @@ def build_manifest(
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.write_text(
+    output_path = Path(path)
+    if sys.platform == "win32":
+        resolved = str(output_path.resolve())
+        if not resolved.startswith("\\\\?\\"):
+            if resolved.startswith("\\\\"):
+                resolved = "\\\\?\\UNC\\" + resolved[2:]
+            else:
+                resolved = "\\\\?\\" + resolved
+        output_path = Path(resolved)
+    output_path.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         encoding="utf-8",
     )
