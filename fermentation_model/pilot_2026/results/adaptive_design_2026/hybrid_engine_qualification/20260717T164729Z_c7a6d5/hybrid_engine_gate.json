@@ -1,0 +1,50 @@
+{
+  "capability": {
+    "cyipopt_available": false,
+    "ipopt_executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\Library\\bin\\ipopt.EXE",
+    "pyomo_available": true,
+    "usable_ipopt_interface": true
+  },
+  "checks": {
+    "diagnostic_local_refinement_reaches_benchmark": true,
+    "ipopt_benchmark_executed": true,
+    "ipopt_interface_available": true,
+    "ipopt_refinement_reaches_benchmark": true,
+    "pso_improves_benchmark": true,
+    "pso_reproducible": true,
+    "scipy_not_accepted_as_final_substitute": true
+  },
+  "gate": "phase_C_hybrid_engine_qualification",
+  "ipopt_local": {
+    "best_objective": 9.183045056760245e-24,
+    "best_x": [
+      0.9999999999969696,
+      0.9999999999939394
+    ],
+    "executed": true,
+    "interface": "pyomo.SolverFactory(ipopt)",
+    "message": "optimal",
+    "success": true
+  },
+  "next_action": "implement and validate the MBDoE objective adapter",
+  "profiles_for_physical_execution": false,
+  "pso": {
+    "best_objective": 0.0005640914522956066,
+    "best_x": [
+      0.9790153081725029,
+      0.9595833322167779
+    ],
+    "evaluations": 2592,
+    "repeat_coordinate_difference": 0.0
+  },
+  "scipy_diagnostic_local": {
+    "accepted_as_final": false,
+    "best_objective": 8.937668409303793e-12,
+    "best_x": [
+      0.9999970104066552,
+      0.9999940208017043
+    ],
+    "success": true
+  },
+  "verdict": "PASS"
+}
