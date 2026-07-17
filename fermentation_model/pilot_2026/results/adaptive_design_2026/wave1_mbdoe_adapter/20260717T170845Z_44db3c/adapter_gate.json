@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "all_scores_finite": true,
+    "benchmark_profiles_are_information_distinguishable": true,
+    "eight_representative_members_selected": true,
+    "fim_positive_semidefinite_with_tolerance": true,
+    "hybrid_engine_gate_pass": true,
+    "joint_ensemble_has_64_members": true,
+    "no_physical_profile_released": true,
+    "nutrition_slots_respect_owner_window": true
+  },
+  "gate": "phase_C_wave1_MBDoE_adapter_validation",
+  "next_action": "run robust PSO pair search",
+  "profiles_for_physical_execution": false,
+  "representative_members": [
+    62,
+    30,
+    9,
+    7,
+    8,
+    6,
+    17,
+    36
+  ],
+  "verdict": "PASS"
+}

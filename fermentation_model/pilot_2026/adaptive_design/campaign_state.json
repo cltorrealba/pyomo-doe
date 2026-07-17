@@ -2,20 +2,23 @@
   "campaign_id": "pilot_2026",
   "adaptive_policy": "3-2-1",
   "current_phase": "computational_pre_wave1",
-  "current_gate": "phase_C_robust_ensemble_and_engine_qualification",
+  "current_gate": "phase_D_wave1_local_refinement_and_review",
   "gate_verdict": "PASS_CONDITIONAL",
   "latest_model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
-  "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+  "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_sampling/20260717T172453Z_9d52be",
   "latest_aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
   "latest_joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
-  "latest_engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5",
+  "latest_engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
+  "latest_passing_engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
+  "latest_temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0",
+  "latest_wave1_adapter_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter/20260717T171612Z_9d52be",
+  "latest_wave1_search_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search/20260717T171902Z_9d52be",
+  "latest_wave1_sampling_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_sampling/20260717T172453Z_9d52be",
   "calibration_fit_executed": true,
   "gate_blockers": [
-    "independent_ultra_verification",
-    "propagate_alternative_minima_and_model_discrepancy_into_MBDoE",
-    "rerun_engine_qualification_in_environment_with_IPOPT",
-    "implement_and_validate_joint_MBDoE_objective_adapter_after_engine_pass",
-    "approve_final_candidate_plots"
+    "rerun_wave1_hybrid_search_in_environment_with_IPOPT",
+    "owner_review_candidate_plots",
+    "independent_ultra_verification"
   ],
   "wave_sizes": [3, 2, 1],
   "available_tanks": ["TK31", "TK32", "TK33"],
@@ -43,9 +46,12 @@
     "status": "exploratory_seed_only"
   },
   "wave1": {
-    "status": "not_designed",
+    "status": "computational_candidate_PASS_CONDITIONAL_not_physically_released",
     "joint_pair_optimization_required": true,
-    "tank_randomization_required": true
+    "tank_randomization_required": true,
+    "full_ensemble_completion_probability": 1.0,
+    "candidate_median_information_gain": 7.887877547700576,
+    "candidate_sampling_schedule_ready_for_review": true
   },
   "wave2": {
     "status": "locked_until_wave1_realized_information_gate",

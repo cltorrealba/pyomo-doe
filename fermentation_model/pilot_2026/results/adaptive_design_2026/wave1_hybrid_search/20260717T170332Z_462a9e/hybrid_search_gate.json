@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "actual_objective_revalidated_after_local_step": false,
+    "adapter_gate_pass": true,
+    "all_information_gains_finite": true,
+    "full_ensemble_completion_probability_at_least_95pct": true,
+    "full_ensemble_evaluated": true,
+    "ipopt_local_refinement_executed": false,
+    "pso_improved_seeded_population": true,
+    "pso_objective_finite": true
+  },
+  "full_ensemble": {
+    "completion_probability": 1.0,
+    "lower_decile_information_gain": 2.330151654325493,
+    "maximum_residual_sugar_g_l": 2.4846682777666365,
+    "median_information_gain": 6.533761227494596,
+    "robust_information_score": 5.482858834202321
+  },
+  "gate": "phase_D_wave1_hybrid_search",
+  "ipopt_local": {
+    "executed": false,
+    "reason": "pyomo_not_available"
+  },
+  "next_action": "optimize ten-sample schedules and generate owner-review plots",
+  "profiles_for_physical_execution": false,
+  "pso": {
+    "cache_entries": 208,
+    "evaluations": 208,
+    "objective": -4.239115438723938
+  },
+  "verdict": "PASS_CONDITIONAL"
+}

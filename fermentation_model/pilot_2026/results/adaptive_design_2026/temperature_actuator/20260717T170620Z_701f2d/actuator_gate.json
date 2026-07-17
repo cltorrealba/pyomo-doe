@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "all_nine_runs_evaluated": true,
+    "at_least_six_run_fits_valid": true,
+    "global_tau_finite": true,
+    "global_tau_inside_bounds": true
+  },
+  "gate": "temperature_actuator_identification",
+  "global_tau_h": 7.819204593273112,
+  "interpretation": "working first-order setpoint-to-Sonda1 actuator model for MBDoE; uncertainty remains represented by run spread",
+  "profiles_for_physical_execution": false,
+  "verdict": "PASS"
+}

@@ -30,6 +30,19 @@ class HybridOptimizerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "bounds"):
             particle_swarm(lambda x: 0.0, np.asarray([[1.0, 1.0]]), particles=4, iterations=2, seed=1)
 
+    def test_seeded_position_is_part_of_initial_population(self) -> None:
+        objective = lambda x: float(np.dot(x, x))
+        bounds = np.asarray([[-2.0, 2.0], [-2.0, 2.0]])
+        result = particle_swarm(
+            objective,
+            bounds,
+            particles=4,
+            iterations=1,
+            seed=1,
+            initial_positions=np.asarray([[0.0, 0.0]]),
+        )
+        self.assertEqual(result.fun, 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()

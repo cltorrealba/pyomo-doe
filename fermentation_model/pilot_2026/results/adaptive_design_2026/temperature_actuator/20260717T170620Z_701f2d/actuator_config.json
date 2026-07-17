@@ -1,0 +1,12 @@
+{
+  "maximum_abs_rate_c_h": 20.0,
+  "maximum_interval_h": 0.3,
+  "minimum_abs_error_c": 0.3,
+  "minimum_points_per_run": 30,
+  "model": "dT_executed_dt=(setpoint-T_executed)/tau",
+  "schema_version": 1,
+  "tau_bounds_h": [
+    0.05,
+    12.0
+  ]
+}

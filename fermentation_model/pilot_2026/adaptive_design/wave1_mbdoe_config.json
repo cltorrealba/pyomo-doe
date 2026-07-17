@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "campaign_id": "pilot_2026",
+  "seed": 20260717,
+  "source_contract": {
+    "joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+    "aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+    "engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
+    "temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+  },
+  "objective": {
+    "criterion": "robust_bayesian_D_information_gain",
+    "priority_parameters": [
+      "ethyl_acetate__formation_growth_ug_per_g_sugar",
+      "ethyl_acetate__formation_stationary_ug_per_g_sugar",
+      "ethyl_acetate__effective_loss_scale",
+      "ethyl_octanoate__formation_growth_ug_per_g_sugar",
+      "ethyl_octanoate__formation_stationary_ug_per_g_sugar",
+      "ethyl_octanoate__effective_loss_scale",
+      "isoamyl_acetate__formation_growth_ug_per_g_sugar",
+      "isoamyl_acetate__formation_stationary_ug_per_g_sugar",
+      "isoamyl_acetate__effective_loss_scale"
+    ],
+    "representative_ensemble_members": 8,
+    "median_weight": 0.75,
+    "lower_decile_weight": 0.25,
+    "finite_difference_log_step": 0.02,
+    "prior_ridge": 0.001
+  },
+  "future_process": {
+    "start_local": "2026-07-20T09:00:00-04:00",
+    "maximum_horizon_h": 504.0,
+    "information_horizon_h": 264.0,
+    "temperature_slot_h": 12.0,
+    "optimized_temperature_slots": 14,
+    "temperature_minimum_c": 15.0,
+    "temperature_maximum_c": 25.0,
+    "temperature_after_optimized_window": "hold_last_setpoint",
+    "initials": {
+      "X": 0.022436671416774176,
+      "Xd": 0.4851803289627321,
+      "N": 0.272,
+      "G": 78.72,
+      "F": 77.57,
+      "E": 9.8625,
+      "Gly": 0.98
+    },
+    "temperature_actuator": {
+      "model": "first_order_setpoint_to_Sonda1",
+      "global_tau_h": 0.3177272541838157,
+      "initial_temperature_c": 18.0,
+      "simulation_step_h": 0.25,
+      "run_tau_range_h": [0.211482, 0.45813]
+    }
+  },
+  "anchor": {
+    "temperature_c": 18.0,
+    "nutrition_pulses_mg_yan_l": [[48.0, 80.0]]
+  },
+  "nutrition": {
+    "maximum_pulses": 3,
+    "maximum_yan_per_pulse_mg_l": 80.0,
+    "maximum_total_yan_mg_l": 232.0,
+    "latest_h": 96.0,
+    "manual_weekdays": [0, 1, 2, 3, 4],
+    "manual_hours_local": [9, 13, 17],
+    "zero_pulse_threshold_mg_l": 1.0,
+    "product_mapping_policy": "optimize_total_YAN_only; product split is a later fixed operational translation because the current kinetic model does not distinguish organic product from DAP"
+  },
+  "sampling": {
+    "samples_per_process": 10,
+    "preliminary_times_h": [0.0, 4.0, 8.0, 24.0, 28.0, 32.0, 48.0, 52.0, 72.0, 96.0],
+    "capture_intervals_per_process": 9,
+    "capture_stages_c": [0.0, -40.0]
+  },
+  "completion": {
+    "residual_sugar_g_l": 4.0,
+    "minimum_probability": 0.95,
+    "penalty_per_failed_fraction": 1000.0
+  },
+  "search": {
+    "representative_members": 4,
+    "particles": 16,
+    "iterations": 12,
+    "inertia": 0.72,
+    "cognitive": 1.49,
+    "social": 1.49,
+    "local_temperature_step_c": 0.5,
+    "local_yan_step_mg_l": 5.0,
+    "local_trust_fraction": 0.12,
+    "cache_temperature_decimals": 3,
+    "cache_yan_decimals": 2
+  },
+  "release_policy": {
+    "adapter_validation_required": true,
+    "full_ensemble_qualification_required": true,
+    "owner_plot_approval_required": true,
+    "ultra_audit_required": true,
+    "physical_execution_authorized": false
+  }
+}

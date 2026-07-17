@@ -1,0 +1,99 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/fit_temperature_actuator.py"
+    ],
+    "sha256": "1fd635ce1158e46ed94ef78121c030befe69796e6488b3900950833d67c21cc7"
+  },
+  "configuration": {
+    "payload": {
+      "maximum_abs_rate_c_h": 20.0,
+      "maximum_interval_h": 0.3,
+      "minimum_abs_error_c": 0.3,
+      "minimum_points_per_run": 30,
+      "model": "dT_executed_dt=(setpoint-T_executed)/tau",
+      "schema_version": 1,
+      "tau_bounds_h": [
+        0.05,
+        12.0
+      ]
+    },
+    "sha256": "701f2d5202c0a730668307cf582b67e61966a812a1c701eb9769b8e444cb558d"
+  },
+  "created_utc": "2026-07-17T17:06:20.711863+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": null,
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "checks": {
+      "all_nine_runs_evaluated": true,
+      "at_least_six_run_fits_valid": true,
+      "global_tau_finite": true,
+      "global_tau_inside_bounds": true
+    },
+    "gate": "temperature_actuator_identification",
+    "global_tau_h": 7.819204593273112,
+    "interpretation": "working first-order setpoint-to-Sonda1 actuator model for MBDoE; uncertainty remains represented by run spread",
+    "profiles_for_physical_execution": false,
+    "verdict": "PASS"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "057aabe9e8da9274301afb3b3417478bcf1a0ee6",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170620Z_701f2d",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170620Z_701f2d/actuator_config.json": {
+      "bytes": 248,
+      "sha256": "fb683fc22df4d3c46d5956e342c085e7cfbb438c279abd4616265c32975eb75f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170620Z_701f2d/actuator_estimates_by_run.csv": {
+      "bytes": 509,
+      "sha256": "2006854d8ced4a1ccf86784b3d771e2467bdd840a6f5a9798d42d5c2f666ad46"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170620Z_701f2d/actuator_gate.json": {
+      "bytes": 453,
+      "sha256": "e9a2c58b3892ea403280493fe0d49d016cbe3bc8dcbd16f3e83964d45a4e096f"
+    }
+  },
+  "random_seeds": [],
+  "run_id": "20260717T170620Z_701f2d",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "valid_run_fits": 9
+  },
+  "sources": {
+    "model_manifest": {
+      "bytes": 6866,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/run_manifest.json",
+      "sha256": "6db24e1281268b7de7aab628c074938f61558ac00379f8a396f517672bc3e976"
+    },
+    "temperature_inputs": {
+      "bytes": 1960947,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/temperature_inputs.csv",
+      "sha256": "341607d8c95449950e692db80432d2e4872ae3acfe7e5786bfbb10fd026bd972"
+    }
+  },
+  "stage": "temperature_actuator_identification",
+  "status": "completed"
+}

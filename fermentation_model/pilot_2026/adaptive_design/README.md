@@ -15,6 +15,10 @@ python fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibratio
 python fermentation_model/pilot_2026/adaptive_design/run_aroma_calibration.py
 python fermentation_model/pilot_2026/adaptive_design/build_joint_ensemble.py
 python fermentation_model/pilot_2026/adaptive_design/qualify_hybrid_engine.py
+python fermentation_model/pilot_2026/adaptive_design/fit_temperature_actuator.py
+python fermentation_model/pilot_2026/adaptive_design/validate_wave1_mbdoe_adapter.py
+python fermentation_model/pilot_2026/adaptive_design/run_wave1_hybrid_search.py
+python fermentation_model/pilot_2026/adaptive_design/optimize_wave1_sampling_and_plots.py
 ```
 
 The historical 53-error artifact is not rebaselined.  It is classified as 52
@@ -88,3 +92,23 @@ Pyomo/IPOPT or cyipopt interface is installed. SciPy is not accepted as a final
 substitute. Run the qualification command above in the approved environment
 where IPOPT is available; candidate generation stays locked until that gate and
 the real MBDoE objective adapter both pass.
+
+The approved Windows environment subsequently passed the real IPOPT benchmark
+in `hybrid_engine_qualification/20260717T164729Z_c7a6d5`.  The Wave-1 adapter
+then passed after adding a first-order setpoint-to-Sonda1 actuator model fitted
+from all nine Pilot 2026 runs (global step-response tau = 0.318 h).
+
+The current preliminary pair under
+`wave1_hybrid_search/20260717T171902Z_9d52be` was evaluated against all 64 joint
+ensemble members. It reaches median information gain 7.89, lower-decile gain
+5.22, 100% completion by the three-week horizon and maximum terminal residual
+sugar 3.46 g/L. Its ten-sample-per-process schedules and review figures are in
+`wave1_sampling/20260717T172453Z_9d52be`. The executable sampling gate is
+`PASS_CONDITIONAL`: samples are restricted to weekdays 09:00–17:00 and each has
+at least 95% probability of preceding biological drying.
+
+These are deliberately high-excitation computational candidates, not physical
+instructions. The same Wave-1 search must still be rerun in the approved IPOPT
+environment so the local trust-region surrogate is solved and revalidated
+against the actual MBDoE objective. Owner plot review and independent Ultra
+audit remain mandatory before tank assignment or physical release.

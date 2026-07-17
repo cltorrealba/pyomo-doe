@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "all_samples_at_least_95pct_active": true,
+    "all_samples_inside_09_17_window": true,
+    "all_samples_weekdays": true,
+    "candidate_beats_three_anchor_terminal_sampling_reference": true,
+    "exactly_ten_samples_per_process": true,
+    "full_ensemble_information_finite": true,
+    "physical_execution_still_locked": true
+  },
+  "conditions": [
+    "Run IPOPT local refinement in the approved solver environment.",
+    "Owner must review candidate plots.",
+    "Independent Ultra audit is required before physical release."
+  ],
+  "gate": "phase_D_wave1_sampling_and_plot_review",
+  "information": {
+    "optimized_lower_decile_gain": 2.8670823780984995,
+    "optimized_median_gain": 7.0636555846546045,
+    "optimized_robust_score": 6.014512283015578,
+    "preliminary_robust_score": 7.22000155390072,
+    "three_anchor_terminal_sampling_reference_score": 5.466233486764738
+  },
+  "profiles_for_physical_execution": false,
+  "verdict": "PASS_CONDITIONAL"
+}

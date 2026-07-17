@@ -76,7 +76,7 @@
     "owner_loading_qc_approved": true,
     "active_cooling_separation_approved": true,
     "calibration_gate_passed": true,
-    "engine_qualification_passed": false,
+    "engine_qualification_passed": true,
     "candidate_plots_approved_by_owner": false,
     "physical_execution_authorized": false
   },

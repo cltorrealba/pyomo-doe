@@ -27,6 +27,7 @@ def particle_swarm(
     inertia: float = 0.72,
     cognitive: float = 1.49,
     social: float = 1.49,
+    initial_positions: np.ndarray | None = None,
 ) -> ParticleSwarmResult:
     bounds = np.asarray(bounds, dtype=float)
     if bounds.ndim != 2 or bounds.shape[1] != 2 or np.any(bounds[:, 0] >= bounds[:, 1]):
@@ -37,6 +38,11 @@ def particle_swarm(
     lower, upper = bounds[:, 0], bounds[:, 1]
     span = upper - lower
     positions = lower + rng.random((particles, len(bounds))) * span
+    if initial_positions is not None:
+        seeds = np.atleast_2d(np.asarray(initial_positions, dtype=float))
+        if seeds.shape[1] != len(bounds) or len(seeds) > particles:
+            raise ValueError("initial_positions must have at most particles rows and match bounds")
+        positions[: len(seeds)] = np.clip(seeds, lower, upper)
     velocities = rng.uniform(-0.1, 0.1, size=positions.shape) * span
     values = np.asarray([objective(row.copy()) for row in positions], dtype=float)
     if not np.isfinite(values).all():
