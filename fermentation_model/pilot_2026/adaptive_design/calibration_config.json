@@ -1,0 +1,59 @@
+{
+  "campaign_id": "pilot_2026",
+  "schema_version": 1,
+  "random_seeds": [20260716, 20260731, 20260819, 20260907, 20261003],
+  "target_yeast": "Zymaflore X5",
+  "parameterization": "strictly_positive_parameters_in_log_space",
+  "pilot_2025_policy": {
+    "use_existing_integrated_result_as_prior": false,
+    "required_action_before_use": "regenerate_one_coherent_run_from_source_and_treat_as_weak_physical_structure_only"
+  },
+  "campaign_hierarchy": {
+    "pilot_2026": "target_kinetics_and_target_matrix",
+    "laboratory_2026": "mechanistic_support_only_after_own_QC_with_matrix_and_scale_effects",
+    "pilot_2025": "weak_physical_structure_only_after_coherent_regeneration"
+  },
+  "planned_stages": [
+    {
+      "stage": 1,
+      "name": "primary_fermentation_states",
+      "candidate_parameters": ["mu0", "qN", "betaG0", "betaF0", "qEG", "qEF", "iG", "iE", "Kd0", "gammaG0", "gammaF0"],
+      "selection_rule": "reduced set chosen by multistart convergence, profiles, correlations, and bound diagnostics"
+    },
+    {
+      "stage": 2,
+      "name": "co2_release_and_transfer",
+      "campaign_scope": "Pilot 2026 Lots 2-3 only",
+      "candidate_parameters": ["co2_yield", "kla_co2", "sensor_gain_by_tank", "lot_effect"]
+    },
+    {
+      "stage": 3,
+      "name": "wine_and_interval_condensate_aromas",
+      "likelihood": "observed plus left-censored; interval-integrated captured mass",
+      "candidate_parameters": ["aroma_formation", "partition", "capture_efficiency", "tank_effect"]
+    },
+    {
+      "stage": 4,
+      "name": "limited_joint_polish",
+      "selection_rule": "only estimable reduced targets; preserve posterior ensemble and covariance"
+    }
+  ],
+  "nuisance_effects": ["tank", "lot", "campaign", "scale", "capture_efficiency", "sensor_gain"],
+  "fim_nuisance_marginalization": "Schur_complement",
+  "owner_prerequisites": {
+    "loading_qc_notebook_review_approved": false,
+    "independent_ultra_verification_complete": false,
+    "massview_factory_reference_temperature_confirmed": false,
+    "massview_factory_reference_pressure_confirmed": false,
+    "yan_80_vs_90_435_mg_l_reconciled": false,
+    "oculyze_cell_to_biomass_conversion_confirmed": false,
+    "observation_error_and_censoring_scales_approved": false,
+    "storage_history_completed_for_reserved_aliquots": false
+  },
+  "stop_rules": {
+    "require_all_multistarts_convergence_summary": true,
+    "reject_bound_dominated_target_profiles": true,
+    "reject_large_structural_residuals": true,
+    "require_posterior_ensemble_and_covariance": true
+  }
+}

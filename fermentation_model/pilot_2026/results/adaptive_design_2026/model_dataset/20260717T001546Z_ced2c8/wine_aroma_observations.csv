@@ -1,0 +1,235 @@
+experiment_id,sample_id,lab_sample_id,sample_timestamp,time_h,analyte,observed_value,reported_numeric_value,unit,observation_operator,model_observation_type,lower_bound,upper_bound,result_status,sample_basis_loq_ug_l,reported_value
+26157,26157-P-01,Lab-26-2033,2026-04-06 13:00:00,0.0,Decanoato de Etilo,2.44232738813298,2.44232738813298,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,2.44232738813298
+26157,26157-P-01,Lab-26-2033,2026-04-06 13:00:00,0.0,Etil Acetato,1118.77173470223,1118.77173470223,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,1118.77173470223
+26157,26157-P-01,Lab-26-2033,2026-04-06 13:00:00,0.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26157,26157-P-01,Lab-26-2033,2026-04-06 13:00:00,0.0,Hexil Acetato,0.838047772075084,0.838047772075084,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.838047772075084
+26157,26157-P-01,Lab-26-2033,2026-04-06 13:00:00,0.0,Isoamil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26157,26157-P-01,Lab-26-2033,2026-04-06 13:00:00,0.0,Octanoato de Etilo,3.99488679667801,3.99488679667801,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,3.99488679667801
+26157,26157-P-05,Lab-26-2035,2026-04-08 15:00:00,50.0,Decanoato de Etilo,16.5076100040894,16.5076100040894,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,16.5076100040894
+26157,26157-P-05,Lab-26-2035,2026-04-08 15:00:00,50.0,Etil Acetato,4682.59488298487,4682.59488298487,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,4682.59488298487
+26157,26157-P-05,Lab-26-2035,2026-04-08 15:00:00,50.0,Feniletil Acetato,31.9900514831224,31.9900514831224,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,31.9900514831224
+26157,26157-P-05,Lab-26-2035,2026-04-08 15:00:00,50.0,Hexil Acetato,155.605485725609,155.605485725609,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,155.605485725609
+26157,26157-P-05,Lab-26-2035,2026-04-08 15:00:00,50.0,Isoamil Acetato,358.095895130861,358.095895130861,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,358.095895130861
+26157,26157-P-05,Lab-26-2035,2026-04-08 15:00:00,50.0,Octanoato de Etilo,38.3768001866699,38.3768001866699,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,38.3768001866699
+26157,26157-P-08,Lab-26-2037,2026-04-10 08:00:00,91.0,Decanoato de Etilo,19.750135860042,19.750135860042,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,19.750135860042
+26157,26157-P-08,Lab-26-2037,2026-04-10 08:00:00,91.0,Etil Acetato,14079.9482595189,14079.9482595189,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,14079.9482595189
+26157,26157-P-08,Lab-26-2037,2026-04-10 08:00:00,91.0,Feniletil Acetato,113.403011002358,113.403011002358,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,113.403011002358
+26157,26157-P-08,Lab-26-2037,2026-04-10 08:00:00,91.0,Hexil Acetato,296.49009202075,296.49009202075,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,296.49009202075
+26157,26157-P-08,Lab-26-2037,2026-04-10 08:00:00,91.0,Isoamil Acetato,1605.5334511929,1605.5334511929,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1605.5334511929
+26157,26157-P-08,Lab-26-2037,2026-04-10 08:00:00,91.0,Octanoato de Etilo,97.3195154412642,97.3195154412642,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,97.3195154412642
+26157,26157-P-10,Lab-26-2039,2026-04-11 08:00:00,115.0,Decanoato de Etilo,14.9852435279222,14.9852435279222,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,14.9852435279222
+26157,26157-P-10,Lab-26-2039,2026-04-11 08:00:00,115.0,Etil Acetato,15234.1622895453,15234.1622895453,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,15234.1622895453
+26157,26157-P-10,Lab-26-2039,2026-04-11 08:00:00,115.0,Feniletil Acetato,119.442934588339,119.442934588339,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,119.442934588339
+26157,26157-P-10,Lab-26-2039,2026-04-11 08:00:00,115.0,Hexil Acetato,233.421649178012,233.421649178012,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,233.421649178012
+26157,26157-P-10,Lab-26-2039,2026-04-11 08:00:00,115.0,Isoamil Acetato,1713.24136842909,1713.24136842909,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1713.24136842909
+26157,26157-P-10,Lab-26-2039,2026-04-11 08:00:00,115.0,Octanoato de Etilo,77.1235810837207,77.1235810837207,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,77.1235810837207
+26157,26157-P-12,Lab-26-2041,2026-04-12 15:00:00,146.0,Decanoato de Etilo,22.9707994059474,22.9707994059474,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,22.9707994059474
+26157,26157-P-12,Lab-26-2041,2026-04-12 15:00:00,146.0,Etil Acetato,15763.7489947126,15763.7489947126,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,15763.7489947126
+26157,26157-P-12,Lab-26-2041,2026-04-12 15:00:00,146.0,Feniletil Acetato,129.186661978201,129.186661978201,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,129.186661978201
+26157,26157-P-12,Lab-26-2041,2026-04-12 15:00:00,146.0,Hexil Acetato,237.804354426785,237.804354426785,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,237.804354426785
+26157,26157-P-12,Lab-26-2041,2026-04-12 15:00:00,146.0,Isoamil Acetato,1763.78804595075,1763.78804595075,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1763.78804595075
+26157,26157-P-12,Lab-26-2041,2026-04-12 15:00:00,146.0,Octanoato de Etilo,110.036436506428,110.036436506428,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,110.036436506428
+26157,26157-P-13,Lab-26-2043,2026-04-13 08:00:00,163.0,Decanoato de Etilo,16.9338592215234,16.9338592215234,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,16.9338592215234
+26157,26157-P-13,Lab-26-2043,2026-04-13 08:00:00,163.0,Etil Acetato,15886.1030435996,15886.1030435996,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,15886.1030435996
+26157,26157-P-13,Lab-26-2043,2026-04-13 08:00:00,163.0,Feniletil Acetato,127.679230900191,127.679230900191,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,127.679230900191
+26157,26157-P-13,Lab-26-2043,2026-04-13 08:00:00,163.0,Hexil Acetato,213.447159758645,213.447159758645,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,213.447159758645
+26157,26157-P-13,Lab-26-2043,2026-04-13 08:00:00,163.0,Isoamil Acetato,1705.03030563037,1705.03030563037,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1705.03030563037
+26157,26157-P-13,Lab-26-2043,2026-04-13 08:00:00,163.0,Octanoato de Etilo,93.0829282829916,93.0829282829916,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,93.0829282829916
+26158,26158-P-01,Lab-26-2044,2026-04-06 13:00:00,0.0,Decanoato de Etilo,1.2483305418578057,1.2483305418578057,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,1.2483305418578055
+26158,26158-P-01,Lab-26-2044,2026-04-06 13:00:00,0.0,Etil Acetato,1185.36257694912,1185.36257694912,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,1185.36257694912
+26158,26158-P-01,Lab-26-2044,2026-04-06 13:00:00,0.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26158,26158-P-01,Lab-26-2044,2026-04-06 13:00:00,0.0,Hexil Acetato,0.9743841642467124,0.9743841642467124,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.9743841642467125
+26158,26158-P-01,Lab-26-2044,2026-04-06 13:00:00,0.0,Isoamil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26158,26158-P-01,Lab-26-2044,2026-04-06 13:00:00,0.0,Octanoato de Etilo,3.29102804892883,3.29102804892883,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,3.29102804892883
+26158,26158-P-05,Lab-26-2046,2026-04-08 15:00:00,50.0,Decanoato de Etilo,15.6480970427124,15.6480970427124,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,15.6480970427124
+26158,26158-P-05,Lab-26-2046,2026-04-08 15:00:00,50.0,Etil Acetato,6519.30322970597,6519.30322970597,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,6519.30322970597
+26158,26158-P-05,Lab-26-2046,2026-04-08 15:00:00,50.0,Feniletil Acetato,42.516247210368,42.516247210368,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,42.516247210368
+26158,26158-P-05,Lab-26-2046,2026-04-08 15:00:00,50.0,Hexil Acetato,202.960877654901,202.960877654901,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,202.960877654901
+26158,26158-P-05,Lab-26-2046,2026-04-08 15:00:00,50.0,Isoamil Acetato,499.735530099825,499.735530099825,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,499.735530099825
+26158,26158-P-05,Lab-26-2046,2026-04-08 15:00:00,50.0,Octanoato de Etilo,49.7291679584244,49.7291679584244,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,49.7291679584244
+26158,26158-P-08,Lab-26-2048,2026-04-10 08:00:00,91.0,Decanoato de Etilo,12.0308519796078,12.0308519796078,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,12.0308519796078
+26158,26158-P-08,Lab-26-2048,2026-04-10 08:00:00,91.0,Etil Acetato,12408.3802149936,12408.3802149936,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,12408.3802149936
+26158,26158-P-08,Lab-26-2048,2026-04-10 08:00:00,91.0,Feniletil Acetato,97.9197630264898,97.9197630264898,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,97.9197630264898
+26158,26158-P-08,Lab-26-2048,2026-04-10 08:00:00,91.0,Hexil Acetato,279.940921366558,279.940921366558,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,279.940921366558
+26158,26158-P-08,Lab-26-2048,2026-04-10 08:00:00,91.0,Isoamil Acetato,1480.85790062567,1480.85790062567,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1480.85790062567
+26158,26158-P-08,Lab-26-2048,2026-04-10 08:00:00,91.0,Octanoato de Etilo,75.9234070499214,75.9234070499214,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,75.9234070499214
+26158,26158-P-10,Lab-26-2050,2026-04-11 08:00:00,115.0,Decanoato de Etilo,12.1558977092019,12.1558977092019,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,12.1558977092019
+26158,26158-P-10,Lab-26-2050,2026-04-11 08:00:00,115.0,Etil Acetato,14638.0496796741,14638.0496796741,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,14638.0496796741
+26158,26158-P-10,Lab-26-2050,2026-04-11 08:00:00,115.0,Feniletil Acetato,111.111172131249,111.111172131249,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,111.111172131249
+26158,26158-P-10,Lab-26-2050,2026-04-11 08:00:00,115.0,Hexil Acetato,256.975634580983,256.975634580983,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,256.975634580983
+26158,26158-P-10,Lab-26-2050,2026-04-11 08:00:00,115.0,Isoamil Acetato,1682.34638418107,1682.34638418107,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1682.34638418107
+26158,26158-P-10,Lab-26-2050,2026-04-11 08:00:00,115.0,Octanoato de Etilo,79.1838547717578,79.1838547717578,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,79.1838547717578
+26158,26158-P-12,Lab-26-2052,2026-04-12 15:00:00,146.0,Decanoato de Etilo,16.28838644651595,16.28838644651595,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,16.28838644651595
+26158,26158-P-12,Lab-26-2052,2026-04-12 15:00:00,146.0,Etil Acetato,14246.92944733475,14246.92944733475,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,14246.92944733475
+26158,26158-P-12,Lab-26-2052,2026-04-12 15:00:00,146.0,Feniletil Acetato,106.43914389581346,106.43914389581346,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,106.43914389581346
+26158,26158-P-12,Lab-26-2052,2026-04-12 15:00:00,146.0,Hexil Acetato,227.1883779749445,227.1883779749445,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,227.1883779749445
+26158,26158-P-12,Lab-26-2052,2026-04-12 15:00:00,146.0,Isoamil Acetato,1544.59554433912,1544.59554433912,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1544.59554433912
+26158,26158-P-12,Lab-26-2052,2026-04-12 15:00:00,146.0,Octanoato de Etilo,91.21193516995416,91.21193516995416,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,91.21193516995416
+26158,26158-P-13,Lab-26-2054,2026-04-13 08:00:00,163.0,Decanoato de Etilo,8.52829164280373,8.52829164280373,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,8.52829164280373
+26158,26158-P-13,Lab-26-2054,2026-04-13 08:00:00,163.0,Etil Acetato,12116.4378739372,12116.4378739372,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,12116.4378739372
+26158,26158-P-13,Lab-26-2054,2026-04-13 08:00:00,163.0,Feniletil Acetato,89.4416949201251,89.4416949201251,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,89.4416949201251
+26158,26158-P-13,Lab-26-2054,2026-04-13 08:00:00,163.0,Hexil Acetato,175.766009232117,175.766009232117,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,175.766009232117
+26158,26158-P-13,Lab-26-2054,2026-04-13 08:00:00,163.0,Isoamil Acetato,1345.70106005835,1345.70106005835,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1345.70106005835
+26158,26158-P-13,Lab-26-2054,2026-04-13 08:00:00,163.0,Octanoato de Etilo,64.3678361856269,64.3678361856269,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,64.3678361856269
+26159,26159-P-01,Lab-26-2055,2026-04-06 13:00:00,0.0,Decanoato de Etilo,1.11709277430393,1.11709277430393,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,1.11709277430393
+26159,26159-P-01,Lab-26-2055,2026-04-06 13:00:00,0.0,Etil Acetato,1452.752776771,1452.752776771,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,1452.752776771
+26159,26159-P-01,Lab-26-2055,2026-04-06 13:00:00,0.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26159,26159-P-01,Lab-26-2055,2026-04-06 13:00:00,0.0,Hexil Acetato,1.44333514836591,1.44333514836591,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,1.44333514836591
+26159,26159-P-01,Lab-26-2055,2026-04-06 13:00:00,0.0,Isoamil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26159,26159-P-01,Lab-26-2055,2026-04-06 13:00:00,0.0,Octanoato de Etilo,3.67038346931453,3.67038346931453,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,3.67038346931453
+26159,26159-P-05,Lab-26-2057,2026-04-08 15:00:00,50.0,Decanoato de Etilo,1.44305663738346,1.44305663738346,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,1.44305663738346
+26159,26159-P-05,Lab-26-2057,2026-04-08 15:00:00,50.0,Etil Acetato,3022.12131077924,3022.12131077924,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,3022.12131077924
+26159,26159-P-05,Lab-26-2057,2026-04-08 15:00:00,50.0,Feniletil Acetato,,3.6268012388375,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,below_loq,5.0,3.6268012388375
+26159,26159-P-05,Lab-26-2057,2026-04-08 15:00:00,50.0,Hexil Acetato,71.9457039033856,71.9457039033856,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,71.9457039033856
+26159,26159-P-05,Lab-26-2057,2026-04-08 15:00:00,50.0,Isoamil Acetato,121.104676919261,121.104676919261,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,121.104676919261
+26159,26159-P-05,Lab-26-2057,2026-04-08 15:00:00,50.0,Octanoato de Etilo,13.2449894050151,13.2449894050151,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,13.2449894050151
+26159,26159-P-09,Lab-26-2059,2026-04-11 08:00:00,115.0,Decanoato de Etilo,10.0307434424595,10.0307434424595,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,10.0307434424595
+26159,26159-P-09,Lab-26-2059,2026-04-11 08:00:00,115.0,Etil Acetato,10265.9411306078,10265.9411306078,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,10265.9411306078
+26159,26159-P-09,Lab-26-2059,2026-04-11 08:00:00,115.0,Feniletil Acetato,81.5774261535472,81.5774261535472,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,81.5774261535472
+26159,26159-P-09,Lab-26-2059,2026-04-11 08:00:00,115.0,Hexil Acetato,181.441279648338,181.441279648338,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,181.441279648338
+26159,26159-P-09,Lab-26-2059,2026-04-11 08:00:00,115.0,Isoamil Acetato,997.467214645297,997.467214645297,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,997.467214645297
+26159,26159-P-09,Lab-26-2059,2026-04-11 08:00:00,115.0,Octanoato de Etilo,60.5589468677226,60.5589468677226,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,60.5589468677226
+26159,26159-P-11,Lab-26-2061,2026-04-12 08:00:00,139.0,Decanoato de Etilo,11.2754217931928,11.2754217931928,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,11.2754217931928
+26159,26159-P-11,Lab-26-2061,2026-04-12 08:00:00,139.0,Etil Acetato,11552.9330030973,11552.9330030973,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,11552.9330030973
+26159,26159-P-11,Lab-26-2061,2026-04-12 08:00:00,139.0,Feniletil Acetato,83.2207449384892,83.2207449384892,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,83.2207449384892
+26159,26159-P-11,Lab-26-2061,2026-04-12 08:00:00,139.0,Hexil Acetato,187.85122941154,187.85122941154,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,187.85122941154
+26159,26159-P-11,Lab-26-2061,2026-04-12 08:00:00,139.0,Isoamil Acetato,1145.18146160337,1145.18146160337,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1145.18146160337
+26159,26159-P-11,Lab-26-2061,2026-04-12 08:00:00,139.0,Octanoato de Etilo,67.2430559968067,67.2430559968067,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,67.2430559968067
+26159,26159-P-12,Lab-26-2063,2026-04-12 15:00:00,146.0,Decanoato de Etilo,15.8204993265372,15.8204993265372,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,15.8204993265372
+26159,26159-P-12,Lab-26-2063,2026-04-12 15:00:00,146.0,Etil Acetato,12029.7015225945,12029.7015225945,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,12029.7015225945
+26159,26159-P-12,Lab-26-2063,2026-04-12 15:00:00,146.0,Feniletil Acetato,85.9653127794023,85.9653127794023,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,85.9653127794023
+26159,26159-P-12,Lab-26-2063,2026-04-12 15:00:00,146.0,Hexil Acetato,202.738290021068,202.738290021068,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,202.738290021068
+26159,26159-P-12,Lab-26-2063,2026-04-12 15:00:00,146.0,Isoamil Acetato,1214.23807005452,1214.23807005452,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1214.23807005452
+26159,26159-P-12,Lab-26-2063,2026-04-12 15:00:00,146.0,Octanoato de Etilo,82.6697466412229,82.6697466412229,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,82.6697466412229
+26159,26159-P-15,Lab-26-2065,2026-04-15 08:00:00,211.0,Decanoato de Etilo,13.0357075497305,13.0357075497305,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,13.0357075497305
+26159,26159-P-15,Lab-26-2065,2026-04-15 08:00:00,211.0,Etil Acetato,12083.5436704646,12083.5436704646,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,12083.5436704646
+26159,26159-P-15,Lab-26-2065,2026-04-15 08:00:00,211.0,Feniletil Acetato,90.2237817269383,90.2237817269383,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,90.2237817269383
+26159,26159-P-15,Lab-26-2065,2026-04-15 08:00:00,211.0,Hexil Acetato,163.303295175835,163.303295175835,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,163.303295175835
+26159,26159-P-15,Lab-26-2065,2026-04-15 08:00:00,211.0,Isoamil Acetato,1159.95513391424,1159.95513391424,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1159.95513391424
+26159,26159-P-15,Lab-26-2065,2026-04-15 08:00:00,211.0,Octanoato de Etilo,84.6982863113911,84.6982863113911,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,84.6982863113911
+26210,26210-P-01,Lab-26-2066,2026-04-17 16:00:00,0.0,Decanoato de Etilo,0.791051342540215,0.791051342540215,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.791051342540215
+26210,26210-P-01,Lab-26-2066,2026-04-17 16:00:00,0.0,Etil Acetato,1197.1995205113,1197.1995205113,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,1197.1995205113
+26210,26210-P-01,Lab-26-2066,2026-04-17 16:00:00,0.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26210,26210-P-01,Lab-26-2066,2026-04-17 16:00:00,0.0,Hexil Acetato,1.14667667754608,1.14667667754608,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,1.14667667754608
+26210,26210-P-01,Lab-26-2066,2026-04-17 16:00:00,0.0,Isoamil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26210,26210-P-01,Lab-26-2066,2026-04-17 16:00:00,0.0,Octanoato de Etilo,4.08289004611532,4.08289004611532,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,4.08289004611532
+26210,26210-P-05,Lab-26-2068,2026-04-19 16:00:00,48.0,Decanoato de Etilo,17.047311155541998,17.047311155541998,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,17.047311155541998
+26210,26210-P-05,Lab-26-2068,2026-04-19 16:00:00,48.0,Etil Acetato,6858.48756275082,6858.48756275082,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,6858.48756275082
+26210,26210-P-05,Lab-26-2068,2026-04-19 16:00:00,48.0,Feniletil Acetato,46.415320461434746,46.415320461434746,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,46.415320461434746
+26210,26210-P-05,Lab-26-2068,2026-04-19 16:00:00,48.0,Hexil Acetato,128.39563964894052,128.39563964894052,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,128.39563964894052
+26210,26210-P-05,Lab-26-2068,2026-04-19 16:00:00,48.0,Isoamil Acetato,531.2372339948845,531.2372339948845,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,531.2372339948845
+26210,26210-P-05,Lab-26-2068,2026-04-19 16:00:00,48.0,Octanoato de Etilo,65.14731614231954,65.14731614231954,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,65.14731614231954
+26210,26210-P-08,Lab-26-2070,2026-04-21 08:00:00,88.0,Decanoato de Etilo,14.2178935473915,14.2178935473915,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,14.2178935473915
+26210,26210-P-08,Lab-26-2070,2026-04-21 08:00:00,88.0,Etil Acetato,9414.920848812,9414.920848812,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,9414.920848812
+26210,26210-P-08,Lab-26-2070,2026-04-21 08:00:00,88.0,Feniletil Acetato,51.2150985775468,51.2150985775468,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,51.2150985775468
+26210,26210-P-08,Lab-26-2070,2026-04-21 08:00:00,88.0,Hexil Acetato,164.974932438879,164.974932438879,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,164.974932438879
+26210,26210-P-08,Lab-26-2070,2026-04-21 08:00:00,88.0,Isoamil Acetato,880.484465501079,880.484465501079,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,880.484465501079
+26210,26210-P-08,Lab-26-2070,2026-04-21 08:00:00,88.0,Octanoato de Etilo,67.3989392409632,67.3989392409632,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,67.3989392409632
+26210,26210-P-10,Lab-26-2072,2026-04-22 08:00:00,112.0,Decanoato de Etilo,12.4063624569635,12.4063624569635,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,12.4063624569635
+26210,26210-P-10,Lab-26-2072,2026-04-22 08:00:00,112.0,Etil Acetato,9005.87846240339,9005.87846240339,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,9005.87846240339
+26210,26210-P-10,Lab-26-2072,2026-04-22 08:00:00,112.0,Feniletil Acetato,68.7185584177481,68.7185584177481,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,68.7185584177481
+26210,26210-P-10,Lab-26-2072,2026-04-22 08:00:00,112.0,Hexil Acetato,144.174193597204,144.174193597204,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,144.174193597204
+26210,26210-P-10,Lab-26-2072,2026-04-22 08:00:00,112.0,Isoamil Acetato,874.53283000302,874.53283000302,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,874.53283000302
+26210,26210-P-10,Lab-26-2072,2026-04-22 08:00:00,112.0,Octanoato de Etilo,61.1306531744098,61.1306531744098,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,61.1306531744098
+26210,26210-P-12,Lab-26-2074,2026-04-23 16:00:00,144.0,Decanoato de Etilo,15.6559297887723,15.6559297887723,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,15.6559297887723
+26210,26210-P-12,Lab-26-2074,2026-04-23 16:00:00,144.0,Etil Acetato,10051.8761648533,10051.8761648533,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,10051.8761648533
+26210,26210-P-12,Lab-26-2074,2026-04-23 16:00:00,144.0,Feniletil Acetato,83.3105836945066,83.3105836945066,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,83.3105836945066
+26210,26210-P-12,Lab-26-2074,2026-04-23 16:00:00,144.0,Hexil Acetato,120.103337325442,120.103337325442,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,120.103337325442
+26210,26210-P-12,Lab-26-2074,2026-04-23 16:00:00,144.0,Isoamil Acetato,855.280434442299,855.280434442299,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,855.280434442299
+26210,26210-P-12,Lab-26-2074,2026-04-23 16:00:00,144.0,Octanoato de Etilo,72.8728334946287,72.8728334946287,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,72.8728334946287
+26210,26210-P-13,Lab-26-2076,2026-04-24 08:00:00,160.0,Decanoato de Etilo,17.318711997995152,17.318711997995152,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,17.318711997995152
+26210,26210-P-13,Lab-26-2076,2026-04-24 08:00:00,160.0,Etil Acetato,11336.3165712386,11336.3165712386,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,11336.3165712386
+26210,26210-P-13,Lab-26-2076,2026-04-24 08:00:00,160.0,Feniletil Acetato,83.2535893660698,83.2535893660698,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,83.2535893660698
+26210,26210-P-13,Lab-26-2076,2026-04-24 08:00:00,160.0,Hexil Acetato,145.470287415261,145.470287415261,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,145.470287415261
+26210,26210-P-13,Lab-26-2076,2026-04-24 08:00:00,160.0,Isoamil Acetato,1002.6188022278254,1002.6188022278254,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1002.6188022278254
+26210,26210-P-13,Lab-26-2076,2026-04-24 08:00:00,160.0,Octanoato de Etilo,90.02865364968075,90.02865364968075,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,90.02865364968075
+26210,26210-P-14,Lab-26-2078,2026-04-25 11:00:00,187.0,Decanoato de Etilo,13.516868105276,13.516868105276,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,13.516868105276
+26210,26210-P-14,Lab-26-2078,2026-04-25 11:00:00,187.0,Etil Acetato,9978.24529790257,9978.24529790257,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,9978.24529790257
+26210,26210-P-14,Lab-26-2078,2026-04-25 11:00:00,187.0,Feniletil Acetato,66.5506234552367,66.5506234552367,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,66.5506234552367
+26210,26210-P-14,Lab-26-2078,2026-04-25 11:00:00,187.0,Hexil Acetato,129.273067124422,129.273067124422,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,129.273067124422
+26210,26210-P-14,Lab-26-2078,2026-04-25 11:00:00,187.0,Isoamil Acetato,913.78459643876,913.78459643876,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,913.78459643876
+26210,26210-P-14,Lab-26-2078,2026-04-25 11:00:00,187.0,Octanoato de Etilo,71.7735233193559,71.7735233193559,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,71.7735233193559
+26211,26211-P-01,Lab-26-2079,2026-04-17 16:00:00,0.0,Decanoato de Etilo,0.480120899545584,0.480120899545584,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.480120899545584
+26211,26211-P-01,Lab-26-2079,2026-04-17 16:00:00,0.0,Etil Acetato,882.793809441464,882.793809441464,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,882.793809441464
+26211,26211-P-01,Lab-26-2079,2026-04-17 16:00:00,0.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26211,26211-P-01,Lab-26-2079,2026-04-17 16:00:00,0.0,Hexil Acetato,0.885939846647974,0.885939846647974,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.885939846647974
+26211,26211-P-01,Lab-26-2079,2026-04-17 16:00:00,0.0,Isoamil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26211,26211-P-01,Lab-26-2079,2026-04-17 16:00:00,0.0,Octanoato de Etilo,2.8215877489116,2.8215877489116,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,2.8215877489116
+26211,26211-P-05,Lab-26-2081,2026-04-19 16:00:00,48.0,Decanoato de Etilo,6.10802676399756,6.10802676399756,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,6.10802676399756
+26211,26211-P-05,Lab-26-2081,2026-04-19 16:00:00,48.0,Etil Acetato,2789.95837276647,2789.95837276647,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,2789.95837276647
+26211,26211-P-05,Lab-26-2081,2026-04-19 16:00:00,48.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26211,26211-P-05,Lab-26-2081,2026-04-19 16:00:00,48.0,Hexil Acetato,71.492280510467,71.492280510467,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,71.492280510467
+26211,26211-P-05,Lab-26-2081,2026-04-19 16:00:00,48.0,Isoamil Acetato,137.58033128115,137.58033128115,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,137.58033128115
+26211,26211-P-05,Lab-26-2081,2026-04-19 16:00:00,48.0,Octanoato de Etilo,25.7759774092403,25.7759774092403,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,25.7759774092403
+26211,26211-P-08,Lab-26-2083,2026-04-21 08:00:00,88.0,Decanoato de Etilo,11.6225548272177,11.6225548272177,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,11.6225548272177
+26211,26211-P-08,Lab-26-2083,2026-04-21 08:00:00,88.0,Etil Acetato,6618.37947530073,6618.37947530073,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,6618.37947530073
+26211,26211-P-08,Lab-26-2083,2026-04-21 08:00:00,88.0,Feniletil Acetato,39.4902651494496,39.4902651494496,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,39.4902651494496
+26211,26211-P-08,Lab-26-2083,2026-04-21 08:00:00,88.0,Hexil Acetato,108.521393619773,108.521393619773,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,108.521393619773
+26211,26211-P-08,Lab-26-2083,2026-04-21 08:00:00,88.0,Isoamil Acetato,557.340500398434,557.340500398434,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,557.340500398434
+26211,26211-P-08,Lab-26-2083,2026-04-21 08:00:00,88.0,Octanoato de Etilo,51.7458370768133,51.7458370768133,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,51.7458370768133
+26211,26211-P-10,Lab-26-2085,2026-04-22 08:00:00,112.0,Decanoato de Etilo,10.3820043438793,10.3820043438793,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,10.3820043438793
+26211,26211-P-10,Lab-26-2085,2026-04-22 08:00:00,112.0,Etil Acetato,6235.95601385183,6235.95601385183,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,6235.95601385183
+26211,26211-P-10,Lab-26-2085,2026-04-22 08:00:00,112.0,Feniletil Acetato,52.3595748548771,52.3595748548771,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,52.3595748548771
+26211,26211-P-10,Lab-26-2085,2026-04-22 08:00:00,112.0,Hexil Acetato,88.1082416387588,88.1082416387588,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,88.1082416387588
+26211,26211-P-10,Lab-26-2085,2026-04-22 08:00:00,112.0,Isoamil Acetato,543.460428103363,543.460428103363,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,543.460428103363
+26211,26211-P-10,Lab-26-2085,2026-04-22 08:00:00,112.0,Octanoato de Etilo,42.6375915640932,42.6375915640932,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,42.6375915640932
+26211,26211-P-12,Lab-26-2087,2026-04-23 16:00:00,144.0,Decanoato de Etilo,69.2402460878585,69.2402460878585,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,69.2402460878585
+26211,26211-P-12,Lab-26-2087,2026-04-23 16:00:00,144.0,Etil Acetato,27465.5897825689,27465.5897825689,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,27465.5897825689
+26211,26211-P-12,Lab-26-2087,2026-04-23 16:00:00,144.0,Feniletil Acetato,115.00177580839,115.00177580839,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,115.00177580839
+26211,26211-P-12,Lab-26-2087,2026-04-23 16:00:00,144.0,Hexil Acetato,420.70569988432,420.70569988432,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,420.70569988432
+26211,26211-P-12,Lab-26-2087,2026-04-23 16:00:00,144.0,Isoamil Acetato,2731.60672911657,2731.60672911657,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,2731.60672911657
+26211,26211-P-12,Lab-26-2087,2026-04-23 16:00:00,144.0,Octanoato de Etilo,226.216794539138,226.216794539138,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,226.216794539138
+26211,26211-P-13,Lab-26-2089,2026-04-24 08:00:00,160.0,Decanoato de Etilo,17.0857427865302,17.0857427865302,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,17.0857427865302
+26211,26211-P-13,Lab-26-2089,2026-04-24 08:00:00,160.0,Etil Acetato,10401.1742731794,10401.1742731794,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,10401.1742731794
+26211,26211-P-13,Lab-26-2089,2026-04-24 08:00:00,160.0,Feniletil Acetato,61.9270932037113,61.9270932037113,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,61.9270932037113
+26211,26211-P-13,Lab-26-2089,2026-04-24 08:00:00,160.0,Hexil Acetato,94.1613825882409,94.1613825882409,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,94.1613825882409
+26211,26211-P-13,Lab-26-2089,2026-04-24 08:00:00,160.0,Isoamil Acetato,707.176939066057,707.176939066057,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,707.176939066057
+26211,26211-P-13,Lab-26-2089,2026-04-24 08:00:00,160.0,Octanoato de Etilo,74.2858849922219,74.2858849922219,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,74.2858849922219
+26211,26211-P-14,Lab-26-2091,2026-04-25 11:00:00,187.0,Decanoato de Etilo,22.740709228043,22.740709228043,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,22.740709228043
+26211,26211-P-14,Lab-26-2091,2026-04-25 11:00:00,187.0,Etil Acetato,11727.8663765975,11727.8663765975,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,11727.8663765975
+26211,26211-P-14,Lab-26-2091,2026-04-25 11:00:00,187.0,Feniletil Acetato,73.4488193343434,73.4488193343434,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,73.4488193343434
+26211,26211-P-14,Lab-26-2091,2026-04-25 11:00:00,187.0,Hexil Acetato,118.173729978691,118.173729978691,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,118.173729978691
+26211,26211-P-14,Lab-26-2091,2026-04-25 11:00:00,187.0,Isoamil Acetato,859.626162111899,859.626162111899,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,859.626162111899
+26211,26211-P-14,Lab-26-2091,2026-04-25 11:00:00,187.0,Octanoato de Etilo,96.5375018757447,96.5375018757447,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,96.5375018757447
+26212,26212-P-01,Lab-26-2092,2026-04-17 16:00:00,0.0,Decanoato de Etilo,0.2823720156295385,0.2823720156295385,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.2823720156295385
+26212,26212-P-01,Lab-26-2092,2026-04-17 16:00:00,0.0,Etil Acetato,787.8732672282165,787.8732672282165,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,787.8732672282165
+26212,26212-P-01,Lab-26-2092,2026-04-17 16:00:00,0.0,Feniletil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26212,26212-P-01,Lab-26-2092,2026-04-17 16:00:00,0.0,Hexil Acetato,0.899276515315786,0.899276515315786,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,0.899276515315786
+26212,26212-P-01,Lab-26-2092,2026-04-17 16:00:00,0.0,Isoamil Acetato,,,ug/L_wine,instantaneous liquid concentration,left_censored,0.0,5.0,NQ,5.0,NQ
+26212,26212-P-01,Lab-26-2092,2026-04-17 16:00:00,0.0,Octanoato de Etilo,2.54850099100909,2.54850099100909,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,2.54850099100909
+26212,26212-P-05,Lab-26-2094,2026-04-19 16:00:00,48.0,Decanoato de Etilo,7.68643056636832,7.68643056636832,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,7.68643056636832
+26212,26212-P-05,Lab-26-2094,2026-04-19 16:00:00,48.0,Etil Acetato,2521.42221858047,2521.42221858047,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,2521.42221858047
+26212,26212-P-05,Lab-26-2094,2026-04-19 16:00:00,48.0,Feniletil Acetato,8.68173729307865,8.68173729307865,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,8.68173729307865
+26212,26212-P-05,Lab-26-2094,2026-04-19 16:00:00,48.0,Hexil Acetato,78.8471318216689,78.8471318216689,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,78.8471318216689
+26212,26212-P-05,Lab-26-2094,2026-04-19 16:00:00,48.0,Isoamil Acetato,159.611346153438,159.611346153438,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,159.611346153438
+26212,26212-P-05,Lab-26-2094,2026-04-19 16:00:00,48.0,Octanoato de Etilo,26.7755630265241,26.7755630265241,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,26.7755630265241
+26212,26212-P-06,Lab-26-2096,2026-04-20 08:00:00,64.0,Decanoato de Etilo,22.4894186045865,22.4894186045865,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,22.4894186045865
+26212,26212-P-06,Lab-26-2096,2026-04-20 08:00:00,64.0,Etil Acetato,8156.66690562832,8156.66690562832,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,8156.66690562832
+26212,26212-P-06,Lab-26-2096,2026-04-20 08:00:00,64.0,Feniletil Acetato,56.1849893763513,56.1849893763513,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,56.1849893763513
+26212,26212-P-06,Lab-26-2096,2026-04-20 08:00:00,64.0,Hexil Acetato,164.95601738239,164.95601738239,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,164.95601738239
+26212,26212-P-06,Lab-26-2096,2026-04-20 08:00:00,64.0,Isoamil Acetato,863.462140200962,863.462140200962,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,863.462140200962
+26212,26212-P-06,Lab-26-2096,2026-04-20 08:00:00,64.0,Octanoato de Etilo,78.3124496761568,78.3124496761568,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,78.3124496761568
+26212,26212-P-08,Lab-26-2098,2026-04-21 08:00:00,88.0,Decanoato de Etilo,23.6392236590232,23.6392236590232,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,23.6392236590232
+26212,26212-P-08,Lab-26-2098,2026-04-21 08:00:00,88.0,Etil Acetato,12388.4107745575,12388.4107745575,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,12388.4107745575
+26212,26212-P-08,Lab-26-2098,2026-04-21 08:00:00,88.0,Feniletil Acetato,81.8025970156514,81.8025970156514,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,81.8025970156514
+26212,26212-P-08,Lab-26-2098,2026-04-21 08:00:00,88.0,Hexil Acetato,161.880553621174,161.880553621174,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,161.880553621174
+26212,26212-P-08,Lab-26-2098,2026-04-21 08:00:00,88.0,Isoamil Acetato,1115.21397435581,1115.21397435581,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,1115.21397435581
+26212,26212-P-08,Lab-26-2098,2026-04-21 08:00:00,88.0,Octanoato de Etilo,89.8091399022281,89.8091399022281,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,89.8091399022281
+26212,26212-P-11,Lab-26-2100,2026-04-23 16:00:00,144.0,Decanoato de Etilo,20.7713911143146,20.7713911143146,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,20.7713911143146
+26212,26212-P-11,Lab-26-2100,2026-04-23 16:00:00,144.0,Etil Acetato,10672.109638039896,10672.109638039896,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,10672.109638039896
+26212,26212-P-11,Lab-26-2100,2026-04-23 16:00:00,144.0,Feniletil Acetato,70.87490175683945,70.87490175683945,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,70.87490175683945
+26212,26212-P-11,Lab-26-2100,2026-04-23 16:00:00,144.0,Hexil Acetato,129.5967710590605,129.5967710590605,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,129.5967710590605
+26212,26212-P-11,Lab-26-2100,2026-04-23 16:00:00,144.0,Isoamil Acetato,976.2629941951654,976.2629941951654,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,976.2629941951654
+26212,26212-P-11,Lab-26-2100,2026-04-23 16:00:00,144.0,Octanoato de Etilo,85.8627545143415,85.8627545143415,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,85.8627545143415
+26212,26212-P-12,Lab-26-2102,2026-04-24 08:00:00,160.0,Decanoato de Etilo,18.7354486869059,18.7354486869059,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,18.7354486869059
+26212,26212-P-12,Lab-26-2102,2026-04-24 08:00:00,160.0,Etil Acetato,10439.6276245471,10439.6276245471,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,10439.6276245471
+26212,26212-P-12,Lab-26-2102,2026-04-24 08:00:00,160.0,Feniletil Acetato,70.1210133531602,70.1210133531602,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,70.1210133531602
+26212,26212-P-12,Lab-26-2102,2026-04-24 08:00:00,160.0,Hexil Acetato,127.249212629817,127.249212629817,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,127.249212629817
+26212,26212-P-12,Lab-26-2102,2026-04-24 08:00:00,160.0,Isoamil Acetato,961.214474929614,961.214474929614,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,961.214474929614
+26212,26212-P-12,Lab-26-2102,2026-04-24 08:00:00,160.0,Octanoato de Etilo,92.6088666408465,92.6088666408465,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,92.6088666408465
+26212,26212-P-13,Lab-26-2104,2026-04-25 11:00:00,187.0,Decanoato de Etilo,17.1577876459995,17.1577876459995,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,17.1577876459995
+26212,26212-P-13,Lab-26-2104,2026-04-25 11:00:00,187.0,Etil Acetato,8922.531998137481,8922.531998137481,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,187.5,8922.531998137481
+26212,26212-P-13,Lab-26-2104,2026-04-25 11:00:00,187.0,Feniletil Acetato,64.6057354048009,64.6057354048009,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,64.6057354048009
+26212,26212-P-13,Lab-26-2104,2026-04-25 11:00:00,187.0,Hexil Acetato,113.6178100270685,113.6178100270685,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.0125,113.6178100270685
+26212,26212-P-13,Lab-26-2104,2026-04-25 11:00:00,187.0,Isoamil Acetato,870.367259426642,870.367259426642,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,5.0,870.367259426642
+26212,26212-P-13,Lab-26-2104,2026-04-25 11:00:00,187.0,Octanoato de Etilo,74.4157449688082,74.4157449688082,ug/L_wine,instantaneous liquid concentration,observed,,,quantified,0.5,74.4157449688082

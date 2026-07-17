@@ -1,0 +1,141 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py",
+      "fermentation_model/pilot_2026/adaptive_design/model_dataset_config.json",
+      "fermentation_model/pilot_2026/adaptive_design/run_artifacts.py"
+    ],
+    "sha256": "61867b5e3769a5e0891689159f6ced772d757196f5c6e76417ee07b39d769044"
+  },
+  "configuration": {
+    "payload": {
+      "adapter_schema_version": 1,
+      "campaign_id": "pilot_2026",
+      "co2_bin_minutes": 10,
+      "lag1_clip_lower": 0.0,
+      "lag1_clip_upper": 0.999,
+      "massview_reference_status": "owner_estimate_temperature_and_factory_pressure_unverified",
+      "normal_molar_volume_l_per_mol": 22.414,
+      "random_seed": 20260716,
+      "required_integration_verdict": "processed_qc_ready_conditional_for_calibration",
+      "sugar_observation_policy": "components_preferred"
+    },
+    "sha256": "ced2c885b6cf1208236218c54a05a92940b7132fdc19d06271d5abcc97ba8681"
+  },
+  "created_utc": "2026-07-17T00:12:14.763690+00:00",
+  "environment": {
+    "executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\python.exe",
+    "packages": {
+      "chemicals": "1.5.2",
+      "idaes-pse": "2.11.0",
+      "matplotlib": "3.9.2",
+      "nbclient": "0.8.0",
+      "nbformat": "5.10.4",
+      "numpy": "1.26.4",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.2",
+      "pyomo": "6.10.0",
+      "scipy": "1.13.1",
+      "thermo": "0.6.0"
+    },
+    "platform": "Windows-11-10.0.22631-SP0",
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "solver": {
+      "ipopt_available_on_path": true,
+      "ipopt_executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\Library\\bin\\ipopt.EXE"
+    }
+  },
+  "gate": {
+    "name": "phase_A_model_ready_adapter",
+    "profiles_for_physical_execution": false,
+    "verdict": "FAIL"
+  },
+  "git": {
+    "branch": "ctorrealba_fermentation",
+    "commit": "29615cbe5c3e21f2623b6175e066e692e3d48870",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T001101.548263Z_ced2c885b6",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T001101.548263Z_ced2c885b6/co2_observations.csv": {
+      "bytes": 1613516,
+      "sha256": "7ac80a2c24a54fa627e3485550fd36d10aca15822ade69d4a551e26b50c35c7a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T001101.548263Z_ced2c885b6/operational_events.csv": {
+      "bytes": 24545,
+      "sha256": "9eedf25238a43a8908b92862257f82069148561c0a0a1161d55cdac120e4a5e0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T001101.548263Z_ced2c885b6/primary_observations.csv": {
+      "bytes": 275675,
+      "sha256": "e2e5dbc658a0b7375c8f4a8d713308b30da2e7d06de6577d57e9833f6d72e882"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T001101.548263Z_ced2c885b6/temperature_inputs.csv": {
+      "bytes": 1982628,
+      "sha256": "fb5fed31c38851593fb3f709622a3edce4406cceac9353a2f615851f8260ae9f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T001101.548263Z_ced2c885b6/wine_aroma_observations.csv": {
+      "bytes": 41606,
+      "sha256": "6845d2378f0a522fd4dca65fcec730368d11d24054c0cd76143577cf629e3b8b"
+    }
+  },
+  "random_seeds": [
+    20260716
+  ],
+  "run_id": "20260717T001101.548263Z_ced2c885b6",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "exception": "Windows legacy path-length limit while writing condensate_interval_observations.csv",
+    "exception_type": "FileNotFoundError",
+    "runtime_seconds": 2.745,
+    "solver": "not_applicable"
+  },
+  "sources": {
+    "co2_minute": {
+      "bytes": 10069068,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/co2_minute_qc.csv",
+      "sha256": "840b8a0cf8fd92114f4d7cb0ca528c515d5db9d703807f3a6dd766107cec3c97"
+    },
+    "gc_pairs": {
+      "bytes": 64103,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_mix_wine_pairs_long_qc.csv",
+      "sha256": "5d9be5ab9cf14ddc6b9e53a7a2b74fc1e2836705bbf2b72d29336c134af5b37f"
+    },
+    "gc_results": {
+      "bytes": 93373,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/gc_results_long_qc.csv",
+      "sha256": "bff72882d41692c09dac97bbc9d51459a579bb342a0f0585a7d4bfcc51d8170d"
+    },
+    "integration_config": {
+      "bytes": 5179,
+      "path": "fermentation_model/pilot_2026/data_integration_config.json",
+      "sha256": "bc44b7b50886bacfc62f76c21b4b5c148fe844771baecd25e81c906aaf0dbed0"
+    },
+    "integration_qc": {
+      "bytes": 6235,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/qc_summary.json",
+      "sha256": "0bd0c94e95553429b5db8591cabbac441be1bc90aaaeca031c8dd778aa12a945"
+    },
+    "operational_events": {
+      "bytes": 21760,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/operational_events_qc.csv",
+      "sha256": "f83ec23c62f5156f6b7f495f4edefeaf745f4f2833ea8736f46a35b54952606a"
+    },
+    "primary_results": {
+      "bytes": 41213,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/primary_results_qc.csv",
+      "sha256": "95348a55b51e7c2630732189f71e1cafcf292ec5d1b4ed1d7f7748827dc0314b"
+    },
+    "process_windows": {
+      "bytes": 1529,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/process_windows.csv",
+      "sha256": "e71c6ad04b5ae1d124eb439e38c622599e03db50c1c973799502f12a0e12b245"
+    },
+    "temperature_controller": {
+      "bytes": 1741959,
+      "path": "fermentation_model/pilot_2026/results/data_integration_2026/temperature_controller_qc.csv",
+      "sha256": "0eccbc5f6c753fd561c1cb9b6e858dd3bbae2187ec469a01431d0e93d135cbf5"
+    }
+  },
+  "stage": "model_dataset",
+  "status": "failed"
+}

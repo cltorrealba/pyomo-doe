@@ -1,6 +1,6 @@
 {
   "campaign_id": "pilot_2026",
-  "status": "processed_qc_owner_rules_integrated",
+  "status": "model_dataset_ready_calibration_gate_failed",
   "matrix": "natural_grape_must",
   "reactors": 3,
   "controls": {
@@ -11,7 +11,13 @@
   "individual_experiment_registry": "confirmed_nine_runs",
   "integration_runner": "fermentation_model/pilot_2026/run_data_integration.py",
   "authoritative_results": "fermentation_model/pilot_2026/results/data_integration_2026",
+  "model_dataset_runner": "fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py",
+  "model_dataset_results": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset",
+  "calibration_gate_runner": "fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py",
+  "latest_calibration_gate": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T002546Z_62fd66",
   "mapping_status": "confirmed",
-  "calibration_status": "conditional_pending_owner_notebook_review_independent_verification_and_massview_factory_reference_confirmation",
+  "calibration_status": "failed_no_fit_executed_pending_data_integrity_owner_unit_and_error_model_decisions",
+  "design_status": "blocked_by_failed_calibration_and_missing_safety_bounds",
+  "physical_execution_status": "not_authorized",
   "registry": "fermentation_model/campaigns/experiments.csv"
 }

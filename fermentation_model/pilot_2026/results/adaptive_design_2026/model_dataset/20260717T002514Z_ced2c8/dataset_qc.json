@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "active_cooling_separated": true,
+    "carbon_diagnostic_present": true,
+    "co2_is_downsampled": true,
+    "co2_weights_positive": true,
+    "condensate_censoring_bounds_complete": true,
+    "condensate_intervals_positive": true,
+    "density_trigger_uncertainty_explicit": true,
+    "excluded_lot1_co2_absent": true,
+    "nine_runs": true,
+    "sugar_not_double_counted": true,
+    "wine_censoring_bounds_complete": true
+  },
+  "excluded_co2_runs_reentered": [],
+  "row_counts": {
+    "co2_observations": 6119,
+    "condensate_interval_observations": 198,
+    "operational_events": 45,
+    "primary_observations": 1728,
+    "temperature_inputs": 11575,
+    "wine_aroma_observations": 234
+  },
+  "scientific_limitations": [
+    "MassView factory reference temperature and pressure remain unverified.",
+    "The 80 versus 90.435 mg/L YAN-per-pulse discrepancy remains unresolved.",
+    "Storage history is not present in the authoritative integration outputs.",
+    "Carbon recovery is diagnostic-only and is not a closed elemental balance."
+  ],
+  "verdict": "PASS"
+}

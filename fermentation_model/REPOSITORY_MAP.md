@@ -21,7 +21,7 @@ fermentation_model/
 ├── laboratory_2025/           Laboratory 2025 campaign metadata
 ├── pilot_2025/                Pilot 2025 code, notebooks and results
 ├── laboratory_2026/           Laboratory 2026 code, notebooks and results
-├── pilot_2026/                Pilot 2026 data-integration workspace
+├── pilot_2026/                Pilot 2026 integration and gated adaptive-design workspace
 ├── legacy/                    frozen superseded work and rendition bundles
 ├── tools/                     repository audit and run-context capture
 └── tests/                     structural and provenance checks
@@ -101,6 +101,13 @@ observations, reconstructed Lot 3 operations and explicit CO2/model masks. The
 processed dataset is conditional for calibration pending owner notebook review,
 independent verification and confirmation of the MassView factory normal
 reference.
+
+Pilot 2026 also owns `adaptive_design/`, which contains the model-ready adapter,
+calibration gate configuration and fail-closed campaign/design state. Immutable
+adapter and gate evaluations live under
+`pilot_2026/results/adaptive_design_2026/`. The Phase A adapter is runtime
+validated. The Phase B calibration gate failed on 2026-07-16 without invoking a
+fit; PSO, IPOPT refinement and physical experiment scheduling remain blocked.
 
 ### Frozen history
 

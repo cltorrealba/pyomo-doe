@@ -1,0 +1,69 @@
+{
+  "campaign_hierarchy": {
+    "laboratory_2026": "mechanistic_support_only_after_own_QC_with_matrix_and_scale_effects",
+    "pilot_2025": "weak_physical_structure_only_after_coherent_regeneration",
+    "pilot_2026": "target_kinetics_and_target_matrix"
+  },
+  "fim_nuisance_marginalization": "Schur_complement",
+  "nuisance_effects": [
+    "tank",
+    "lot",
+    "campaign",
+    "scale",
+    "capture_efficiency",
+    "sensor_gain"
+  ],
+  "planned_stages": [
+    {
+      "candidate_parameters": [
+        "mu0",
+        "qN",
+        "betaG0",
+        "betaF0",
+        "qEG",
+        "qEF",
+        "iG",
+        "iE",
+        "Kd0",
+        "gammaG0",
+        "gammaF0"
+      ],
+      "name": "primary_fermentation_states",
+      "selection_rule": "reduced set chosen by multistart convergence, profiles, correlations, and bound diagnostics",
+      "stage": 1
+    },
+    {
+      "campaign_scope": "Pilot 2026 Lots 2-3 only",
+      "candidate_parameters": [
+        "co2_yield",
+        "kla_co2",
+        "sensor_gain_by_tank",
+        "lot_effect"
+      ],
+      "name": "co2_release_and_transfer",
+      "stage": 2
+    },
+    {
+      "candidate_parameters": [
+        "aroma_formation",
+        "partition",
+        "capture_efficiency",
+        "tank_effect"
+      ],
+      "likelihood": "observed plus left-censored; interval-integrated captured mass",
+      "name": "wine_and_interval_condensate_aromas",
+      "stage": 3
+    },
+    {
+      "name": "limited_joint_polish",
+      "selection_rule": "only estimable reduced targets; preserve posterior ensemble and covariance",
+      "stage": 4
+    }
+  ],
+  "stop_rules": {
+    "reject_bound_dominated_target_profiles": true,
+    "reject_large_structural_residuals": true,
+    "require_all_multistarts_convergence_summary": true,
+    "require_posterior_ensemble_and_covariance": true
+  }
+}

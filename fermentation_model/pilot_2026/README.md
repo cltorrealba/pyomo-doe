@@ -73,3 +73,35 @@ notebook, complete the independent verification using
 `results/data_integration_2026/ULTRA_VERIFICATION_PROMPT.md`, and document the
 factory normal-reference temperature and pressure configured in MassView
 (20 °C is currently recorded only as the owner's estimate).
+
+## Model-ready adapter and adaptive campaign gate
+
+Build one immutable model-dataset run and execute its reader-facing QC notebook:
+
+```bash
+python fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py
+python fermentation_model/pilot_2026/notebooks/build_and_execute_model_ready_qc_notebook.py
+```
+
+The adapter writes only under
+`results/adaptive_design_2026/model_dataset/<run-id>/`. It keeps observation
+operators and units explicit, separates active process from cooling, prevents
+total/individual sugar double counting, retains GC censoring and capture
+intervals, excludes Lot 1 CO2 by assertion, and applies deterministic
+10-minute CO2 bins with lag-1 effective-sample weights. Density-triggered
+second pulses carry data-derived timing intervals. The carbon balance is
+explicitly diagnostic-only, not a closed elemental balance.
+
+Evaluate the calibration gate with:
+
+```bash
+python fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py
+```
+
+The 2026-07-16 gate verdict is `FAIL`; no fit was executed. IPOPT and
+Pyomo-DOE are available, but raw-data hash drift and the owner/scientific
+prerequisites recorded in `adaptive_design/calibration_config.json` remain
+open. `adaptive_design/design_constraints.json` deliberately leaves
+unapproved dose, pulse, completion and topology limits as `null`. Therefore
+the PSO/design phases are blocked and no executable fermentation schedule has
+been issued.

@@ -1,0 +1,44 @@
+{
+  "campaign_id": "pilot_2026",
+  "adaptive_policy": "3-2-1",
+  "current_phase": "pre_wave1",
+  "current_gate": "phase_B_hierarchical_calibration",
+  "gate_verdict": "FAIL",
+  "latest_model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T002514Z_ced2c8",
+  "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T002546Z_62fd66",
+  "calibration_fit_executed": false,
+  "gate_blockers": [
+    "integration_has_no_pending_calibration_items",
+    "repository_raw_hash_audit_pass",
+    "owner_loading_qc_notebook_review_approved",
+    "owner_independent_ultra_verification_complete",
+    "owner_massview_factory_reference_temperature_confirmed",
+    "owner_massview_factory_reference_pressure_confirmed",
+    "owner_yan_80_vs_90_435_mg_l_reconciled",
+    "owner_oculyze_cell_to_biomass_conversion_confirmed",
+    "owner_observation_error_and_censoring_scales_approved",
+    "owner_storage_history_completed_for_reserved_aliquots"
+  ],
+  "wave_sizes": [3, 2, 1],
+  "available_tanks": ["TK31", "TK32", "TK33"],
+  "anchor": {
+    "thermal_seed": "18_C_isothermal",
+    "nutrition": "pending_approved_standard",
+    "status": "exploratory_seed_only"
+  },
+  "wave1": {
+    "status": "not_designed",
+    "joint_pair_optimization_required": true,
+    "tank_randomization_required": true
+  },
+  "wave2": {
+    "status": "locked_until_wave1_realized_information_gate",
+    "bridge_to_anchor_required": true
+  },
+  "wave3": {
+    "status": "locked_until_wave2_gate",
+    "out_of_sample_confirmation_only": true
+  },
+  "physical_execution_status": "not_authorized",
+  "executable_schedule_issued": false
+}

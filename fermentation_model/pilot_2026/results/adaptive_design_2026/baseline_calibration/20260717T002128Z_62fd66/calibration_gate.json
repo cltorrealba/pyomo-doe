@@ -1,0 +1,44 @@
+{
+  "blockers": [
+    "integration_has_no_pending_calibration_items",
+    "repository_raw_hash_audit_pass",
+    "owner_loading_qc_notebook_review_approved",
+    "owner_independent_ultra_verification_complete",
+    "owner_massview_factory_reference_temperature_confirmed",
+    "owner_massview_factory_reference_pressure_confirmed",
+    "owner_yan_80_vs_90_435_mg_l_reconciled",
+    "owner_oculyze_cell_to_biomass_conversion_confirmed",
+    "owner_observation_error_and_censoring_scales_approved",
+    "owner_storage_history_completed_for_reserved_aliquots"
+  ],
+  "checks": {
+    "existing_pilot_2025_integrated_result_not_used": true,
+    "integration_has_no_pending_calibration_items": false,
+    "ipopt_available": true,
+    "owner_independent_ultra_verification_complete": false,
+    "owner_loading_qc_notebook_review_approved": false,
+    "owner_massview_factory_reference_pressure_confirmed": false,
+    "owner_massview_factory_reference_temperature_confirmed": false,
+    "owner_observation_error_and_censoring_scales_approved": false,
+    "owner_oculyze_cell_to_biomass_conversion_confirmed": false,
+    "owner_storage_history_completed_for_reserved_aliquots": false,
+    "owner_yan_80_vs_90_435_mg_l_reconciled": false,
+    "phase_A_manifest_complete": true,
+    "phase_A_model_dataset_pass": true,
+    "pyomo_doe_importable": true,
+    "repository_raw_hash_audit_pass": false
+  },
+  "fit_executed": false,
+  "gate": "phase_B_hierarchical_calibration",
+  "integration_calibration_items": [
+    "independent Ultra verification of code, tables, and figures",
+    "confirm MassView factory normal reference temperature and pressure",
+    "reconcile nominal 80 mg/L YAN per pulse with 90.435 mg/L derived from 116 g organic + 46 g FDA at 230 L"
+  ],
+  "parameters_estimated": [],
+  "profiles_for_physical_execution": false,
+  "raw_audit_error_count": 53,
+  "raw_audit_warning_count": 1,
+  "scientific_interpretation": "Calibration was not attempted because all upstream scientific, data-integrity, unit-conversion, solver, and owner gates must pass first.",
+  "verdict": "FAIL"
+}

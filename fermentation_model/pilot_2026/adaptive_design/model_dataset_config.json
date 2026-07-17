@@ -1,0 +1,29 @@
+{
+  "campaign_id": "pilot_2026",
+  "adapter_schema_version": 1,
+  "random_seed": 20260716,
+  "sugar_observation_policy": "components_preferred",
+  "co2_downsampling": {
+    "method": "fixed_relative_time_bin_mean_with_lag1_effective_sample_size",
+    "bin_minutes": 10,
+    "lag1_autocorrelation_clip": [0.0, 0.999]
+  },
+  "temperature": {
+    "executed_signal": "sensor_1_c",
+    "commanded_signal": "setpoint_c"
+  },
+  "massview": {
+    "reported_unit": "Ln/min",
+    "second_normalization_applied": false,
+    "normal_molar_volume_l_per_mol": 22.414,
+    "reference_status": "owner_estimate_temperature_and_factory_pressure_unverified"
+  },
+  "metadata_defaults": {
+    "storage_history": "not_available_in_integration_outputs",
+    "capture_system": "two_fraction_condensate_trap_A_plus_B",
+    "co2_sensor": "MassView",
+    "temperature_sensor": "Sonda1",
+    "temperature_command": "controller_setpoint"
+  },
+  "required_integration_verdict": "processed_qc_ready_conditional_for_calibration"
+}

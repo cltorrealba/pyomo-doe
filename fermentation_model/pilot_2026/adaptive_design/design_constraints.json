@@ -1,0 +1,57 @@
+{
+  "campaign_id": "pilot_2026",
+  "schema_version": 1,
+  "review_status": "pending_owner_approval",
+  "timezone": "America/Santiago",
+  "temperature": {
+    "minimum_c": 15.0,
+    "maximum_c": 25.0,
+    "minimum_segment_duration_h": 12.0,
+    "maximum_active_segments": null,
+    "setpoint_changes_follow_manual_action_window": true,
+    "actuator_model_required": true
+  },
+  "manual_action_window": {
+    "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "start_local": "09:00",
+    "end_local": "17:00"
+  },
+  "nutrition": {
+    "initial_volume_l": 230.0,
+    "yan_formula": "(100*m_org_g + 200*m_DAP_g)/V_L",
+    "maximum_pulses": null,
+    "maximum_organic_product_g_per_event": null,
+    "maximum_dap_fda_g_per_event": null,
+    "maximum_total_yan_mg_l": null,
+    "latest_allowable_pulse_h": null,
+    "standard_anchor_nutrition_approved": false,
+    "yan_80_vs_90_435_mg_l_reconciled": false
+  },
+  "completion": {
+    "minimum_probability": null,
+    "drying_definition_residual_sugar_g_l": null,
+    "actions_after_predicted_drying": "prohibited"
+  },
+  "sampling_and_capture": {
+    "optimize_schedule": false,
+    "analytical_budget_configured": false,
+    "maximum_samples": null,
+    "maximum_capture_intervals": null
+  },
+  "approval": {
+    "calibration_gate_passed": false,
+    "engine_qualification_passed": false,
+    "candidate_plots_approved_by_owner": false,
+    "physical_execution_authorized": false
+  },
+  "fail_closed_fields": [
+    "temperature.maximum_active_segments",
+    "nutrition.maximum_pulses",
+    "nutrition.maximum_organic_product_g_per_event",
+    "nutrition.maximum_dap_fda_g_per_event",
+    "nutrition.maximum_total_yan_mg_l",
+    "nutrition.latest_allowable_pulse_h",
+    "completion.minimum_probability",
+    "completion.drying_definition_residual_sugar_g_l"
+  ]
+}

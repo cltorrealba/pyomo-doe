@@ -1,0 +1,12 @@
+{
+  "adapter_schema_version": 1,
+  "campaign_id": "pilot_2026",
+  "co2_bin_minutes": 10,
+  "lag1_clip_lower": 0.0,
+  "lag1_clip_upper": 0.999,
+  "massview_reference_status": "owner_estimate_temperature_and_factory_pressure_unverified",
+  "normal_molar_volume_l_per_mol": 22.414,
+  "random_seed": 20260716,
+  "required_integration_verdict": "processed_qc_ready_conditional_for_calibration",
+  "sugar_observation_policy": "components_preferred"
+}
