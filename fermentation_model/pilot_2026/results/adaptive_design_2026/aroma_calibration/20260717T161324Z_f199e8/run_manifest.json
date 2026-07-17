@@ -1,0 +1,311 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/pilot_aroma_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_aroma_calibration.py"
+    ],
+    "sha256": "b1051e7654bcc655106e8afedee5a849f914dde186c39b1a868ef8296bc8e5c8"
+  },
+  "configuration": {
+    "payload": {
+      "calibration_policy": {
+        "fit_analytes_separately_before_joint_polish": true,
+        "marginalize_primary_and_oculyze_nuisance": true,
+        "multiple_global_starts": true,
+        "propagate_primary_multistart_ensemble": true,
+        "reject_bound_dominated_parameters": true,
+        "require_profile_likelihood_or_equivalent": true,
+        "use_log_parameters": true
+      },
+      "campaign_id": "pilot_2026",
+      "candidate_parameters_per_analyte": [
+        "growth_associated_formation",
+        "stationary_associated_formation",
+        "effective_volatilization_and_capture_scale"
+      ],
+      "error_model": {
+        "condensate_minimum_sigma_ug": 1.0,
+        "condensate_relative_sigma": 0.25,
+        "wine_minimum_sigma_ug_l": 2.0,
+        "wine_relative_sigma": 0.2
+      },
+      "identifiability_warning": {
+        "design_policy": "retain the weak ethyl-acetate loss direction in the robust MBDoE ensemble rather than fixing it to one local estimate",
+        "ethyl_acetate_loss": "Pilot 2026 condensate values are all left-censored; formation and loss cannot be declared separately identified without a physical prior, a coherent additional campaign, or a deliberately wide uncertainty set."
+      },
+      "objective": "maximize_information_on_aroma_formation_and_loss",
+      "observation_operators": {
+        "condensate": "interval_integral_of_captured_mass",
+        "left_censoring": "normal_CDF_at_sample_specific_upper_bound",
+        "wine": "instantaneous_liquid_concentration"
+      },
+      "observed_and_censored_counts": {
+        "ethyl_acetate": {
+          "condensate_left_censored": 33,
+          "condensate_observed": 0,
+          "wine_left_censored": 0,
+          "wine_observed": 39
+        },
+        "ethyl_octanoate": {
+          "condensate_left_censored": 14,
+          "condensate_observed": 19,
+          "wine_left_censored": 0,
+          "wine_observed": 39
+        },
+        "isoamyl_acetate": {
+          "condensate_left_censored": 20,
+          "condensate_observed": 13,
+          "wine_left_censored": 6,
+          "wine_observed": 33
+        }
+      },
+      "optimization": {
+        "loss": "linear",
+        "max_nfev": 300,
+        "profile_grid_log_offsets": [
+          -2.0,
+          -1.0,
+          -0.5,
+          0.0,
+          0.5,
+          1.0,
+          2.0
+        ],
+        "seed": 20260717,
+        "sobol_multistarts": 12,
+        "weak_log_prior_sigma": 2.5
+      },
+      "parameter_bounds": {
+        "effective_loss_scale": [
+          1e-05,
+          10.0
+        ],
+        "formation_growth_ug_per_g_sugar": [
+          0.0001,
+          10000.0
+        ],
+        "formation_stationary_ug_per_g_sugar": [
+          0.0001,
+          10000.0
+        ]
+      },
+      "parameter_defaults": {
+        "ethyl_acetate": [
+          100.0,
+          280.0,
+          0.02
+        ],
+        "ethyl_octanoate": [
+          0.8,
+          3.0,
+          0.02
+        ],
+        "isoamyl_acetate": [
+          3.0,
+          12.0,
+          0.02
+        ]
+      },
+      "priority_analytes": {
+        "ethyl_acetate": "Etil Acetato",
+        "ethyl_octanoate": "Octanoato de Etilo",
+        "isoamyl_acetate": "Isoamil Acetato"
+      },
+      "schema_version": 1,
+      "source_contract": {
+        "condensate_intervals_per_analyte": 33,
+        "fixed_yan_baseline_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b",
+        "model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
+        "wine_observations_per_analyte": 39
+      },
+      "status": "ready_for_implementation_not_yet_fitted",
+      "thermodynamics": {
+        "backend": "versioned_precomputed_original_UNIFAC_surrogate",
+        "capture_stages_c": [
+          0.0,
+          -40.0
+        ],
+        "capture_train_interpretation": "one_two_stage_train_per_tank",
+        "required_source_label": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+        "runtime_dependencies": [
+          "thermo",
+          "chemicals"
+        ],
+        "silent_fallback_prohibited": true,
+        "surrogate_key": "partition_model",
+        "surrogate_source": "fermentation_model/legacy/development_2026/results/aroma_campaign_doe/aroma_campaign_metadata.json"
+      }
+    },
+    "sha256": "f199e8efb4935e5e4403a797519bae8490dde4e42ae085a4b68d53a92c84c3b0"
+  },
+  "created_utc": "2026-07-17T16:13:50.993465+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": null,
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "checks": {
+      "all_covariances_finite": true,
+      "all_multistarts_converged": true,
+      "all_species_fitted": true,
+      "no_fit_fully_bound_dominated": true
+    },
+    "conditions": [
+      "Any non-identified aroma-loss direction must remain broad in the robust MBDoE ensemble.",
+      "Independent Ultra verification remains required before physical profile release.",
+      "No physical profile is authorized by this gate."
+    ],
+    "gate": "phase_B_aroma_calibration",
+    "loss_identifiability": {
+      "ethyl_acetate": true,
+      "ethyl_octanoate": true,
+      "isoamyl_acetate": true
+    },
+    "profiles_for_physical_execution": false,
+    "verdict": "PASS"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "98ba62e37cec8238369f24ba4fd450a46e0cf197",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_calibration_config.json": {
+      "bytes": 3879,
+      "sha256": "3b7c73506385bf37c94ec9488a4df4d1ba81994209b253fa9a44c9adfc5c5875"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_calibration_gate.json": {
+      "bytes": 651,
+      "sha256": "ebea5afde3869f043d32d335a69111623bf6fa9ecd5a8b1c3829c55dd55a78fa"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_condensate_predictions.csv": {
+      "bytes": 9661,
+      "sha256": "6d00cbd917a636c98a7d395a5897f3df2fdbcf8ee295f59a10e1aea49f07d5a6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_covariance_log_space.csv": {
+      "bytes": 1069,
+      "sha256": "a3e55017176a39b057f09179de26203bf2b028c587996d954b302155e74a0942"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_multistart_summary.csv": {
+      "bytes": 4509,
+      "sha256": "441288ea8096b112fd30471a1cdd7a4cafb5a69b3cb78abd1ff1754c4f9fb742"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_parameter_estimates.csv": {
+      "bytes": 1253,
+      "sha256": "4b0b0fdbbc0b693243279904642c8584222b338e66fed9dab0beaa05a673f1e4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_profile_likelihood.csv": {
+      "bytes": 7101,
+      "sha256": "51f882d5ed702f842096dfddc3210e0ee0f2a8b226c11dc99bc55672a7228212"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_validation.json": {
+      "bytes": 2224,
+      "sha256": "df6edf77c271e2052d31e09cc1cb1bc7b1e983dd3451d4d8948ae9c5824a4f08"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/aroma_wine_predictions.csv": {
+      "bytes": 11460,
+      "sha256": "d22ab4faac9bf5f89697be2fcc0f619ccea2d338ca3afeefe32f1d6aebffe278"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161324Z_f199e8/partition_surrogate_provenance.json": {
+      "bytes": 1762,
+      "sha256": "e0415f8fd7b6cfe45e5aaf5d253efc29824d74e018c1d3413c8f8ccb458dd0c9"
+    }
+  },
+  "random_seeds": [
+    20260717
+  ],
+  "run_id": "20260717T161324Z_f199e8",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "ethyl_acetate": {
+      "active_bound_fraction": 0.0,
+      "converged_multistarts": 12,
+      "covariance_finite": true,
+      "loss_separately_identified": true,
+      "multistarts_in_best_basin": 12,
+      "objective": 71.97414448549516,
+      "profile_max_delta_objective": {
+        "effective_loss_scale": 100.65695999358094,
+        "formation_growth_ug_per_g_sugar": 109.11152884635301,
+        "formation_stationary_ug_per_g_sugar": 17505.613663103573
+      },
+      "species": "ethyl_acetate"
+    },
+    "ethyl_octanoate": {
+      "active_bound_fraction": 0.0,
+      "converged_multistarts": 12,
+      "covariance_finite": true,
+      "loss_separately_identified": true,
+      "multistarts_in_best_basin": 12,
+      "objective": 381.75584150985634,
+      "profile_max_delta_objective": {
+        "effective_loss_scale": 559.2921155390914,
+        "formation_growth_ug_per_g_sugar": 9.58551069670807,
+        "formation_stationary_ug_per_g_sugar": 24188.972666311023
+      },
+      "species": "ethyl_octanoate"
+    },
+    "isoamyl_acetate": {
+      "active_bound_fraction": 0.0,
+      "converged_multistarts": 12,
+      "covariance_finite": true,
+      "loss_separately_identified": true,
+      "multistarts_in_best_basin": 12,
+      "objective": 367.49538045836044,
+      "profile_max_delta_objective": {
+        "effective_loss_scale": 394.1709823721704,
+        "formation_growth_ug_per_g_sugar": 5.79714860571238,
+        "formation_stationary_ug_per_g_sugar": 25703.153606166044
+      },
+      "species": "isoamyl_acetate"
+    }
+  },
+  "sources": {
+    "aroma_config": {
+      "bytes": 3671,
+      "path": "fermentation_model/pilot_2026/adaptive_design/aroma_calibration_config.json",
+      "sha256": "b00d1cf0275cf464fcac70d2ff1617fec4f403b9bfba5a7882a8a74719988db2"
+    },
+    "calibration_config": {
+      "bytes": 4945,
+      "path": "fermentation_model/pilot_2026/adaptive_design/calibration_config.json",
+      "sha256": "6795ee6cc3a4b59930fb69f8b139f117354950a78422179ef38ab713654fc917"
+    },
+    "fixed_yan_calibration_manifest": {
+      "bytes": 16398,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b/run_manifest.json",
+      "sha256": "4828bd969aacd7cee61de59db2fc87ce0cc14ed5a5a7ea0d5fba06a9d92502a3"
+    },
+    "model_dataset_manifest": {
+      "bytes": 6866,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413/run_manifest.json",
+      "sha256": "6db24e1281268b7de7aab628c074938f61558ac00379f8a396f517672bc3e976"
+    },
+    "partition_surrogate_source": {
+      "bytes": 3805,
+      "path": "fermentation_model/legacy/development_2026/results/aroma_campaign_doe/aroma_campaign_metadata.json",
+      "sha256": "b2ee69f21b5a4c18a37d5eba7bc20d939421dcfe9649b3399a987781bd22b198"
+    }
+  },
+  "stage": "aroma_calibration",
+  "status": "completed"
+}

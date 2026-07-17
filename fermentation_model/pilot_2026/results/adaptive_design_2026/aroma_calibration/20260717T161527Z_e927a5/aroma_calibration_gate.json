@@ -1,0 +1,35 @@
+{
+  "all_parameter_directions_identified": false,
+  "checks": {
+    "all_covariances_finite": true,
+    "all_multistarts_converged": true,
+    "all_species_fitted": true,
+    "no_extreme_structural_objective": true,
+    "no_fit_fully_bound_dominated": true
+  },
+  "conditions": [
+    "Any non-identified aroma-loss direction must remain broad in the robust MBDoE ensemble.",
+    "Independent Ultra verification remains required before physical profile release.",
+    "No physical profile is authorized by this gate."
+  ],
+  "gate": "phase_B_aroma_calibration",
+  "loss_identifiability": {
+    "ethyl_acetate": false,
+    "ethyl_octanoate": true,
+    "isoamyl_acetate": true
+  },
+  "profiles_for_physical_execution": false,
+  "verdict": "PASS_CONDITIONAL",
+  "weak_parameter_directions": {
+    "ethyl_acetate": [
+      "formation_growth_ug_per_g_sugar",
+      "effective_loss_scale"
+    ],
+    "ethyl_octanoate": [
+      "formation_growth_ug_per_g_sugar"
+    ],
+    "isoamyl_acetate": [
+      "formation_growth_ug_per_g_sugar"
+    ]
+  }
+}

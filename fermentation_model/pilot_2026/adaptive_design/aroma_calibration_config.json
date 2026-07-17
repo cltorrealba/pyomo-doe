@@ -1,7 +1,7 @@
 {
   "campaign_id": "pilot_2026",
   "schema_version": 1,
-  "status": "ready_for_implementation_not_yet_fitted",
+  "status": "fitted_pass_conditional_weak_directions_must_propagate",
   "priority_analytes": {
     "ethyl_acetate": "Etil Acetato",
     "ethyl_octanoate": "Octanoato de Etilo",
@@ -45,8 +45,12 @@
     "effective_volatilization_and_capture_scale"
   ],
   "thermodynamics": {
-    "backend": "original_UNIFAC_or_versioned_precomputed_UNIFAC_surrogate",
-    "runtime_dependencies": ["thermo", "chemicals"],
+    "backend": "versioned_precomputed_original_UNIFAC_surrogate",
+    "surrogate_generation_dependencies": ["thermo", "chemicals"],
+    "runtime_dependencies": [],
+    "surrogate_source": "fermentation_model/legacy/development_2026/results/aroma_campaign_doe/aroma_campaign_metadata.json",
+    "surrogate_key": "partition_model",
+    "required_source_label": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
     "silent_fallback_prohibited": true,
     "capture_stages_c": [0.0, -40.0],
     "capture_train_interpretation": "one_two_stage_train_per_tank"
@@ -59,6 +63,30 @@
     "marginalize_primary_and_oculyze_nuisance": true,
     "reject_bound_dominated_parameters": true,
     "require_profile_likelihood_or_equivalent": true
+  },
+  "parameter_defaults": {
+    "ethyl_acetate": [100.0, 280.0, 0.02],
+    "ethyl_octanoate": [0.8, 3.0, 0.02],
+    "isoamyl_acetate": [3.0, 12.0, 0.02]
+  },
+  "parameter_bounds": {
+    "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
+    "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
+    "effective_loss_scale": [0.00001, 10.0]
+  },
+  "error_model": {
+    "wine_relative_sigma": 0.2,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "condensate_relative_sigma": 0.25,
+    "condensate_minimum_sigma_ug": 1.0
+  },
+  "optimization": {
+    "sobol_multistarts": 12,
+    "seed": 20260717,
+    "max_nfev": 300,
+    "loss": "linear",
+    "weak_log_prior_sigma": 2.5,
+    "profile_grid_log_offsets": [-2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0]
   },
   "identifiability_warning": {
     "ethyl_acetate_loss": "Pilot 2026 condensate values are all left-censored; formation and loss cannot be declared separately identified without a physical prior, a coherent additional campaign, or a deliberately wide uncertainty set.",

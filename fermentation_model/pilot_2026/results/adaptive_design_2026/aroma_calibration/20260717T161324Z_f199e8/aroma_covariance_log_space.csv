@@ -1,0 +1,10 @@
+row_parameter,formation_growth_ug_per_g_sugar,formation_stationary_ug_per_g_sugar,effective_loss_scale,species
+formation_growth_ug_per_g_sugar,0.36015768936653464,-0.04251360439765917,-0.03657367778063764,ethyl_acetate
+formation_stationary_ug_per_g_sugar,-0.04251360439765922,0.007266892954161875,0.005707109381521247,ethyl_acetate
+effective_loss_scale,-0.03657367778063766,0.005707109381521248,2.3411905930709835,ethyl_acetate
+formation_growth_ug_per_g_sugar,16.834904860689335,-0.4209453081680095,-0.3452632285551643,ethyl_octanoate
+formation_stationary_ug_per_g_sugar,-0.42094530816801,0.0194036052310739,0.0015510357056733018,ethyl_octanoate
+effective_loss_scale,-0.34526322855517017,0.001551035705673441,0.1269505036080162,ethyl_octanoate
+formation_growth_ug_per_g_sugar,23.949538925614483,-0.28602646433872736,-0.3237593885730347,isoamyl_acetate
+formation_stationary_ug_per_g_sugar,-0.28602646433872597,0.011491285307734597,-0.0037425402907623846,isoamyl_acetate
+effective_loss_scale,-0.3237593885730414,-0.0037425402907623026,0.23764010137800293,isoamyl_acetate

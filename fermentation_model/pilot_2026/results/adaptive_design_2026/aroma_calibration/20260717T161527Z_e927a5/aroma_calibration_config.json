@@ -1,0 +1,130 @@
+{
+  "calibration_policy": {
+    "fit_analytes_separately_before_joint_polish": true,
+    "marginalize_primary_and_oculyze_nuisance": true,
+    "multiple_global_starts": true,
+    "propagate_primary_multistart_ensemble": true,
+    "reject_bound_dominated_parameters": true,
+    "require_profile_likelihood_or_equivalent": true,
+    "use_log_parameters": true
+  },
+  "campaign_id": "pilot_2026",
+  "candidate_parameters_per_analyte": [
+    "growth_associated_formation",
+    "stationary_associated_formation",
+    "effective_volatilization_and_capture_scale"
+  ],
+  "error_model": {
+    "condensate_minimum_sigma_ug": 1.0,
+    "condensate_relative_sigma": 0.25,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "wine_relative_sigma": 0.2
+  },
+  "identifiability_warning": {
+    "design_policy": "retain the weak ethyl-acetate loss direction in the robust MBDoE ensemble rather than fixing it to one local estimate",
+    "ethyl_acetate_loss": "Pilot 2026 condensate values are all left-censored; formation and loss cannot be declared separately identified without a physical prior, a coherent additional campaign, or a deliberately wide uncertainty set."
+  },
+  "objective": "maximize_information_on_aroma_formation_and_loss",
+  "observation_operators": {
+    "condensate": "interval_integral_of_captured_mass",
+    "left_censoring": "normal_CDF_at_sample_specific_upper_bound",
+    "wine": "instantaneous_liquid_concentration"
+  },
+  "observed_and_censored_counts": {
+    "ethyl_acetate": {
+      "condensate_left_censored": 33,
+      "condensate_observed": 0,
+      "wine_left_censored": 0,
+      "wine_observed": 39
+    },
+    "ethyl_octanoate": {
+      "condensate_left_censored": 14,
+      "condensate_observed": 19,
+      "wine_left_censored": 0,
+      "wine_observed": 39
+    },
+    "isoamyl_acetate": {
+      "condensate_left_censored": 20,
+      "condensate_observed": 13,
+      "wine_left_censored": 6,
+      "wine_observed": 33
+    }
+  },
+  "optimization": {
+    "loss": "linear",
+    "max_nfev": 300,
+    "profile_grid_log_offsets": [
+      -2.0,
+      -1.0,
+      -0.5,
+      0.0,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "seed": 20260717,
+    "sobol_multistarts": 12,
+    "weak_log_prior_sigma": 2.5
+  },
+  "parameter_bounds": {
+    "effective_loss_scale": [
+      1e-05,
+      10.0
+    ],
+    "formation_growth_ug_per_g_sugar": [
+      0.0001,
+      10000.0
+    ],
+    "formation_stationary_ug_per_g_sugar": [
+      0.0001,
+      10000.0
+    ]
+  },
+  "parameter_defaults": {
+    "ethyl_acetate": [
+      100.0,
+      280.0,
+      0.02
+    ],
+    "ethyl_octanoate": [
+      0.8,
+      3.0,
+      0.02
+    ],
+    "isoamyl_acetate": [
+      3.0,
+      12.0,
+      0.02
+    ]
+  },
+  "priority_analytes": {
+    "ethyl_acetate": "Etil Acetato",
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "schema_version": 1,
+  "source_contract": {
+    "condensate_intervals_per_analyte": 33,
+    "fixed_yan_baseline_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b",
+    "model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
+    "wine_observations_per_analyte": 39
+  },
+  "status": "ready_for_implementation_not_yet_fitted",
+  "thermodynamics": {
+    "backend": "versioned_precomputed_original_UNIFAC_surrogate",
+    "capture_stages_c": [
+      0.0,
+      -40.0
+    ],
+    "capture_train_interpretation": "one_two_stage_train_per_tank",
+    "required_source_label": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+    "runtime_dependencies": [],
+    "silent_fallback_prohibited": true,
+    "surrogate_generation_dependencies": [
+      "thermo",
+      "chemicals"
+    ],
+    "surrogate_key": "partition_model",
+    "surrogate_source": "fermentation_model/legacy/development_2026/results/aroma_campaign_doe/aroma_campaign_metadata.json"
+  }
+}

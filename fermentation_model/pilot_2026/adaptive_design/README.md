@@ -12,6 +12,7 @@ python fermentation_model/pilot_2026/adaptive_design/resolve_historical_audit.py
 python fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py
 python fermentation_model/pilot_2026/notebooks/build_and_execute_model_ready_qc_notebook.py
 python fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py
+python fermentation_model/pilot_2026/adaptive_design/run_aroma_calibration.py
 ```
 
 The historical 53-error artifact is not rebaselined.  It is classified as 52
@@ -53,7 +54,18 @@ has computational verdict `PASS` and release verdict `PASS_CONDITIONAL`:
 - residual CO2 ESS totals 469.53 over six runs;
 - no estimated parameter is bound-active.
 
-The result is a reduced baseline prior, not final model validation. Owner review,
-is complete. Independent Ultra audit and aroma calibration remain release conditions.
-No existing Pilot 2025 result is an official prior, no profile is approved, and
-physical execution is not authorized.
+The result is a reduced baseline prior, not final model validation. Owner review
+is complete.
+
+The aroma calibration under
+`results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5` has
+verdict `PASS_CONDITIONAL`.  Formation during the stationary-associated regime is
+identified for all three priority aromas.  Effective loss is separately identified
+for ethyl octanoate and isoamyl acetate, but not for ethyl acetate because all 33
+condensate observations are left-censored.  Growth-associated formation is weak
+for all three analytes.  These directions must remain broad in the robust MBDoE
+ensemble and are explicit Wave-1 information targets.
+
+Independent Ultra audit and PSO-to-IPOPT engine qualification remain release
+conditions. No existing Pilot 2025 result is an official prior, no profile is
+approved, and physical execution is not authorized.

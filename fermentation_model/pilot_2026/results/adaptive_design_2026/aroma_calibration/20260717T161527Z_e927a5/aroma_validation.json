@@ -1,0 +1,142 @@
+{
+  "forcing_metadata": {
+    "ethyl_acetate": {
+      "condensate_rows": 33,
+      "runs": [
+        "26157",
+        "26158",
+        "26159",
+        "26210",
+        "26211",
+        "26212"
+      ],
+      "wine_rows": 39
+    },
+    "ethyl_octanoate": {
+      "condensate_rows": 33,
+      "runs": [
+        "26157",
+        "26158",
+        "26159",
+        "26210",
+        "26211",
+        "26212"
+      ],
+      "wine_rows": 39
+    },
+    "isoamyl_acetate": {
+      "condensate_rows": 33,
+      "runs": [
+        "26157",
+        "26158",
+        "26159",
+        "26210",
+        "26211",
+        "26212"
+      ],
+      "wine_rows": 39
+    }
+  },
+  "species": {
+    "ethyl_acetate": {
+      "active_bound_fraction": 0.0,
+      "converged_multistarts": 12,
+      "covariance_finite": true,
+      "loss_separately_identified": false,
+      "multistarts_in_best_basin": 12,
+      "objective": 71.97414448549516,
+      "objective_per_observation": 0.9996408956318772,
+      "parameter_identified": {
+        "effective_loss_scale": false,
+        "formation_growth_ug_per_g_sugar": false,
+        "formation_stationary_ug_per_g_sugar": true
+      },
+      "profile_left_max_delta_objective": {
+        "effective_loss_scale": 1.0671163460282003,
+        "formation_growth_ug_per_g_sugar": 2.9244522515538733,
+        "formation_stationary_ug_per_g_sugar": 101.18208006474744
+      },
+      "profile_max_delta_objective": {
+        "effective_loss_scale": 100.65695999358094,
+        "formation_growth_ug_per_g_sugar": 109.11152884635301,
+        "formation_stationary_ug_per_g_sugar": 17505.613663103573
+      },
+      "profile_right_max_delta_objective": {
+        "effective_loss_scale": 100.65695999358094,
+        "formation_growth_ug_per_g_sugar": 109.11152884635301,
+        "formation_stationary_ug_per_g_sugar": 17505.613663103573
+      },
+      "species": "ethyl_acetate",
+      "weak_parameters": [
+        "formation_growth_ug_per_g_sugar",
+        "effective_loss_scale"
+      ]
+    },
+    "ethyl_octanoate": {
+      "active_bound_fraction": 0.0,
+      "converged_multistarts": 12,
+      "covariance_finite": true,
+      "loss_separately_identified": true,
+      "multistarts_in_best_basin": 12,
+      "objective": 381.75584150985634,
+      "objective_per_observation": 5.302164465414672,
+      "parameter_identified": {
+        "effective_loss_scale": true,
+        "formation_growth_ug_per_g_sugar": false,
+        "formation_stationary_ug_per_g_sugar": true
+      },
+      "profile_left_max_delta_objective": {
+        "effective_loss_scale": 30.642115822433198,
+        "formation_growth_ug_per_g_sugar": 1.6561283647077971,
+        "formation_stationary_ug_per_g_sugar": 131.4030573806245
+      },
+      "profile_max_delta_objective": {
+        "effective_loss_scale": 559.2921155390914,
+        "formation_growth_ug_per_g_sugar": 9.58551069670807,
+        "formation_stationary_ug_per_g_sugar": 24188.972666311023
+      },
+      "profile_right_max_delta_objective": {
+        "effective_loss_scale": 559.2921155390914,
+        "formation_growth_ug_per_g_sugar": 9.58551069670807,
+        "formation_stationary_ug_per_g_sugar": 24188.972666311023
+      },
+      "species": "ethyl_octanoate",
+      "weak_parameters": [
+        "formation_growth_ug_per_g_sugar"
+      ]
+    },
+    "isoamyl_acetate": {
+      "active_bound_fraction": 0.0,
+      "converged_multistarts": 12,
+      "covariance_finite": true,
+      "loss_separately_identified": true,
+      "multistarts_in_best_basin": 12,
+      "objective": 367.49538045836044,
+      "objective_per_observation": 5.104102506366117,
+      "parameter_identified": {
+        "effective_loss_scale": true,
+        "formation_growth_ug_per_g_sugar": false,
+        "formation_stationary_ug_per_g_sugar": true
+      },
+      "profile_left_max_delta_objective": {
+        "effective_loss_scale": 13.876596644880124,
+        "formation_growth_ug_per_g_sugar": 1.495922698424124,
+        "formation_stationary_ug_per_g_sugar": 193.18236076264606
+      },
+      "profile_max_delta_objective": {
+        "effective_loss_scale": 394.1709823721704,
+        "formation_growth_ug_per_g_sugar": 5.79714860571238,
+        "formation_stationary_ug_per_g_sugar": 25703.153606166044
+      },
+      "profile_right_max_delta_objective": {
+        "effective_loss_scale": 394.1709823721704,
+        "formation_growth_ug_per_g_sugar": 5.79714860571238,
+        "formation_stationary_ug_per_g_sugar": 25703.153606166044
+      },
+      "species": "isoamyl_acetate",
+      "weak_parameters": [
+        "formation_growth_ug_per_g_sugar"
+      ]
+    }
+  }
+}

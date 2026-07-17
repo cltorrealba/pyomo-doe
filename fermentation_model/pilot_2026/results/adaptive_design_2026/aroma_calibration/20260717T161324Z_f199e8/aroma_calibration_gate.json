@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "all_covariances_finite": true,
+    "all_multistarts_converged": true,
+    "all_species_fitted": true,
+    "no_fit_fully_bound_dominated": true
+  },
+  "conditions": [
+    "Any non-identified aroma-loss direction must remain broad in the robust MBDoE ensemble.",
+    "Independent Ultra verification remains required before physical profile release.",
+    "No physical profile is authorized by this gate."
+  ],
+  "gate": "phase_B_aroma_calibration",
+  "loss_identifiability": {
+    "ethyl_acetate": true,
+    "ethyl_octanoate": true,
+    "isoamyl_acetate": true
+  },
+  "profiles_for_physical_execution": false,
+  "verdict": "PASS"
+}

@@ -1,0 +1,45 @@
+{
+  "models": {
+    "ethyl_acetate": {
+      "K20": 0.004436873104876256,
+      "ethanol_slope": -0.004435874095101745,
+      "fit_max_abs_log_error": 0.050775890184795,
+      "fit_rmse_log": 0.016141439689987897,
+      "logK_ref": -5.417805406301014,
+      "mode": "water_ethanol_total_sugar_as_glucose",
+      "source": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+      "sugar_slope": -0.001294685911279265,
+      "temp_slope": 0.04194469273775919,
+      "trap_efficiency": 0.9
+    },
+    "ethyl_octanoate": {
+      "K20": 0.005096307202607516,
+      "ethanol_slope": -0.012798319503792885,
+      "fit_max_abs_log_error": 0.10817343047121053,
+      "fit_rmse_log": 0.03186881376194,
+      "logK_ref": -5.27923907944298,
+      "mode": "water_ethanol_total_sugar_as_glucose",
+      "source": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+      "sugar_slope": -0.004547456030230349,
+      "temp_slope": 0.05846192972893301,
+      "trap_efficiency": 0.85
+    },
+    "isoamyl_acetate": {
+      "K20": 0.004686642987359504,
+      "ethanol_slope": -0.008398256814164052,
+      "fit_max_abs_log_error": 0.07734302144577665,
+      "fit_rmse_log": 0.023795486485307913,
+      "logK_ref": -5.363038733764239,
+      "mode": "water_ethanol_total_sugar_as_glucose",
+      "source": "thermo original UNIFAC, dilute aroma, fitted log-linear surrogate",
+      "sugar_slope": -0.002839994124788369,
+      "temp_slope": 0.050548239029352224,
+      "trap_efficiency": 0.88
+    }
+  },
+  "silent_fallback_used": false,
+  "source": {
+    "path": "fermentation_model/legacy/development_2026/results/aroma_campaign_doe/aroma_campaign_metadata.json",
+    "sha256": "b2ee69f21b5a4c18a37d5eba7bc20d939421dcfe9649b3399a987781bd22b198"
+  }
+}
