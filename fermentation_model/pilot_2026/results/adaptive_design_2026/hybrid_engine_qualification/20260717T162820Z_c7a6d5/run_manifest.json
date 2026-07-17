@@ -1,0 +1,182 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/hybrid_optimizer.py",
+      "fermentation_model/pilot_2026/adaptive_design/qualify_hybrid_engine.py"
+    ],
+    "sha256": "9a6ae4d572164cba5922a3294267c2d2a6c701ce3aa48b1b77213b1e499d0ec1"
+  },
+  "configuration": {
+    "payload": {
+      "global": {
+        "cognitive": 1.49,
+        "inertia": 0.72,
+        "iterations": 80,
+        "method": "particle_swarm",
+        "particles": 32,
+        "social": 1.49
+      },
+      "local": {
+        "actual_objective_revalidation_required": true,
+        "allow_scipy_as_final_substitute": false,
+        "required_method": "IPOPT",
+        "surrogate_trust_region_required": true
+      },
+      "qualification": {
+        "benchmark": "bounded_rosenbrock_2d",
+        "bounds": [
+          [
+            -2.0,
+            2.0
+          ],
+          [
+            -1.0,
+            3.0
+          ]
+        ],
+        "maximum_final_objective": 1e-08,
+        "maximum_repeat_coordinate_difference": 1e-12
+      },
+      "release_policy": {
+        "candidate_generation_before_engine_pass": false,
+        "ipopt_mandatory": true,
+        "physical_execution_authorized": false
+      },
+      "schema_version": 1,
+      "seed": 20260717
+    },
+    "sha256": "c7a6d52d29fc24cf2e71a99404250b66a3fa5916f9fa59b0b94144e0bdfb28aa"
+  },
+  "created_utc": "2026-07-17T16:28:20.321082+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": null,
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "capability": {
+      "cyipopt_available": false,
+      "ipopt_executable": null,
+      "pyomo_available": false,
+      "usable_ipopt_interface": false
+    },
+    "checks": {
+      "diagnostic_local_refinement_reaches_benchmark": true,
+      "ipopt_benchmark_executed": false,
+      "ipopt_interface_available": false,
+      "ipopt_refinement_reaches_benchmark": false,
+      "pso_improves_benchmark": true,
+      "pso_reproducible": true,
+      "scipy_not_accepted_as_final_substitute": true
+    },
+    "gate": "phase_C_hybrid_engine_qualification",
+    "ipopt_local": {
+      "best_objective": null,
+      "best_x": null,
+      "executed": false,
+      "interface": null,
+      "message": "No usable IPOPT interface",
+      "success": false
+    },
+    "next_action": "run qualification in the approved Pyomo/IPOPT environment",
+    "profiles_for_physical_execution": false,
+    "pso": {
+      "best_objective": 0.0005640914522956066,
+      "best_x": [
+        0.9790153081725029,
+        0.9595833322167779
+      ],
+      "evaluations": 2592,
+      "repeat_coordinate_difference": 0.0
+    },
+    "scipy_diagnostic_local": {
+      "accepted_as_final": false,
+      "best_objective": 8.937668293138862e-12,
+      "best_x": [
+        0.9999970104066747,
+        0.9999940208017422
+      ],
+      "success": true
+    },
+    "verdict": "FAIL"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "c6a1866e1da82da9e521655957f82dc785559a57",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5/hybrid_engine_config.json": {
+      "bytes": 812,
+      "sha256": "999d1f4d0c09e65161d46d260608f0164eac90f9c2e35860265e6c3705af5492"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5/hybrid_engine_gate.json": {
+      "bytes": 1258,
+      "sha256": "21f874e8a744f2ad3a778fd35f112f4c3fd40918fdcf59764e0d951d1c77dc6b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5/pso_benchmark_history.csv": {
+      "bytes": 2040,
+      "sha256": "e416f276b7a7af9ebda4bfb750e3a8e7b88218fc521c4faa52d8d5ea18d02ee8"
+    }
+  },
+  "random_seeds": [
+    20260717
+  ],
+  "run_id": "20260717T162820Z_c7a6d5",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "ipopt_local": {
+      "best_objective": null,
+      "best_x": null,
+      "executed": false,
+      "interface": null,
+      "message": "No usable IPOPT interface",
+      "success": false
+    },
+    "pso": {
+      "best_objective": 0.0005640914522956066,
+      "best_x": [
+        0.9790153081725029,
+        0.9595833322167779
+      ],
+      "evaluations": 2592,
+      "repeat_coordinate_difference": 0.0
+    },
+    "scipy_diagnostic_local": {
+      "accepted_as_final": false,
+      "best_objective": 8.937668293138862e-12,
+      "best_x": [
+        0.9999970104066747,
+        0.9999940208017422
+      ],
+      "success": true
+    }
+  },
+  "sources": {
+    "engine_config": {
+      "bytes": 745,
+      "path": "fermentation_model/pilot_2026/adaptive_design/hybrid_engine_config.json",
+      "sha256": "6ab3ae935e98d9472d376d0f963bf983985fc78f5e7aa18430952339633fc951"
+    }
+  },
+  "stage": "hybrid_engine_qualification",
+  "status": "blocked_missing_required_solver"
+}

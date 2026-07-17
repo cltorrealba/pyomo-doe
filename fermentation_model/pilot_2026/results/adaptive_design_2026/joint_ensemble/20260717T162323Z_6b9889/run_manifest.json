@@ -1,0 +1,124 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/build_joint_ensemble.py"
+    ],
+    "sha256": "ab6b0ac5a30f473c34b804fa93cd773b421632c4e7048a7268c7cad699192707"
+  },
+  "configuration": {
+    "payload": {
+      "aroma": {
+        "identified_direction_maximum_log_sd": 0.75,
+        "local_covariance_scale": 0.35,
+        "weak_direction_minimum_log_sd": {
+          "effective_loss_scale": 2.0,
+          "formation_growth_ug_per_g_sugar": 2.0
+        }
+      },
+      "aroma_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+      "campaign_id": "pilot_2026",
+      "ensemble_size": 64,
+      "policy": {
+        "clip_samples_to_calibration_bounds": true,
+        "inflate_only_gate_declared_weak_aroma_directions": true,
+        "point_estimate_only_design_prohibited": true,
+        "retain_primary_alternative_minima": true
+      },
+      "primary": {
+        "centre_weight_temperature": 250.0,
+        "include_oculyze_nuisance": true,
+        "local_covariance_scale": 0.35,
+        "minimum_distinct_multistart_centres": 3
+      },
+      "primary_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b",
+      "schema_version": 1,
+      "seed": 20260717
+    },
+    "sha256": "6b9889d4bb5b9cca8a97791b72aa573c467f13a3d3ce67edc1cd20a1abefa5eb"
+  },
+  "created_utc": "2026-07-17T16:23:23.507781+00:00",
+  "environment": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "packages": {
+      "chemicals": null,
+      "idaes-pse": null,
+      "matplotlib": "3.10.8",
+      "nbclient": null,
+      "nbformat": null,
+      "numpy": "2.3.5",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.3",
+      "pyomo": null,
+      "scipy": "1.17.0",
+      "thermo": null
+    },
+    "platform": "Linux-6.12.47-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]",
+    "solver": {
+      "ipopt_available_on_path": false,
+      "ipopt_executable": null
+    }
+  },
+  "gate": {
+    "checks": {
+      "all_values_finite": true,
+      "point_estimate_only_design_prohibited": true,
+      "primary_alternative_minima_represented": true,
+      "requested_ensemble_size": true,
+      "weak_aroma_directions_remain_broad": true
+    },
+    "ensemble_members": 64,
+    "gate": "phase_C_joint_uncertainty_ensemble",
+    "profiles_for_physical_execution": false,
+    "verdict": "PASS"
+  },
+  "git": {
+    "branch": "agent/adaptive-calibration-recovery",
+    "commit": "d9fe266b31101398c7b9a77844d0620e083f66d3",
+    "dirty": true
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/ensemble_diagnostics.json": {
+      "bytes": 1618,
+      "sha256": "200b5482df876f61063e6c30d61254b93b861e3ae34b898711aa49eac8e1efb9"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/ensemble_gate.json": {
+      "bytes": 379,
+      "sha256": "4e5e6662f2b3f58413b53dd02b86382c1a8b33abbe4531d46656a8d5a49e8c89"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/joint_ensemble_config.json": {
+      "bytes": 990,
+      "sha256": "358221da8a8569f25a3ccc777ce410acb5a4c1ed4ded39c681e6aaef4bef0f69"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/joint_parameter_ensemble.csv": {
+      "bytes": 26224,
+      "sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c"
+    }
+  },
+  "random_seeds": [
+    20260717
+  ],
+  "run_id": "20260717T162323Z_6b9889",
+  "schema_version": 1,
+  "solver_status_and_convergence": {},
+  "sources": {
+    "aroma_manifest": {
+      "bytes": 14873,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "sha256": "dc25a508abc076821f086578be474d26f01d937e5faf4420f660cb713e9e5601"
+    },
+    "ensemble_config": {
+      "bytes": 990,
+      "path": "fermentation_model/pilot_2026/adaptive_design/joint_ensemble_config.json",
+      "sha256": "2ef345f18df9208d38a85e80213dcd57c57734ade679407f145f97645f302790"
+    },
+    "primary_manifest": {
+      "bytes": 16398,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b/run_manifest.json",
+      "sha256": "4828bd969aacd7cee61de59db2fc87ce0cc14ed5a5a7ea0d5fba06a9d92502a3"
+    }
+  },
+  "stage": "joint_uncertainty_ensemble",
+  "status": "completed"
+}

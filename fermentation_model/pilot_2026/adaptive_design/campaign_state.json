@@ -7,12 +7,14 @@
   "latest_model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
   "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
   "latest_aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+  "latest_joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+  "latest_engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5",
   "calibration_fit_executed": true,
   "gate_blockers": [
     "independent_ultra_verification",
     "propagate_alternative_minima_and_model_discrepancy_into_MBDoE",
-    "propagate_weak_aroma_directions_into_robust_MBDoE",
-    "qualify_PSO_to_IPOPT_engine",
+    "rerun_engine_qualification_in_environment_with_IPOPT",
+    "implement_and_validate_joint_MBDoE_objective_adapter_after_engine_pass",
     "approve_final_candidate_plots"
   ],
   "wave_sizes": [3, 2, 1],

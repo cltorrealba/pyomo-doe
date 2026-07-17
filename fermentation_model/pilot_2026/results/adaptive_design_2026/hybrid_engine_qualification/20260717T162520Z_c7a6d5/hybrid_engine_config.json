@@ -1,0 +1,38 @@
+{
+  "global": {
+    "cognitive": 1.49,
+    "inertia": 0.72,
+    "iterations": 80,
+    "method": "particle_swarm",
+    "particles": 32,
+    "social": 1.49
+  },
+  "local": {
+    "actual_objective_revalidation_required": true,
+    "allow_scipy_as_final_substitute": false,
+    "required_method": "IPOPT",
+    "surrogate_trust_region_required": true
+  },
+  "qualification": {
+    "benchmark": "bounded_rosenbrock_2d",
+    "bounds": [
+      [
+        -2.0,
+        2.0
+      ],
+      [
+        -1.0,
+        3.0
+      ]
+    ],
+    "maximum_final_objective": 1e-08,
+    "maximum_repeat_coordinate_difference": 1e-12
+  },
+  "release_policy": {
+    "candidate_generation_before_engine_pass": false,
+    "ipopt_mandatory": true,
+    "physical_execution_authorized": false
+  },
+  "schema_version": 1,
+  "seed": 20260717
+}

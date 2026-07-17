@@ -1,0 +1,62 @@
+{
+  "aroma": {
+    "ethyl_acetate": {
+      "sample_log_sd": {
+        "effective_loss_scale": 2.2601441834666405,
+        "formation_growth_ug_per_g_sugar": 2.3634802702054345,
+        "formation_stationary_ug_per_g_sugar": 0.028009425712459325
+      },
+      "weak_parameters": [
+        "effective_loss_scale",
+        "formation_growth_ug_per_g_sugar"
+      ]
+    },
+    "ethyl_octanoate": {
+      "sample_log_sd": {
+        "effective_loss_scale": 0.10492665827002412,
+        "formation_growth_ug_per_g_sugar": 1.9016607879552447,
+        "formation_stationary_ug_per_g_sugar": 0.044190595649889405
+      },
+      "weak_parameters": [
+        "formation_growth_ug_per_g_sugar"
+      ]
+    },
+    "isoamyl_acetate": {
+      "sample_log_sd": {
+        "effective_loss_scale": 0.19190955955246633,
+        "formation_growth_ug_per_g_sugar": 1.9813183629375883,
+        "formation_stationary_ug_per_g_sugar": 0.03630880471708627
+      },
+      "weak_parameters": [
+        "formation_growth_ug_per_g_sugar"
+      ]
+    }
+  },
+  "primary": {
+    "available_centres": 10,
+    "centre_weights": [
+      0.22711281894969973,
+      0.1886365392923343,
+      0.15824762370803522,
+      0.13956121634321844,
+      0.1228248653484508,
+      0.11354483982236345,
+      0.045152567852746586,
+      0.004893321976300172,
+      2.62049079340896e-05,
+      1.7989171993904315e-09
+    ],
+    "parameter_names": [
+      "mu0",
+      "qN",
+      "betaG0",
+      "betaF0",
+      "qEG",
+      "qEF",
+      "gammaG0",
+      "gammaF0",
+      "oculyze_biomass_scale_kg_m3_per_million_cells_ml"
+    ],
+    "represented_centres": 10
+  }
+}

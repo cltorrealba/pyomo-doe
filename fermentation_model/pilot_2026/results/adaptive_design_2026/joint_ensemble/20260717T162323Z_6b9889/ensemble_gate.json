@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "all_values_finite": true,
+    "point_estimate_only_design_prohibited": true,
+    "primary_alternative_minima_represented": true,
+    "requested_ensemble_size": true,
+    "weak_aroma_directions_remain_broad": true
+  },
+  "ensemble_members": 64,
+  "gate": "phase_C_joint_uncertainty_ensemble",
+  "profiles_for_physical_execution": false,
+  "verdict": "PASS"
+}

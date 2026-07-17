@@ -1,0 +1,37 @@
+{
+  "capability": {
+    "cyipopt_available": false,
+    "ipopt_executable": null,
+    "pyomo_available": false,
+    "usable_ipopt_interface": false
+  },
+  "checks": {
+    "diagnostic_local_refinement_reaches_benchmark": true,
+    "ipopt_interface_available": false,
+    "pso_improves_benchmark": true,
+    "pso_reproducible": true,
+    "scipy_not_accepted_as_final_substitute": true
+  },
+  "gate": "phase_C_hybrid_engine_qualification",
+  "next_action": "run qualification in the approved Pyomo/IPOPT environment",
+  "profiles_for_physical_execution": false,
+  "pso": {
+    "best_objective": 0.0005640914522956066,
+    "best_x": [
+      0.9790153081725029,
+      0.9595833322167779
+    ],
+    "evaluations": 2592,
+    "repeat_coordinate_difference": 0.0
+  },
+  "scipy_diagnostic_local": {
+    "accepted_as_final": false,
+    "best_objective": 8.937668293138862e-12,
+    "best_x": [
+      0.9999970104066747,
+      0.9999940208017422
+    ],
+    "success": true
+  },
+  "verdict": "FAIL"
+}

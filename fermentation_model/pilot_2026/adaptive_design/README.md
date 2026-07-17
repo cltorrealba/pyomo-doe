@@ -13,6 +13,8 @@ python fermentation_model/pilot_2026/adaptive_design/build_model_dataset.py
 python fermentation_model/pilot_2026/notebooks/build_and_execute_model_ready_qc_notebook.py
 python fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibration.py
 python fermentation_model/pilot_2026/adaptive_design/run_aroma_calibration.py
+python fermentation_model/pilot_2026/adaptive_design/build_joint_ensemble.py
+python fermentation_model/pilot_2026/adaptive_design/qualify_hybrid_engine.py
 ```
 
 The historical 53-error artifact is not rebaselined.  It is classified as 52
@@ -69,3 +71,20 @@ ensemble and are explicit Wave-1 information targets.
 Independent Ultra audit and PSO-to-IPOPT engine qualification remain release
 conditions. No existing Pilot 2025 result is an official prior, no profile is
 approved, and physical execution is not authorized.
+
+## Phase C status
+
+The deterministic 64-member joint ensemble under
+`results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889` passed its
+gate. It represents all ten successful primary multistart centres and inflates
+only the aroma directions declared weak by the bilateral profile-likelihood
+gate. Point-estimate-only design is prohibited.
+
+The hybrid-engine qualification under
+`results/adaptive_design_2026/hybrid_engine_qualification/20260717T162820Z_c7a6d5`
+is deliberately `FAIL` in the current container: PSO is reproducible and its
+SciPy diagnostic refinement solves the bounded Rosenbrock benchmark, but no
+Pyomo/IPOPT or cyipopt interface is installed. SciPy is not accepted as a final
+substitute. Run the qualification command above in the approved environment
+where IPOPT is available; candidate generation stays locked until that gate and
+the real MBDoE objective adapter both pass.

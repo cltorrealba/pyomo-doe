@@ -1,0 +1,28 @@
+{
+  "aroma": {
+    "identified_direction_maximum_log_sd": 0.75,
+    "local_covariance_scale": 0.35,
+    "weak_direction_minimum_log_sd": {
+      "effective_loss_scale": 2.0,
+      "formation_growth_ug_per_g_sugar": 2.0
+    }
+  },
+  "aroma_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+  "campaign_id": "pilot_2026",
+  "ensemble_size": 64,
+  "policy": {
+    "clip_samples_to_calibration_bounds": true,
+    "inflate_only_gate_declared_weak_aroma_directions": true,
+    "point_estimate_only_design_prohibited": true,
+    "retain_primary_alternative_minima": true
+  },
+  "primary": {
+    "centre_weight_temperature": 250.0,
+    "include_oculyze_nuisance": true,
+    "local_covariance_scale": 0.35,
+    "minimum_distinct_multistart_centres": 3
+  },
+  "primary_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/baseline_calibration/20260717T153612Z_b5b67b",
+  "schema_version": 1,
+  "seed": 20260717
+}
