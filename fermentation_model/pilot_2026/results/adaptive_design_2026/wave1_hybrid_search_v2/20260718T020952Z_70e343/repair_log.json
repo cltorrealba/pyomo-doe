@@ -1,0 +1,25 @@
+{
+  "canonical_candidate_hash": "88ff1e262831c3a9274d09d2645e4bf1736556dcc72e1e94f0f2366be8b0df2d",
+  "canonical_round_trip_exact": true,
+  "raw_particle_hash": "85c6d97dd48015b205bcb2bd1386bba514d6ca14707071e17670a7284fb4f341",
+  "raw_particle_to_canonical_repairs": [
+    {
+      "action": "relocate_duplicate_nutrition_time",
+      "dose_preserved_mg_yan_l": 34.75068166592185,
+      "entry": 2,
+      "from_index": 0,
+      "policy": "seed20260717_A",
+      "to_index": 1
+    },
+    {
+      "action": "clip_to_bounds",
+      "changed_coordinates": 2,
+      "policy": "refined_2_A"
+    },
+    {
+      "action": "clip_to_bounds",
+      "changed_coordinates": 3,
+      "policy": "refined_2_B"
+    }
+  ]
+}

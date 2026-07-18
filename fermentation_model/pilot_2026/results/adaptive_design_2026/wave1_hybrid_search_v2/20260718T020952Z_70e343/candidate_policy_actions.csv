@@ -1,0 +1,11 @@
+policy,action,time_h,value,unit,canonical_effective_action
+anchor_18C,temperature_setpoint,0.0,18.0,degC,True
+anchor_18C,nutrition,48.0,80.0,mgYAN/L,True
+refined_2_A,temperature_setpoint,0.0,21.643639350530183,degC,True
+refined_2_A,temperature_setpoint,12.0,20.25971819373538,degC,True
+refined_2_A,temperature_setpoint,36.0,19.79999964314394,degC,True
+refined_2_A,nutrition,0.0,80.0,mgYAN/L,True
+refined_2_A,nutrition,4.0,73.1506817470543,mgYAN/L,True
+refined_2_B,temperature_setpoint,0.0,22.208119570365433,degC,True
+refined_2_B,temperature_setpoint,96.0,22.415310288904436,degC,True
+refined_2_B,nutrition,0.0,79.99999997420207,mgYAN/L,True

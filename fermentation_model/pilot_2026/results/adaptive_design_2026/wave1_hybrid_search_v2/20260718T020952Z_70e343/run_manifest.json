@@ -1,0 +1,698 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+      "fermentation_model/pilot_2026/adaptive_design/hybrid_optimizer.py",
+      "fermentation_model/pilot_2026/adaptive_design/local_refinement.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_aroma_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_mbdoe_adapter.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_artifacts.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_wave1_hybrid_search.py",
+      "fermentation_model/pilot_2026/adaptive_design/wave1_mbdoe_config.json",
+      "fermentation_model/shared/run_new_must_glycerol_estimability_doe.py"
+    ],
+    "sha256": "14780259ad84523d27a61d141509896722adb41e2eeb8c51eaa852cb6542d024"
+  },
+  "configuration": {
+    "payload": {
+      "anchor": {
+        "nutrition_pulses_mg_yan_l": [
+          [
+            48.0,
+            80.0
+          ]
+        ],
+        "status": "exploratory_seed_only",
+        "temperature_c": 18.0
+      },
+      "campaign_id": "pilot_2026",
+      "completion": {
+        "drying_grid_step_h": 3.0,
+        "minimum_probability": 0.95,
+        "penalty_per_failed_fraction": 1000.0,
+        "residual_sugar_g_l": 4.0
+      },
+      "design_constraints": {
+        "approval": {
+          "active_cooling_separation_approved": true,
+          "calibration_gate_passed": true,
+          "candidate_plots_approved_by_owner": false,
+          "engine_qualification_passed": true,
+          "owner_loading_qc_approved": true,
+          "physical_execution_authorized": false
+        },
+        "campaign_id": "pilot_2026",
+        "campaign_timing": {
+          "maximum_process_duration_days": 21,
+          "minimum_interwave_separation_days": 7,
+          "wave1_tentative_start": "2026-07-20",
+          "wave_sizes": [
+            3,
+            2,
+            1
+          ]
+        },
+        "completion": {
+          "actions_after_predicted_drying": "prohibited",
+          "drying_definition_residual_sugar_g_l": 4.0,
+          "minimum_probability": 0.95
+        },
+        "fail_closed_fields": [
+          "temperature.maximum_temperature_jump_c",
+          "temperature.maximum_total_thermal_variation_c",
+          "nutrition.approved_product_mix_selection_policy",
+          "sampling_and_capture.maximum_capture_interval_h",
+          "sampling_and_capture.maximum_trap_loading",
+          "sampling_and_capture.vessel_change_required",
+          "sampling_and_capture.sample_event_order",
+          "sampling_and_capture.minimum_minutes_between_sampling_and_nutrition",
+          "sampling_and_capture.manual_sampling_capacity_per_time_slot",
+          "sampling_and_capture.minimum_action_to_drying_margin_h",
+          "tank_randomization.policy"
+        ],
+        "manual_action_window": {
+          "applies_to": [
+            "nutrition",
+            "sampling"
+          ],
+          "end_local": "17:00",
+          "start_local": "09:00",
+          "weekdays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ]
+        },
+        "nutrition": {
+          "approved_product_mix_selection_policy": null,
+          "historical_pulse_yan_mg_l": 80.0,
+          "initial_volume_l": 230.0,
+          "latest_allowable_pulse_h": 96.0,
+          "maximum_dap_fda_g_per_event": null,
+          "maximum_organic_product_g_per_event": null,
+          "maximum_pulses": 3,
+          "maximum_total_dap_fda_g_hl": 96.0,
+          "maximum_total_organic_product_g_hl": 40.0,
+          "maximum_total_yan_mg_l": 232.0,
+          "maximum_yan_per_pulse_mg_l": 80.0,
+          "per_event_mass_limit_policy": "no_separate_limit; total product and per-pulse YAN constraints apply",
+          "standard_anchor_nutrition_approved": true,
+          "yan_80_vs_90_435_mg_l_reconciled": true,
+          "yan_formula": "(100*m_org_g + 200*m_DAP_g)/V_L",
+          "yan_reconciliation": "80 mgYAN/L is the owner-approved historical pulse basis used by calibration; 90.435 mgYAN/L is not an approved replacement dose"
+        },
+        "review_status": "partially_approved_physical_release_blocked_2026-07-17",
+        "sampling_and_capture": {
+          "analytical_budget_configured": true,
+          "capture_stages_c": [
+            0.0,
+            -40.0
+          ],
+          "capture_train_per_tank": true,
+          "capture_trains_available": 3,
+          "manual_sampling_capacity_per_time_slot": null,
+          "maximum_capture_interval_h": null,
+          "maximum_capture_intervals_per_process": 9,
+          "maximum_samples_per_process": 10,
+          "maximum_trap_loading": null,
+          "minimum_action_to_drying_margin_h": null,
+          "minimum_minutes_between_sampling_and_nutrition": null,
+          "objective": "maximize_information_on_aroma_formation_and_loss",
+          "optimize_schedule": true,
+          "priority_analytes": [
+            "ethyl_acetate",
+            "ethyl_octanoate",
+            "isoamyl_acetate"
+          ],
+          "sample_event_order": null,
+          "sampling_local_window": [
+            "09:00",
+            "17:00"
+          ],
+          "sampling_weekdays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "tanks": [
+            "TK31",
+            "TK32",
+            "TK33"
+          ],
+          "vessel_change_required": null
+        },
+        "schema_version": 3,
+        "tank_randomization": {
+          "approved": false,
+          "policy": null
+        },
+        "temperature": {
+          "actuator_model_required": true,
+          "automated_setpoint_changes_allowed_24_7": true,
+          "maximum_active_segments": 42,
+          "maximum_c": 25.0,
+          "maximum_temperature_jump_c": null,
+          "maximum_total_thermal_variation_c": null,
+          "minimum_c": 15.0,
+          "minimum_segment_duration_h": 12.0,
+          "setpoint_changes_follow_manual_action_window": false
+        },
+        "timezone": "America/Santiago"
+      },
+      "design_constraints_path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+      "fim_validation": {
+        "independent_pyomo_doe_comparison_required_where_applicable": true,
+        "log_steps": [
+          0.01,
+          0.02,
+          0.04
+        ],
+        "maximum_relative_grid_fim_difference": 0.12,
+        "maximum_relative_step_fim_difference": 0.08,
+        "minimum_eigenvalue_tolerance": -1e-08,
+        "nominal_time_grid_step_h": 2.0,
+        "time_grid_steps_h": [
+          4.0,
+          2.0,
+          1.0
+        ],
+        "tolerance_origin": "declared numerical convergence criteria for finite-difference and discretization QA; not physical operating limits"
+      },
+      "future_process": {
+        "information_horizon_h": 264.0,
+        "initials": {
+          "E": 9.8625,
+          "F": 77.57,
+          "G": 78.72,
+          "Gly": 0.98,
+          "N": 0.272,
+          "X": 0.022436671416774176,
+          "Xd": 0.4851803289627321
+        },
+        "maximum_horizon_h": 504.0,
+        "maximum_temperature_changes": 4,
+        "optimized_temperature_slots": 14,
+        "start_local": "2026-07-20T09:00:00-04:00",
+        "temperature_actuator": {
+          "command_delay_scenarios_h": null,
+          "empirical_tau_h": [
+            0.3390769978649166,
+            0.3177272541838157,
+            0.25038706632644936,
+            0.45812979693594796,
+            0.4344760109578126,
+            0.21148207178811254,
+            0.230758146706305,
+            0.33440804404660923,
+            0.28259073573647164
+          ],
+          "global_tau_h": 0.3177272541838157,
+          "initial_temperature_c": 18.0,
+          "initial_temperature_uncertainty_c": null,
+          "model": "first_order_setpoint_to_Sonda1",
+          "observed_tracking_rmse_c": [
+            0.9851097887437072,
+            0.8946199169856546,
+            0.6670134541450007,
+            0.9032656411286033,
+            0.8912394007877706,
+            0.5176355604540641,
+            1.0294061985071536,
+            0.9077744893326539,
+            0.4132035267116012
+          ],
+          "probe_bias_scenarios_c": null,
+          "simulation_step_h": 0.25
+        },
+        "temperature_after_optimized_window": "hold_last_setpoint",
+        "temperature_maximum_c": 25.0,
+        "temperature_minimum_c": 15.0,
+        "temperature_slot_h": 12.0
+      },
+      "independent_seeds": [
+        20260717,
+        20260731,
+        20260747
+      ],
+      "nutrition": {
+        "latest_h": 96.0,
+        "manual_hours_local": [
+          9,
+          13,
+          17
+        ],
+        "manual_weekdays": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "maximum_pulses": 3,
+        "maximum_total_yan_mg_l": 232.0,
+        "maximum_yan_per_pulse_mg_l": 80.0,
+        "product_mapping_policy": "optimize_total_YAN_only_then_translate_without_selecting_a_product_mix_when_owner_policy_is_missing",
+        "zero_pulse_threshold_mg_l": 0.0
+      },
+      "objective": {
+        "criterion": "robust_bayesian_D_information_gain",
+        "design_complexity_penalty": {
+          "origin": "numerical tie-breaker declared for reproducibility; not a physical limit",
+          "per_degree_total_variation": 0.0002,
+          "per_temperature_change": 0.002
+        },
+        "finite_difference_log_parameter_bounds": [
+          [
+            -9.210340371976184,
+            9.210340371976184
+          ],
+          [
+            -9.210340371976184,
+            9.210340371976184
+          ],
+          [
+            -11.512925464970229,
+            2.302585092994046
+          ]
+        ],
+        "finite_difference_log_step": 0.02,
+        "lower_decile_weight": 0.25,
+        "median_weight": 0.75,
+        "prior_ridge": 0.001,
+        "priority_parameters": [
+          "ethyl_acetate__formation_growth_ug_per_g_sugar",
+          "ethyl_acetate__formation_stationary_ug_per_g_sugar",
+          "ethyl_acetate__effective_loss_scale",
+          "ethyl_octanoate__formation_growth_ug_per_g_sugar",
+          "ethyl_octanoate__formation_stationary_ug_per_g_sugar",
+          "ethyl_octanoate__effective_loss_scale",
+          "isoamyl_acetate__formation_growth_ug_per_g_sugar",
+          "isoamyl_acetate__formation_stationary_ug_per_g_sugar",
+          "isoamyl_acetate__effective_loss_scale"
+        ],
+        "representative_ensemble_members": 8,
+        "tail_guardrails": {
+          "maximum_q10_regression_vs_reference": 0.0,
+          "maximum_worst_paired_loss_vs_reference": null,
+          "minimum_fraction_exceeding_reference": null,
+          "owner_approval_required_for_null_guardrails": true
+        },
+        "tail_probability": 0.1
+      },
+      "observation_error_model": {
+        "condensate_minimum_sigma_ug": 1.0,
+        "condensate_relative_sigma": 0.25,
+        "differentiate_sigma_with_parameters": false,
+        "source": "aroma_calibration_config.json:error_model",
+        "wine_minimum_sigma_ug_l": 2.0,
+        "wine_relative_sigma": 0.2
+      },
+      "operations": {
+        "manual_sampling_capacity_per_time_slot": null,
+        "minimum_action_to_drying_margin_h": null,
+        "minimum_minutes_between_sampling_and_nutrition": null,
+        "numerical_sample_event_order": "sample_before_action",
+        "sample_event_order": null
+      },
+      "regression_reference": {
+        "current_sampling_median": 7.063653215850975,
+        "current_sampling_q10": 2.8670854796732175,
+        "current_sampling_robust_score": 6.014511281806535,
+        "ipopt_proposal_correctly_rejected": true,
+        "preliminary_median": 7.887877738160874,
+        "preliminary_q10": 5.216373362200951,
+        "preliminary_robust_score": 7.220001644649798,
+        "reduced_pso_objective": -4.916027892059978,
+        "revalidated_ipopt_proposal": -4.803791952620369,
+        "source_commit": "dda40c42e39b1b812a155dc475fc678fcf34bf74"
+      },
+      "release_policy": {
+        "adapter_validation_required": true,
+        "full_ensemble_qualification_required": true,
+        "owner_plot_approval_required": true,
+        "physical_execution_authorized": false,
+        "tank_randomization_policy_approved": false,
+        "ultra_audit_required": true
+      },
+      "sampling": {
+        "beam_width": 4,
+        "capture_intervals_per_process": 9,
+        "capture_stages_c": [
+          0.0,
+          -40.0
+        ],
+        "coordinate_passes": 4,
+        "force_first_slot": false,
+        "force_last_slot": false,
+        "full_ensemble_score_tolerance": 1e-09,
+        "preliminary_times_h": [
+          0.0,
+          4.0,
+          8.0,
+          24.0,
+          28.0,
+          32.0,
+          48.0,
+          52.0,
+          72.0,
+          96.0
+        ],
+        "q10_regression_tolerance": 0.0,
+        "samples_per_process": 10,
+        "search_restarts": 3
+      },
+      "schema_version": 2,
+      "search": {
+        "cache_temperature_decimals": 3,
+        "cache_yan_decimals": 3,
+        "cognitive": 1.49,
+        "frequent_rerank_members": 8,
+        "full_ensemble_members": 64,
+        "improvement_tolerance": 1e-05,
+        "inertia": 0.72,
+        "local_acceptance_ratio": 0.1,
+        "local_expansion_ratio": 0.75,
+        "local_finite_difference_step": 0.03,
+        "local_gradient_tolerance": 0.0001,
+        "local_initial_trust_radius": 0.12,
+        "local_maximum_iterations": 4,
+        "local_maximum_trust_radius": 0.3,
+        "local_minimum_trust_radius": 0.0075,
+        "maximum_iterations": 6,
+        "minimum_ranking_spearman": 0.7,
+        "particles": 12,
+        "representative_members": 4,
+        "rerank_interval": 2,
+        "restarts": 1,
+        "seed_profile_fraction": 0.34,
+        "social": 1.49,
+        "stagnation_iterations": 3,
+        "top_k_candidates": 3,
+        "top_k_local_refinement": 2
+      },
+      "seed": 20260717,
+      "source_contract": {
+        "aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+        "engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
+        "explicit_cli_source_required": true,
+        "joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+        "manifest_output_hash_verification_required": true,
+        "temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+      }
+    },
+    "sha256": "70e3435b482b04f6ea8b1142a00863b18078330ae88eecc2eedbd759158b124a"
+  },
+  "created_utc": "2026-07-18T02:09:52.346444+00:00",
+  "environment": {
+    "executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\python.exe",
+    "packages": {
+      "chemicals": "1.5.2",
+      "idaes-pse": "2.11.0",
+      "matplotlib": "3.9.2",
+      "nbclient": "0.8.0",
+      "nbformat": "5.10.4",
+      "numpy": "1.26.4",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.2",
+      "pyomo": "6.10.0",
+      "scipy": "1.13.1",
+      "thermo": "0.6.0"
+    },
+    "platform": "Windows-11-10.0.22631-SP0",
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "solver": {
+      "ipopt_available_on_path": true,
+      "ipopt_executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\Library\\bin\\ipopt.EXE"
+    }
+  },
+  "gate": {
+    "candidate_source": "ipopt_refined",
+    "checks": {
+      "actual_objective_evaluated": true,
+      "actuator_scenarios_evaluated": true,
+      "adapter_gate_pass": true,
+      "all_encoded_actuator_scenarios_feasible": false,
+      "canonical_policies_have_no_duplicate_pulses": true,
+      "corrected_fim_stability_pass": true,
+      "full_ensemble_completion_probability_at_least_95pct": true,
+      "local_candidate_accepted": true,
+      "local_refinement_qualified": true,
+      "profiles_for_physical_execution_false": true,
+      "pso_convergence_or_ranking_stability": false,
+      "pso_objectives_finite": true,
+      "pso_three_independent_seeds_completed": true,
+      "source_hashes_verified": true,
+      "top_k_revalidated_on_64_members": true
+    },
+    "conditions": [
+      "failed_check:pso_convergence_or_ranking_stability",
+      "failed_check:all_encoded_actuator_scenarios_feasible",
+      "physical_release_blocker:temperature.maximum_temperature_jump_c",
+      "physical_release_blocker:temperature.maximum_total_thermal_variation_c",
+      "physical_release_blocker:nutrition.approved_product_mix_selection_policy",
+      "physical_release_blocker:sampling_and_capture.maximum_capture_interval_h",
+      "physical_release_blocker:sampling_and_capture.maximum_trap_loading",
+      "physical_release_blocker:sampling_and_capture.vessel_change_required",
+      "physical_release_blocker:sampling_and_capture.sample_event_order",
+      "physical_release_blocker:sampling_and_capture.minimum_minutes_between_sampling_and_nutrition",
+      "physical_release_blocker:sampling_and_capture.manual_sampling_capacity_per_time_slot",
+      "physical_release_blocker:sampling_and_capture.minimum_action_to_drying_margin_h",
+      "physical_release_blocker:tank_randomization.policy",
+      "physical_release_blocker:release_policy.tank_randomization_policy_approved",
+      "physical_release_blocker:temperature_actuator.probe_bias_scenarios_c",
+      "physical_release_blocker:temperature_actuator.command_delay_scenarios_h",
+      "physical_release_blocker:temperature_actuator.initial_temperature_uncertainty_c"
+    ],
+    "full_ensemble": {
+      "candidate_robust_information_score": 20.513303509752255,
+      "completion_probability": 1.0,
+      "fraction_exceeding_reference": 0.984375,
+      "maximum_posterior_fim_condition_number": 6090.258271224145,
+      "maximum_residual_sugar_g_l": 3.9565898411986486,
+      "median": 21.875992086661523,
+      "minimum": 12.071863281330412,
+      "minimum_posterior_fim_eigenvalue": 0.18740731640957226,
+      "q10": 16.450878443365198,
+      "robust_score": 20.51971367583744,
+      "tail_cvar": 14.631647096847345,
+      "three_anchor_robust_information_score": 19.448927196640224,
+      "worst_paired_loss_vs_reference": -0.17085792310620462
+    },
+    "gate": "phase_D_wave1_hybrid_search_requalification",
+    "local_refinement": {
+      "accepted_after_full_ensemble_revalidation": true,
+      "candidate_states": [
+        "accepted_improvement",
+        "accepted_improvement"
+      ],
+      "candidates_refined": 2,
+      "qualified": true
+    },
+    "next_action": "qualify local refinement and unresolved numerical checks",
+    "nutrition_translation_blocker": true,
+    "physical_release_blockers": [
+      "temperature.maximum_temperature_jump_c",
+      "temperature.maximum_total_thermal_variation_c",
+      "nutrition.approved_product_mix_selection_policy",
+      "sampling_and_capture.maximum_capture_interval_h",
+      "sampling_and_capture.maximum_trap_loading",
+      "sampling_and_capture.vessel_change_required",
+      "sampling_and_capture.sample_event_order",
+      "sampling_and_capture.minimum_minutes_between_sampling_and_nutrition",
+      "sampling_and_capture.manual_sampling_capacity_per_time_slot",
+      "sampling_and_capture.minimum_action_to_drying_margin_h",
+      "tank_randomization.policy",
+      "release_policy.tank_randomization_policy_approved",
+      "temperature_actuator.probe_bias_scenarios_c",
+      "temperature_actuator.command_delay_scenarios_h",
+      "temperature_actuator.initial_temperature_uncertainty_c"
+    ],
+    "profiles_for_physical_execution": false,
+    "pso": {
+      "cache_entries": 378,
+      "independent_seeds": [
+        20260717,
+        20260731,
+        20260747
+      ],
+      "maximum_iterations": 6,
+      "particles_per_seed": 12,
+      "ranking_stability_spearman": 0.5
+    },
+    "tank_assignments": [],
+    "verdict": "PASS_CONDITIONAL"
+  },
+  "git": {
+    "branch": "ctorrealba_fermentation",
+    "captured_before_output_directory": true,
+    "commit": "12f8af985d23c79c2ecfd679c45ba50846f380c0",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty": false,
+    "dirty_paths": [],
+    "porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_paths": []
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/actuator_robustness_validation.csv": {
+      "bytes": 2825,
+      "sha256": "bee46beca9acea9bbfddd7b26ef836caa48c00f4eee2f40ebfde7e4005dd3868"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/candidate_policy_actions.csv": {
+      "bytes": 653,
+      "sha256": "101e31f858c3bd7f385419422c8293a68cf04b9c27ae4536f5671c15e7fb6838"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/candidate_vector.csv": {
+      "bytes": 465,
+      "sha256": "be24185666c93c6586762e7a00f6f1e08798d0c26361ec3e5ed77e3e48d48e3a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/canonical_candidate_vector.csv": {
+      "bytes": 465,
+      "sha256": "be24185666c93c6586762e7a00f6f1e08798d0c26361ec3e5ed77e3e48d48e3a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/full_ensemble_validation.csv": {
+      "bytes": 8392,
+      "sha256": "58086e621fc82fcb3e963bae878874b5b3fd7201ec194e467ac62a3f09c619a0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/hybrid_search_gate.json": {
+      "bytes": 4394,
+      "sha256": "e6314e7b2eabcf6a39a1daf8688c19505d78ca20b2f65380acabbcaa500a8cae"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/local_refinement_rejected_candidates.json": {
+      "bytes": 4803,
+      "sha256": "ac9bd84981a5cb8b98d1f18d6f9d0395bd2e86e987896ddaa99efce7ff733e33"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/local_refinement_trace.csv": {
+      "bytes": 3870,
+      "sha256": "438917e3a8e3920171698f2ab8f3b20dc455d20b33a08e9f915e90114782925b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/partition_surrogate_provenance.json": {
+      "bytes": 204,
+      "sha256": "a92722f874b8b78ece8467488456a771ac709c4660f56cffbc07a23a6e81a2f3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/pso_history_by_seed.csv": {
+      "bytes": 2050,
+      "sha256": "ad5b2754a940f1c75136298c8fc7b609a4008085fa174f0919eb898036bd30b0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/pso_multiseed_summary.csv": {
+      "bytes": 532,
+      "sha256": "1de6fc3168bf5ba0fec744c0560ce000e112f1a673ed498887467311de40d5be"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/pso_population_diversity.csv": {
+      "bytes": 928,
+      "sha256": "9da60de15b299a3ab3f0d4c7db9a9cc68a430a9c680faafddc92654f023c7ffb"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/pso_seed_baselines.csv": {
+      "bytes": 4551,
+      "sha256": "f9faa56ba79551301e867064cfde48eacb0ef2a25b304f3dbed6600115973a48"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/raw_particle_vector.csv": {
+      "bytes": 778,
+      "sha256": "19c5a25058cad5ad50ee64c04cb113fa86249628c45de768d1939c8a12028ba4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/repair_log.json": {
+      "bytes": 731,
+      "sha256": "36b3fadd30eeb488a01d71038e97a500355e8fdbf2a10a026c31add3214c46bb"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/top_candidates_full_ensemble.csv": {
+      "bytes": 1161,
+      "sha256": "7be9289833e9e4feaf72d532b6cb39656f0b8d8355dcf4eba08aefc0bb1da4ab"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343/wave1_mbdoe_config.json": {
+      "bytes": 12754,
+      "sha256": "5e4ebef4510ae7a9fd79a7572d715da0c560ec0edf6dd69a1da07e88399d4623"
+    }
+  },
+  "random_seeds": [
+    20260717,
+    20260731,
+    20260747
+  ],
+  "run_id": "20260718T020952Z_70e343",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "local_states": [
+      "accepted_improvement",
+      "accepted_improvement"
+    ],
+    "pso_multiseed": [
+      {
+        "best_search_objective": -17.96654712901534,
+        "best_search_robust_score": 17.96654712901534,
+        "converged": false,
+        "evaluations": 84,
+        "final_position_diversity": 0.1266731159966531,
+        "independent_seed": 20260717,
+        "iterations_completed": 6,
+        "last_iteration_improvement": 0.08113326238728291,
+        "restarts_completed": 0,
+        "stop_reason": "maximum_iterations"
+      },
+      {
+        "best_search_objective": -17.386361177988825,
+        "best_search_robust_score": 17.386361177988825,
+        "converged": false,
+        "evaluations": 84,
+        "final_position_diversity": 0.1665423203550528,
+        "independent_seed": 20260731,
+        "iterations_completed": 6,
+        "last_iteration_improvement": 0.0,
+        "restarts_completed": 0,
+        "stop_reason": "maximum_iterations"
+      },
+      {
+        "best_search_objective": -17.311603361175944,
+        "best_search_robust_score": 17.311603361175944,
+        "converged": false,
+        "evaluations": 87,
+        "final_position_diversity": 0.1533499320058555,
+        "independent_seed": 20260747,
+        "iterations_completed": 6,
+        "last_iteration_improvement": 0.0796473503543389,
+        "restarts_completed": 1,
+        "stop_reason": "maximum_iterations"
+      }
+    ],
+    "ranking_stability_spearman": 0.5
+  },
+  "sources": {
+    "adapter_manifest": {
+      "bytes": 27510,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012212Z_7afa2a/run_manifest.json",
+      "sha256": "b98b5e1acfaf44e48d5dcba7a4600d75958ebeffc86954c5d82406de89d119f0"
+    },
+    "aroma_calibration_manifest": {
+      "bytes": 15257,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "sha256": "f97efc5cbafc5f955a748003921edadf19ca9f8a5b9a0091cbf1e551335bee76"
+    },
+    "design_constraints": {
+      "bytes": 4012,
+      "path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+      "sha256": "3d7bd69f6c623eecd2b436fe2d73708343a679ac17f2fa0ebbad7233660b0294"
+    },
+    "joint_ensemble_manifest": {
+      "bytes": 4910,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/run_manifest.json",
+      "sha256": "17f83fcc43859a7b4f4fc3a717150f0c82b98e5757c0e45c2ce3fd1bb368ffe8"
+    },
+    "temperature_actuator_manifest": {
+      "bytes": 3756,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/run_manifest.json",
+      "sha256": "963eec91adc887076e2e5dfc95069106c3ce0f3753424c91483a4a27415dcb65"
+    },
+    "wave1_config": {
+      "bytes": 7302,
+      "path": "fermentation_model/pilot_2026/adaptive_design/wave1_mbdoe_config.json",
+      "sha256": "486015365b8872d477dfd2316f8abc4c4b9dbf3b414bc876bcf11917d487d0ff"
+    }
+  },
+  "stage": "wave1_hybrid_search_requalification",
+  "status": "completed"
+}
