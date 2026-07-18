@@ -523,7 +523,16 @@ def main() -> None:
     )
     if max_hours <= 0.0 or max_hours > 8.0 + 1e-12:
         raise ValueError("Final search wall-clock limit must be in (0, 8] hours")
-    deadline = search_started + max_hours * 3600.0
+    existing_checkpoints = list(checkpoint_dir.glob("*.json.gz"))
+    prior_search_elapsed = (
+        max(path.stat().st_mtime for path in existing_checkpoints)
+        - run_dir.stat().st_ctime
+        if args.resume_run and existing_checkpoints
+        else 0.0
+    )
+    prior_search_elapsed = max(float(prior_search_elapsed), 0.0)
+    remaining_search_seconds = max(max_hours * 3600.0 - prior_search_elapsed, 0.0)
+    deadline = search_started + remaining_search_seconds
     seed_profiles = _seed_pairs(config)
     allowed_seed_count = max(
         1,
@@ -557,6 +566,8 @@ def main() -> None:
             "candidate_ids": candidates,
             "config_hashes": config_hashes,
             "numpy_version": np.__version__,
+            "cumulative_search_elapsed_seconds": prior_search_elapsed
+            + float(time.perf_counter() - search_started),
         }
         _gzip_json(path, payload)
         checkpoint_paths.append(path)
@@ -589,6 +600,27 @@ def main() -> None:
                 {str(key): float(value) for key, value in payload["evaluation_cache"].items()}
             )
             sequence_by_seed[seed] = int(payload["checkpoint_sequence"])
+            stage1_iterations = int(config["search"]["maximum_iterations"])
+            for history_index, score in enumerate(state.history[1:], start=1):
+                if history_index <= stage1_iterations:
+                    stage = "stage1_four_member"
+                    iteration = history_index
+                elif history_index == stage1_iterations + 1:
+                    continue  # fidelity rescore at the same swarm iteration
+                else:
+                    stage = "stage2_eight_member_continuation"
+                    iteration = stage1_iterations + (
+                        history_index - stage1_iterations - 1
+                    )
+                history_rows.append(
+                    {
+                        "independent_seed": seed,
+                        "stage": stage,
+                        "iteration": iteration,
+                        "robust_score": -float(score),
+                        "improvement": float(state.improvement_history[history_index]),
+                    }
+                )
         else:
             state = initialize_checkpointed_swarm(
                 four_objective,
@@ -904,7 +936,7 @@ def main() -> None:
     selected_metrics = _evaluation_metrics(
         selected_evaluations, prior, config, reference=anchor_evaluations
     )
-    search_runtime = float(time.perf_counter() - search_started)
+    search_runtime = prior_search_elapsed + float(time.perf_counter() - search_started)
     actuator_frame, actuator_pass = _actuator_validation(
         selected_policies, ensemble, prior, config, partitions, design_cache
     )
