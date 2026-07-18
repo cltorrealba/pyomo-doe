@@ -95,15 +95,18 @@ def sequential_ipopt_refine(
     config: dict,
     *,
     candidate_id: str,
+    validation_objective: Objective | None = None,
 ) -> LocalRefinementResult:
-    """Sequential trust-region refinement with real-objective acceptance."""
+    """Sequential trust-region refinement with full-objective step acceptance."""
+
+    full_objective = objective if validation_objective is None else validation_objective
 
     try:
         import pyomo.environ as pyo
     except ImportError:
         return LocalRefinementResult(
             np.asarray(x, dtype=float),
-            float(objective(np.asarray(x, dtype=float))),
+            float(full_objective(np.asarray(x, dtype=float))),
             "not_executed",
             False,
             False,
@@ -114,7 +117,7 @@ def sequential_ipopt_refine(
     if not solver.available(exception_flag=False):
         return LocalRefinementResult(
             np.asarray(x, dtype=float),
-            float(objective(np.asarray(x, dtype=float))),
+            float(full_objective(np.asarray(x, dtype=float))),
             "not_executed",
             False,
             False,
@@ -143,6 +146,7 @@ def sequential_ipopt_refine(
     previous_gradient: np.ndarray | None = None
     previous_hessian: np.ndarray | None = None
     state = "rejected_model_mismatch"
+    full_current = float(full_objective(x.copy()))
     for iteration in range(1, maximum_iterations + 1):
         base = x.copy()
         f0, gradient, diagonal_curvature, methods = _derivatives(
@@ -180,6 +184,10 @@ def sequential_ipopt_refine(
                     "state": "stationary_no_improving_step",
                     "actual_objective_before": f0,
                     "actual_objective_after": f0,
+                    "full_ensemble_objective_before": full_current,
+                    "full_ensemble_objective_after": full_current,
+                    "reduced_model_acceptance_ratio": math.nan,
+                    "full_ensemble_acceptance_ratio": math.nan,
                     "gradient_infinity_norm": gradient_norm,
                     "trust_radius": radius,
                     "derivative_methods": ";".join(methods),
@@ -240,19 +248,26 @@ def sequential_ipopt_refine(
         proposed_z = np.clip(z + step_vector, 0.0, 1.0)
         candidate = x.copy()
         candidate[continuous_indices] = lower + proposed_z * span
-        actual = float(objective(candidate))
+        reduced_actual = float(objective(candidate))
+        full_actual = float(full_objective(candidate))
         surrogate_after = float(
             f0 + gradient @ step_vector + 0.5 * step_vector @ hessian @ step_vector
         )
         predicted_improvement = float(f0 - surrogate_after)
-        actual_improvement = float(f0 - actual)
-        ratio = (
-            actual_improvement / predicted_improvement
+        reduced_improvement = float(f0 - reduced_actual)
+        full_improvement = float(full_current - full_actual)
+        reduced_ratio = (
+            reduced_improvement / predicted_improvement
+            if predicted_improvement > improvement_tolerance
+            else -math.inf
+        )
+        full_ratio = (
+            full_improvement / predicted_improvement
             if predicted_improvement > improvement_tolerance
             else -math.inf
         )
         accepted = bool(
-            actual_improvement > improvement_tolerance and ratio >= acceptance_ratio
+            full_improvement > improvement_tolerance and full_ratio >= acceptance_ratio
         )
         row = {
             "candidate_id": candidate_id,
@@ -260,10 +275,15 @@ def sequential_ipopt_refine(
             "state": "accepted_improvement" if accepted else "rejected_model_mismatch",
             "actual_objective_before": f0,
             "surrogate_objective_after": surrogate_after,
-            "actual_objective_after": actual,
+            "actual_objective_after": reduced_actual,
             "predicted_improvement": predicted_improvement,
-            "actual_improvement": actual_improvement,
-            "acceptance_ratio": ratio,
+            "actual_improvement": reduced_improvement,
+            "acceptance_ratio": full_ratio,
+            "reduced_model_acceptance_ratio": reduced_ratio,
+            "full_ensemble_acceptance_ratio": full_ratio,
+            "full_ensemble_objective_before": full_current,
+            "full_ensemble_objective_after": full_actual,
+            "full_ensemble_actual_improvement": full_improvement,
             "accepted": accepted,
             "gradient_infinity_norm": gradient_norm,
             "trust_radius": radius,
@@ -284,9 +304,10 @@ def sequential_ipopt_refine(
             previous_hessian = hessian.copy()
             z = proposed_z
             x = candidate
+            full_current = full_actual
             accepted_any = True
             state = "accepted_improvement"
-            if ratio >= float(search["local_expansion_ratio"]) and np.linalg.norm(
+            if full_ratio >= float(search["local_expansion_ratio"]) and np.linalg.norm(
                 step_vector, ord=np.inf
             ) >= 0.8 * radius:
                 radius = min(maximum_radius, 2.0 * radius)
@@ -296,7 +317,7 @@ def sequential_ipopt_refine(
             if radius < minimum_radius:
                 state = "rejected_model_mismatch"
                 break
-    final_fun = float(objective(x))
+    final_fun = float(full_objective(x))
     qualified = state in {"accepted_improvement", "stationary_no_improving_step"}
     return LocalRefinementResult(
         x=x,

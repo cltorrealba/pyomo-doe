@@ -37,6 +37,8 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     load_json,
     load_wave1_config,
     logdet,
+    nutrition_policy_metrics,
+    nutrition_product_masses,
     prepare_design,
     prepare_sampling_sensitivity_cache,
     prior_precision,
@@ -522,38 +524,20 @@ def _operational_conflicts(
 
 def _nutrition_translation(policies: tuple[DesignPolicy, ...], config: dict) -> pd.DataFrame:
     nutrition = config["design_constraints"]["nutrition"]
-    volume_l = float(nutrition["initial_volume_l"])
-    organic_limit = float(nutrition["maximum_total_organic_product_g_hl"]) * volume_l / 100.0
-    dap_limit = float(nutrition["maximum_total_dap_fda_g_hl"]) * volume_l / 100.0
-    organic_fraction = nutrition["organic_product_yan_mass_fraction"]
-    dap_fraction = nutrition["dap_yan_mass_fraction"]
-    composition_available = bool(
-        organic_fraction is not None
-        and dap_fraction is not None
-        and float(organic_fraction) > 0.0
-        and float(dap_fraction) > 0.0
-    )
+    limits = config["nutrition"]["derived_product_limits"]
+    volume_l = float(limits["volume_l"])
+    organic_limit = float(limits["maximum_total_organic_product_g"])
+    dap_limit = float(limits["maximum_total_dap_g"])
+    organic_fraction = float(limits["organic_yan_mass_fraction"])
+    dap_fraction = float(limits["dap_yan_mass_fraction"])
     rows = []
     for policy in policies:
+        policy_metrics = nutrition_policy_metrics(policy, config)
         event_rows = []
         for time_h, target in policy.nutrition_mg_yan_l:
-            yan_organic = 0.5 * float(target)
-            yan_dap = 0.5 * float(target)
-            organic_g = (
-                (yan_organic * volume_l / 1000.0) / float(organic_fraction)
-                if composition_available
-                else math.nan
-            )
-            dap_g = (
-                (yan_dap * volume_l / 1000.0) / float(dap_fraction)
-                if composition_available
-                else math.nan
-            )
-            event_rows.append((time_h, target, yan_organic, yan_dap, organic_g, dap_g))
-        total_organic = float(sum(row[4] for row in event_rows)) if composition_available else math.nan
-        total_dap = float(sum(row[5] for row in event_rows)) if composition_available else math.nan
-        for time_h, target, yan_organic, yan_dap, organic_g, dap_g in event_rows:
-            reconstructed = yan_organic + yan_dap
+            translated = nutrition_product_masses(float(target), config)
+            event_rows.append((float(time_h), translated))
+        for time_h, translated in event_rows:
             rows.append(
                 {
                     "policy": policy.name,
@@ -561,33 +545,43 @@ def _nutrition_translation(policies: tuple[DesignPolicy, ...], config: dict) -> 
                     "mix_policy": nutrition["approved_product_mix_selection_policy"],
                     "selected_for_operation": False,
                     "volume_l": volume_l,
-                    "yan_target_mg_l": target,
-                    "organic_yan_contribution_mg_l": yan_organic,
-                    "dap_yan_contribution_mg_l": yan_dap,
+                    "yan_target_mg_l": translated["target_yan_mg_l"],
+                    "organic_yan_contribution_mg_l": translated[
+                        "organic_yan_contribution_mg_l"
+                    ],
+                    "dap_yan_contribution_mg_l": translated[
+                        "dap_yan_contribution_mg_l"
+                    ],
                     "organic_product_yan_mass_fraction": organic_fraction,
                     "dap_yan_mass_fraction": dap_fraction,
-                    "organic_product_g": organic_g,
-                    "dap_fda_g": dap_g,
-                    "yan_reconstructed_mg_l": reconstructed,
-                    "reconstruction_error_mg_l": reconstructed - target,
+                    "organic_product_g": translated["organic_product_g"],
+                    "dap_fda_g": translated["dap_product_g"],
+                    "yan_reconstructed_mg_l": translated["reconstructed_yan_mg_l"],
+                    "reconstruction_error_mg_l": translated["dimensional_error_mg_l"],
                     "mass_formula": "m_g=(0.5*Y_target_mg_L*V_L/1000)/YAN_mass_fraction",
                     "organic_total_limit_g": organic_limit,
                     "dap_fda_total_limit_g": dap_limit,
-                    "organic_total_product_g": total_organic,
-                    "dap_total_product_g": total_dap,
-                    "organic_total_within_limit": bool(total_organic <= organic_limit)
-                    if composition_available
-                    else None,
-                    "dap_total_within_limit": bool(total_dap <= dap_limit)
-                    if composition_available
-                    else None,
+                    "organic_total_product_g": policy_metrics[
+                        "total_organic_product_g"
+                    ],
+                    "dap_total_product_g": policy_metrics["total_dap_product_g"],
+                    "organic_total_within_limit": float(
+                        policy_metrics["total_organic_product_g"]
+                    )
+                    <= organic_limit + 1e-9,
+                    "dap_total_within_limit": float(policy_metrics["total_dap_product_g"])
+                    <= dap_limit + 1e-9,
+                    "total_yan_mg_l": policy_metrics["total_yan_mg_l"],
+                    "maximum_total_yan_mg_l": limits["maximum_total_yan_mg_l"],
+                    "net_yan_split_50_50": translated["net_yan_split_50_50"],
+                    "policy_nutrition_feasible": policy_metrics["feasible"],
                     "per_event_organic_limit_g": nutrition["maximum_organic_product_g_per_event"],
                     "per_event_dap_fda_limit_g": nutrition["maximum_dap_fda_g_per_event"],
                     "composition_source": nutrition["composition_source"],
-                    "translation_blocker": not composition_available,
+                    "translation_blocker": not bool(policy_metrics["feasible"]),
                     "blocker_reason": None
-                    if composition_available
-                    else "missing_authoritative_product_YAN_mass_fraction",
+                    if bool(policy_metrics["feasible"])
+                    else "product_mass_or_yan_contract_infeasible",
                 }
             )
     return pd.DataFrame(rows)
@@ -603,9 +597,24 @@ def _tank_randomization(
     tanks = list(config["design_constraints"]["sampling_and_capture"]["tanks"])
     if len(policies) != len(tanks):
         raise ValueError("Tank randomization requires one tank per Wave-1 profile")
-    assigned = np.random.default_rng(seed).permutation(np.asarray(tanks, dtype=object))
+    frozen_mapping = randomization["frozen_mapping"]
+    if set(frozen_mapping.values()) != set(tanks):
+        raise ValueError("Frozen tank mapping does not cover the approved Wave-1 tanks")
+
+    def logical_profile(name: str) -> str:
+        lowered = name.lower()
+        if "anchor" in lowered:
+            return "anchor"
+        if lowered == "a" or lowered.endswith("_a"):
+            return "A"
+        if lowered == "b" or lowered.endswith("_b"):
+            return "B"
+        raise ValueError(f"Cannot map policy {name!r} to frozen logical profile")
+
     rows = []
-    for policy, tank in zip(policies, assigned):
+    for policy in policies:
+        logical = logical_profile(policy.name)
+        tank = frozen_mapping[logical]
         policy_hash = sha256_payload(
             {
                 "temperature_c": list(policy.temperature_c),
@@ -615,6 +624,7 @@ def _tank_randomization(
         rows.append(
             {
                 "profile": policy.name,
+                "logical_profile": logical,
                 "tank": str(tank),
                 "seed": seed,
                 "algorithm": randomization["algorithm"],

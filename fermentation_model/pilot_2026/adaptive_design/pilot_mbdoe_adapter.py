@@ -83,6 +83,125 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+def derive_nutrition_limits(constraints: dict[str, Any]) -> dict[str, float]:
+    """Derive supplemental-YAN limits from the owner-approved product contract."""
+
+    nutrition = constraints["nutrition"]
+    volume_l = float(nutrition["initial_volume_l"])
+    organic_fraction = float(nutrition["organic_product_yan_mass_fraction"])
+    dap_fraction = float(nutrition["dap_yan_mass_fraction"])
+    organic_share = float(nutrition["organic_net_yan_fraction"])
+    dap_share = float(nutrition["dap_net_yan_fraction"])
+    values = (volume_l, organic_fraction, dap_fraction, organic_share, dap_share)
+    if not all(np.isfinite(values)) or volume_l <= 0.0:
+        raise ValueError("Nutrition volume, compositions, and YAN shares must be finite")
+    if organic_fraction <= 0.0 or dap_fraction <= 0.0:
+        raise ValueError("Product YAN mass fractions must be positive")
+    if organic_share <= 0.0 or dap_share <= 0.0 or not math.isclose(
+        organic_share + dap_share, 1.0, rel_tol=0.0, abs_tol=1e-12
+    ):
+        raise ValueError("Net YAN contribution shares must be positive and sum to one")
+    organic_max_g = (
+        float(nutrition["maximum_total_organic_product_g_hl"]) * volume_l / 100.0
+    )
+    dap_max_g = float(nutrition["maximum_total_dap_fda_g_hl"]) * volume_l / 100.0
+    organic_yan_limit = organic_max_g * organic_fraction * 1000.0 / (
+        organic_share * volume_l
+    )
+    dap_yan_limit = dap_max_g * dap_fraction * 1000.0 / (dap_share * volume_l)
+    return {
+        "volume_l": volume_l,
+        "organic_yan_mass_fraction": organic_fraction,
+        "dap_yan_mass_fraction": dap_fraction,
+        "organic_net_yan_fraction": organic_share,
+        "dap_net_yan_fraction": dap_share,
+        "maximum_total_organic_product_g": organic_max_g,
+        "maximum_total_dap_g": dap_max_g,
+        "organic_implied_maximum_total_yan_mg_l": organic_yan_limit,
+        "dap_implied_maximum_total_yan_mg_l": dap_yan_limit,
+        "maximum_total_yan_mg_l": min(organic_yan_limit, dap_yan_limit),
+    }
+
+
+def nutrition_product_masses(
+    yan_mg_l: float, config: dict[str, Any]
+) -> dict[str, float | bool]:
+    """Translate a net YAN target to grams and independently reconstruct its units."""
+
+    limits = config["nutrition"]["derived_product_limits"]
+    target = float(yan_mg_l)
+    if not np.isfinite(target) or target < 0.0:
+        raise ValueError("YAN target must be finite and nonnegative")
+    volume_l = float(limits["volume_l"])
+    organic_yan = float(limits["organic_net_yan_fraction"]) * target
+    dap_yan = float(limits["dap_net_yan_fraction"]) * target
+    organic_mass = (organic_yan * volume_l / 1000.0) / float(
+        limits["organic_yan_mass_fraction"]
+    )
+    dap_mass = (dap_yan * volume_l / 1000.0) / float(limits["dap_yan_mass_fraction"])
+    reconstructed_organic = (
+        1000.0
+        * organic_mass
+        * float(limits["organic_yan_mass_fraction"])
+        / volume_l
+    )
+    reconstructed_dap = (
+        1000.0 * dap_mass * float(limits["dap_yan_mass_fraction"]) / volume_l
+    )
+    reconstructed = reconstructed_organic + reconstructed_dap
+    dimensional_error = reconstructed - target
+    return {
+        "target_yan_mg_l": target,
+        "organic_yan_contribution_mg_l": organic_yan,
+        "dap_yan_contribution_mg_l": dap_yan,
+        "organic_product_g": organic_mass,
+        "dap_product_g": dap_mass,
+        "reconstructed_yan_mg_l": reconstructed,
+        "dimensional_error_mg_l": dimensional_error,
+        "net_yan_split_50_50": math.isclose(
+            reconstructed_organic, reconstructed_dap, rel_tol=0.0, abs_tol=1e-10
+        ),
+    }
+
+
+def nutrition_policy_metrics(
+    policy: DesignPolicy, config: dict[str, Any]
+) -> dict[str, float | bool | int]:
+    """Validate event and accumulated product masses for one fermentation."""
+
+    rows = [nutrition_product_masses(amount, config) for _, amount in policy.nutrition_mg_yan_l]
+    limits = config["nutrition"]["derived_product_limits"]
+    total_yan = float(sum(float(row["target_yan_mg_l"]) for row in rows))
+    total_organic = float(sum(float(row["organic_product_g"]) for row in rows))
+    total_dap = float(sum(float(row["dap_product_g"]) for row in rows))
+    maximum_event = float(config["nutrition"]["maximum_yan_per_pulse_mg_l"])
+    dimensional_error = max(
+        (abs(float(row["dimensional_error_mg_l"])) for row in rows), default=0.0
+    )
+    event_feasible = all(
+        float(row["target_yan_mg_l"]) <= maximum_event + 1e-9 for row in rows
+    )
+    total_feasible = bool(
+        total_yan <= float(limits["maximum_total_yan_mg_l"]) + 1e-9
+        and total_organic <= float(limits["maximum_total_organic_product_g"]) + 1e-9
+        and total_dap <= float(limits["maximum_total_dap_g"]) + 1e-9
+    )
+    split_feasible = all(bool(row["net_yan_split_50_50"]) for row in rows)
+    return {
+        "pulse_count": len(rows),
+        "total_yan_mg_l": total_yan,
+        "total_organic_product_g": total_organic,
+        "total_dap_product_g": total_dap,
+        "maximum_dimensional_error_mg_l": dimensional_error,
+        "per_event_feasible": event_feasible,
+        "total_product_limits_feasible": total_feasible,
+        "net_yan_split_50_50": split_feasible,
+        "feasible": bool(
+            event_feasible and total_feasible and split_feasible and dimensional_error <= 1e-9
+        ),
+    }
+
+
 def load_wave1_config(
     config_path: Path,
     constraints_path: Path | None = None,
@@ -112,11 +231,23 @@ def load_wave1_config(
     config["future_process"]["minimum_effective_temperature_change_c"] = float(
         temperature["minimum_effective_temperature_change_c"]
     )
+    derived_nutrition = derive_nutrition_limits(constraints)
+    declared_total = nutrition.get("maximum_total_yan_mg_l")
+    if declared_total is not None and not math.isclose(
+        float(declared_total),
+        float(derived_nutrition["maximum_total_yan_mg_l"]),
+        rel_tol=0.0,
+        abs_tol=1e-9,
+    ):
+        raise ValueError("Declared total YAN limit conflicts with product-derived limit")
     config["nutrition"].update(
         {
             "maximum_pulses": int(nutrition["maximum_pulses"]),
             "maximum_yan_per_pulse_mg_l": float(nutrition["maximum_yan_per_pulse_mg_l"]),
-            "maximum_total_yan_mg_l": float(nutrition["maximum_total_yan_mg_l"]),
+            "maximum_total_yan_mg_l": float(
+                derived_nutrition["maximum_total_yan_mg_l"]
+            ),
+            "derived_product_limits": derived_nutrition,
             "latest_h": float(nutrition["latest_allowable_pulse_h"]),
             "manual_weekdays": list(range(len(manual["weekdays"]))),
         }
@@ -144,10 +275,15 @@ def load_wave1_config(
             ],
         }
     )
-    if temperature["maximum_temperature_jump_c"] is None and temperature.get(
-        "maximum_temperature_jump_policy"
-    ) != "bounded_only_by_allowed_temperature_range":
-        raise ValueError("A null maximum temperature jump requires an explicit no-extra-limit policy")
+    if temperature["maximum_temperature_jump_c"] is None:
+        raise ValueError("The authoritative maximum temperature jump must be configured")
+    if temperature.get("maximum_temperature_jump_policy") != (
+        "hard_limit_between_consecutive_12h_blocks"
+    ):
+        raise ValueError("Maximum temperature jump must use the approved hard-limit policy")
+    config["future_process"]["maximum_temperature_jump_c"] = float(
+        temperature["maximum_temperature_jump_c"]
+    )
     if temperature["maximum_total_thermal_variation_c"] is None and temperature.get(
         "maximum_total_thermal_variation_policy"
     ) != "no_additional_limit":
@@ -221,7 +357,9 @@ def allowed_sampling_times(config: dict[str, Any]) -> np.ndarray:
     horizon = float(config["future_process"]["information_horizon_h"])
     weekdays = set(int(value) for value in config["nutrition"]["manual_weekdays"])
     hours = [int(value) for value in config["nutrition"]["manual_hours_local"]]
-    times = []
+    # The owner-approved basal sample is a special slot at campaign start even
+    # when 15:00 is outside the ordinary 09:00/13:00/17:00 grid.
+    times = [0.0]
     date = start.date()
     while True:
         midnight = datetime.combine(date, datetime.min.time(), tzinfo=start.tzinfo)
@@ -302,9 +440,12 @@ def effective_temperature_change_indices(
     profile = np.asarray(temperature_c, dtype=float)
     differences = np.abs(np.diff(profile))
     threshold = float(config["future_process"]["minimum_effective_temperature_change_c"])
-    invalid = (differences > 1e-12) & (differences < threshold - 1e-12)
-    if np.any(invalid):
+    invalid_minimum = (differences > 1e-12) & (differences < threshold - 1e-12)
+    if np.any(invalid_minimum):
         raise ValueError("Temperature profile contains an effective change below the approved minimum")
+    maximum = float(config["future_process"]["maximum_temperature_jump_c"])
+    if np.any(differences > maximum + 1e-12):
+        raise ValueError("Temperature profile exceeds the approved maximum consecutive jump")
     return np.flatnonzero(differences >= threshold - 1e-12) + 1
 
 
@@ -316,6 +457,10 @@ def policy_to_canonical_vector(policy: DesignPolicy, config: dict[str, Any]) -> 
     profile = np.asarray(policy.temperature_c, dtype=float)
     if len(profile) != slots:
         raise ValueError(f"A canonical temperature profile must contain {slots} legal slots")
+    lower = float(config["future_process"]["temperature_minimum_c"])
+    upper = float(config["future_process"]["temperature_maximum_c"])
+    if np.any(profile < lower - 1e-12) or np.any(profile > upper + 1e-12):
+        raise ValueError("Canonical temperature setpoints must remain within approved bounds")
     vector[int(layout["temperature_initial"])] = float(profile[0])
     change_indices = effective_temperature_change_indices(profile, config)
     if len(change_indices) > changes:
@@ -327,6 +472,8 @@ def policy_to_canonical_vector(policy: DesignPolicy, config: dict[str, Any]) -> 
     allowed = allowed_nutrition_times(config)
     if len(policy.nutrition_mg_yan_l) > int(config["nutrition"]["maximum_pulses"]):
         raise ValueError("Policy contains too many nutrition pulses")
+    if not bool(nutrition_policy_metrics(policy, config)["feasible"]):
+        raise ValueError("Policy nutrition is infeasible under the approved product contract")
     for index, (time_h, amount) in enumerate(sorted(policy.nutrition_mg_yan_l)):
         matches = np.flatnonzero(np.isclose(allowed, float(time_h), atol=1e-9, rtol=0.0))
         if len(matches) != 1:
@@ -373,6 +520,7 @@ def decode_policy_vector(name: str, values: np.ndarray, config: dict[str, Any]) 
     effective_changes: list[tuple[int, float]] = []
     current = initial
     minimum_change = float(config["future_process"]["minimum_effective_temperature_change_c"])
+    maximum_jump = float(config["future_process"]["maximum_temperature_jump_c"])
     for slot_index, level, source_index in sorted(proposed_changes):
         magnitude = abs(level - current)
         if magnitude < minimum_change - 1e-12:
@@ -386,6 +534,20 @@ def decode_policy_vector(name: str, values: np.ndarray, config: dict[str, Any]) 
                 }
             )
             continue
+        if magnitude > maximum_jump + 1e-12:
+            reconstructed = current + math.copysign(maximum_jump, level - current)
+            repairs.append(
+                {
+                    "action": "reconstruct_oversize_temperature_jump",
+                    "entry": source_index,
+                    "slot": slot_index,
+                    "proposed_level_c": level,
+                    "reconstructed_level_c": reconstructed,
+                    "proposed_change_c": magnitude,
+                    "maximum_temperature_jump_c": maximum_jump,
+                }
+            )
+            level = reconstructed
         profile[slot_index:] = level
         current = level
         effective_changes.append((slot_index, level))
@@ -519,40 +681,77 @@ def design_complexity_penalty(policies: tuple[DesignPolicy, ...], config: dict[s
     return float(total)
 
 
+def actuator_temperature_trajectory(
+    policy: DesignPolicy,
+    config: dict[str, Any],
+    actuator_scenario: dict[str, float] | None = None,
+) -> dict[str, np.ndarray]:
+    """Return setpoint, physical temperature, biased probe reading, and tracking error.
+
+    The controller approximation treats the probe as the feedback signal. A
+    positive probe bias therefore lowers the physical equilibrium by the same
+    amount; it is never added to the physical temperature as an exogenous heat
+    disturbance. The signed tracking scenario is an equilibrium tracking offset.
+    """
+
+    horizon = float(config["future_process"]["maximum_horizon_h"])
+    slot_h = float(config["future_process"]["temperature_slot_h"])
+    total_slots = int(round(horizon / slot_h))
+    setpoint_blocks = list(policy.temperature_c)
+    setpoint_blocks.extend([setpoint_blocks[-1]] * max(0, total_slots - len(setpoint_blocks)))
+    actuator = config["future_process"]["temperature_actuator"]
+    scenario = dict(actuator_scenario or {})
+    actuator_step = float(actuator["simulation_step_h"])
+    time_h = np.arange(0.0, horizon + actuator_step * 0.5, actuator_step)
+    physical = np.empty_like(time_h)
+    initial_offset = float(scenario.get("initial_temperature_offset_c", 0.0))
+    physical[0] = float(
+        scenario.get(
+            "initial_temperature_c",
+            float(actuator["initial_temperature_c"]) + initial_offset,
+        )
+    )
+    tau = float(scenario.get("tau_h", actuator["global_tau_h"]))
+    if tau <= 0.0 or not np.isfinite(tau):
+        raise ValueError("Actuator tau must be finite and positive")
+    delay_h = max(float(scenario.get("command_delay_h", 0.0)), 0.0)
+    tracking_offset = float(scenario.get("tracking_error_c", 0.0))
+    probe_bias = float(scenario.get("probe_bias_c", 0.0))
+    setpoint = np.empty_like(time_h)
+    for index, current_time in enumerate(time_h):
+        command_time = max(float(current_time) - delay_h, 0.0)
+        setpoint_index = min(int(command_time // slot_h), total_slots - 1)
+        setpoint[index] = float(setpoint_blocks[setpoint_index])
+        if index == 0:
+            continue
+        controller_physical_target = setpoint[index - 1] - probe_bias + tracking_offset
+        decay = math.exp(-actuator_step / tau)
+        physical[index] = controller_physical_target + (
+            physical[index - 1] - controller_physical_target
+        ) * decay
+    probe_reading = physical + probe_bias
+    return {
+        "time_h": time_h,
+        "setpoint_c": setpoint,
+        "physical_temperature_c": physical,
+        "probe_reading_c": probe_reading,
+        "tracking_error_c": physical - setpoint,
+    }
+
+
 def _future_design(
     policy: DesignPolicy,
     config: dict[str, Any],
     actuator_scenario: dict[str, float] | None = None,
 ):
     model = pilot_calibration._model_module()
-    horizon = float(config["future_process"]["maximum_horizon_h"])
-    total_slots = int(round(horizon / float(config["future_process"]["temperature_slot_h"])))
-    setpoints = list(policy.temperature_c)
-    setpoints.extend([setpoints[-1]] * max(0, total_slots - len(setpoints)))
-    actuator = config["future_process"]["temperature_actuator"]
-    scenario = dict(actuator_scenario or {})
-    actuator_step = float(actuator["simulation_step_h"])
-    actuator_time = np.arange(0.0, horizon + actuator_step * 0.5, actuator_step)
-    executed = np.empty_like(actuator_time)
-    executed[0] = float(scenario.get("initial_temperature_c", actuator["initial_temperature_c"]))
-    tau = float(scenario.get("tau_h", actuator["global_tau_h"]))
-    command_delay_h = max(float(scenario.get("command_delay_h", 0.0)), 0.0)
-    tracking_error_c = float(scenario.get("tracking_error_c", 0.0))
-    probe_bias_c = float(scenario.get("probe_bias_c", 0.0))
-    slot_h = float(config["future_process"]["temperature_slot_h"])
-    for index in range(1, len(actuator_time)):
-        command_time = max(float(actuator_time[index - 1]) - command_delay_h, 0.0)
-        setpoint_index = min(int(command_time // slot_h), total_slots - 1)
-        setpoint = float(setpoints[setpoint_index])
-        decay = math.exp(-actuator_step / tau)
-        executed[index] = setpoint + (executed[index - 1] - setpoint) * decay
-    executed = executed + tracking_error_c + probe_bias_c
+    trajectory = actuator_temperature_trajectory(policy, config, actuator_scenario)
     pulses = tuple((time, amount / 1000.0) for time, amount in policy.nutrition_mg_yan_l)
     return model.BatchData(
         medium="natural_pilot_2026",
         batch=policy.name,
-        time=actuator_time,
-        temperature_c=executed,
+        time=trajectory["time_h"],
+        temperature_c=trajectory["physical_temperature_c"],
         initials={key: float(value) for key, value in config["future_process"]["initials"].items()},
         pulses={"N": pulses, "G": tuple(), "F": tuple(), "E": tuple(), "X": tuple()},
         observations={},

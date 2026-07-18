@@ -20,14 +20,28 @@ if str(FERMENTATION_DIR) not in sys.path:
 
 from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     DesignPolicy,
+    actuator_temperature_trajectory,
+    allowed_sampling_times,
     decode_policy_vector,
     finite_difference_sensitivity,
     load_wave1_config,
     nominal_observation_scale,
+    nutrition_policy_metrics,
+    nutrition_product_masses,
     physical_observation_vector,
     policy_to_canonical_vector,
     temperature_profile_metrics,
     vector_bounds,
+)
+from pilot_2026.adaptive_design.final_search_logic import (  # noqa: E402
+    approved_actuator_scenarios,
+    practical_convergence,
+    select_final_candidate,
+)
+from pilot_2026.adaptive_design.hybrid_optimizer import (  # noqa: E402
+    CheckpointedSwarmState,
+    advance_checkpointed_swarm,
+    initialize_checkpointed_swarm,
 )
 from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # noqa: E402
     _capture_intervals,
@@ -160,9 +174,12 @@ class Wave1RequalificationTests(unittest.TestCase):
         decoded = decode_policy_vector("pulses", raw, self.config)
         schedule = decoded.policy.nutrition_mg_yan_l
         self.assertEqual(len({time for time, _ in schedule}), 3)
-        self.assertAlmostEqual(sum(amount for _, amount in schedule), 90.0)
+        self.assertAlmostEqual(sum(amount for _, amount in schedule), 80.0)
         self.assertTrue(
             any(row["action"] == "relocate_duplicate_nutrition_time" for row in decoded.repair_log)
+        )
+        self.assertTrue(
+            any(row["action"] == "scale_total_yan_to_limit" for row in decoded.repair_log)
         )
         np.testing.assert_allclose(
             policy_to_canonical_vector(decoded.policy, self.config),
@@ -241,6 +258,72 @@ class Wave1RequalificationTests(unittest.TestCase):
             )
         )
 
+    def test_one_and_five_degree_temperature_jumps_are_valid(self) -> None:
+        for jump in (1.0, 5.0):
+            policy = DesignPolicy(
+                f"jump_{jump}", tuple([18.0] * 7 + [18.0 + jump] * 7), tuple()
+            )
+            metrics = temperature_profile_metrics(policy, self.config)
+            self.assertEqual(metrics["temperature_changes"], 1)
+            self.assertAlmostEqual(float(metrics["maximum_temperature_jump_c"]), jump)
+
+    def test_oversize_temperature_jump_is_explicitly_reconstructed(self) -> None:
+        bounds = vector_bounds(self.config)
+        raw = bounds[:, 0].copy()
+        raw[0] = 18.0
+        changes = int(self.config["future_process"]["maximum_temperature_changes"])
+        raw[1] = 1.0
+        raw[1 + changes] = 7.0
+        raw[1 + 2 * changes] = 27.0
+        decoded = decode_policy_vector("oversize", raw, self.config)
+        metrics = temperature_profile_metrics(decoded.policy, self.config)
+        self.assertLessEqual(float(metrics["maximum_temperature_jump_c"]), 5.0)
+        self.assertTrue(
+            any(
+                row["action"] == "reconstruct_oversize_temperature_jump"
+                for row in decoded.repair_log
+            )
+        )
+        self.assertTrue(all(15.0 <= value <= 27.0 for value in decoded.policy.temperature_c))
+
+    def test_product_derived_total_yan_limit_and_mass_units(self) -> None:
+        limits = self.config["nutrition"]["derived_product_limits"]
+        self.assertAlmostEqual(float(limits["maximum_total_yan_mg_l"]), 80.0)
+        translated = nutrition_product_masses(80.0, self.config)
+        self.assertAlmostEqual(float(translated["organic_product_g"]), 92.0)
+        self.assertAlmostEqual(float(translated["dap_product_g"]), 46.0)
+        self.assertAlmostEqual(float(translated["reconstructed_yan_mg_l"]), 80.0)
+        self.assertAlmostEqual(float(translated["dimensional_error_mg_l"]), 0.0)
+
+    def test_nutrition_feasibility_one_80_two_40_and_two_80(self) -> None:
+        temperature = tuple([18.0] * 14)
+        one_80 = DesignPolicy("one_80", temperature, ((2.0, 80.0),))
+        two_40 = DesignPolicy("two_40", temperature, ((2.0, 40.0), (18.0, 40.0)))
+        two_80 = DesignPolicy("two_80", temperature, ((2.0, 80.0), (18.0, 80.0)))
+        self.assertTrue(bool(nutrition_policy_metrics(one_80, self.config)["feasible"]))
+        self.assertTrue(bool(nutrition_policy_metrics(two_40, self.config)["feasible"]))
+        self.assertFalse(bool(nutrition_policy_metrics(two_80, self.config)["feasible"]))
+
+    def test_baseline_sampling_slot_is_added_at_campaign_start(self) -> None:
+        allowed = allowed_sampling_times(self.config)
+        self.assertEqual(float(allowed[0]), 0.0)
+        self.assertIn(2.0, allowed.tolist())
+
+    def test_probe_bias_is_feedback_error_not_physical_heat_addition(self) -> None:
+        policy = DesignPolicy("controller", tuple([18.0] * 14), tuple())
+        trajectory = actuator_temperature_trajectory(
+            policy,
+            self.config,
+            {"probe_bias_c": 0.5, "tracking_error_c": 0.0},
+        )
+        self.assertAlmostEqual(float(trajectory["physical_temperature_c"][-1]), 17.5, places=6)
+        self.assertAlmostEqual(float(trajectory["probe_reading_c"][-1]), 18.0, places=6)
+
+    def test_complete_approved_actuator_envelope_has_243_scenarios(self) -> None:
+        scenarios = approved_actuator_scenarios(self.config)
+        self.assertEqual(len(scenarios), 9 * 3 * 3 * 3 * 1)
+        self.assertEqual({row["command_delay_h"] for row in scenarios}, {0.0})
+
     def test_baseline_and_capture_intervals_are_distinct_observation_types(self) -> None:
         forcing = AromaForcing(
             experiment_id="capture_test",
@@ -295,7 +378,7 @@ class Wave1RequalificationTests(unittest.TestCase):
         conflicts = _operational_conflicts(schedules, policies, self.config)
         self.assertFalse(conflicts["status"].eq("unresolved").any())
 
-    def test_nutrition_50_50_is_encoded_but_product_grams_stay_blocked(self) -> None:
+    def test_nutrition_50_50_is_encoded_and_product_grams_are_available(self) -> None:
         policy = DesignPolicy("A", tuple([18.0] * 14), ((24.0, 80.0),))
         translation = _nutrition_translation((policy,), self.config)
         self.assertEqual(
@@ -307,8 +390,9 @@ class Wave1RequalificationTests(unittest.TestCase):
         self.assertAlmostEqual(
             float(translation.iloc[0]["dap_yan_contribution_mg_l"]), 40.0
         )
-        self.assertTrue(np.isnan(float(translation.iloc[0]["organic_product_g"])))
-        self.assertTrue(bool(translation.iloc[0]["translation_blocker"]))
+        self.assertAlmostEqual(float(translation.iloc[0]["organic_product_g"]), 92.0)
+        self.assertAlmostEqual(float(translation.iloc[0]["dap_fda_g"]), 46.0)
+        self.assertFalse(bool(translation.iloc[0]["translation_blocker"]))
 
     def test_tank_randomization_is_reproducible_but_not_authorized(self) -> None:
         policies = tuple(
@@ -320,6 +404,10 @@ class Wave1RequalificationTests(unittest.TestCase):
         second = _tank_randomization(policies, self.config, frozen)
         self.assertEqual(first["tank"].tolist(), second["tank"].tolist())
         self.assertEqual(first["tank"].nunique(), 3)
+        self.assertEqual(
+            dict(zip(first["logical_profile"], first["tank"])),
+            {"anchor": "TK33", "A": "TK31", "B": "TK32"},
+        )
         self.assertFalse(first["authorized_for_physical_execution"].any())
 
     def test_actions_after_drying_are_rejected(self) -> None:
@@ -410,6 +498,63 @@ class Wave1RequalificationTests(unittest.TestCase):
         self.assertAlmostEqual(min(values), 0.21148207178811254)
         self.assertAlmostEqual(max(values), 0.45812979693594796)
 
+    def test_final_selection_does_not_let_worse_refinement_displace_original(self) -> None:
+        common = {
+            "feasible": True,
+            "total_thermal_variation_c": 4.0,
+            "temperature_changes": 1,
+            "total_yan_mg_l": 80.0,
+            "minimum_action_margin_h": 30.0,
+        }
+        original = {
+            **common,
+            "candidate_id": "original",
+            "source_type": "pso_original",
+            "full_objective": -20.0,
+            "maximum_temperature_jump_c": 4.0,
+        }
+        refinement = {
+            **common,
+            "candidate_id": "refined",
+            "source_type": "accepted_refinement",
+            "parent_candidate_id": "other",
+            "full_objective": -19.0,
+            "maximum_temperature_jump_c": 3.0,
+        }
+        selected, _ = select_final_candidate([original, refinement], self.config)
+        self.assertEqual(selected["candidate_id"], "original")
+
+    def test_checkpoint_resume_reproduces_next_iteration_exactly(self) -> None:
+        bounds = np.asarray([[-2.0, 2.0], [-3.0, 3.0]])
+        objective = lambda values: float(np.sum((values - 0.25) ** 2))
+        state = initialize_checkpointed_swarm(
+            objective, bounds, particles=6, seed=1234, fidelity="four_member"
+        )
+        state = advance_checkpointed_swarm(state, objective, bounds)
+        restored = CheckpointedSwarmState.from_payload(state.to_payload())
+        uninterrupted = advance_checkpointed_swarm(state, objective, bounds)
+        resumed = advance_checkpointed_swarm(restored, objective, bounds)
+        np.testing.assert_array_equal(resumed.positions, uninterrupted.positions)
+        np.testing.assert_array_equal(resumed.velocities, uninterrupted.velocities)
+        np.testing.assert_array_equal(
+            resumed.personal_best_positions, uninterrupted.personal_best_positions
+        )
+        self.assertEqual(resumed.rng_state, uninterrupted.rng_state)
+
+    def test_practical_convergence_uses_seed_champions_and_policy_family(self) -> None:
+        champions = [
+            {"independent_seed": seed, "full_ensemble_robust_score": score, "feasible": True}
+            for seed, score in ((1, 20.0), (2, 19.95), (3, 19.92), (4, 18.0), (5, 17.0))
+        ]
+        distances = [
+            {"left_seed": left, "right_seed": right, "policy_distance": 0.1}
+            for left, right in ((1, 2), (1, 3), (2, 3))
+        ]
+        local_config = json.loads(json.dumps(self.config))
+        local_config["independent_seeds"] = [1, 2, 3, 4, 5]
+        result = practical_convergence(champions, distances, 0.0005, local_config)
+        self.assertTrue(result["passed"])
+
     def test_sampling_source_is_explicit_not_latest_glob(self) -> None:
         source = (ADAPTIVE_DIR / "optimize_wave1_sampling_and_plots.py").read_text(
             encoding="utf-8"
@@ -420,3 +565,5 @@ class Wave1RequalificationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    nutrition_policy_metrics,
+    nutrition_product_masses,

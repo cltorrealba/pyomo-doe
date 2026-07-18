@@ -1,7 +1,7 @@
 {
   "campaign_id": "pilot_2026",
-  "schema_version": 4,
-  "review_status": "owner_operational_decisions_encoded_physical_release_blocked_2026-07-18",
+  "schema_version": 5,
+  "review_status": "owner_final_wave1_operational_decisions_encoded_physical_release_pending_2026-07-18",
   "timezone": "America/Santiago",
   "temperature": {
     "minimum_c": 15.0,
@@ -9,8 +9,8 @@
     "minimum_segment_duration_h": 12.0,
     "maximum_active_segments": 42,
     "minimum_effective_temperature_change_c": 1.0,
-    "maximum_temperature_jump_c": null,
-    "maximum_temperature_jump_policy": "bounded_only_by_allowed_temperature_range",
+    "maximum_temperature_jump_c": 5.0,
+    "maximum_temperature_jump_policy": "hard_limit_between_consecutive_12h_blocks",
     "maximum_total_thermal_variation_c": null,
     "maximum_total_thermal_variation_policy": "no_additional_limit",
     "setpoint_changes_follow_manual_action_window": false,
@@ -36,12 +36,18 @@
     "per_event_mass_limit_policy": "no_separate_limit; total product and per-pulse YAN constraints apply",
     "maximum_total_organic_product_g_hl": 40.0,
     "maximum_total_dap_fda_g_hl": 96.0,
-    "maximum_total_yan_mg_l": 232.0,
+    "maximum_total_yan_mg_l": null,
+    "maximum_total_yan_policy": "derive_from_product_composition_volume_mix_and_total_product_limits",
     "latest_allowable_pulse_h": 96.0,
     "approved_product_mix_selection_policy": "50_50_net_YAN_contribution",
-    "organic_product_yan_mass_fraction": null,
-    "dap_yan_mass_fraction": null,
-    "composition_source": null,
+    "organic_net_yan_fraction": 0.50,
+    "dap_net_yan_fraction": 0.50,
+    "organic_product_name": "SpringFerm Xtrem",
+    "organic_product_manufacturer": "Fermentis",
+    "organic_product_yan_mass_fraction": 0.10,
+    "dap_product_name": "DAP",
+    "dap_yan_mass_fraction": 0.20,
+    "composition_source": "owner-provided operational composition, 2026-07-18",
     "standard_anchor_nutrition_approved": true,
     "historical_pulse_yan_mg_l": 80.0,
     "yan_80_vs_90_435_mg_l_reconciled": true,
@@ -96,19 +102,25 @@
     "active_cooling_separation_approved": true,
     "calibration_gate_passed": true,
     "engine_qualification_passed": true,
-    "candidate_plots_approved_by_owner": false,
+    "candidate_plots_approved_by_owner": true,
+    "candidate_plot_format_approved_by_owner": true,
+    "independent_human_reviewer_required": false,
+    "automated_final_audit_required": true,
     "physical_execution_authorized": false
   },
   "tank_randomization": {
-    "policy": "uniform_permutation",
+    "policy": "frozen_logical_profile_mapping",
     "algorithm": "numpy.random.Generator(PCG64).permutation",
     "seed": 20260718,
     "approved": true,
-    "authorization_status": "proposal_may_be_frozen_but_not_authorized_for_execution"
+    "frozen_mapping": {
+      "anchor": "TK33",
+      "A": "TK31",
+      "B": "TK32"
+    },
+    "authorization_status": "mapping_frozen_but_not_authorized_for_execution"
   },
   "fail_closed_fields": [
-    "nutrition.organic_product_yan_mass_fraction",
-    "nutrition.dap_yan_mass_fraction",
-    "approval.candidate_plots_approved_by_owner"
+    "approval.physical_execution_authorized"
   ]
 }

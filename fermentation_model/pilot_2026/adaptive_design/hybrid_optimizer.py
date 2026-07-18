@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Callable
+from typing import Any, Callable
 
 import numpy as np
 from scipy.stats import qmc
@@ -34,6 +34,72 @@ class ParticleSwarmResult:
     restarts_completed: int
 
 
+@dataclass
+class CheckpointedSwarmState:
+    """Complete mutable PSO state required for bitwise reproducible continuation."""
+
+    seed: int
+    fidelity: str
+    iteration: int
+    evaluations: int
+    positions: np.ndarray
+    velocities: np.ndarray
+    values: np.ndarray
+    personal_best_positions: np.ndarray
+    personal_best_values: np.ndarray
+    global_best_position: np.ndarray
+    global_best_value: float
+    rng_state: dict[str, Any]
+    history: list[float]
+    improvement_history: list[float]
+
+    def to_payload(self) -> dict[str, Any]:
+        return {
+            "schema_version": 1,
+            "seed": int(self.seed),
+            "fidelity": self.fidelity,
+            "iteration": int(self.iteration),
+            "evaluations": int(self.evaluations),
+            "positions": self.positions.tolist(),
+            "velocities": self.velocities.tolist(),
+            "values": self.values.tolist(),
+            "personal_best_positions": self.personal_best_positions.tolist(),
+            "personal_best_values": self.personal_best_values.tolist(),
+            "global_best_position": self.global_best_position.tolist(),
+            "global_best_value": float(self.global_best_value),
+            "rng_state": self.rng_state,
+            "history": [float(value) for value in self.history],
+            "improvement_history": [
+                float(value) for value in self.improvement_history
+            ],
+        }
+
+    @classmethod
+    def from_payload(cls, payload: dict[str, Any]) -> "CheckpointedSwarmState":
+        if int(payload.get("schema_version", -1)) != 1:
+            raise ValueError("Unsupported checkpointed swarm schema")
+        return cls(
+            seed=int(payload["seed"]),
+            fidelity=str(payload["fidelity"]),
+            iteration=int(payload["iteration"]),
+            evaluations=int(payload["evaluations"]),
+            positions=np.asarray(payload["positions"], dtype=float),
+            velocities=np.asarray(payload["velocities"], dtype=float),
+            values=np.asarray(payload["values"], dtype=float),
+            personal_best_positions=np.asarray(
+                payload["personal_best_positions"], dtype=float
+            ),
+            personal_best_values=np.asarray(payload["personal_best_values"], dtype=float),
+            global_best_position=np.asarray(payload["global_best_position"], dtype=float),
+            global_best_value=float(payload["global_best_value"]),
+            rng_state=dict(payload["rng_state"]),
+            history=[float(value) for value in payload["history"]],
+            improvement_history=[
+                float(value) for value in payload["improvement_history"]
+            ],
+        )
+
+
 def _sobol_positions(count: int, dimension: int, seed: int) -> np.ndarray:
     if count <= 0:
         return np.empty((0, dimension), dtype=float)
@@ -45,6 +111,157 @@ def _sobol_positions(count: int, dimension: int, seed: int) -> np.ndarray:
 def _normalized_diversity(positions: np.ndarray, lower: np.ndarray, span: np.ndarray) -> float:
     normalized = (positions - lower) / span
     return float(np.mean(np.std(normalized, axis=0, ddof=0)))
+
+
+def initialize_checkpointed_swarm(
+    objective: Objective,
+    bounds: np.ndarray,
+    *,
+    particles: int,
+    seed: int,
+    fidelity: str,
+    initial_positions: np.ndarray | None = None,
+) -> CheckpointedSwarmState:
+    """Initialize a PSO state without hiding any state needed for resume."""
+
+    bounds = np.asarray(bounds, dtype=float)
+    if bounds.ndim != 2 or bounds.shape[1] != 2 or np.any(bounds[:, 0] >= bounds[:, 1]):
+        raise ValueError("bounds must be a finite n-by-2 array with lower < upper")
+    if particles < 2 or not np.isfinite(bounds).all():
+        raise ValueError("invalid checkpointed particle-swarm configuration")
+    lower, upper = bounds[:, 0], bounds[:, 1]
+    span = upper - lower
+    seeds = (
+        np.empty((0, len(bounds)), dtype=float)
+        if initial_positions is None
+        else np.atleast_2d(np.asarray(initial_positions, dtype=float))
+    )
+    if seeds.shape[1] != len(bounds) or len(seeds) > particles:
+        raise ValueError("initial_positions must match bounds and particle count")
+    seeds = np.clip(seeds, lower, upper)
+    sobol_count = particles - len(seeds)
+    positions = np.vstack(
+        [seeds, lower + _sobol_positions(sobol_count, len(bounds), int(seed)) * span]
+    )
+    rng = np.random.default_rng(int(seed))
+    velocities = rng.uniform(-0.1, 0.1, size=positions.shape) * span
+    values = np.asarray([objective(row.copy()) for row in positions], dtype=float)
+    if not np.isfinite(values).all():
+        raise ValueError("objective returned non-finite values")
+    best = int(np.argmin(values))
+    return CheckpointedSwarmState(
+        seed=int(seed),
+        fidelity=str(fidelity),
+        iteration=0,
+        evaluations=particles,
+        positions=positions,
+        velocities=velocities,
+        values=values,
+        personal_best_positions=positions.copy(),
+        personal_best_values=values.copy(),
+        global_best_position=positions[best].copy(),
+        global_best_value=float(values[best]),
+        rng_state=rng.bit_generator.state,
+        history=[float(values[best])],
+        improvement_history=[0.0],
+    )
+
+
+def rescore_checkpointed_swarm(
+    state: CheckpointedSwarmState,
+    objective: Objective,
+    *,
+    fidelity: str,
+) -> CheckpointedSwarmState:
+    """Continue the same swarm at a new fidelity after rescoring its memory."""
+
+    positions_values = np.asarray(
+        [objective(row.copy()) for row in state.positions], dtype=float
+    )
+    personal_values = np.asarray(
+        [objective(row.copy()) for row in state.personal_best_positions], dtype=float
+    )
+    choose_current = positions_values < personal_values
+    personal_positions = state.personal_best_positions.copy()
+    personal_positions[choose_current] = state.positions[choose_current]
+    personal_values[choose_current] = positions_values[choose_current]
+    best = int(np.argmin(personal_values))
+    return CheckpointedSwarmState(
+        seed=state.seed,
+        fidelity=str(fidelity),
+        iteration=state.iteration,
+        evaluations=state.evaluations + 2 * len(state.positions),
+        positions=state.positions.copy(),
+        velocities=state.velocities.copy(),
+        values=positions_values,
+        personal_best_positions=personal_positions,
+        personal_best_values=personal_values,
+        global_best_position=personal_positions[best].copy(),
+        global_best_value=float(personal_values[best]),
+        rng_state=state.rng_state,
+        history=state.history + [float(personal_values[best])],
+        improvement_history=state.improvement_history + [0.0],
+    )
+
+
+def advance_checkpointed_swarm(
+    state: CheckpointedSwarmState,
+    objective: Objective,
+    bounds: np.ndarray,
+    *,
+    inertia: float = 0.72,
+    cognitive: float = 1.49,
+    social: float = 1.49,
+) -> CheckpointedSwarmState:
+    """Advance exactly one iteration so callers can checkpoint every iteration."""
+
+    bounds = np.asarray(bounds, dtype=float)
+    lower, upper = bounds[:, 0], bounds[:, 1]
+    span = upper - lower
+    if state.positions.shape != state.velocities.shape or state.positions.shape[1] != len(bounds):
+        raise ValueError("Checkpointed swarm arrays do not match configured bounds")
+    rng = np.random.default_rng()
+    rng.bit_generator.state = state.rng_state
+    r1 = rng.random(state.positions.shape)
+    r2 = rng.random(state.positions.shape)
+    velocities = (
+        float(inertia) * state.velocities
+        + float(cognitive)
+        * r1
+        * (state.personal_best_positions - state.positions)
+        + float(social)
+        * r2
+        * (state.global_best_position - state.positions)
+    )
+    velocities = np.clip(velocities, -0.5 * span, 0.5 * span)
+    positions = np.clip(state.positions + velocities, lower, upper)
+    values = np.asarray([objective(row.copy()) for row in positions], dtype=float)
+    if not np.isfinite(values).all():
+        raise ValueError("objective returned non-finite values")
+    personal_positions = state.personal_best_positions.copy()
+    personal_values = state.personal_best_values.copy()
+    improved = values < personal_values
+    personal_positions[improved] = positions[improved]
+    personal_values[improved] = values[improved]
+    best = int(np.argmin(personal_values))
+    global_value = float(personal_values[best])
+    improvement = max(float(state.global_best_value) - global_value, 0.0)
+    return CheckpointedSwarmState(
+        seed=state.seed,
+        fidelity=state.fidelity,
+        iteration=state.iteration + 1,
+        evaluations=state.evaluations + len(positions),
+        positions=positions,
+        velocities=velocities,
+        values=values,
+        personal_best_positions=personal_positions,
+        personal_best_values=personal_values,
+        global_best_position=personal_positions[best].copy(),
+        global_best_value=global_value,
+        rng_state=rng.bit_generator.state,
+        history=state.history + [global_value],
+        improvement_history=state.improvement_history + [improvement],
+    )
 
 
 def particle_swarm(
