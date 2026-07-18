@@ -1,0 +1,56 @@
+{
+  "figures": [
+    {
+      "family": "Trend",
+      "figure": "candidate_profiles_v2.png",
+      "question": "What excitation policies were evaluated?"
+    },
+    {
+      "family": "Uncertainty & Benchmark",
+      "figure": "executed_temperature_ensemble_v2.png",
+      "question": "How does actuator uncertainty alter executed temperature?"
+    },
+    {
+      "family": "Trend",
+      "figure": "aroma_predictions_v2.png",
+      "question": "How do candidate policies separate aroma trajectories?"
+    },
+    {
+      "family": "Progression",
+      "figure": "sampling_schedule_v2.png",
+      "question": "Where are the ten wine samples placed?"
+    },
+    {
+      "family": "Progression",
+      "figure": "capture_intervals_v2.png",
+      "question": "Do all nine capture intervals cover the process from zero?"
+    },
+    {
+      "family": "Distribution",
+      "figure": "information_gain_distribution_v2.png",
+      "question": "How does information vary across the 64 members?"
+    },
+    {
+      "family": "Relationship",
+      "figure": "paired_information_comparison_v2.png",
+      "question": "Does optimized sampling improve each paired member?"
+    },
+    {
+      "family": "Uncertainty & Benchmark",
+      "figure": "drying_margin_validation_v2.png",
+      "question": "Do active actions retain the approved drying margin?"
+    },
+    {
+      "family": "Comparison & Benchmark",
+      "figure": "actuator_robustness_v2.png",
+      "question": "Which approved actuator scenarios remain feasible?"
+    },
+    {
+      "family": "Tables & Scorecards",
+      "figure": "operational_summary_v2.png",
+      "question": "Which computational and operational checks pass?"
+    }
+  ],
+  "qa_status": "generated_pending_visual_inspection",
+  "watermark": "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}
