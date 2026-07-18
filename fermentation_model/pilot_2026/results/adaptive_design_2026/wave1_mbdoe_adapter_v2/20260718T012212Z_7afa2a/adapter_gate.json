@@ -1,0 +1,73 @@
+{
+  "checks": {
+    "all_scores_finite": true,
+    "benchmark_profiles_are_information_distinguishable": true,
+    "corrected_fim_validation_pass": true,
+    "eight_representative_members_selected": true,
+    "hybrid_engine_gate_pass": true,
+    "joint_ensemble_has_64_members": true,
+    "no_physical_profile_released": true,
+    "nutrition_slots_respect_owner_window": true,
+    "source_hashes_verified": true
+  },
+  "gate": "phase_C_wave1_MBDoE_adapter_requalification",
+  "next_action": "run multiseed robust PSO search",
+  "profiles_for_physical_execution": false,
+  "representative_members": [
+    62,
+    30,
+    9,
+    7,
+    8,
+    6,
+    17,
+    36
+  ],
+  "source_verification": {
+    "actuator": {
+      "canonical_lf_output_sha256": "87bd37b989654ece4007ad3f2a8be10d9b4771bb90b828708e4404b49fe66897",
+      "configuration_sha256": "95efe039a2a6f02d1eb5e66a8c997b17fd294cd1d1179bd29cbc77740dac8e5b",
+      "declared_output_sha256": "87bd37b989654ece4007ad3f2a8be10d9b4771bb90b828708e4404b49fe66897",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/run_manifest.json",
+      "manifest_sha256": "963eec91adc887076e2e5dfc95069106c3ce0f3753424c91483a4a27415dcb65",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/actuator_estimates_by_run.csv",
+      "run_id": "20260717T170749Z_95efe0",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "34bbd72d267fea940a5b736eed517d5c508454e6c30e76b72600babea514d86c"
+    },
+    "aroma": {
+      "canonical_lf_output_sha256": "4d8847272c022d8e7290000c884b9ec91b8772e8f5271bcdab05e20b98d8d92f",
+      "configuration_sha256": "e927a5ef5befbf957896e2475dc73ecbd23ec2542c595942a0dfdb1adaa897cf",
+      "declared_output_sha256": "4d8847272c022d8e7290000c884b9ec91b8772e8f5271bcdab05e20b98d8d92f",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "manifest_sha256": "f97efc5cbafc5f955a748003921edadf19ca9f8a5b9a0091cbf1e551335bee76",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/aroma_calibration_gate.json",
+      "run_id": "20260717T161527Z_e927a5",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "b627aaa7b64f9eb7b9a952fc1f1a5e1705ab23b513f4d9c3cbc3038e6649ee8b"
+    },
+    "engine": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "c7a6d52d29fc24cf2e71a99404250b66a3fa5916f9fa59b0b94144e0bdfb28aa",
+      "declared_output_sha256": "a2edce0418ce81afd6fb70da174240d13999112190c15b47216bfb8f108cea08",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5/run_manifest.json",
+      "manifest_sha256": "f61cb23079fb9c9f365fa61bf219ee2133ae402852b7aed9b27b93792075ea7d",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5/hybrid_engine_gate.json",
+      "run_id": "20260717T164729Z_c7a6d5",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "a2edce0418ce81afd6fb70da174240d13999112190c15b47216bfb8f108cea08"
+    },
+    "joint_ensemble": {
+      "canonical_lf_output_sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c",
+      "configuration_sha256": "6b9889d4bb5b9cca8a97791b72aa573c467f13a3d3ce67edc1cd20a1abefa5eb",
+      "declared_output_sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/run_manifest.json",
+      "manifest_sha256": "17f83fcc43859a7b4f4fc3a717150f0c82b98e5757c0e45c2ce3fd1bb368ffe8",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/joint_parameter_ensemble.csv",
+      "run_id": "20260717T162323Z_6b9889",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "ad75052af715a0dc3921702c03c379504ecf52c808fed723df31b34d55b30ccf"
+    }
+  },
+  "verdict": "PASS"
+}
