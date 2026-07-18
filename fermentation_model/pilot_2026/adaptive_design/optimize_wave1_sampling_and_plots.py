@@ -778,6 +778,7 @@ def _generate_figures(
         for row in group.itertuples():
             ax.text(row.time_h, y + 0.12, str(row.sample_number), ha="center", fontsize=7)
     ax.set_yticks(range(len(policies)), [policy.name for policy in policies])
+    ax.set_ylim(-0.35, len(policies) - 0.65)
     ax.set_xlabel("Process time (h)")
     ax.set_title("Optimized wine-sampling schedule", loc="left", fontsize=15)
     ax.grid(axis="x")
