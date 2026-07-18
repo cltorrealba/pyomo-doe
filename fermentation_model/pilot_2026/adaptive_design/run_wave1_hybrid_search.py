@@ -84,18 +84,18 @@ def _seed_pairs(config: dict) -> np.ndarray:
         anchor,
         DesignPolicy(
             "warm_cool",
-            tuple([23.0] * half + [16.0] * (slots - half)),
-            ((24.0, 70.0), (72.0, 70.0)),
+            tuple([22.0] * half + [17.0] * (slots - half)),
+            ((22.0, 40.0), (70.0, 40.0)),
         ),
         DesignPolicy(
             "cool_warm",
-            tuple([16.0] * half + [23.0] * (slots - half)),
-            ((48.0, 80.0),),
+            tuple([16.0] * half + [21.0] * (slots - half)),
+            ((46.0, 80.0),),
         ),
         DesignPolicy(
             "moderate_step",
             tuple([17.0] * half + [22.0] * (slots - half)),
-            ((48.0, 80.0),),
+            ((46.0, 80.0),),
         ),
     ]
     vectors = [_policy_vector(policy, config) for policy in policies]

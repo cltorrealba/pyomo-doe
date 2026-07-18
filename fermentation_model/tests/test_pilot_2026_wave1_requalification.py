@@ -43,6 +43,9 @@ from pilot_2026.adaptive_design.hybrid_optimizer import (  # noqa: E402
     advance_checkpointed_swarm,
     initialize_checkpointed_swarm,
 )
+from pilot_2026.adaptive_design.build_wave1_execution_package import (  # noqa: E402
+    _controller_blocks,
+)
 from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # noqa: E402
     _capture_intervals,
     _nutrition_translation,
@@ -227,6 +230,19 @@ class Wave1RequalificationTests(unittest.TestCase):
         )
         self.assertFalse(accepted)
         self.assertEqual(reason, "optimized_full_ensemble_score_below_preliminary")
+
+    def test_sampling_optimizer_enforces_95pct_paired_tail_guardrail(self) -> None:
+        preliminary = np.ones(64)
+        optimized = np.ones(64)
+        optimized[:4] = 0.99
+        optimized[4:] = 1.01
+        accepted, reason = optimized_schedule_is_acceptable(
+            optimized, preliminary, self.config
+        )
+        self.assertFalse(accepted)
+        self.assertEqual(
+            reason, "optimized_fraction_exceeding_preliminary_below_95pct"
+        )
 
     def test_robust_objective_is_identical_to_declared_formula(self) -> None:
         gains = np.asarray([1.0, 2.0, 3.0, 10.0])
@@ -456,6 +472,31 @@ class Wave1RequalificationTests(unittest.TestCase):
             },
         )
 
+    def test_campaign_start_and_anchor_pulse_use_approved_local_grid(self) -> None:
+        self.assertEqual(
+            self.config["future_process"]["start_local"],
+            "2026-07-20T15:00:00-04:00",
+        )
+        self.assertEqual(self.config["anchor"]["nutrition_pulses_mg_yan_l"], [[46.0, 80.0]])
+
+    def test_controller_translation_has_12h_blocks_and_hard_jump_check(self) -> None:
+        actions = np.asarray([])  # sentinel keeps this test's construction explicit
+        del actions
+        import pandas as pd
+
+        frame = pd.DataFrame(
+            [
+                {"policy": name, "action": "temperature_setpoint", "time_h": 0.0, "value": 18.0}
+                for name in ("anchor_18C", "candidate_A", "candidate_B")
+            ]
+        )
+        blocks = _controller_blocks(
+            frame, {"anchor": "TK33", "A": "TK31", "B": "TK32"}, self.config
+        )
+        self.assertEqual(len(blocks), 42)
+        self.assertTrue(blocks["end_h"].sub(blocks["start_h"]).eq(12.0).all())
+        self.assertTrue(blocks["jump_within_5c"].all())
+
     def test_hybrid_gate_declares_every_owner_critical_check(self) -> None:
         source = (ADAPTIVE_DIR / "run_wave1_hybrid_search.py").read_text(encoding="utf-8")
         for name in (
@@ -491,6 +532,69 @@ class Wave1RequalificationTests(unittest.TestCase):
             "operational_summary_v2.png",
         ):
             self.assertIn(name, source)
+
+    def test_all_required_final_figure_names_and_exact_watermark_are_declared(self) -> None:
+        source = (ADAPTIVE_DIR / "optimize_wave1_sampling_and_plots.py").read_text(
+            encoding="utf-8"
+        )
+        for name in (
+            "candidate_profiles_final.png",
+            "executed_temperature_ensemble_final.png",
+            "aroma_predictions_final.png",
+            "sampling_schedule_final.png",
+            "capture_intervals_final.png",
+            "information_gain_distribution_final.png",
+            "paired_information_comparison_final.png",
+            "drying_margin_validation_final.png",
+            "actuator_robustness_final.png",
+            "operational_summary_final.png",
+        ):
+            self.assertIn(name, source)
+        self.assertIn(
+            "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION", source
+        )
+
+    def test_final_search_declares_selection_checkpoint_and_post_fim_outputs(self) -> None:
+        source = (ADAPTIVE_DIR / "run_wave1_final_search.py").read_text(encoding="utf-8")
+        for name in (
+            "per_seed_champions_8_member.csv",
+            "per_seed_champions_64_member.csv",
+            "cross_seed_policy_distance.csv",
+            "practical_convergence_gate.json",
+            "checkpoint_manifest.json",
+            "eligible_candidate_comparison.csv",
+            "selected_candidate_provenance.json",
+            "post_search_fim_validation.json",
+            "post_search_fim_validation_cases.csv",
+            "post_search_fd_stability.csv",
+            "post_search_grid_stability.csv",
+            "selected_candidate_local_qualified",
+            "local_multistart_consistency",
+        ):
+            self.assertIn(name, source)
+
+    def test_execution_package_keeps_all_release_flags_closed(self) -> None:
+        source = (ADAPTIVE_DIR / "build_wave1_execution_package.py").read_text(
+            encoding="utf-8"
+        )
+        for folder in (
+            "controller",
+            "calendar",
+            "nutrition",
+            "sampling",
+            "capture",
+            "tanks",
+            "checklists",
+            "authorization",
+        ):
+            self.assertIn(f'"{folder}"', source)
+        for declaration in (
+            '"profiles_for_physical_execution": False',
+            '"physical_execution_authorized": False',
+            '"executable_schedule_issued": False',
+            '"tank_assignments": []',
+        ):
+            self.assertIn(declaration, source)
 
     def test_actuator_uncertainty_contains_all_nine_empirical_taus(self) -> None:
         values = self.config["future_process"]["temperature_actuator"]["empirical_tau_h"]

@@ -129,7 +129,7 @@
   },
   "anchor": {
     "temperature_c": 18.0,
-    "nutrition_pulses_mg_yan_l": [[48.0, 80.0]],
+    "nutrition_pulses_mg_yan_l": [[46.0, 80.0]],
     "status": "exploratory_seed_only"
   },
   "nutrition": {

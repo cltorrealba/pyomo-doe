@@ -97,6 +97,33 @@ def optimized_schedule_is_acceptable(
     preliminary_q10 = float(np.quantile(preliminary_gains, 0.1))
     if optimized_q10 < preliminary_q10 - q10_tolerance:
         return False, "optimized_q10_below_preliminary_guardrail"
+    delta = np.asarray(optimized_gains, dtype=float) - np.asarray(
+        preliminary_gains, dtype=float
+    )
+    guardrails = config["objective"]["tail_guardrails"]
+    if float(np.mean(delta >= 0.0)) < float(
+        guardrails["minimum_fraction_exceeding_reference"]
+    ):
+        return False, "optimized_fraction_exceeding_preliminary_below_95pct"
+    if float(np.min(delta)) < -float(
+        guardrails["maximum_worst_paired_loss_vs_reference"]
+    ):
+        return False, "optimized_worst_paired_loss_exceeds_2_0"
+    tail_count = max(
+        1,
+        int(
+            math.ceil(
+                float(config["objective"]["tail_probability"])
+                * len(optimized_gains)
+            )
+        ),
+    )
+    optimized_cvar = float(np.mean(np.sort(optimized_gains)[:tail_count]))
+    preliminary_cvar = float(np.mean(np.sort(preliminary_gains)[:tail_count]))
+    if optimized_cvar < preliminary_cvar - q10_tolerance:
+        return False, "optimized_tail_cvar_below_preliminary"
+    if float(np.min(optimized_gains)) < float(np.min(preliminary_gains)) - q10_tolerance:
+        return False, "optimized_minimum_below_preliminary"
     return True, None
 
 
@@ -638,7 +665,7 @@ def _tank_randomization(
     return pd.DataFrame(rows)
 
 
-FIGURE_NAMES = (
+LEGACY_FIGURE_NAMES = (
     "candidate_profiles_v2.png",
     "executed_temperature_ensemble_v2.png",
     "aroma_predictions_v2.png",
@@ -649,6 +676,9 @@ FIGURE_NAMES = (
     "drying_margin_validation_v2.png",
     "actuator_robustness_v2.png",
     "operational_summary_v2.png",
+)
+FIGURE_NAMES = tuple(
+    name.replace("_v2.png", "_final.png") for name in LEGACY_FIGURE_NAMES
 )
 WATERMARK = "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
 PALETTE = ("#235789", "#D4A72C", "#E07A3F")
@@ -720,11 +750,11 @@ def _generate_figures(
     )
     _finish_figure(
         fig,
-        figure_paths["candidate_profiles_v2.png"],
+        figure_paths["candidate_profiles_final.png"],
         "Setpoint range 15–27 °C; dashed lines identify nutrition actions; candidate only.",
         has_suptitle=True,
     )
-    chart_map.append({"figure": "candidate_profiles_v2.png", "family": "Trend", "question": "What excitation policies were evaluated?"})
+    chart_map.append({"figure": "candidate_profiles_final.png", "family": "Trend", "question": "What excitation policies were evaluated?"})
 
     fig, axes = plt.subplots(3, 1, figsize=(11, 8), sharex=True, sharey=True)
     actuator_cfg = config["future_process"]["temperature_actuator"]
@@ -734,6 +764,8 @@ def _generate_figures(
         {"label": "tau max", "tau_h": max(actuator_cfg["empirical_tau_h"])},
         {"label": "tracking -", "tau_h": actuator_cfg["global_tau_h"], "tracking_error_c": -float(np.median(actuator_cfg["observed_tracking_rmse_c"]))},
         {"label": "tracking +", "tau_h": actuator_cfg["global_tau_h"], "tracking_error_c": float(np.median(actuator_cfg["observed_tracking_rmse_c"]))},
+        {"label": "initial -1", "tau_h": actuator_cfg["global_tau_h"], "initial_temperature_offset_c": -1.0},
+        {"label": "initial +1 / bias +0.5", "tau_h": actuator_cfg["global_tau_h"], "initial_temperature_offset_c": 1.0, "probe_bias_c": 0.5},
     ]
     for axis, policy in zip(axes, policies):
         for scenario in scenarios:
@@ -742,7 +774,7 @@ def _generate_figures(
         axis.set_title(policy.name, loc="left", fontsize=10)
         axis.set_ylabel("°C")
         axis.grid()
-    axes[0].legend(ncol=5, fontsize=8, loc="upper right")
+    axes[0].legend(ncol=4, fontsize=7.5, loc="upper right")
     axes[-1].set_xlabel("Process time (h)")
     fig.suptitle(
         "Executed-temperature actuator scenarios",
@@ -753,11 +785,11 @@ def _generate_figures(
     )
     _finish_figure(
         fig,
-        figure_paths["executed_temperature_ensemble_v2.png"],
-        "Nominal, empirical tau extremes and approved tracking-error scenarios.",
+        figure_paths["executed_temperature_ensemble_final.png"],
+        "Nominal, tau, tracking, initial-temperature and probe-bias envelope examples.",
         has_suptitle=True,
     )
-    chart_map.append({"figure": "executed_temperature_ensemble_v2.png", "family": "Uncertainty & Benchmark", "question": "How does actuator uncertainty alter executed temperature?"})
+    chart_map.append({"figure": "executed_temperature_ensemble_final.png", "family": "Uncertainty & Benchmark", "question": "How does actuator uncertainty alter executed temperature?"})
 
     central_member = members[len(members) // 2]
     fig, axes = plt.subplots(3, 1, figsize=(11, 8), sharex=True)
@@ -776,11 +808,11 @@ def _generate_figures(
     )
     _finish_figure(
         fig,
-        figure_paths["aroma_predictions_v2.png"],
+        figure_paths["aroma_predictions_final.png"],
         f"Central ensemble member {central_member}; wine concentration predictions.",
         has_suptitle=True,
     )
-    chart_map.append({"figure": "aroma_predictions_v2.png", "family": "Trend", "question": "How do candidate policies separate aroma trajectories?"})
+    chart_map.append({"figure": "aroma_predictions_final.png", "family": "Trend", "question": "How do candidate policies separate aroma trajectories?"})
 
     fig, ax = plt.subplots(figsize=(11, 4.8))
     for y, (policy, group) in enumerate(schedule.groupby("policy", sort=False)):
@@ -792,8 +824,8 @@ def _generate_figures(
     ax.set_xlabel("Process time (h)")
     ax.set_title("Optimized wine-sampling schedule", loc="left", fontsize=15)
     ax.grid(axis="x")
-    _finish_figure(fig, figure_paths["sampling_schedule_v2.png"], "Ten wine/process samples; sample 1 is the mandatory physical baseline at t=0.")
-    chart_map.append({"figure": "sampling_schedule_v2.png", "family": "Progression", "question": "Where are the ten wine samples placed?"})
+    _finish_figure(fig, figure_paths["sampling_schedule_final.png"], "Ten wine/process samples; sample 1 is the mandatory physical baseline at t=0.")
+    chart_map.append({"figure": "sampling_schedule_final.png", "family": "Progression", "question": "Where are the ten wine samples placed?"})
 
     fig, ax = plt.subplots(figsize=(11, 5.2))
     interval_view = captures[captures["species"].eq(SPECIES[0])]
@@ -804,8 +836,8 @@ def _generate_figures(
     ax.set_xlabel("Process time (h)")
     ax.set_title("MIX/condensate capture intervals", loc="left", fontsize=15)
     ax.grid(axis="x")
-    _finish_figure(fig, figure_paths["capture_intervals_v2.png"], "Nine contiguous intervals/process; every first interval begins at t=0; hardware duration is unbounded.")
-    chart_map.append({"figure": "capture_intervals_v2.png", "family": "Progression", "question": "Do all nine capture intervals cover the process from zero?"})
+    _finish_figure(fig, figure_paths["capture_intervals_final.png"], "Nine contiguous intervals/process; every first interval begins at t=0; hardware duration is unbounded.")
+    chart_map.append({"figure": "capture_intervals_final.png", "family": "Progression", "question": "Do all nine capture intervals cover the process from zero?"})
 
     fig, ax = plt.subplots(figsize=(10, 5.5))
     bins = np.linspace(
@@ -824,8 +856,8 @@ def _generate_figures(
     ax.set_title("Information-gain distribution", loc="left", fontsize=15)
     ax.legend()
     ax.grid(axis="y")
-    _finish_figure(fig, figure_paths["information_gain_distribution_v2.png"], "All 64 joint-ensemble members; common bins and common scale.")
-    chart_map.append({"figure": "information_gain_distribution_v2.png", "family": "Distribution", "question": "How does information vary across the 64 members?"})
+    _finish_figure(fig, figure_paths["information_gain_distribution_final.png"], "All 64 joint-ensemble members; common bins and common scale.")
+    chart_map.append({"figure": "information_gain_distribution_final.png", "family": "Distribution", "question": "How does information vary across the 64 members?"})
 
     fig, ax = plt.subplots(figsize=(6.5, 6.2))
     ax.scatter(paired["preliminary_information_gain"], paired["optimized_information_gain"], color=PALETTE[0], edgecolor="#1F2937", alpha=0.8)
@@ -837,8 +869,8 @@ def _generate_figures(
     ax.set_title("Paired information comparison", loc="left", fontsize=15)
     ax.legend()
     ax.grid()
-    _finish_figure(fig, figure_paths["paired_information_comparison_v2.png"], "One point per ensemble member; points above the diagonal favor the optimized schedule.")
-    chart_map.append({"figure": "paired_information_comparison_v2.png", "family": "Relationship", "question": "Does optimized sampling improve each paired member?"})
+    _finish_figure(fig, figure_paths["paired_information_comparison_final.png"], "One point per ensemble member; points above the diagonal favor the optimized schedule.")
+    chart_map.append({"figure": "paired_information_comparison_final.png", "family": "Relationship", "question": "Does optimized sampling improve each paired member?"})
 
     fig, ax = plt.subplots(figsize=(10, 5.5))
     margins = search_full["action_margin_to_drying_h"].to_numpy(dtype=float)
@@ -849,22 +881,28 @@ def _generate_figures(
     ax.set_title("Drying-margin validation", loc="left", fontsize=15)
     ax.legend()
     ax.grid()
-    _finish_figure(fig, figure_paths["drying_margin_validation_v2.png"], "Full 64-member validation; final sample is not treated as an excitation action.")
-    chart_map.append({"figure": "drying_margin_validation_v2.png", "family": "Uncertainty & Benchmark", "question": "Do active actions retain the approved drying margin?"})
+    _finish_figure(fig, figure_paths["drying_margin_validation_final.png"], "Full 64-member validation; final sample is not treated as an excitation action.")
+    chart_map.append({"figure": "drying_margin_validation_final.png", "family": "Uncertainty & Benchmark", "question": "Do active actions retain the approved drying margin?"})
 
-    fig, ax = plt.subplots(figsize=(11, 5.8))
-    positions = np.arange(len(actuator))
+    fig, axes = plt.subplots(2, 1, figsize=(11, 7.2), sharex=True)
+    positions = np.arange(1, len(actuator) + 1)
     colors = [PALETTE[0] if bool(value) else "#B35C44" for value in actuator["feasible"]]
-    ax.bar(positions, actuator["completion_probability"], color=colors, edgecolor="#374151")
-    ax.axhline(float(config["completion"]["minimum_probability"]), color="#111827", linestyle="--", label="Minimum probability")
-    ax.set_xticks(positions, actuator["scenario"], rotation=35, ha="right", fontsize=8)
-    ax.set_ylim(0.0, 1.05)
-    ax.set_ylabel("Completion and action-margin probability")
-    ax.set_title("Actuator robustness", loc="left", fontsize=15)
-    ax.legend()
-    ax.grid(axis="y")
-    _finish_figure(fig, figure_paths["actuator_robustness_v2.png"], "Nine empirical tau values and signed tracking-error scenarios, each evaluated on 64 members.")
-    chart_map.append({"figure": "actuator_robustness_v2.png", "family": "Comparison & Benchmark", "question": "Which approved actuator scenarios remain feasible?"})
+    joint_probability = np.minimum(
+        actuator["completion_probability"], actuator["action_margin_probability"]
+    )
+    axes[0].scatter(positions, joint_probability, color=colors, s=18, alpha=0.85)
+    axes[0].axhline(float(config["completion"]["minimum_probability"]), color="#111827", linestyle="--", label="Minimum probability")
+    axes[0].set_ylim(0.0, 1.05)
+    axes[0].set_ylabel("Minimum qualifying probability")
+    axes[0].set_title("Actuator robustness across the approved envelope", loc="left", fontsize=15)
+    axes[0].legend()
+    axes[0].grid(axis="y")
+    axes[1].scatter(positions, actuator["robust_score"], color=colors, s=18, alpha=0.85)
+    axes[1].set_xlabel("Approved actuator scenario (1–243)")
+    axes[1].set_ylabel("Robust information score")
+    axes[1].grid(axis="y")
+    _finish_figure(fig, figure_paths["actuator_robustness_final.png"], "All 243 approved actuator combinations, each evaluated on 64 members.")
+    chart_map.append({"figure": "actuator_robustness_final.png", "family": "Comparison & Benchmark", "question": "Which approved actuator scenarios remain feasible?"})
 
     fig, ax = plt.subplots(figsize=(11, max(5.5, 0.32 * len(checks))))
     labels = list(checks)
@@ -878,8 +916,8 @@ def _generate_figures(
     ax.set_title("Operational qualification summary", loc="left", fontsize=15)
     ax.grid(axis="x")
     unresolved = int(conflicts["status"].eq("unresolved").sum()) if len(conflicts) else 0
-    _finish_figure(fig, figure_paths["operational_summary_v2.png"], f"Fail-closed checks; unresolved operational conflicts: {unresolved}.")
-    chart_map.append({"figure": "operational_summary_v2.png", "family": "Tables & Scorecards", "question": "Which computational and operational checks pass?"})
+    _finish_figure(fig, figure_paths["operational_summary_final.png"], f"Fail-closed checks; unresolved operational conflicts: {unresolved}.")
+    chart_map.append({"figure": "operational_summary_final.png", "family": "Tables & Scorecards", "question": "Which computational and operational checks pass?"})
     return chart_map
 
 
@@ -902,15 +940,15 @@ def main() -> None:
     ensemble_run = _run_path(args.source_ensemble_run)
     aroma_run = _run_path(args.source_aroma_run)
     source_verification = {
-        "search_gate": verify_manifest_output(search_run, "hybrid_search_gate.json"),
-        "search_actions": verify_manifest_output(search_run, "candidate_policy_actions.csv"),
+        "search_gate": verify_manifest_output(search_run, "final_search_gate.json"),
+        "search_actions": verify_manifest_output(search_run, "final_candidate_policy_actions.csv"),
         "search_full_ensemble": verify_manifest_output(search_run, "full_ensemble_validation.csv"),
         "search_actuator": verify_manifest_output(search_run, "actuator_robustness_validation.csv"),
         "ensemble": verify_manifest_output(ensemble_run, "joint_parameter_ensemble.csv"),
         "aroma": verify_manifest_output(aroma_run, "aroma_calibration_gate.json"),
     }
-    search_gate = load_json(filesystem_path(search_run / "hybrid_search_gate.json"))
-    policies = _load_policies(search_run / "candidate_policy_actions.csv", config)
+    search_gate = load_json(filesystem_path(search_run / "final_search_gate.json"))
+    policies = _load_policies(search_run / "final_candidate_policy_actions.csv", config)
     search_full = pd.read_csv(filesystem_path(search_run / "full_ensemble_validation.csv"))
     actuator = pd.read_csv(
         filesystem_path(search_run / "actuator_robustness_validation.csv")
@@ -1113,14 +1151,36 @@ def main() -> None:
     checks = {
         "source_hashes_verified": len(source_verification) == 6,
         "source_search_gate_not_fail": search_gate["verdict"] in {"PASS", "PASS_CONDITIONAL"},
-        "source_search_ipopt_execution_recognized": bool(
-            search_gate["checks"]["actual_objective_evaluated"]
+        "source_search_local_qualification_recognized": bool(
+            search_gate["checks"]["selected_candidate_local_qualified"]
         ),
         "sampling_optimization_used_64_members": len(members) == 64,
         "optimized_full_ensemble_score_not_below_preliminary": acceptable
         or selected_source == "preliminary_fallback",
         "selected_q10_meets_preliminary_guardrail": float(np.quantile(selected_gains, 0.1))
         >= float(np.quantile(preliminary_gains, 0.1))
+        - float(config["sampling"]["q10_regression_tolerance"]),
+        "selected_fraction_exceeding_preliminary_at_least_95pct": selected_metrics[
+            "fraction_exceeding_reference"
+        ]
+        >= float(
+            config["objective"]["tail_guardrails"][
+                "minimum_fraction_exceeding_reference"
+            ]
+        ),
+        "selected_worst_paired_loss_at_most_2_0": selected_metrics[
+            "worst_paired_loss_vs_reference"
+        ]
+        >= -float(
+            config["objective"]["tail_guardrails"][
+                "maximum_worst_paired_loss_vs_reference"
+            ]
+        ),
+        "selected_minimum_not_below_preliminary": selected_metrics["minimum"]
+        >= preliminary_metrics["minimum"]
+        - float(config["sampling"]["q10_regression_tolerance"]),
+        "selected_tail_cvar_not_below_preliminary": selected_metrics["tail_cvar"]
+        >= preliminary_metrics["tail_cvar"]
         - float(config["sampling"]["q10_regression_tolerance"]),
         "automatic_preliminary_fallback_operational": acceptable
         or selected_source == "preliminary_fallback",
@@ -1169,7 +1229,7 @@ def main() -> None:
         "nutrition_product_masses_available": bool(
             nutrition.empty or not nutrition["translation_blocker"].any()
         ),
-        "tank_randomization_reproducible_uniform_permutation": randomization_reproducible,
+        "tank_mapping_frozen_and_reproducible": randomization_reproducible,
         "nutrition_translation_has_no_arbitrary_mix": bool(
             nutrition.empty or not nutrition["selected_for_operation"].any()
         ),
@@ -1180,6 +1240,10 @@ def main() -> None:
         "sampling_optimization_used_64_members",
         "optimized_full_ensemble_score_not_below_preliminary",
         "selected_q10_meets_preliminary_guardrail",
+        "selected_fraction_exceeding_preliminary_at_least_95pct",
+        "selected_worst_paired_loss_at_most_2_0",
+        "selected_minimum_not_below_preliminary",
+        "selected_tail_cvar_not_below_preliminary",
         "automatic_preliminary_fallback_operational",
         "paired_comparison_published",
         "source_search_gate_not_fail",
@@ -1194,19 +1258,15 @@ def main() -> None:
         "sample_before_action_coincidence_approved",
         "manual_sampling_capacity_three_respected",
         "nutrition_50_50_net_yan_policy_reconstructed",
-        "tank_randomization_reproducible_uniform_permutation",
+        "tank_mapping_frozen_and_reproducible",
         "figures_generated_and_watermarked",
     )
     physical_blockers = sorted(
         set(constraints["fail_closed_fields"])
         | set(search_gate.get("physical_release_blockers", []))
     )
-    run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_sampling_v2", config)
-    schedule_name = (
-        "optimized_sampling_schedule.csv"
-        if selected_source == "optimized"
-        else "fallback_sampling_schedule.csv"
-    )
+    run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_final_sampling", config)
+    schedule_name = "optimized_sampling_schedule.csv"
     paths = {
         "schedule": run_dir / schedule_name,
         "comparison": run_dir / "sampling_candidate_comparison.csv",
@@ -1216,7 +1276,7 @@ def main() -> None:
         "drying": run_dir / "drying_time_ensemble.csv",
         "candidate_restarts": run_dir / "sampling_search_restarts.csv",
         "reference_restarts": run_dir / "three_anchor_search_restarts.csv",
-        "gate": run_dir / "sampling_gate.json",
+        "gate": run_dir / "final_sampling_gate.json",
         "config": run_dir / "wave1_mbdoe_config.json",
         "partition": run_dir / "partition_surrogate_provenance.json",
         "randomization": run_dir / "tank_randomization.csv",
@@ -1264,11 +1324,11 @@ def main() -> None:
     verdict = sampling_gate_verdict(checks, critical_checks)
     failed_checks = [name for name, passed in checks.items() if not passed]
     gate = {
-        "gate": "phase_D_wave1_sampling_requalification",
+        "gate": "final_wave1_sampling_qualification",
         "verdict": verdict,
         "checks": checks,
         "source_search_verdict": search_gate["verdict"],
-        "source_candidate_source": search_gate["candidate_source"],
+        "source_candidate_id": search_gate["selected_candidate_id"],
         "selected_schedule_source": selected_source,
         "fallback_reason": fallback_reason,
         "information": {
@@ -1297,6 +1357,14 @@ def main() -> None:
         "tank_randomization_authorized": False,
         "tank_assignments": [],
         "profiles_for_physical_execution": False,
+        "physical_execution_authorized": False,
+        "executable_schedule_issued": False,
+        "candidate_plot_format_approved_by_owner": True,
+        "final_candidate_plots_generated": bool(
+            checks.get("figures_generated_and_watermarked", False)
+        ),
+        "independent_human_reviewer_required": False,
+        "automated_final_audit_required": True,
     }
     write_json(paths["gate"], gate)
     write_json(paths["config"], config)
@@ -1307,7 +1375,7 @@ def main() -> None:
     )
     manifest = build_manifest(
         run_dir=run_dir,
-        stage="wave1_sampling_requalification",
+        stage="wave1_final_sampling_qualification",
         config=config,
         sources={
             "hybrid_search_manifest": search_run / "run_manifest.json",
