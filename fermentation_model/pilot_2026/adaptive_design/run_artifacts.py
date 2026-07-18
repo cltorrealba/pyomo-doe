@@ -246,13 +246,25 @@ def verify_manifest_output(run_dir: Path, output_name: str) -> dict[str, Any]:
     if declared is None:
         raise ValueError(f"Source manifest does not declare output: {key}")
     actual = sha256_file(output_path)
-    if actual != declared.get("sha256"):
-        raise ValueError(f"Source output hash mismatch: {key}")
+    declared_hash = declared.get("sha256")
+    verification_mode = "byte_exact"
+    normalized_hash = None
+    if actual != declared_hash:
+        raw = output_path.read_bytes()
+        normalized = raw.replace(b"\r\n", b"\n")
+        normalized_hash = hashlib.sha256(normalized).hexdigest()
+        if normalized_hash == declared_hash and normalized != raw:
+            verification_mode = "canonical_lf_text"
+        else:
+            raise ValueError(f"Source output hash mismatch: {key}")
     return {
         "run_id": manifest.get("run_id", run_dir.name),
         "manifest_path": relative_or_absolute(manifest_path),
         "manifest_sha256": sha256_file(manifest_path),
         "output_path": key,
-        "output_sha256": actual,
+        "declared_output_sha256": declared_hash,
+        "working_tree_output_sha256": actual,
+        "canonical_lf_output_sha256": normalized_hash,
+        "verification_mode": verification_mode,
         "configuration_sha256": manifest.get("configuration", {}).get("sha256"),
     }
