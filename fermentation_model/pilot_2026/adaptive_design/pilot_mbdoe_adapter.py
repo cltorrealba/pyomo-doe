@@ -376,6 +376,29 @@ def decode_policy_vector(name: str, values: np.ndarray, config: dict[str, Any]) 
     return CanonicalDesign(policy, raw, canonical, tuple(repairs))
 
 
+def continuous_design_indices(canonical_vector: np.ndarray, config: dict[str, Any]) -> np.ndarray:
+    """Return continuous coordinates while holding all mixed decisions fixed."""
+
+    vector = np.asarray(canonical_vector, dtype=float)
+    layout = _design_layout(config)
+    if len(vector) != int(layout["size"]):
+        raise ValueError("Canonical vector has incorrect length")
+    indices = [int(layout["temperature_initial"])]
+    for active_index, level_index in zip(
+        range(layout["temperature_active"].start, layout["temperature_active"].stop),
+        range(layout["temperature_levels"].start, layout["temperature_levels"].stop),
+    ):
+        if vector[active_index] >= 0.5:
+            indices.append(level_index)
+    for active_index, amount_index in zip(
+        range(layout["nutrition_active"].start, layout["nutrition_active"].stop),
+        range(layout["nutrition_amounts"].start, layout["nutrition_amounts"].stop),
+    ):
+        if vector[active_index] >= 0.5:
+            indices.append(amount_index)
+    return np.asarray(indices, dtype=int)
+
+
 def anchor_policy(config: dict[str, Any]) -> DesignPolicy:
     slots = int(config["future_process"]["optimized_temperature_slots"])
     temperature = float(config["anchor"]["temperature_c"])
@@ -837,8 +860,12 @@ def design_fim(
     member: pd.Series,
     config: dict[str, Any],
     partitions: dict[str, dict[str, float]],
+    *,
+    actuator_scenario: dict[str, float] | None = None,
 ) -> tuple[np.ndarray, float]:
-    prepared = prepare_design(policy, member, config, partitions)
+    prepared = prepare_design(
+        policy, member, config, partitions, actuator_scenario=actuator_scenario
+    )
     if prepared is None:
         return np.zeros((9, 9), dtype=float), math.inf
     sample_times = np.asarray(config["sampling"]["preliminary_times_h"], dtype=float)
@@ -857,6 +884,9 @@ def evaluate_campaign(
     prior: np.ndarray,
     config: dict[str, Any],
     partitions: dict[str, dict[str, float]],
+    *,
+    actuator_scenario: dict[str, float] | None = None,
+    design_cache: dict[tuple, tuple[np.ndarray, float]] | None = None,
 ) -> tuple[float, list[ScenarioEvaluation]]:
     base_logdet = logdet(prior)
     evaluations = []
@@ -866,7 +896,25 @@ def evaluate_campaign(
         completed = True
         max_residual = 0.0
         for policy in policies:
-            fim, residual = design_fim(policy, member, config, partitions)
+            scenario_key = tuple(sorted((actuator_scenario or {}).items()))
+            cache_key = (
+                int(member.get("ensemble_member", member_index)),
+                tuple(policy.temperature_c),
+                tuple(policy.nutrition_mg_yan_l),
+                scenario_key,
+            )
+            cached = None if design_cache is None else design_cache.get(cache_key)
+            if cached is None:
+                cached = design_fim(
+                    policy,
+                    member,
+                    config,
+                    partitions,
+                    actuator_scenario=actuator_scenario,
+                )
+                if design_cache is not None:
+                    design_cache[cache_key] = cached
+            fim, residual = cached
             total += fim
             max_residual = max(max_residual, residual)
             completed = completed and residual <= float(config["completion"]["residual_sugar_g_l"])

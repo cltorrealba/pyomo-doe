@@ -158,6 +158,7 @@
     "top_k_candidates": 3,
     "top_k_local_refinement": 2,
     "rerank_interval": 2,
+    "minimum_ranking_spearman": 0.7,
     "inertia": 0.72,
     "cognitive": 1.49,
     "social": 1.49,
