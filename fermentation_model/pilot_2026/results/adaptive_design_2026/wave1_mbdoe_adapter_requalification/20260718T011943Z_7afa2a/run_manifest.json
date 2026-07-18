@@ -1,0 +1,25 @@
+{
+  "failure": {
+    "historical_outputs_overwritten": false,
+    "reason": "legacy_Windows_MAX_PATH_during_pandas_to_csv",
+    "type": "FileNotFoundError"
+  },
+  "git": {
+    "branch": "ctorrealba_fermentation",
+    "captured_before_output_directory": true,
+    "commit": "42cf4a49563ba1412a26cf9465df66f3ba16d931",
+    "diff_sha256": "76d5a08233b2bd7132ae0726e7457a9416a10f3d4b522d5c492b6779a0b53f58",
+    "dirty": true,
+    "dirty_paths": [
+      "ermentation_model/pilot_2026/adaptive_design/validate_wave1_mbdoe_adapter.py"
+    ],
+    "porcelain_sha256": "9610b1214a523d533ab049dbece478217fa92d65588eebce425162c065e58e35",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_paths": []
+  },
+  "profiles_for_physical_execution": false,
+  "run_id": "20260718T011943Z_7afa2a",
+  "schema_version": 1,
+  "stage": "wave1_mbdoe_adapter_requalification",
+  "status": "failed_during_output_write"
+}

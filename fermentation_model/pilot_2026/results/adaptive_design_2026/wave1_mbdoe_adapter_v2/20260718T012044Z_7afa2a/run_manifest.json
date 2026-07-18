@@ -1,0 +1,33 @@
+{
+  "failure": {
+    "historical_outputs_overwritten": false,
+    "reason": "legacy_Windows_MAX_PATH_during_pandas_to_csv_before_extended_path_fix",
+    "type": "FileNotFoundError"
+  },
+  "git": {
+    "branch": "ctorrealba_fermentation",
+    "captured_before_output_directory": true,
+    "commit": "42cf4a49563ba1412a26cf9465df66f3ba16d931",
+    "diff_sha256": "d812804fd5cf9bce19a185429e333b8a05d36c2d80741b5d6cab1a90051e0ba5",
+    "dirty": true,
+    "dirty_paths": [
+      "ermentation_model/pilot_2026/adaptive_design/run_artifacts.py",
+      "fermentation_model/pilot_2026/adaptive_design/validate_wave1_mbdoe_adapter.py",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_requalification/20260718T011943Z_7afa2a/run_manifest.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012044Z_7afa2a/benchmark_campaigns.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012044Z_7afa2a/benchmark_scenarios.csv"
+    ],
+    "porcelain_sha256": "250a59713cc4bec61eeba83ee26d3079f2f8511809cd2b424699c4fbe43b56d2",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_paths": [
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_requalification/20260718T011943Z_7afa2a/run_manifest.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012044Z_7afa2a/benchmark_campaigns.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012044Z_7afa2a/benchmark_scenarios.csv"
+    ]
+  },
+  "profiles_for_physical_execution": false,
+  "run_id": "20260718T012044Z_7afa2a",
+  "schema_version": 1,
+  "stage": "wave1_mbdoe_adapter_requalification",
+  "status": "failed_during_output_write"
+}
