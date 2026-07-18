@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import sys
+import tempfile
 import unittest
+from unittest import mock
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
@@ -38,6 +42,7 @@ from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # no
 )
 from pilot_2026.adaptive_design.pilot_aroma_calibration import AromaForcing  # noqa: E402
 from shared import run_new_must_glycerol_estimability_doe as model  # noqa: E402
+from pilot_2026.adaptive_design import run_artifacts  # noqa: E402
 
 
 class Wave1RequalificationTests(unittest.TestCase):
@@ -56,6 +61,39 @@ class Wave1RequalificationTests(unittest.TestCase):
             observations={},
             initials={"X": 0.0, "Xd": 0.0, "N": 0.2, "G": 80.0, "F": 80.0, "E": 0.0, "Gly": 0.0},
         )
+
+    def test_manifest_verification_uses_windows_extended_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            run_dir = Path(temporary_directory)
+            output_path = run_dir / "actuator_robustness_validation.csv"
+            payload = b"member,feasible\n0,true\n"
+            output_path.write_bytes(payload)
+            output_key = run_artifacts.relative_or_absolute(output_path)
+            manifest_path = run_dir / "run_manifest.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "run_id": "path-test",
+                        "outputs": {
+                            output_key: {"sha256": hashlib.sha256(payload).hexdigest()}
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            original = run_artifacts.filesystem_path
+            with mock.patch.object(
+                run_artifacts, "filesystem_path", wraps=original
+            ) as guarded_path:
+                verification = run_artifacts.verify_manifest_output(
+                    run_dir, output_path.name
+                )
+            guarded_inputs = {
+                Path(call.args[0]).resolve() for call in guarded_path.call_args_list
+            }
+            self.assertIn(manifest_path.resolve(), guarded_inputs)
+            self.assertIn(output_path.resolve(), guarded_inputs)
+            self.assertEqual(verification["verification_mode"], "byte_exact")
 
     def test_nominal_sigma_is_frozen_in_scaled_sensitivity(self) -> None:
         centre = np.asarray([10.0])

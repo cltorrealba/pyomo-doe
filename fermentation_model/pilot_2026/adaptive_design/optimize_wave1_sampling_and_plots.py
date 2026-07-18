@@ -874,11 +874,13 @@ def main() -> None:
         "ensemble": verify_manifest_output(ensemble_run, "joint_parameter_ensemble.csv"),
         "aroma": verify_manifest_output(aroma_run, "aroma_calibration_gate.json"),
     }
-    search_gate = load_json(search_run / "hybrid_search_gate.json")
+    search_gate = load_json(filesystem_path(search_run / "hybrid_search_gate.json"))
     policies = _load_policies(search_run / "candidate_policy_actions.csv", config)
-    search_full = pd.read_csv(search_run / "full_ensemble_validation.csv")
-    actuator = pd.read_csv(search_run / "actuator_robustness_validation.csv")
-    ensemble = pd.read_csv(ensemble_run / "joint_parameter_ensemble.csv")
+    search_full = pd.read_csv(filesystem_path(search_run / "full_ensemble_validation.csv"))
+    actuator = pd.read_csv(
+        filesystem_path(search_run / "actuator_robustness_validation.csv")
+    )
+    ensemble = pd.read_csv(filesystem_path(ensemble_run / "joint_parameter_ensemble.csv"))
     partitions, provenance = load_partition_surrogates(aroma_config, REPOSITORY_DIR)
     prior = prior_precision(ensemble, config)
     members = list(range(len(ensemble)))

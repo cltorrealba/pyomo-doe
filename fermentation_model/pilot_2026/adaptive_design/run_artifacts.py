@@ -242,11 +242,13 @@ def verify_manifest_output(run_dir: Path, output_name: str) -> dict[str, Any]:
 
     run_dir = Path(run_dir).resolve()
     manifest_path = run_dir / "run_manifest.json"
-    if not manifest_path.is_file():
+    manifest_filesystem_path = filesystem_path(manifest_path)
+    if not manifest_filesystem_path.is_file():
         raise FileNotFoundError(f"Missing source manifest: {manifest_path}")
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest = json.loads(manifest_filesystem_path.read_text(encoding="utf-8"))
     output_path = run_dir / output_name
-    if not output_path.is_file():
+    output_filesystem_path = filesystem_path(output_path)
+    if not output_filesystem_path.is_file():
         raise FileNotFoundError(f"Missing source output: {output_path}")
     key = relative_or_absolute(output_path)
     declared = manifest.get("outputs", {}).get(key)
@@ -257,7 +259,7 @@ def verify_manifest_output(run_dir: Path, output_name: str) -> dict[str, Any]:
     verification_mode = "byte_exact"
     normalized_hash = None
     if actual != declared_hash:
-        raw = output_path.read_bytes()
+        raw = output_filesystem_path.read_bytes()
         normalized = raw.replace(b"\r\n", b"\n")
         normalized_hash = hashlib.sha256(normalized).hexdigest()
         if normalized_hash == declared_hash and normalized != raw:
