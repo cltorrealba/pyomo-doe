@@ -644,8 +644,10 @@ WATERMARK = "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
 PALETTE = ("#235789", "#D4A72C", "#E07A3F")
 
 
-def _finish_figure(fig: plt.Figure, path: Path, subtitle: str) -> None:
-    fig.text(0.01, 0.965, subtitle, ha="left", va="top", fontsize=9, color="#4B5563")
+def _finish_figure(
+    fig: plt.Figure, path: Path, subtitle: str, *, has_suptitle: bool = False
+) -> None:
+    fig.text(0.01, 0.985, subtitle, ha="left", va="top", fontsize=9, color="#4B5563")
     fig.text(
         0.5,
         0.012,
@@ -656,7 +658,8 @@ def _finish_figure(fig: plt.Figure, path: Path, subtitle: str) -> None:
         fontweight="bold",
         color="#8B1E3F",
     )
-    fig.tight_layout(rect=(0.02, 0.045, 0.98, 0.94))
+    top = 0.88 if has_suptitle else 0.94
+    fig.tight_layout(rect=(0.02, 0.045, 0.98, top))
     fig.savefig(filesystem_path(path), dpi=160, facecolor="white", bbox_inches="tight")
     plt.close(fig)
 
@@ -702,11 +705,14 @@ def _generate_figures(
         axis.set_ylim(14.5, 27.5)
         axis.grid(axis="y")
     axes[-1].set_xlabel("Process time (h)")
-    fig.suptitle("Candidate temperature policies", x=0.02, ha="left", fontsize=15)
+    fig.suptitle(
+        "Candidate temperature policies", x=0.02, y=0.945, ha="left", fontsize=15
+    )
     _finish_figure(
         fig,
         figure_paths["candidate_profiles_v2.png"],
         "Setpoint range 15–27 °C; dashed lines identify nutrition actions; candidate only.",
+        has_suptitle=True,
     )
     chart_map.append({"figure": "candidate_profiles_v2.png", "family": "Trend", "question": "What excitation policies were evaluated?"})
 
@@ -728,8 +734,19 @@ def _generate_figures(
         axis.grid()
     axes[0].legend(ncol=5, fontsize=8, loc="upper right")
     axes[-1].set_xlabel("Process time (h)")
-    fig.suptitle("Executed-temperature actuator scenarios", x=0.02, ha="left", fontsize=15)
-    _finish_figure(fig, figure_paths["executed_temperature_ensemble_v2.png"], "Nominal, empirical tau extremes and approved tracking-error scenarios.")
+    fig.suptitle(
+        "Executed-temperature actuator scenarios",
+        x=0.02,
+        y=0.945,
+        ha="left",
+        fontsize=15,
+    )
+    _finish_figure(
+        fig,
+        figure_paths["executed_temperature_ensemble_v2.png"],
+        "Nominal, empirical tau extremes and approved tracking-error scenarios.",
+        has_suptitle=True,
+    )
     chart_map.append({"figure": "executed_temperature_ensemble_v2.png", "family": "Uncertainty & Benchmark", "question": "How does actuator uncertainty alter executed temperature?"})
 
     central_member = members[len(members) // 2]
@@ -744,8 +761,15 @@ def _generate_figures(
         axis.grid()
     axes[0].legend(ncol=3, fontsize=8)
     axes[-1].set_xlabel("Process time (h)")
-    fig.suptitle("Aroma concentration predictions", x=0.02, ha="left", fontsize=15)
-    _finish_figure(fig, figure_paths["aroma_predictions_v2.png"], f"Central ensemble member {central_member}; wine concentration predictions.")
+    fig.suptitle(
+        "Aroma concentration predictions", x=0.02, y=0.945, ha="left", fontsize=15
+    )
+    _finish_figure(
+        fig,
+        figure_paths["aroma_predictions_v2.png"],
+        f"Central ensemble member {central_member}; wine concentration predictions.",
+        has_suptitle=True,
+    )
     chart_map.append({"figure": "aroma_predictions_v2.png", "family": "Trend", "question": "How do candidate policies separate aroma trajectories?"})
 
     fig, ax = plt.subplots(figsize=(11, 4.8))
