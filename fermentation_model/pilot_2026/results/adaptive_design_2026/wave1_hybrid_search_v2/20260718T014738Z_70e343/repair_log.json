@@ -1,0 +1,33 @@
+{
+  "canonical_candidate_hash": "a22cf62cf1154cdf2be20daaef650602d2210b71f7db8b8f5db4f764bd1379e1",
+  "canonical_round_trip_exact": true,
+  "raw_particle_hash": "0dfc1c49a62f224210f9622b0569b21b5ba62dc37a72551a53fca08332d3e246",
+  "raw_particle_to_canonical_repairs": [
+    {
+      "action": "scale_total_yan_to_limit",
+      "policy": "seed20260717_A",
+      "scale": 0.9666666666666667,
+      "total_after_mg_yan_l": 232.0,
+      "total_before_mg_yan_l": 240.0
+    },
+    {
+      "action": "relocate_duplicate_temperature_changepoint",
+      "entry": 1,
+      "from_slot": 13,
+      "policy": "seed20260717_B",
+      "to_slot": 12
+    },
+    {
+      "action": "relocate_duplicate_temperature_changepoint",
+      "entry": 2,
+      "from_slot": 13,
+      "policy": "seed20260717_B",
+      "to_slot": 11
+    },
+    {
+      "action": "clip_to_bounds",
+      "changed_coordinates": 3,
+      "policy": "refined_2_A"
+    }
+  ]
+}

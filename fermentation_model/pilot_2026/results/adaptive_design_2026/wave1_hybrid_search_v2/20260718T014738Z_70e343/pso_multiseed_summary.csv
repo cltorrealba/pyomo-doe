@@ -1,0 +1,4 @@
+independent_seed,best_search_objective,best_search_robust_score,evaluations,iterations_completed,restarts_completed,converged,stop_reason,last_iteration_improvement,final_position_diversity
+20260717,-18.226963476216994,18.226963476216994,84,6,0,False,maximum_iterations,0.0,0.08688095551508786
+20260731,-17.795378443241415,17.795378443241415,84,6,0,False,maximum_iterations,0.09509688075242195,0.16911602325366332
+20260747,-17.632134373201854,17.632134373201854,84,6,0,False,maximum_iterations,0.0,0.12461902911967514
