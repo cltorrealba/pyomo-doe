@@ -24,8 +24,8 @@ discover a source by directory ordering:
 
 ```bash
 python fermentation_model/pilot_2026/adaptive_design/validate_wave1_mbdoe_adapter.py --source-ensemble-run fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889 --source-engine-run fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5 --source-aroma-run fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5 --source-actuator-run fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0
-python fermentation_model/pilot_2026/adaptive_design/run_wave1_hybrid_search.py --source-adapter-run fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012212Z_7afa2a --source-ensemble-run fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889 --source-aroma-run fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5 --source-actuator-run fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0
-python fermentation_model/pilot_2026/adaptive_design/optimize_wave1_sampling_and_plots.py --source-search-run fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343 --source-ensemble-run fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889 --source-aroma-run fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5
+python fermentation_model/pilot_2026/adaptive_design/run_wave1_hybrid_search.py --source-adapter-run fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd --source-ensemble-run fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889 --source-aroma-run fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5 --source-actuator-run fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0
+python fermentation_model/pilot_2026/adaptive_design/optimize_wave1_sampling_and_plots.py --source-search-run fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T074703Z_b41bbd --source-ensemble-run fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889 --source-aroma-run fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5
 ```
 
 The historical 53-error audit is not rebaselined: it remains 52 raw worktree
@@ -76,27 +76,45 @@ The Windows environment passed the real Pyomo/IPOPT benchmark in
 `hybrid_engine_qualification/20260717T164729Z_c7a6d5`; SciPy is not a final
 local solver.
 
-## Corrected Wave-1 outcome
+## Final owner-decision Wave-1 outcome (2026-07-18)
 
 The adapter qualification in
-`wave1_mbdoe_adapter_v2/20260718T012212Z_7afa2a` is `PASS`. It freezes nominal
-observation scales during finite differencing, passes three sensitivity-step
-and three integration-grid checks, and agrees with an independent Pyomo-DOE
-linear FIM to relative error 1.71e-15.
+`wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd` is `PASS`. Eight named cases
+cover the anchor, both candidate policies, central/low/high-information members,
+the critical drying member and a critical actuator case. The independent 9x9
+direct-versus-cached FIM comparison, real wine baseline at t=0 and nine
+mass-conserving capture intervals all pass.
 
 The multiseed Sobol-PSO plus trust-region IPOPT search in
-`wave1_hybrid_search_v2/20260718T020952Z_70e343` is `PASS_CONDITIONAL`. All
-three seeds produced finite candidates, the accepted IPOPT proposal improved
-the actual 64-member objective, and all nominal actions precede biological
-drying. Ranking stability and all encoded actuator scenarios did not pass.
+`wave1_hybrid_search_v2/20260718T074703Z_b41bbd` is `FAIL`. All five seeds,
+24 particles and 20 iterations completed with finite candidates; the top five
+were revalidated on 64 members, the accepted local proposal improved the
+actual objective, completion is 1.0, the minimum action-to-drying margin is
+24 h, and all approved actuator scenarios are feasible on all 64 members.
+Nevertheless, the search reached its iteration limit without convergence or a
+plateau, ranking stability was only Spearman 0.40, and finalists came from one
+seed. The local-refinement qualification also fails. These are critical checks
+and are not relaxed after the run.
 
 The full-ensemble sampling run in
-`wave1_sampling_v2/20260718T021159Z_70e343` improved the robust information
-score from 20.520 to 22.172, with 63 paired wins and one loss relative to the
-preliminary schedule. Its final gate is nevertheless `FAIL`: capture
-interval/loading/change rules and manual sampling conflict rules are not
-approved. Nutrition product combinations are reported only as exact endpoint
-translations; no product mix is selected.
+`wave1_sampling_v2/20260718T080054Z_b41bbd` improves the robust information
+score from 21.143 to 22.615, with 63 paired wins and one loss relative to the
+preliminary schedule. Its own operational checks pass for ten samples including
+t=0, nine contiguous capture intervals, mass conservation, three concurrent
+manual samples, sample-before-action coincidence, the 24 h action margin and
+the reproducible tank proposal. Its gate remains `FAIL` because its source
+search is `FAIL` and the two product YAN mass fractions required to calculate
+grams remain unknown. The 50/50 policy is by net YAN contribution, never by
+product mass; the CSV publishes the dimensional formula and leaves grams null.
+Probe-bias, command-delay and initial-temperature scenarios, independent final
+review, candidate-plot owner approval and explicit owner physical-release
+approval also remain open release blockers in `campaign_state.json`.
+
+All ten v2 figures in the final sampling run were inspected at original
+resolution after two retained layout iterations. Titles, subtitles, axes,
+legends and the watermark `COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR
+PHYSICAL EXECUTION` are legible. This visual QA is not owner approval of the
+candidate plots.
 
 The historical regression references
 `wave1_hybrid_search/20260717T225010Z_9d52be` and

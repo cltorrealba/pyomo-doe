@@ -95,6 +95,16 @@ class Wave1RequalificationTests(unittest.TestCase):
             self.assertIn(output_path.resolve(), guarded_inputs)
             self.assertEqual(verification["verification_mode"], "byte_exact")
 
+    def test_campaign_state_keeps_all_physical_release_flags_closed(self) -> None:
+        state = json.loads(
+            (ADAPTIVE_DIR / "campaign_state.json").read_text(encoding="utf-8")
+        )
+        self.assertFalse(state["profiles_for_physical_execution"])
+        self.assertFalse(state["physical_execution_authorized"])
+        self.assertFalse(state["executable_schedule_issued"])
+        self.assertEqual(state["tank_assignments"], [])
+        self.assertFalse(state["tank_randomization_authorized"])
+
     def test_nominal_sigma_is_frozen_in_scaled_sensitivity(self) -> None:
         centre = np.asarray([10.0])
         nominal = np.asarray([10.0])

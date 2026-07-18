@@ -38,14 +38,20 @@ directory here contains an executable fermentation schedule.
 | --- | --- | --- |
 | `wave1_mbdoe_adapter_requalification/20260718T011943Z_7afa2a` | FAIL, retained | Windows path-length failure recorded before qualification. |
 | `wave1_mbdoe_adapter_v2/20260718T012044Z_7afa2a` | FAIL, retained | Second path-length failure recorded before the extended-path fix. |
-| `wave1_mbdoe_adapter_v2/20260718T012212Z_7afa2a` | PASS, current | Frozen-scale FIM, causal pulse semantics, finite-difference/grid checks and independent Pyomo-DOE check pass. |
+| `wave1_mbdoe_adapter_v2/20260718T012212Z_7afa2a` | PASS, superseded | Frozen-scale FIM, causal pulse semantics, finite-difference/grid checks and independent Pyomo-DOE check pass. |
 | `wave1_hybrid_search_v2/20260718T014738Z_70e343` | REJECTED, retained | Search was superseded after full sampling exposed actions after biological drying. |
 | `wave1_sampling_v2/20260718T015547Z_70e343` | FAIL, retained | Correctly rejected the superseded search and unresolved capture/conflict rules. |
-| `wave1_hybrid_search_v2/20260718T020952Z_70e343` | PASS CONDITIONAL, current | Three Sobol-PSO seeds and accepted trust-region IPOPT refinement; ranking stability and one tracking-error actuator scenario fail. |
-| `wave1_sampling_v2/20260718T021159Z_70e343` | FAIL, current | Full 64-member optimization improves information but capture and conflict approvals remain unresolved. |
+| `wave1_hybrid_search_v2/20260718T020952Z_70e343` | PASS CONDITIONAL, superseded | Three Sobol-PSO seeds and accepted trust-region IPOPT refinement; ranking stability and one tracking-error actuator scenario fail. |
+| `wave1_sampling_v2/20260718T021159Z_70e343` | FAIL, superseded | Full 64-member optimization improves information but capture and conflict approvals remained unresolved. |
+| `wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd` | PASS, current | Eight-case policy/member/scenario scope, corrected FIM, t=0 baseline, nine capture intervals and independent direct-versus-cached 9x9 FIM all pass. |
+| `wave1_hybrid_search_v2/20260718T074703Z_b41bbd` | FAIL, current | Five-seed minimum search and complete approved actuator envelope run; convergence, cross-seed finalist stability, plateau and local-refinement qualification fail closed. |
+| `wave1_sampling_v2/20260718T075319Z_b41bbd` | FAIL, retained | Complete candidate; visual QA found title/subtitle overlap in three multipanel figures. |
+| `wave1_sampling_v2/20260718T075725Z_b41bbd` | FAIL, retained | Title overlap fixed; visual QA found top sample labels entering the agenda title area. |
+| `wave1_sampling_v2/20260718T080054Z_b41bbd` | FAIL, current | Operational sampling/capture/randomization checks pass and all ten figures pass visual QA; source search and missing nutrition product compositions remain fail-closed. |
 
 The immutable historical regression references are
 `wave1_hybrid_search/20260717T225010Z_9d52be` and
 `wave1_sampling/20260717T231040Z_9d52be`. The corrected runs do not overwrite
 them. The campaign state has no tank assignments, no executable profile and no
-physical release.
+physical release. The tank CSV is a frozen uniform proposal only and is never
+copied into `tank_assignments`.

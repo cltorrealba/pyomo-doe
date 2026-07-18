@@ -108,8 +108,15 @@ conversion, estimates model-discrepancy scales, and preserves alternative broad
 minima. It is suitable as a conditional reduced prior for the computational
 MBDoE stage, not as a final physical schedule.
 
-The corrected Wave-1 adapter and multiseed PSO-to-IPOPT search have been
-qualified computationally. The subsequent 64-member sampling qualification is
-`FAIL`: capture limits and operational conflict rules remain unapproved.
-`adaptive_design/design_constraints.json` records those values as `null` and
-fail-closed. No executable profile or tank assignment has been issued.
+The final owner-decision Wave-1 adapter v3 is computational `PASS`, but the
+minimum five-seed PSO-to-IPOPT search is `FAIL`: it reaches 20 iterations without
+convergence/plateau or cross-seed finalist stability, and its local refinement
+does not qualify. The subsequent 64-member sampling/capture calculation passes
+its internal timing, mass-conservation, capacity, collision, actuator and
+randomization checks, but remains `FAIL` because the source search failed and
+the organic/DAP YAN mass fractions needed to translate YAN to product grams are
+unknown. Its ten figures passed visual QA and remain watermarked computational
+candidates. `profiles_for_physical_execution=false`,
+`physical_execution_authorized=false`, `executable_schedule_issued=false`, and
+`tank_assignments=[]` remain permanent until every critical gate and required
+owner approval passes.

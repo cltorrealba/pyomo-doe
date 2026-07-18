@@ -34,6 +34,8 @@
     "approval.candidate_plots_approved_by_owner",
     "nutrition.dap_yan_mass_fraction",
     "nutrition.organic_product_yan_mass_fraction",
+    "approval.independent_final_review_completed",
+    "approval.explicit_owner_physical_release_approved",
     "temperature_actuator.command_delay_scenarios_h",
     "temperature_actuator.initial_temperature_uncertainty_c",
     "temperature_actuator.probe_bias_scenarios_c"
@@ -52,12 +54,36 @@
   "owner_approvals": {
     "active_fermentation_vs_cooling": "approved_2026-07-17",
     "automated_temperature_changes_24_7": true,
+    "candidate_plots_approved_by_owner": false,
+    "explicit_owner_physical_release_approved": false,
+    "independent_final_review_completed": false,
     "loading_qc": "approved_2026-07-17",
     "maximum_samples_per_process": 10,
-    "maximum_total_yan_mg_l": 232.0
+    "maximum_total_yan_mg_l": 232.0,
+    "wave1_final_operational_decisions": {
+      "active_action_minimum_margin_to_drying_h": 24.0,
+      "capture_duration_policy": "unbounded",
+      "capture_trap_loading_policy": "unbounded",
+      "manual_sampling_capacity": 3,
+      "mandatory_wine_baseline_at_t0": true,
+      "maximum_temperature_jump_policy": "bounded_only_by_allowed_temperature_range",
+      "maximum_total_thermal_variation_policy": "no_additional_limit",
+      "minimum_effective_temperature_change_c": 1.0,
+      "nutrition_mix_policy": "50_50_net_YAN_contribution",
+      "sample_action_order": "sample_before_action",
+      "sample_action_separation_h": 0.0,
+      "tank_randomization_policy": "uniform_permutation_seed_20260718",
+      "temperature_range_c": [
+        15.0,
+        27.0
+      ],
+      "wine_samples_include_t0": true
+    }
   },
+  "physical_execution_authorized": false,
   "physical_execution_status": "not_authorized",
   "profiles_for_physical_execution": false,
+  "tank_randomization_authorized": false,
   "tank_assignments": [],
   "timing": {
     "maximum_process_duration_days": 21,
@@ -73,9 +99,12 @@
     "local_refinement_qualified": false,
     "sampling_fallback_reason": null,
     "sampling_gate_verdict": "FAIL",
+    "sampling_robust_information_score": 22.61526694949193,
     "sampling_schedule_source": "optimized",
     "status": "computational_candidate_FAIL_not_physically_released",
-    "tank_randomization_required": true
+    "tank_randomization_required": true,
+    "visual_qa_completed": true,
+    "visual_qa_owner_approval": false
   },
   "wave2": {
     "bridge_to_anchor_required": true,
