@@ -45,6 +45,8 @@ class ScenarioEvaluation:
     completion: bool
     residual_sugar_g_l: float
     fim: np.ndarray
+    drying_time_h: float
+    latest_action_time_h: float
 
 
 @dataclass(frozen=True)
@@ -959,13 +961,35 @@ def design_fim(
     *,
     actuator_scenario: dict[str, float] | None = None,
 ) -> tuple[np.ndarray, float]:
+    fim, residual, _drying = design_fim_with_drying(
+        policy,
+        member,
+        config,
+        partitions,
+        actuator_scenario=actuator_scenario,
+    )
+    return fim, residual
+
+
+def design_fim_with_drying(
+    policy: DesignPolicy,
+    member: pd.Series,
+    config: dict[str, Any],
+    partitions: dict[str, dict[str, float]],
+    *,
+    actuator_scenario: dict[str, float] | None = None,
+) -> tuple[np.ndarray, float, float]:
     prepared = prepare_design(
         policy, member, config, partitions, actuator_scenario=actuator_scenario
     )
     if prepared is None:
-        return np.zeros((9, 9), dtype=float), math.inf
+        return np.zeros((9, 9), dtype=float), math.inf, -math.inf
     sample_times = np.asarray(config["sampling"]["preliminary_times_h"], dtype=float)
-    return fim_from_prepared(prepared, sample_times, config), prepared.residual_sugar_g_l
+    return (
+        fim_from_prepared(prepared, sample_times, config),
+        prepared.residual_sugar_g_l,
+        prepared.drying_time_h,
+    )
 
 
 def logdet(matrix: np.ndarray) -> float:
@@ -982,7 +1006,7 @@ def evaluate_campaign(
     partitions: dict[str, dict[str, float]],
     *,
     actuator_scenario: dict[str, float] | None = None,
-    design_cache: dict[tuple, tuple[np.ndarray, float]] | None = None,
+    design_cache: dict[tuple, tuple[np.ndarray, float, float]] | None = None,
 ) -> tuple[float, list[ScenarioEvaluation]]:
     base_logdet = logdet(prior)
     evaluations = []
@@ -991,6 +1015,8 @@ def evaluate_campaign(
         total = prior.copy()
         completed = True
         max_residual = 0.0
+        minimum_drying = math.inf
+        latest_action = 0.0
         for policy in policies:
             scenario_key = tuple(sorted((actuator_scenario or {}).items()))
             cache_key = (
@@ -1001,7 +1027,7 @@ def evaluate_campaign(
             )
             cached = None if design_cache is None else design_cache.get(cache_key)
             if cached is None:
-                cached = design_fim(
+                cached = design_fim_with_drying(
                     policy,
                     member,
                     config,
@@ -1010,10 +1036,27 @@ def evaluate_campaign(
                 )
                 if design_cache is not None:
                     design_cache[cache_key] = cached
-            fim, residual = cached
+            fim, residual, drying_time = cached
             total += fim
             max_residual = max(max_residual, residual)
-            completed = completed and residual <= float(config["completion"]["residual_sugar_g_l"])
+            effective_change_slots = np.flatnonzero(
+                np.abs(np.diff(policy.temperature_c)) > 1e-12
+            ) + 1
+            action_times = [
+                float(config["future_process"]["temperature_slot_h"]) * int(slot)
+                for slot in effective_change_slots
+            ]
+            action_times.extend(time_h for time_h, _ in policy.nutrition_mg_yan_l)
+            policy_latest_action = max(action_times, default=0.0)
+            latest_action = max(latest_action, policy_latest_action)
+            minimum_drying = min(minimum_drying, drying_time)
+            approved_margin = config["operations"].get("minimum_action_to_drying_margin_h")
+            numerical_margin = 0.0 if approved_margin is None else float(approved_margin)
+            completed = (
+                completed
+                and residual <= float(config["completion"]["residual_sugar_g_l"])
+                and policy_latest_action <= drying_time - numerical_margin + 1e-9
+            )
         evaluations.append(
             ScenarioEvaluation(
                 int(member["ensemble_member"]),
@@ -1021,6 +1064,8 @@ def evaluate_campaign(
                 completed,
                 max_residual,
                 total - prior,
+                minimum_drying,
+                latest_action,
             )
         )
     gains = np.asarray([item.information_gain for item in evaluations], dtype=float)

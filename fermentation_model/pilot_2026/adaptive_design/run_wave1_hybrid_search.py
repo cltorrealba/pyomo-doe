@@ -295,7 +295,7 @@ def main() -> None:
     single_bounds = vector_bounds(config)
     bounds = np.vstack([single_bounds, single_bounds])
     objective_cache: dict[tuple[tuple[int, ...], tuple[float, ...]], float] = {}
-    design_cache: dict[tuple, tuple[np.ndarray, float]] = {}
+    design_cache: dict[tuple, tuple[np.ndarray, float, float]] = {}
 
     def objective_for_members(values: np.ndarray, members: list[int]) -> float:
         pair, canonical, _ = _decode_pair(values, config, "candidate")
@@ -733,6 +733,9 @@ def main() -> None:
                 "information_gain": row.information_gain,
                 "completion": row.completion,
                 "residual_sugar_g_l": row.residual_sugar_g_l,
+                "drying_time_h": row.drying_time_h,
+                "latest_action_time_h": row.latest_action_time_h,
+                "action_margin_to_drying_h": row.drying_time_h - row.latest_action_time_h,
                 "three_anchor_information_gain": reference.information_gain,
                 "paired_delta_vs_three_anchor": row.information_gain - reference.information_gain,
             }
