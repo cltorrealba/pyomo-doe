@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.metadata
 import json
+import os
 import platform
 import shutil
 import subprocess
@@ -67,6 +68,47 @@ def git_value(*args: str) -> str:
         return "unknown"
 
 
+def git_bytes(*args: str) -> bytes:
+    try:
+        return subprocess.check_output(
+            ["git", *args],
+            cwd=REPOSITORY_DIR,
+            stderr=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return b""
+
+
+def capture_git_state() -> dict[str, Any]:
+    """Capture repository state before any run output directory is created."""
+
+    porcelain = git_value("status", "--porcelain=v1", "--untracked-files=all")
+    lines = [] if porcelain in {"", "unknown"} else porcelain.splitlines()
+    dirty_paths: list[str] = []
+    untracked_paths: list[str] = []
+    for line in lines:
+        path = line[3:] if len(line) >= 4 else line
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        path = path.strip('"')
+        dirty_paths.append(path)
+        if line.startswith("??"):
+            untracked_paths.append(path)
+    diff = git_bytes("diff", "--binary", "--no-ext-diff")
+    staged = git_bytes("diff", "--cached", "--binary", "--no-ext-diff")
+    return {
+        "captured_before_output_directory": True,
+        "commit": git_value("rev-parse", "HEAD"),
+        "branch": git_value("branch", "--show-current"),
+        "dirty": bool(lines),
+        "dirty_paths": sorted(dirty_paths),
+        "untracked_paths": sorted(untracked_paths),
+        "diff_sha256": hashlib.sha256(diff).hexdigest(),
+        "staged_diff_sha256": hashlib.sha256(staged).hexdigest(),
+        "porcelain_sha256": hashlib.sha256(porcelain.encode("utf-8")).hexdigest(),
+    }
+
+
 def package_versions() -> dict[str, str | None]:
     versions: dict[str, str | None] = {}
     for name in PACKAGE_NAMES:
@@ -113,9 +155,10 @@ def build_manifest(
     convergence: dict[str, Any],
     gate: dict[str, Any],
     outputs: Iterable[Path],
+    git_snapshot: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    status_text = git_value("status", "--porcelain")
     output_paths = [Path(path) for path in outputs]
+    snapshot = dict(git_snapshot or capture_git_state())
     return {
         "schema_version": 1,
         "stage": stage,
@@ -140,11 +183,7 @@ def build_manifest(
             "sha256": combined_code_hash(code_paths),
             "files": [relative_or_absolute(path) for path in sorted(code_paths, key=str)],
         },
-        "git": {
-            "commit": git_value("rev-parse", "HEAD"),
-            "branch": git_value("branch", "--show-current"),
-            "dirty": bool(status_text and status_text != "unknown"),
-        },
+        "git": snapshot,
         "environment": {
             "platform": platform.platform(),
             "python": sys.version,
@@ -182,3 +221,38 @@ def write_json(path: Path, payload: Any) -> None:
         json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+
+
+def write_json_atomic(path: Path, payload: Any) -> None:
+    output_path = Path(path)
+    temporary = output_path.with_name(output_path.name + ".tmp")
+    write_json(temporary, payload)
+    os.replace(temporary, output_path)
+
+
+def verify_manifest_output(run_dir: Path, output_name: str) -> dict[str, Any]:
+    """Verify a source output against the immutable run manifest."""
+
+    run_dir = Path(run_dir).resolve()
+    manifest_path = run_dir / "run_manifest.json"
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"Missing source manifest: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    output_path = run_dir / output_name
+    if not output_path.is_file():
+        raise FileNotFoundError(f"Missing source output: {output_path}")
+    key = relative_or_absolute(output_path)
+    declared = manifest.get("outputs", {}).get(key)
+    if declared is None:
+        raise ValueError(f"Source manifest does not declare output: {key}")
+    actual = sha256_file(output_path)
+    if actual != declared.get("sha256"):
+        raise ValueError(f"Source output hash mismatch: {key}")
+    return {
+        "run_id": manifest.get("run_id", run_dir.name),
+        "manifest_path": relative_or_absolute(manifest_path),
+        "manifest_sha256": sha256_file(manifest_path),
+        "output_path": key,
+        "output_sha256": actual,
+        "configuration_sha256": manifest.get("configuration", {}).get("sha256"),
+    }

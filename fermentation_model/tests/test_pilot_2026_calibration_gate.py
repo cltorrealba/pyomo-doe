@@ -105,13 +105,23 @@ class Pilot2026CalibrationGateTests(unittest.TestCase):
         self.assertFalse(policy["use_existing_integrated_result_as_prior"])
         self.assertIn("regenerate", policy["required_action_before_use"])
 
-    def test_design_constraints_are_owner_approved_and_complete(self) -> None:
+    def test_design_constraints_are_explicit_and_fail_closed(self) -> None:
         constraints = json.loads(
             (ADAPTIVE_DIR / "design_constraints.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(constraints["review_status"], "owner_approved_2026-07-17")
+        self.assertEqual(
+            constraints["review_status"],
+            "partially_approved_physical_release_blocked_2026-07-17",
+        )
         self.assertFalse(constraints["approval"]["physical_execution_authorized"])
-        self.assertEqual(constraints["fail_closed_fields"], [])
+        self.assertIn(
+            "temperature.maximum_temperature_jump_c",
+            constraints["fail_closed_fields"],
+        )
+        self.assertIn(
+            "sampling_and_capture.sample_event_order",
+            constraints["fail_closed_fields"],
+        )
         self.assertEqual(constraints["temperature"]["maximum_active_segments"], 42)
         self.assertEqual(constraints["nutrition"]["maximum_pulses"], 3)
         self.assertEqual(constraints["nutrition"]["maximum_total_yan_mg_l"], 232.0)

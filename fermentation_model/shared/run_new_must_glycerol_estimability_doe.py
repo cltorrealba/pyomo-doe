@@ -364,13 +364,23 @@ def temperature_at(batch: BatchData | FutureDesign, t: float) -> float:
 
 
 def pulse_rate(t: float, schedule: tuple[tuple[float, float], ...], width_h: float = 1.5) -> float:
+    """Return a causal diagnostic pulse-rate approximation.
+
+    The production simulator below does not smear pulses: it applies exact state
+    jumps at their event times.  This one-sided exponential remains only for
+    legacy diagnostics that require a rate-valued function.  In particular it
+    is identically zero before every event, unlike the former symmetric
+    Gaussian approximation.
+    """
+
     width_h = max(float(width_h), 1e-6)
     total = 0.0
     for pulse_time, amount in schedule:
+        elapsed = float(t) - float(pulse_time)
         amount = float(amount)
-        if amount <= 0.0:
+        if amount <= 0.0 or elapsed < 0.0:
             continue
-        total += amount * math.exp(-((float(t) - float(pulse_time)) / width_h) ** 2) / (math.sqrt(math.pi) * width_h)
+        total += (amount / width_h) * math.exp(-elapsed / width_h)
     return float(total)
 
 
@@ -435,26 +445,25 @@ def kinetic_terms(theta: dict[str, float], temperature_c: float, x: float, n: fl
 def rhs(t: float, y: np.ndarray, theta: dict[str, float], batch: BatchData | FutureDesign) -> list[float]:
     x, xd, n, g, f, e, gly = [max(0.0, float(value)) for value in y]
     terms = kinetic_terms(theta, temperature_at(batch, t), x, n, g, f, e)
-    rates = {channel: pulse_rate(t, batch.pulses.get(channel, tuple())) for channel in INPUT_CHANNELS}
     sugar_total = terms["sugar_total"]
     growth_factor = terms["growth_factor"]
     glucose_ferm_factor = terms["glucose_ferm_factor"]
     fructose_ferm_factor = terms["fructose_ferm_factor"]
     maintenance_flux = terms["maintenance"] * terms["maintenance_availability"]
-    dx = (terms["mu"] - terms["kd"]) * x + rates["X"]
+    dx = (terms["mu"] - terms["kd"]) * x
     dxd = terms["kd"] * x
-    dn = -theta["qN"] * growth_factor * x + rates["N"]
+    dn = -theta["qN"] * growth_factor * x
     dg = -(
         theta["qXG"] * growth_factor
         + theta["qEG"] * glucose_ferm_factor
         + maintenance_flux * (g / sugar_total)
-    ) * x + rates["G"]
+    ) * x
     df = -(
         theta["qXF"] * growth_factor
         + theta["qEF"] * fructose_ferm_factor
         + maintenance_flux * (f / sugar_total)
-    ) * x + rates["F"]
-    de = (terms["beta_g"] + terms["beta_f"]) * x + rates["E"]
+    ) * x
+    de = (terms["beta_g"] + terms["beta_f"]) * x
     dgly = (theta["gammaG0"] * glucose_ferm_factor + theta["gammaF0"] * fructose_ferm_factor) * x
     return [dx, dxd, dn, dg, df, de, dgly]
 
@@ -463,7 +472,46 @@ def initial_vector(batch: BatchData | FutureDesign) -> np.ndarray:
     return np.array([float(batch.initials[state]) for state in STATE_NAMES], dtype=float)
 
 
-def simulate(batch: BatchData | FutureDesign, theta: dict[str, float], output_time: np.ndarray | None = None) -> pd.DataFrame | None:
+def _pulse_events(
+    batch: BatchData | FutureDesign,
+    t0: float,
+    tf: float,
+) -> dict[float, np.ndarray]:
+    events: dict[float, np.ndarray] = {}
+    state_index = {state: index for index, state in enumerate(STATE_NAMES)}
+    for channel in INPUT_CHANNELS:
+        for event_time, amount in batch.pulses.get(channel, tuple()):
+            event_time = float(event_time)
+            amount = float(amount)
+            if not np.isfinite(event_time) or not np.isfinite(amount) or amount < 0.0:
+                raise ValueError("Pulse times and amounts must be finite; amounts must be nonnegative")
+            if amount == 0.0 or event_time < t0 - 1e-12 or event_time > tf + 1e-12:
+                continue
+            delta = events.setdefault(event_time, np.zeros(len(STATE_NAMES), dtype=float))
+            delta[state_index[channel]] += amount
+    return events
+
+
+def simulate(
+    batch: BatchData | FutureDesign,
+    theta: dict[str, float],
+    output_time: np.ndarray | None = None,
+    *,
+    sample_event_order: str = "sample_before_action",
+    integration_max_step_h: float = 2.0,
+) -> pd.DataFrame | None:
+    """Integrate continuous dynamics between events and apply exact pulse jumps.
+
+    ``sample_event_order`` controls the state returned when a requested sample
+    shares a timestamp with an action.  Operational workflows prohibit that
+    collision until the owner approves an order, but the numerical convention
+    is explicit and testable here.
+    """
+
+    if sample_event_order not in {"sample_before_action", "action_before_sample"}:
+        raise ValueError("sample_event_order must be sample_before_action or action_before_sample")
+    if not np.isfinite(integration_max_step_h) or integration_max_step_h <= 0.0:
+        raise ValueError("integration_max_step_h must be finite and positive")
     if output_time is None:
         if isinstance(batch, BatchData):
             output_time = batch.time
@@ -484,24 +532,52 @@ def simulate(batch: BatchData | FutureDesign, theta: dict[str, float], output_ti
         if t0 > 0.0:
             output_time = np.asarray(sorted(set([0.0] + [float(t) for t in output_time])), dtype=float)
             t0 = 0.0
-    if tf <= t0:
+    if tf < t0:
         return None
     try:
-        sol = solve_ivp(
-            lambda t, y: rhs(t, y, theta, batch),
-            (t0, tf),
-            y0,
-            t_eval=output_time,
-            method="LSODA",
-            rtol=1e-6,
-            atol=1e-8,
-            max_step=2.0,
-        )
+        events = _pulse_events(batch, t0, tf)
+    except ValueError:
+        raise
+    output_set = set(float(value) for value in output_time)
+    timeline = sorted(output_set | set(events))
+    current_time = float(t0)
+    current_state = np.asarray(y0, dtype=float).copy()
+    records: dict[float, np.ndarray] = {}
+    try:
+        for time_h in timeline:
+            if time_h < current_time - 1e-12:
+                continue
+            if time_h > current_time + 1e-12:
+                sol = solve_ivp(
+                    lambda t, y: rhs(t, y, theta, batch),
+                    (current_time, time_h),
+                    current_state,
+                    t_eval=[time_h],
+                    method="LSODA",
+                    rtol=1e-6,
+                    atol=1e-8,
+                    max_step=float(integration_max_step_h),
+                )
+                if not sol.success or sol.y.shape[1] != 1:
+                    return None
+                current_state = np.asarray(sol.y[:, -1], dtype=float)
+                current_time = float(time_h)
+            delta = events.get(float(time_h))
+            if delta is not None and sample_event_order == "sample_before_action":
+                if float(time_h) in output_set:
+                    records[float(time_h)] = current_state.copy()
+                current_state = current_state + delta
+            elif delta is not None:
+                current_state = current_state + delta
+                if float(time_h) in output_set:
+                    records[float(time_h)] = current_state.copy()
+            elif float(time_h) in output_set:
+                records[float(time_h)] = current_state.copy()
     except Exception:
         return None
-    if not sol.success or sol.y.shape[1] != len(output_time):
+    if any(float(time_h) not in records for time_h in output_time):
         return None
-    values = np.asarray(sol.y.T, dtype=float)
+    values = np.vstack([records[float(time_h)] for time_h in output_time])
     for idx, state in enumerate(STATE_NAMES):
         lb, ub = STATE_BOUNDS[state]
         values[:, idx] = np.clip(values[:, idx], lb, ub)
@@ -1203,7 +1279,20 @@ def build_pyomo_discrete_model(theta: dict[str, float], design: FutureDesign, pa
             f"{channel}_input",
             pyo.Param(
                 m.K,
-                initialize={k: pulse_rate(float(time[k]), design.pulses.get(channel, tuple())) for k in range(len(time))},
+                initialize={
+                    k: (
+                        0.0
+                        if k == 0
+                        else sum(
+                            float(amount)
+                            for event_time, amount in design.pulses.get(channel, tuple())
+                            if float(time[k - 1]) < float(event_time) <= float(time[k])
+                            or (k == 1 and float(event_time) == float(time[0]))
+                        )
+                        / float(time[k] - time[k - 1])
+                    )
+                    for k in range(len(time))
+                },
             ),
         )
 

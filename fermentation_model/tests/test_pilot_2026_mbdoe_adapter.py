@@ -20,6 +20,7 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     allowed_nutrition_times,
     allowed_sampling_times,
     anchor_policy,
+    load_wave1_config,
     policy_from_vector,
     vector_bounds,
 )
@@ -28,9 +29,7 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
 class Pilot2026MBDoEAdapterTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.config = json.loads(
-            (ADAPTIVE_DIR / "wave1_mbdoe_config.json").read_text(encoding="utf-8")
-        )
+        cls.config = load_wave1_config(ADAPTIVE_DIR / "wave1_mbdoe_config.json")
         cls.state = json.loads(
             (ADAPTIVE_DIR / "campaign_state.json").read_text(encoding="utf-8")
         )
