@@ -1,0 +1,85 @@
+{
+  "checks": {
+    "all_samples_in_legal_windows": true,
+    "automatic_preliminary_fallback_operational": true,
+    "capture_limits_approved_and_satisfied": false,
+    "exactly_ten_samples_per_process": true,
+    "no_ambiguous_operational_conflicts": false,
+    "nutrition_translation_has_no_arbitrary_mix": true,
+    "optimized_full_ensemble_score_not_below_preliminary": true,
+    "paired_comparison_published": true,
+    "profiles_for_physical_execution_false": true,
+    "samples_and_actions_before_drying": false,
+    "sampling_optimization_used_64_members": true,
+    "selected_q10_meets_preliminary_guardrail": true,
+    "source_hashes_verified": true,
+    "source_search_ipopt_execution_recognized": true,
+    "three_anchor_reference_optimized_with_comparable_method": true
+  },
+  "conditions": [
+    "failed_check:samples_and_actions_before_drying",
+    "failed_check:no_ambiguous_operational_conflicts",
+    "failed_check:capture_limits_approved_and_satisfied",
+    "physical_release_blocker:temperature.maximum_temperature_jump_c",
+    "physical_release_blocker:temperature.maximum_total_thermal_variation_c",
+    "physical_release_blocker:nutrition.approved_product_mix_selection_policy",
+    "physical_release_blocker:sampling_and_capture.maximum_capture_interval_h",
+    "physical_release_blocker:sampling_and_capture.maximum_trap_loading",
+    "physical_release_blocker:sampling_and_capture.vessel_change_required",
+    "physical_release_blocker:sampling_and_capture.sample_event_order",
+    "physical_release_blocker:sampling_and_capture.minimum_minutes_between_sampling_and_nutrition",
+    "physical_release_blocker:sampling_and_capture.manual_sampling_capacity_per_time_slot",
+    "physical_release_blocker:sampling_and_capture.minimum_action_to_drying_margin_h",
+    "physical_release_blocker:tank_randomization.policy"
+  ],
+  "fallback_reason": null,
+  "gate": "phase_D_wave1_sampling_requalification",
+  "information": {
+    "optimized": {
+      "median": 23.702949928335716,
+      "q10": 18.04330196300201,
+      "robust_score": 22.28803793700229
+    },
+    "optimized_vs_preliminary_losses": 1,
+    "optimized_vs_preliminary_wins": 63,
+    "optimized_vs_three_anchor_losses": 1,
+    "optimized_vs_three_anchor_wins": 63,
+    "preliminary": {
+      "maximum_posterior_fim_condition_number": 6012.805775232506,
+      "median": 22.00254845365325,
+      "minimum": 12.470953025905086,
+      "minimum_posterior_fim_eigenvalue": 0.18751791929264436,
+      "q10": 16.599127829089827,
+      "robust_score": 20.651693297512395,
+      "tail_cvar": 14.813839697902951
+    },
+    "selected": {
+      "fraction_exceeding_reference": 0.984375,
+      "maximum_posterior_fim_condition_number": 8593.187148604808,
+      "median": 23.702949928335716,
+      "minimum": 13.994472925771472,
+      "minimum_posterior_fim_eigenvalue": 0.1878840289805344,
+      "q10": 18.04330196300201,
+      "robust_score": 22.28803793700229,
+      "tail_cvar": 16.6020082879554,
+      "worst_paired_loss_vs_reference": -1.0479056651512622
+    },
+    "three_anchor_optimized_reference": {
+      "maximum_posterior_fim_condition_number": 8260.312000230191,
+      "median": 22.83223607021854,
+      "minimum": 13.252287800126691,
+      "minimum_posterior_fim_eigenvalue": 0.1873223070775274,
+      "q10": 17.022387196698173,
+      "robust_score": 21.379773851838447,
+      "tail_cvar": 15.496273279950273
+    },
+    "worst_optimized_vs_preliminary_delta": -1.0479056651512622
+  },
+  "nutrition_translation_blocker": true,
+  "profiles_for_physical_execution": false,
+  "selected_schedule_source": "optimized",
+  "source_candidate_source": "ipopt_refined",
+  "source_search_verdict": "PASS_CONDITIONAL",
+  "tank_assignments": [],
+  "verdict": "FAIL"
+}
