@@ -51,7 +51,7 @@
   "latest_model_dataset_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/model_dataset/20260717T125004Z_b03413",
   "latest_passing_engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
   "latest_temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0",
-  "latest_wave1_adapter_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter/20260717T171612Z_9d52be",
+  "latest_wave1_adapter_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v2/20260718T012212Z_7afa2a",
   "latest_wave1_sampling_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_sampling_v2/20260718T021159Z_70e343",
   "latest_wave1_search_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343",
   "owner_approvals": {
@@ -79,7 +79,7 @@
     "sampling_fallback_reason": null,
     "sampling_gate_verdict": "FAIL",
     "sampling_schedule_source": "optimized",
-    "status": "computational_candidate_PASS_CONDITIONAL_not_physically_released",
+    "status": "computational_search_PASS_CONDITIONAL_sampling_FAIL_not_physically_released",
     "tank_randomization_required": true
   },
   "wave2": {

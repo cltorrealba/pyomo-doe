@@ -68,9 +68,12 @@ class Pilot2026MBDoEAdapterTests(unittest.TestCase):
         adapter_gate = json.loads(adapter.read_text(encoding="utf-8"))
         sampling_gate = json.loads(sampling.read_text(encoding="utf-8"))
         self.assertEqual(adapter_gate["verdict"], "PASS")
-        self.assertEqual(sampling_gate["verdict"], "PASS_CONDITIONAL")
+        self.assertEqual(sampling_gate["verdict"], "FAIL")
         self.assertFalse(adapter_gate["profiles_for_physical_execution"])
         self.assertFalse(sampling_gate["profiles_for_physical_execution"])
+        self.assertFalse(self.state["executable_schedule_issued"])
+        self.assertFalse(self.state["profiles_for_physical_execution"])
+        self.assertEqual(self.state["tank_assignments"], [])
 
 
 if __name__ == "__main__":

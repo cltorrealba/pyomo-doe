@@ -61,9 +61,9 @@ implementation brief is `ADAPTIVE_HYBRID_DESIGN_CODEX_PROMPT.md`.
   the owner confirmed that those three signals are unreliable.
 - `Sonda1` is the authoritative measured temperature. Controller setpoint is
   retained as the commanded input.
-- With the confirmed conversion factors, each listed `116 + 46 g` pulse gives
-  90.435 mg/L YAN at 230 L. This remains explicitly pending reconciliation with
-  the nominal 80 mg/L-per-pulse protocol before nutrition calibration.
+- The mass-derived audit calculation for a listed `116 + 46 g` pulse is
+  90.435 mg/L YAN at 230 L. It remains in the integration evidence, but it does
+  not replace the owner-approved 80 mg/L-per-pulse historical calibration basis.
 
 ## Calibration gate
 
@@ -102,10 +102,14 @@ python fermentation_model/pilot_2026/adaptive_design/run_hierarchical_calibratio
 The reconstructed 2026-07-17 reduced calibration executes five broad primary
 multistarts, five selected-basin replicas, and two-pass CO2 fitting with ESS
 computed from final standardized residuals. Its computational verdict is
-`PASS` and its release verdict is `PASS_CONDITIONAL`. The result explicitly
-parameterizes YAN delivery and the Oculyze cell-to-biomass conversion, estimates
-model-discrepancy scales, and preserves alternative broad minima. It is suitable
-as a conditional reduced prior for the next computational MBDoE stage, not as a
-final physical schedule. `adaptive_design/design_constraints.json` deliberately
-leaves unapproved dose, pulse, completion and topology limits as `null`;
-therefore no executable fermentation schedule has been issued.
+`PASS` and its release verdict is `PASS_CONDITIONAL`. The result uses the fixed
+owner-approved historical YAN basis, parameterizes the Oculyze cell-to-biomass
+conversion, estimates model-discrepancy scales, and preserves alternative broad
+minima. It is suitable as a conditional reduced prior for the computational
+MBDoE stage, not as a final physical schedule.
+
+The corrected Wave-1 adapter and multiseed PSO-to-IPOPT search have been
+qualified computationally. The subsequent 64-member sampling qualification is
+`FAIL`: capture limits and operational conflict rules remain unapproved.
+`adaptive_design/design_constraints.json` records those values as `null` and
+fail-closed. No executable profile or tank assignment has been issued.
