@@ -67,6 +67,16 @@ class FIMComponents:
     difference_methods: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class SamplingSensitivityCache:
+    prepared: PreparedDesign
+    nominal_liquid: dict[str, np.ndarray]
+    nominal_captured: dict[str, np.ndarray]
+    liquid_derivatives: dict[str, np.ndarray]
+    captured_derivatives: dict[str, np.ndarray]
+    difference_methods: dict[str, tuple[str, ...]]
+
+
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
@@ -853,6 +863,92 @@ def fim_from_prepared(
         config,
         finite_difference_log_step=finite_difference_log_step,
     ).fim
+
+
+def prepare_sampling_sensitivity_cache(
+    prepared: PreparedDesign,
+    config: dict[str, Any],
+    *,
+    finite_difference_log_step: float | None = None,
+) -> SamplingSensitivityCache:
+    """Precompute physical trajectory derivatives for fast discrete sampling search."""
+
+    step = float(
+        finite_difference_log_step
+        if finite_difference_log_step is not None
+        else config["objective"]["finite_difference_log_step"]
+    )
+    log_bounds = np.asarray(config["objective"]["finite_difference_log_parameter_bounds"], dtype=float)
+    nominal_liquid: dict[str, np.ndarray] = {}
+    nominal_captured: dict[str, np.ndarray] = {}
+    liquid_derivatives: dict[str, np.ndarray] = {}
+    captured_derivatives: dict[str, np.ndarray] = {}
+    methods: dict[str, tuple[str, ...]] = {}
+    for species in SPECIES:
+        forcing = prepared.forcings[species]
+        centre = prepared.aroma_log_values[species]
+
+        def trajectory(values):
+            liquid, captured = simulate_aroma(forcing, values)
+            return np.concatenate([liquid, captured])
+
+        nominal = trajectory(centre)
+        derivatives, method = finite_difference_sensitivity(
+            trajectory,
+            centre,
+            step,
+            np.ones_like(nominal),
+            lower=log_bounds[:, 0],
+            upper=log_bounds[:, 1],
+        )
+        size = len(forcing.time_h)
+        nominal_liquid[species] = nominal[:size]
+        nominal_captured[species] = nominal[size:]
+        liquid_derivatives[species] = derivatives[:size, :]
+        captured_derivatives[species] = derivatives[size:, :]
+        methods[species] = method
+    return SamplingSensitivityCache(
+        prepared,
+        nominal_liquid,
+        nominal_captured,
+        liquid_derivatives,
+        captured_derivatives,
+        methods,
+    )
+
+
+def fim_from_sampling_sensitivity_cache(
+    cache: SamplingSensitivityCache,
+    sample_times: np.ndarray,
+    config: dict[str, Any],
+) -> np.ndarray:
+    sample_times = np.asarray(sample_times, dtype=float)
+    fim = np.zeros((9, 9), dtype=float)
+    for species_index, species in enumerate(SPECIES):
+        forcing = cache.prepared.forcings[species]
+        time = forcing.time_h
+        liquid_nominal = np.interp(sample_times, time, cache.nominal_liquid[species])
+        captured_nominal = np.interp(sample_times, time, cache.nominal_captured[species])
+        interval_nominal = np.diff(captured_nominal)
+        physical = np.concatenate([liquid_nominal, interval_nominal])
+        sigma = nominal_observation_scale(physical, len(sample_times), config)
+        columns = []
+        for parameter_index in range(3):
+            liquid = np.interp(
+                sample_times,
+                time,
+                cache.liquid_derivatives[species][:, parameter_index],
+            )
+            captured = np.interp(
+                sample_times,
+                time,
+                cache.captured_derivatives[species][:, parameter_index],
+            )
+            columns.append(np.concatenate([liquid, np.diff(captured)]) / sigma)
+        block = np.column_stack(columns)
+        start = 3 * species_index
+        fim[start : start + 3, start : start + 3] = block.T @ block
+    return 0.5 * (fim + fim.T)
 
 
 def design_fim(

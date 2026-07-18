@@ -13,6 +13,7 @@ if str(FERMENTATION_DIR) not in sys.path:
     sys.path.insert(0, str(FERMENTATION_DIR))
 
 from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
+    DesignPolicy,
     decode_policy_vector,
     finite_difference_sensitivity,
     load_wave1_config,
@@ -20,6 +21,13 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     policy_to_canonical_vector,
     temperature_profile_metrics,
     vector_bounds,
+)
+from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # noqa: E402
+    capture_constraints_approved,
+    optimized_schedule_is_acceptable,
+    policy_actions_before_drying,
+    robust_score,
+    sampling_gate_verdict,
 )
 from shared import run_new_must_glycerol_estimability_doe as model  # noqa: E402
 
@@ -137,6 +145,55 @@ class Wave1RequalificationTests(unittest.TestCase):
         self.assertAlmostEqual(float(fine.loc[1.02, "N"]), 0.28, places=9)
         self.assertAlmostEqual(float(coarse.loc[1.02, "N"]), 0.28, places=9)
         self.assertLess(abs(float(fine.loc[2.0, "N"] - coarse.loc[2.0, "N"])), 1e-10)
+
+    def test_sampling_optimizer_rejects_score_regression_and_falls_back(self) -> None:
+        accepted, reason = optimized_schedule_is_acceptable(
+            np.asarray([1.0, 1.0, 1.0]),
+            np.asarray([2.0, 2.0, 2.0]),
+            self.config,
+        )
+        self.assertFalse(accepted)
+        self.assertEqual(reason, "optimized_full_ensemble_score_below_preliminary")
+
+    def test_robust_objective_is_identical_to_declared_formula(self) -> None:
+        gains = np.asarray([1.0, 2.0, 3.0, 10.0])
+        expected = 0.75 * float(np.median(gains)) + 0.25 * float(np.quantile(gains, 0.1))
+        self.assertAlmostEqual(robust_score(gains, self.config), expected, places=14)
+
+    def test_sampling_gate_fails_when_critical_capture_check_fails(self) -> None:
+        checks = {"score": True, "capture": False, "physical_lock": True}
+        self.assertEqual(
+            sampling_gate_verdict(checks, ("score", "capture")),
+            "FAIL",
+        )
+        self.assertFalse(capture_constraints_approved(self.config))
+
+    def test_actions_after_drying_are_rejected(self) -> None:
+        policy = DesignPolicy(
+            "late_action",
+            tuple([18.0] * 13 + [20.0]),
+            tuple(),
+        )
+        self.assertFalse(
+            policy_actions_before_drying(
+                policy,
+                np.asarray([100.0] * 64),
+                self.config,
+            )
+        )
+
+    def test_actuator_uncertainty_contains_all_nine_empirical_taus(self) -> None:
+        values = self.config["future_process"]["temperature_actuator"]["empirical_tau_h"]
+        self.assertEqual(len(values), 9)
+        self.assertAlmostEqual(min(values), 0.21148207178811254)
+        self.assertAlmostEqual(max(values), 0.45812979693594796)
+
+    def test_sampling_source_is_explicit_not_latest_glob(self) -> None:
+        source = (ADAPTIVE_DIR / "optimize_wave1_sampling_and_plots.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('add_argument("--source-search-run", required=True)', source)
+        self.assertNotIn("sorted((RESULT_ROOT", source)
 
 
 if __name__ == "__main__":
