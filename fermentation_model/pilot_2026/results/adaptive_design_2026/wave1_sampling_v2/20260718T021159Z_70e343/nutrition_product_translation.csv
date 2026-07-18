@@ -1,0 +1,9 @@
+policy,time_h,solution,selected_for_operation,yan_target_mg_l,organic_product_g,dap_fda_g,yan_reconstructed_mg_l,reconstruction_error_mg_l,organic_total_limit_g,dap_fda_total_limit_g,organic_total_slack_g,dap_fda_total_slack_g,per_event_organic_limit_g,per_event_dap_fda_limit_g,translation_blocker
+anchor_18C,48.0,minimum_dap_endpoint,False,80.0,92.0,46.0,80.0,0.0,92.0,220.8,0.0,174.8,,,True
+anchor_18C,48.0,maximum_dap_endpoint,False,80.0,0.0,92.0,80.0,0.0,92.0,220.8,92.0,128.8,,,True
+refined_2_A,0.0,minimum_dap_endpoint,False,80.0,48.05724607975218,67.97137696012392,80.0,0.0,92.0,220.8,0.0,90.67671599088754,,,True
+refined_2_A,4.0,minimum_dap_endpoint,False,73.1506817470543,43.94275392024782,62.15190704898855,73.15068174705432,1.4210854715202004e-14,92.0,220.8,0.0,90.67671599088754,,,True
+refined_2_A,0.0,maximum_dap_endpoint,False,80.0,0.0,92.00000000000001,80.00000000000001,1.4210854715202004e-14,92.0,220.8,92.0,44.676715990887544,,,True
+refined_2_A,4.0,maximum_dap_endpoint,False,73.1506817470543,0.0,84.12328400911245,73.1506817470543,0.0,92.0,220.8,92.0,44.676715990887544,,,True
+refined_2_B,0.0,minimum_dap_endpoint,False,79.99999997420207,92.0,45.999999970332375,79.99999997420207,0.0,92.0,220.8,0.0,174.80000002966764,,,True
+refined_2_B,0.0,maximum_dap_endpoint,False,79.99999997420207,0.0,91.99999997033237,79.99999997420207,0.0,92.0,220.8,92.0,128.80000002966764,,,True
