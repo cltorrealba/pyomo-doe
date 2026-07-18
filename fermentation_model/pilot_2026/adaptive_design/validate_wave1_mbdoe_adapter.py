@@ -36,6 +36,7 @@ from pilot_2026.adaptive_design.run_artifacts import (  # noqa: E402
     build_manifest,
     capture_git_state,
     create_immutable_run_directory,
+    filesystem_path,
     verify_manifest_output,
     write_json,
 )
@@ -343,7 +344,9 @@ def main() -> None:
         "profiles_for_physical_execution": False,
         "next_action": "run multiseed robust PSO search" if all(checks.values()) else "repair adapter",
     }
-    run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_mbdoe_adapter_requalification", config)
+    # Keep the stage compact enough for pandas/Matplotlib on legacy Windows
+    # MAX_PATH while retaining an unambiguous immutable run namespace.
+    run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_mbdoe_adapter_v2", config)
     summary_path = run_dir / "benchmark_campaigns.csv"
     scenarios_path = run_dir / "benchmark_scenarios.csv"
     sensitivity_path = run_dir / "finite_difference_sensitivity.csv"
@@ -353,11 +356,11 @@ def main() -> None:
     gate_path = run_dir / "adapter_gate.json"
     provenance_path = run_dir / "partition_surrogate_provenance.json"
     config_path = run_dir / "wave1_mbdoe_config.json"
-    summary.to_csv(summary_path, index=False)
-    scenarios.to_csv(scenarios_path, index=False)
-    sensitivity.to_csv(sensitivity_path, index=False)
-    step_validation.to_csv(step_path, index=False)
-    grid_validation.to_csv(grid_path, index=False)
+    summary.to_csv(filesystem_path(summary_path), index=False)
+    scenarios.to_csv(filesystem_path(scenarios_path), index=False)
+    sensitivity.to_csv(filesystem_path(sensitivity_path), index=False)
+    step_validation.to_csv(filesystem_path(step_path), index=False)
+    grid_validation.to_csv(filesystem_path(grid_path), index=False)
     write_json(fim_path, fim_validation)
     write_json(gate_path, gate)
     write_json(provenance_path, provenance)

@@ -30,9 +30,24 @@ PACKAGE_NAMES = (
 )
 
 
+def filesystem_path(path: Path) -> Path:
+    """Return a Windows extended-length path without changing provenance text."""
+
+    output_path = Path(path)
+    if sys.platform == "win32":
+        resolved = str(output_path.resolve())
+        if not resolved.startswith("\\\\?\\"):
+            if resolved.startswith("\\\\"):
+                resolved = "\\\\?\\UNC\\" + resolved[2:]
+            else:
+                resolved = "\\\\?\\" + resolved
+        return Path(resolved)
+    return output_path
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
+    with filesystem_path(path).open("rb") as handle:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
@@ -175,7 +190,7 @@ def build_manifest(
             name: {
                 "path": relative_or_absolute(path),
                 "sha256": sha256_file(path),
-                "bytes": path.stat().st_size,
+                "bytes": filesystem_path(path).stat().st_size,
             }
             for name, path in sorted(sources.items())
         },
@@ -199,24 +214,16 @@ def build_manifest(
         "outputs": {
             relative_or_absolute(path): {
                 "sha256": sha256_file(path),
-                "bytes": path.stat().st_size,
+                "bytes": filesystem_path(path).stat().st_size,
             }
             for path in sorted(output_paths, key=str)
-            if path.exists() and path.is_file()
+            if filesystem_path(path).exists() and filesystem_path(path).is_file()
         },
     }
 
 
 def write_json(path: Path, payload: Any) -> None:
-    output_path = Path(path)
-    if sys.platform == "win32":
-        resolved = str(output_path.resolve())
-        if not resolved.startswith("\\\\?\\"):
-            if resolved.startswith("\\\\"):
-                resolved = "\\\\?\\UNC\\" + resolved[2:]
-            else:
-                resolved = "\\\\?\\" + resolved
-        output_path = Path(resolved)
+    output_path = filesystem_path(path)
     output_path.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         encoding="utf-8",
