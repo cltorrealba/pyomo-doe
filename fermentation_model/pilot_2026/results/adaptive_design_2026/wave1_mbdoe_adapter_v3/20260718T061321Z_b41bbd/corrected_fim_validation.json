@@ -1,0 +1,179 @@
+{
+  "checks": {
+    "all_scaled_sensitivity_columns_nonzero": true,
+    "all_validation_scope_cases_executed": true,
+    "fim_positive_semidefinite_all_cases": true,
+    "finite_difference_step_stable_all_cases": true,
+    "independent_full_9x9_cached_trajectory_comparison": true,
+    "nominal_sigma_frozen": true,
+    "pyomo_doe_independent_frozen_sigma_convention_check": true,
+    "time_grid_stable_all_cases": true
+  },
+  "formulation": {
+    "fim": "sensitivity.T @ sensitivity",
+    "observational_scale": "computed once at nominal parameter centre",
+    "prediction": "physical wine concentration and captured interval mass",
+    "scaled_observation": "physical_prediction / nominal_sigma",
+    "sensitivity": "finite difference of physical prediction divided by frozen nominal_sigma",
+    "variance_derivative_included": false
+  },
+  "independent_full_9x9_comparison": {
+    "implementations": [
+      "direct finite differences evaluated at observation times",
+      "cached full-trajectory derivatives interpolated to observation times"
+    ],
+    "passed": true,
+    "relative_difference": 8.901324305048766e-16
+  },
+  "pyomo_doe_comparison": {
+    "analytic_frozen_sigma_fim": 6.249999999999999,
+    "executed": true,
+    "passed": true,
+    "pyomo_doe_fim": 6.25000000000001,
+    "relative_difference": 1.7053025658242408e-15
+  },
+  "scope_note": "Eight policy/member/actuator cases validate the real 9x9 FIM numerically; the scalar Pyomo-DOE problem validates only the frozen-scale convention.",
+  "tolerances": {
+    "independent_pyomo_doe_comparison_required_where_applicable": true,
+    "log_steps": [
+      0.01,
+      0.02,
+      0.04
+    ],
+    "maximum_relative_grid_fim_difference": 0.12,
+    "maximum_relative_step_fim_difference": 0.08,
+    "minimum_eigenvalue_tolerance": -1e-08,
+    "nominal_time_grid_step_h": 2.0,
+    "time_grid_steps_h": [
+      4.0,
+      2.0,
+      1.0
+    ],
+    "tolerance_origin": "declared numerical convergence criteria for finite-difference and discretization QA; not physical operating limits",
+    "validation_scope": [
+      "anchor",
+      "candidate_A",
+      "candidate_B",
+      "central_member",
+      "lowest_information_member",
+      "highest_information_member",
+      "critical_drying_member",
+      "critical_actuator_scenario"
+    ]
+  },
+  "validation_cases": [
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 62,
+      "maximum_condition_number": 5886.6322337281845,
+      "maximum_eigenvalue": 211.65974429949333,
+      "maximum_relative_grid_fim_difference": 0.035604065962954484,
+      "maximum_relative_step_fim_difference": 0.0003998036226857843,
+      "member_role": "anchor",
+      "minimum_eigenvalue": 0.034213962388971376,
+      "policy": "anchor_18C",
+      "validation_case": "anchor",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 62,
+      "maximum_condition_number": 12667.422872836862,
+      "maximum_eigenvalue": 263.9206359158011,
+      "maximum_relative_grid_fim_difference": 0.01728014319676184,
+      "maximum_relative_step_fim_difference": 0.0003996561998106917,
+      "member_role": "candidate_A",
+      "minimum_eigenvalue": 0.020834595842042513,
+      "policy": "benchmark_warm_then_cool",
+      "validation_case": "candidate_A",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 62,
+      "maximum_condition_number": 6832.158414729817,
+      "maximum_eigenvalue": 158.12489120219055,
+      "maximum_relative_grid_fim_difference": 0.03370808676683597,
+      "maximum_relative_step_fim_difference": 0.00039982775415459593,
+      "member_role": "candidate_B",
+      "minimum_eigenvalue": 0.021871176288910943,
+      "policy": "benchmark_cool_then_warm",
+      "validation_case": "candidate_B",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 62,
+      "maximum_condition_number": 5886.6322337281845,
+      "maximum_eigenvalue": 211.65974429949333,
+      "maximum_relative_grid_fim_difference": 0.035604065962954484,
+      "maximum_relative_step_fim_difference": 0.0003998036226857843,
+      "member_role": "central_member",
+      "minimum_eigenvalue": 0.034213962388971376,
+      "policy": "anchor_18C",
+      "validation_case": "central_member",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 36,
+      "maximum_condition_number": 55660.73716879147,
+      "maximum_eigenvalue": 176.4375652019117,
+      "maximum_relative_grid_fim_difference": 0.03307274411784879,
+      "maximum_relative_step_fim_difference": 0.00039952892431366154,
+      "member_role": "lowest_information_member",
+      "minimum_eigenvalue": 0.002981902291444224,
+      "policy": "anchor_18C",
+      "validation_case": "lowest_information_member",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 12,
+      "maximum_condition_number": 133.04392679625755,
+      "maximum_eigenvalue": 213.84016526708285,
+      "maximum_relative_grid_fim_difference": 0.037082370051381854,
+      "maximum_relative_step_fim_difference": 0.00040213698025016087,
+      "member_role": "highest_information_member",
+      "minimum_eigenvalue": 1.6072899411226491,
+      "policy": "anchor_18C",
+      "validation_case": "highest_information_member",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "null",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 9,
+      "maximum_condition_number": 1485.045244277395,
+      "maximum_eigenvalue": 185.97700518203936,
+      "maximum_relative_grid_fim_difference": 0.027105688196411,
+      "maximum_relative_step_fim_difference": 0.000395705262494075,
+      "member_role": "critical_drying_member",
+      "minimum_eigenvalue": 0.12523322497997932,
+      "policy": "benchmark_warm_then_cool",
+      "validation_case": "critical_drying_member",
+      "verdict": "PASS"
+    },
+    {
+      "actuator_scenario": "{\"tau_h\": 0.45812979693594796, \"tracking_error_c\": 0.8946199169856546}",
+      "all_sensitivity_columns_nonzero": true,
+      "ensemble_member": 62,
+      "maximum_condition_number": 6182.607959240782,
+      "maximum_eigenvalue": 184.34009497180432,
+      "maximum_relative_grid_fim_difference": 0.04907927035077109,
+      "maximum_relative_step_fim_difference": 0.00039978793073242567,
+      "member_role": "critical_actuator_scenario",
+      "minimum_eigenvalue": 0.02711208350897791,
+      "policy": "benchmark_cool_then_warm",
+      "validation_case": "critical_actuator_scenario",
+      "verdict": "PASS"
+    }
+  ],
+  "verdict": "PASS"
+}
