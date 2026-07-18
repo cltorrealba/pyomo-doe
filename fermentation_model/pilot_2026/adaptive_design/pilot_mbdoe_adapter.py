@@ -109,6 +109,9 @@ def load_wave1_config(
     config["future_process"]["temperature_slot_h"] = float(
         temperature["minimum_segment_duration_h"]
     )
+    config["future_process"]["minimum_effective_temperature_change_c"] = float(
+        temperature["minimum_effective_temperature_change_c"]
+    )
     config["nutrition"].update(
         {
             "maximum_pulses": int(nutrition["maximum_pulses"]),
@@ -136,8 +139,19 @@ def load_wave1_config(
             "manual_sampling_capacity_per_time_slot": sampling[
                 "manual_sampling_capacity_per_time_slot"
             ],
+            "minimum_action_to_drying_margin_h": sampling[
+                "minimum_action_to_drying_margin_h"
+            ],
         }
     )
+    if temperature["maximum_temperature_jump_c"] is None and temperature.get(
+        "maximum_temperature_jump_policy"
+    ) != "bounded_only_by_allowed_temperature_range":
+        raise ValueError("A null maximum temperature jump requires an explicit no-extra-limit policy")
+    if temperature["maximum_total_thermal_variation_c"] is None and temperature.get(
+        "maximum_total_thermal_variation_policy"
+    ) != "no_additional_limit":
+        raise ValueError("A null total thermal variation requires an explicit no-extra-limit policy")
     return config
 
 
@@ -279,6 +293,21 @@ def _design_layout(config: dict[str, Any]) -> dict[str, slice | int]:
     return layout
 
 
+def effective_temperature_change_indices(
+    temperature_c: tuple[float, ...] | np.ndarray,
+    config: dict[str, Any],
+) -> np.ndarray:
+    """Return canonical changes and reject any published sub-threshold jump."""
+
+    profile = np.asarray(temperature_c, dtype=float)
+    differences = np.abs(np.diff(profile))
+    threshold = float(config["future_process"]["minimum_effective_temperature_change_c"])
+    invalid = (differences > 1e-12) & (differences < threshold - 1e-12)
+    if np.any(invalid):
+        raise ValueError("Temperature profile contains an effective change below the approved minimum")
+    return np.flatnonzero(differences >= threshold - 1e-12) + 1
+
+
 def policy_to_canonical_vector(policy: DesignPolicy, config: dict[str, Any]) -> np.ndarray:
     layout = _design_layout(config)
     vector = np.zeros(int(layout["size"]), dtype=float)
@@ -288,7 +317,7 @@ def policy_to_canonical_vector(policy: DesignPolicy, config: dict[str, Any]) -> 
     if len(profile) != slots:
         raise ValueError(f"A canonical temperature profile must contain {slots} legal slots")
     vector[int(layout["temperature_initial"])] = float(profile[0])
-    change_indices = np.flatnonzero(np.abs(np.diff(profile)) > 1e-12) + 1
+    change_indices = effective_temperature_change_indices(profile, config)
     if len(change_indices) > changes:
         raise ValueError("Policy contains more effective temperature changes than configured")
     for output_index, slot_index in enumerate(change_indices):
@@ -343,9 +372,19 @@ def decode_policy_vector(name: str, values: np.ndarray, config: dict[str, Any]) 
     profile = np.full(slots, initial, dtype=float)
     effective_changes: list[tuple[int, float]] = []
     current = initial
+    minimum_change = float(config["future_process"]["minimum_effective_temperature_change_c"])
     for slot_index, level, source_index in sorted(proposed_changes):
-        if math.isclose(level, current, abs_tol=1e-12, rel_tol=0.0):
-            repairs.append({"action": "merge_equal_temperature_segment", "entry": source_index, "slot": slot_index})
+        magnitude = abs(level - current)
+        if magnitude < minimum_change - 1e-12:
+            repairs.append(
+                {
+                    "action": "merge_subthreshold_temperature_segment",
+                    "entry": source_index,
+                    "slot": slot_index,
+                    "proposed_change_c": magnitude,
+                    "minimum_effective_change_c": minimum_change,
+                }
+            )
             continue
         profile[slot_index:] = level
         current = level
@@ -447,7 +486,8 @@ def vector_bounds(config: dict[str, Any]) -> np.ndarray:
 def temperature_profile_metrics(policy: DesignPolicy, config: dict[str, Any]) -> dict[str, float | int]:
     profile = np.asarray(policy.temperature_c, dtype=float)
     jumps = np.diff(profile)
-    effective = jumps[np.abs(jumps) > 1e-12]
+    effective_indices = effective_temperature_change_indices(profile, config)
+    effective = jumps[effective_indices - 1]
     slot_h = float(config["future_process"]["temperature_slot_h"])
     lower = float(config["future_process"]["temperature_minimum_c"])
     upper = float(config["future_process"]["temperature_maximum_c"])
@@ -456,6 +496,10 @@ def temperature_profile_metrics(policy: DesignPolicy, config: dict[str, Any]) ->
         "temperature_changes": int(len(effective)),
         "total_thermal_variation_c": float(np.sum(np.abs(effective))),
         "maximum_temperature_jump_c": float(np.max(np.abs(effective))) if len(effective) else 0.0,
+        "minimum_effective_temperature_change_c": float(np.min(np.abs(effective)))
+        if len(effective)
+        else math.nan,
+        "subthreshold_temperature_changes": 0,
         "time_at_temperature_limits_h": float(
             slot_h * np.sum(np.isclose(profile, lower) | np.isclose(profile, upper))
         ),
@@ -591,13 +635,25 @@ def physical_observation_vector(
 ) -> np.ndarray:
     """Return physical wine concentrations followed by captured interval masses."""
 
+    sample_times = np.asarray(sample_times, dtype=float)
+    if len(sample_times) < 2 or not math.isclose(float(sample_times[0]), 0.0, abs_tol=1e-12):
+        raise ValueError("Wine sampling must include the required physical baseline at t=0")
+    if np.any(np.diff(sample_times) <= 0.0):
+        raise ValueError("Sampling times must be strictly increasing")
     liquid, captured = simulate_aroma(forcing, log_values)
+    if not math.isclose(float(captured[0]), 0.0, abs_tol=1e-12):
+        raise ValueError("Captured cumulative mass must start at zero")
     liquid_pred = np.interp(sample_times, forcing.time_h, liquid)
-    interval = []
-    for start, end in zip(sample_times[:-1], sample_times[1:]):
-        mass = np.interp(end, forcing.time_h, captured) - np.interp(start, forcing.time_h, captured)
-        interval.append(float(mass))
-    return np.concatenate([liquid_pred, np.asarray(interval, dtype=float)])
+    captured_at_samples = np.interp(sample_times, forcing.time_h, captured)
+    interval = np.diff(captured_at_samples)
+    if not math.isclose(
+        float(np.sum(interval)),
+        float(captured_at_samples[-1] - captured_at_samples[0]),
+        rel_tol=1e-12,
+        abs_tol=1e-9,
+    ):
+        raise RuntimeError("Captured interval masses do not conserve cumulative mass")
+    return np.concatenate([liquid_pred, interval])
 
 
 def nominal_observation_scale(
@@ -1039,9 +1095,9 @@ def evaluate_campaign(
             fim, residual, drying_time = cached
             total += fim
             max_residual = max(max_residual, residual)
-            effective_change_slots = np.flatnonzero(
-                np.abs(np.diff(policy.temperature_c)) > 1e-12
-            ) + 1
+            effective_change_slots = effective_temperature_change_indices(
+                policy.temperature_c, config
+            )
             action_times = [
                 float(config["future_process"]["temperature_slot_h"]) * int(slot)
                 for slot in effective_change_slots

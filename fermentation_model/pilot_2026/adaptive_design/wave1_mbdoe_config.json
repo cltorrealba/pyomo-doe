@@ -1,8 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "campaign_id": "pilot_2026",
   "seed": 20260717,
-  "independent_seeds": [20260717, 20260731, 20260747],
+  "independent_seeds": [20260717, 20260731, 20260747, 20260761, 20260779],
+  "tank_randomization_seed": 20260718,
   "design_constraints_path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
   "source_contract": {
     "joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
@@ -64,7 +65,17 @@
     "maximum_relative_grid_fim_difference": 0.12,
     "minimum_eigenvalue_tolerance": -1e-08,
     "tolerance_origin": "declared numerical convergence criteria for finite-difference and discretization QA; not physical operating limits",
-    "independent_pyomo_doe_comparison_required_where_applicable": true
+    "independent_pyomo_doe_comparison_required_where_applicable": true,
+    "validation_scope": [
+      "anchor",
+      "candidate_A",
+      "candidate_B",
+      "central_member",
+      "lowest_information_member",
+      "highest_information_member",
+      "critical_drying_member",
+      "critical_actuator_scenario"
+    ]
   },
   "future_process": {
     "start_local": "2026-07-20T09:00:00-04:00",
@@ -126,7 +137,7 @@
   },
   "sampling": {
     "preliminary_times_h": [0.0, 4.0, 8.0, 24.0, 28.0, 32.0, 48.0, 52.0, 72.0, 96.0],
-    "force_first_slot": false,
+    "force_first_slot": true,
     "force_last_slot": false,
     "search_restarts": 3,
     "coordinate_passes": 4,
@@ -141,24 +152,25 @@
   },
   "operations": {
     "numerical_sample_event_order": "sample_before_action",
-    "sample_event_order": null,
-    "minimum_minutes_between_sampling_and_nutrition": null,
-    "manual_sampling_capacity_per_time_slot": null,
-    "minimum_action_to_drying_margin_h": null
+    "sample_event_order": "sample_before_action",
+    "minimum_minutes_between_sampling_and_nutrition": 0,
+    "manual_sampling_capacity_per_time_slot": 3,
+    "minimum_action_to_drying_margin_h": 24.0
   },
   "search": {
     "representative_members": 4,
     "frequent_rerank_members": 8,
     "full_ensemble_members": 64,
-    "particles": 12,
-    "maximum_iterations": 6,
-    "stagnation_iterations": 3,
+    "particles": 24,
+    "maximum_iterations": 20,
+    "stagnation_iterations": 5,
     "improvement_tolerance": 1e-05,
-    "restarts": 1,
-    "top_k_candidates": 3,
-    "top_k_local_refinement": 2,
+    "restarts": 2,
+    "top_k_candidates": 5,
+    "top_k_local_refinement": 3,
     "rerank_interval": 2,
     "minimum_ranking_spearman": 0.7,
+    "minimum_finalist_seed_contributors": 2,
     "inertia": 0.72,
     "cognitive": 1.49,
     "social": 1.49,
@@ -179,7 +191,7 @@
     "full_ensemble_qualification_required": true,
     "owner_plot_approval_required": true,
     "ultra_audit_required": true,
-    "tank_randomization_policy_approved": false,
+    "tank_randomization_policy_approved": true,
     "physical_execution_authorized": false
   },
   "regression_reference": {

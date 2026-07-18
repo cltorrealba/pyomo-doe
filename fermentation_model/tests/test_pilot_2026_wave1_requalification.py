@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import sys
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 
@@ -18,17 +20,23 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     finite_difference_sensitivity,
     load_wave1_config,
     nominal_observation_scale,
+    physical_observation_vector,
     policy_to_canonical_vector,
     temperature_profile_metrics,
     vector_bounds,
 )
 from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # noqa: E402
+    _capture_intervals,
+    _nutrition_translation,
+    _operational_conflicts,
+    _tank_randomization,
     capture_constraints_approved,
     optimized_schedule_is_acceptable,
     policy_actions_before_drying,
     robust_score,
     sampling_gate_verdict,
 )
+from pilot_2026.adaptive_design.pilot_aroma_calibration import AromaForcing  # noqa: E402
 from shared import run_new_must_glycerol_estimability_doe as model  # noqa: E402
 
 
@@ -166,7 +174,105 @@ class Wave1RequalificationTests(unittest.TestCase):
             sampling_gate_verdict(checks, ("score", "capture")),
             "FAIL",
         )
-        self.assertFalse(capture_constraints_approved(self.config))
+        self.assertTrue(capture_constraints_approved(self.config))
+
+    def test_sub_one_degree_temperature_change_is_merged(self) -> None:
+        bounds = vector_bounds(self.config)
+        raw = bounds[:, 0].copy()
+        raw[0] = 18.0
+        changes = int(self.config["future_process"]["maximum_temperature_changes"])
+        raw[1] = 1.0
+        raw[1 + changes] = 2.0
+        raw[1 + 2 * changes] = 18.5
+        decoded = decode_policy_vector("subthreshold", raw, self.config)
+        self.assertTrue(all(value == 18.0 for value in decoded.policy.temperature_c))
+        self.assertTrue(
+            any(
+                row["action"] == "merge_subthreshold_temperature_segment"
+                for row in decoded.repair_log
+            )
+        )
+
+    def test_baseline_and_capture_intervals_are_distinct_observation_types(self) -> None:
+        forcing = AromaForcing(
+            experiment_id="capture_test",
+            time_h=np.asarray([0.0, 1.0, 2.0, 3.0]),
+            growth_fraction=np.asarray([0.5, 0.5, 0.5, 0.5]),
+            sugar_uptake_g_l_h=np.asarray([1.0, 1.0, 1.0, 1.0]),
+            loss_basis_h_inv=np.asarray([0.1, 0.1, 0.1, 0.1]),
+            initial_concentration_ug_l=10.0,
+            volume_l=230.0,
+            trap_efficiency=1.0,
+        )
+        samples = np.linspace(0.0, 3.0, 10)
+        observations = physical_observation_vector(
+            forcing, np.log(np.asarray([1.0, 1.0, 1.0])), samples
+        )
+        self.assertEqual(len(observations[:10]), 10)
+        self.assertEqual(len(observations[10:]), 9)
+        self.assertAlmostEqual(float(observations[0]), 10.0)
+        self.assertGreaterEqual(float(observations[10:].sum()), 0.0)
+
+    def test_capture_intervals_begin_at_zero_and_conserve_mass(self) -> None:
+        schedules = {"policy": tuple(float(value) for value in range(10))}
+        time = np.arange(10.0)
+        cache = {}
+        for member in (0, 1):
+            cumulative = {
+                species: time * float(member + 1)
+                for species in ("ethyl_acetate", "ethyl_octanoate", "isoamyl_acetate")
+            }
+            forcings = {
+                species: SimpleNamespace(time_h=time) for species in cumulative
+            }
+            cache[(member, "policy")] = SimpleNamespace(
+                prepared=SimpleNamespace(forcings=forcings),
+                nominal_captured=cumulative,
+            )
+        intervals = _capture_intervals(schedules, self.config, cache, [0, 1])
+        self.assertTrue(intervals.groupby(["policy", "species"]).size().eq(9).all())
+        self.assertTrue(
+            intervals.groupby(["policy", "species"])["start_h"].min().eq(0.0).all()
+        )
+        self.assertTrue(intervals["mass_conservation_max_abs_error_ug"].eq(0.0).all())
+
+    def test_owner_approved_sampling_collisions_are_not_conflicts(self) -> None:
+        policies = tuple(
+            DesignPolicy(name, tuple([18.0] * 14), ((0.0, 20.0),))
+            for name in ("anchor", "A", "B")
+        )
+        schedules = {
+            policy.name: tuple(float(value) for value in range(10)) for policy in policies
+        }
+        conflicts = _operational_conflicts(schedules, policies, self.config)
+        self.assertFalse(conflicts["status"].eq("unresolved").any())
+
+    def test_nutrition_50_50_is_encoded_but_product_grams_stay_blocked(self) -> None:
+        policy = DesignPolicy("A", tuple([18.0] * 14), ((24.0, 80.0),))
+        translation = _nutrition_translation((policy,), self.config)
+        self.assertEqual(
+            translation.iloc[0]["mix_policy"], "50_50_net_YAN_contribution"
+        )
+        self.assertAlmostEqual(
+            float(translation.iloc[0]["organic_yan_contribution_mg_l"]), 40.0
+        )
+        self.assertAlmostEqual(
+            float(translation.iloc[0]["dap_yan_contribution_mg_l"]), 40.0
+        )
+        self.assertTrue(np.isnan(float(translation.iloc[0]["organic_product_g"])))
+        self.assertTrue(bool(translation.iloc[0]["translation_blocker"]))
+
+    def test_tank_randomization_is_reproducible_but_not_authorized(self) -> None:
+        policies = tuple(
+            DesignPolicy(name, tuple([18.0] * 14), tuple())
+            for name in ("anchor", "A", "B")
+        )
+        frozen = datetime(2026, 7, 18, tzinfo=timezone.utc).isoformat()
+        first = _tank_randomization(policies, self.config, frozen)
+        second = _tank_randomization(policies, self.config, frozen)
+        self.assertEqual(first["tank"].tolist(), second["tank"].tolist())
+        self.assertEqual(first["tank"].nunique(), 3)
+        self.assertFalse(first["authorized_for_physical_execution"].any())
 
     def test_actions_after_drying_are_rejected(self) -> None:
         policy = DesignPolicy(
@@ -181,6 +287,74 @@ class Wave1RequalificationTests(unittest.TestCase):
                 self.config,
             )
         )
+
+    def test_action_drying_margin_is_exactly_24_hours(self) -> None:
+        policy = DesignPolicy("margin", tuple([18.0] * 14), ((72.0, 20.0),))
+        self.assertTrue(
+            policy_actions_before_drying(policy, np.asarray([96.0] * 64), self.config)
+        )
+        self.assertFalse(
+            policy_actions_before_drying(policy, np.asarray([95.9] * 64), self.config)
+        )
+
+    def test_minimum_search_budget_and_five_seeds_are_declared(self) -> None:
+        search = self.config["search"]
+        self.assertEqual(len(self.config["independent_seeds"]), 5)
+        self.assertGreaterEqual(search["particles"], 24)
+        self.assertGreaterEqual(search["maximum_iterations"], 20)
+        self.assertGreaterEqual(search["top_k_candidates"], 5)
+        self.assertGreaterEqual(search["top_k_local_refinement"], 3)
+
+    def test_fim_validation_scope_covers_policies_members_and_actuator(self) -> None:
+        self.assertEqual(
+            set(self.config["fim_validation"]["validation_scope"]),
+            {
+                "anchor",
+                "candidate_A",
+                "candidate_B",
+                "central_member",
+                "lowest_information_member",
+                "highest_information_member",
+                "critical_drying_member",
+                "critical_actuator_scenario",
+            },
+        )
+
+    def test_hybrid_gate_declares_every_owner_critical_check(self) -> None:
+        source = (ADAPTIVE_DIR / "run_wave1_hybrid_search.py").read_text(encoding="utf-8")
+        for name in (
+            "adapter_gate_pass",
+            "source_hashes_verified",
+            "corrected_fim_stability_pass",
+            "pso_three_independent_seeds_completed",
+            "pso_objectives_finite",
+            "top_k_revalidated_on_64_members",
+            "actual_objective_evaluated",
+            "local_refinement_qualified",
+            "full_ensemble_completion_probability_at_least_95pct",
+            "canonical_policies_have_no_duplicate_pulses",
+            "actions_respect_24h_drying_margin",
+            "temperature_changes_respect_minimum_1C",
+        ):
+            self.assertIn(f'"{name}"', source)
+
+    def test_all_required_v2_figure_names_are_declared(self) -> None:
+        source = (ADAPTIVE_DIR / "optimize_wave1_sampling_and_plots.py").read_text(
+            encoding="utf-8"
+        )
+        for name in (
+            "candidate_profiles_v2.png",
+            "executed_temperature_ensemble_v2.png",
+            "aroma_predictions_v2.png",
+            "sampling_schedule_v2.png",
+            "capture_intervals_v2.png",
+            "information_gain_distribution_v2.png",
+            "paired_information_comparison_v2.png",
+            "drying_margin_validation_v2.png",
+            "actuator_robustness_v2.png",
+            "operational_summary_v2.png",
+        ):
+            self.assertIn(name, source)
 
     def test_actuator_uncertainty_contains_all_nine_empirical_taus(self) -> None:
         values = self.config["future_process"]["temperature_actuator"]["empirical_tau_h"]

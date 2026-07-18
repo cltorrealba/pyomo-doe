@@ -111,18 +111,26 @@ class Pilot2026CalibrationGateTests(unittest.TestCase):
         )
         self.assertEqual(
             constraints["review_status"],
-            "partially_approved_physical_release_blocked_2026-07-17",
+            "owner_operational_decisions_encoded_physical_release_blocked_2026-07-18",
         )
         self.assertFalse(constraints["approval"]["physical_execution_authorized"])
-        self.assertIn(
-            "temperature.maximum_temperature_jump_c",
-            constraints["fail_closed_fields"],
+        self.assertEqual(
+            constraints["temperature"]["maximum_temperature_jump_policy"],
+            "bounded_only_by_allowed_temperature_range",
+        )
+        self.assertEqual(
+            constraints["sampling_and_capture"]["sample_event_order"],
+            "sample_before_action",
         )
         self.assertIn(
-            "sampling_and_capture.sample_event_order",
+            "nutrition.organic_product_yan_mass_fraction",
             constraints["fail_closed_fields"],
         )
         self.assertEqual(constraints["temperature"]["maximum_active_segments"], 42)
+        self.assertEqual(constraints["temperature"]["maximum_c"], 27.0)
+        self.assertEqual(
+            constraints["temperature"]["minimum_effective_temperature_change_c"], 1.0
+        )
         self.assertEqual(constraints["nutrition"]["maximum_pulses"], 3)
         self.assertEqual(constraints["nutrition"]["maximum_total_yan_mg_l"], 232.0)
         self.assertEqual(

@@ -503,9 +503,10 @@ def simulate(
     """Integrate continuous dynamics between events and apply exact pulse jumps.
 
     ``sample_event_order`` controls the state returned when a requested sample
-    shares a timestamp with an action.  Operational workflows prohibit that
-    collision until the owner approves an order, but the numerical convention
-    is explicit and testable here.
+    shares a timestamp with an action. Pilot 2026 approves
+    ``sample_before_action``: the recorded state is pre-jump and the complete
+    dose is applied immediately afterward. The alternate convention remains
+    available for explicit numerical tests.
     """
 
     if sample_event_order not in {"sample_before_action", "action_before_sample"}:

@@ -1,15 +1,18 @@
 {
   "campaign_id": "pilot_2026",
-  "schema_version": 3,
-  "review_status": "partially_approved_physical_release_blocked_2026-07-17",
+  "schema_version": 4,
+  "review_status": "owner_operational_decisions_encoded_physical_release_blocked_2026-07-18",
   "timezone": "America/Santiago",
   "temperature": {
     "minimum_c": 15.0,
-    "maximum_c": 25.0,
+    "maximum_c": 27.0,
     "minimum_segment_duration_h": 12.0,
     "maximum_active_segments": 42,
+    "minimum_effective_temperature_change_c": 1.0,
     "maximum_temperature_jump_c": null,
+    "maximum_temperature_jump_policy": "bounded_only_by_allowed_temperature_range",
     "maximum_total_thermal_variation_c": null,
+    "maximum_total_thermal_variation_policy": "no_additional_limit",
     "setpoint_changes_follow_manual_action_window": false,
     "automated_setpoint_changes_allowed_24_7": true,
     "actuator_model_required": true
@@ -25,7 +28,7 @@
   },
   "nutrition": {
     "initial_volume_l": 230.0,
-    "yan_formula": "(100*m_org_g + 200*m_DAP_g)/V_L",
+    "yan_formula": "YAN_product_mg_L = 1000 * product_mass_g * product_yan_mass_fraction / volume_L",
     "maximum_pulses": 3,
     "maximum_yan_per_pulse_mg_l": 80.0,
     "maximum_organic_product_g_per_event": null,
@@ -35,7 +38,10 @@
     "maximum_total_dap_fda_g_hl": 96.0,
     "maximum_total_yan_mg_l": 232.0,
     "latest_allowable_pulse_h": 96.0,
-    "approved_product_mix_selection_policy": null,
+    "approved_product_mix_selection_policy": "50_50_net_YAN_contribution",
+    "organic_product_yan_mass_fraction": null,
+    "dap_yan_mass_fraction": null,
+    "composition_source": null,
     "standard_anchor_nutrition_approved": true,
     "historical_pulse_yan_mg_l": 80.0,
     "yan_80_vs_90_435_mg_l_reconciled": true,
@@ -60,12 +66,14 @@
     "sampling_local_window": ["09:00", "17:00"],
     "maximum_capture_intervals_per_process": 9,
     "maximum_capture_interval_h": null,
+    "maximum_capture_interval_policy": "unbounded_by_hardware",
     "maximum_trap_loading": null,
-    "vessel_change_required": null,
-    "sample_event_order": null,
-    "minimum_minutes_between_sampling_and_nutrition": null,
-    "manual_sampling_capacity_per_time_slot": null,
-    "minimum_action_to_drying_margin_h": null,
+    "maximum_trap_loading_policy": "not_applicable_for_sampling_nozzle",
+    "vessel_change_required": false,
+    "sample_event_order": "sample_before_action",
+    "minimum_minutes_between_sampling_and_nutrition": 0,
+    "manual_sampling_capacity_per_time_slot": 3,
+    "minimum_action_to_drying_margin_h": 24.0,
     "capture_trains_available": 3,
     "capture_train_per_tank": true,
     "capture_stages_c": [0.0, -40.0],
@@ -92,20 +100,15 @@
     "physical_execution_authorized": false
   },
   "tank_randomization": {
-    "policy": null,
-    "approved": false
+    "policy": "uniform_permutation",
+    "algorithm": "numpy.random.Generator(PCG64).permutation",
+    "seed": 20260718,
+    "approved": true,
+    "authorization_status": "proposal_may_be_frozen_but_not_authorized_for_execution"
   },
   "fail_closed_fields": [
-    "temperature.maximum_temperature_jump_c",
-    "temperature.maximum_total_thermal_variation_c",
-    "nutrition.approved_product_mix_selection_policy",
-    "sampling_and_capture.maximum_capture_interval_h",
-    "sampling_and_capture.maximum_trap_loading",
-    "sampling_and_capture.vessel_change_required",
-    "sampling_and_capture.sample_event_order",
-    "sampling_and_capture.minimum_minutes_between_sampling_and_nutrition",
-    "sampling_and_capture.manual_sampling_capacity_per_time_slot",
-    "sampling_and_capture.minimum_action_to_drying_margin_h",
-    "tank_randomization.policy"
+    "nutrition.organic_product_yan_mass_fraction",
+    "nutrition.dap_yan_mass_fraction",
+    "approval.candidate_plots_approved_by_owner"
   ]
 }

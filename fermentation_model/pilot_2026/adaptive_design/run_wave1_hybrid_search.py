@@ -4,6 +4,7 @@ import argparse
 import json
 import math
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -30,6 +31,7 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     continuous_design_indices,
     decode_policy_vector,
     evaluate_campaign,
+    effective_temperature_change_indices,
     load_json,
     load_wave1_config,
     policy_to_canonical_vector,
@@ -141,7 +143,7 @@ def _rows_for_policy(policy: DesignPolicy, config: dict) -> list[dict]:
         }
     ]
     slot_h = float(config["future_process"]["temperature_slot_h"])
-    for slot in np.flatnonzero(np.abs(np.diff(policy.temperature_c)) > 1e-12) + 1:
+    for slot in effective_temperature_change_indices(policy.temperature_c, config):
         rows.append(
             {
                 "policy": policy.name,
@@ -197,10 +199,9 @@ def _actuator_validation(
 ) -> pd.DataFrame:
     actuator = config["future_process"]["temperature_actuator"]
     tau_values = sorted(float(value) for value in actuator["empirical_tau_h"])
-    tau_summary = {tau_values[0], float(np.median(tau_values)), tau_values[-1]}
     rows = []
     for index, tau_h in enumerate(tau_values):
-        members = list(range(len(ensemble))) if any(math.isclose(tau_h, x) for x in tau_summary) else representative
+        members = list(range(len(ensemble)))
         score, evaluations = evaluate_campaign(
             policies,
             ensemble,
@@ -232,7 +233,7 @@ def _actuator_validation(
         score, evaluations = evaluate_campaign(
             policies,
             ensemble,
-            representative,
+            list(range(len(ensemble))),
             prior,
             config,
             partitions,
@@ -247,7 +248,7 @@ def _actuator_validation(
                 "tracking_error_c": error,
                 "probe_bias_c": 0.0,
                 "command_delay_h": 0.0,
-                "ensemble_members": len(representative),
+                "ensemble_members": len(ensemble),
                 "score": score,
                 **metrics,
                 "feasible": metrics["completion_probability"]
@@ -268,6 +269,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    run_started = time.perf_counter()
     git_snapshot = capture_git_state()
     config = load_wave1_config(CONFIG_PATH, CONSTRAINTS_PATH)
     constraints = config["design_constraints"]
@@ -334,6 +336,7 @@ def main() -> None:
     baseline_rows = []
     candidate_pool: dict[str, dict] = {}
     for independent_seed in config["independent_seeds"]:
+        seed_started = time.perf_counter()
         result = particle_swarm(
             search_objective,
             bounds,
@@ -417,6 +420,7 @@ def main() -> None:
                 "stop_reason": result.stop_reason,
                 "last_iteration_improvement": float(result.improvement_history[-1]),
                 "final_position_diversity": float(result.diversity_history[-1]),
+                "runtime_seconds": float(time.perf_counter() - seed_started),
             }
         )
         candidate_count = max(int(search["top_k_candidates"]) * 2, 4)
@@ -424,7 +428,7 @@ def main() -> None:
             raw = result.personal_best_positions[int(rank_index)]
             pair, canonical, repairs = _decode_pair(raw, config, f"seed{independent_seed}")
             key = sha256_payload(canonical.tolist())
-            candidate_pool.setdefault(
+            candidate = candidate_pool.setdefault(
                 key,
                 {
                     "canonical_hash": key,
@@ -433,9 +437,11 @@ def main() -> None:
                     "pair": pair,
                     "repairs": repairs,
                     "source_seed": int(independent_seed),
+                    "source_seeds": set(),
                     "search_objective": search_objective(canonical),
                 },
             )
+            candidate["source_seeds"].add(int(independent_seed))
     candidates = list(candidate_pool.values())
     for candidate in candidates:
         candidate["eight_objective"] = rerank_objective(candidate["canonical"])
@@ -463,6 +469,9 @@ def main() -> None:
                 "rank_after_eight_member_rerank": rank,
                 "canonical_policy_hash": candidate["canonical_hash"],
                 "source_seed": candidate["source_seed"],
+                "source_seed_contributors": ";".join(
+                    str(value) for value in sorted(candidate["source_seeds"])
+                ),
                 "search_robust_score": -candidate["search_objective"],
                 "eight_member_robust_score": -candidate["eight_objective"],
                 "full_ensemble_robust_score": score,
@@ -572,7 +581,7 @@ def main() -> None:
     actuator = _actuator_validation(
         selected_policies,
         ensemble,
-        rerank_representative,
+        full_members,
         prior,
         config,
         partitions,
@@ -584,6 +593,41 @@ def main() -> None:
         any(result.converged for _, result in pso_results)
         or ranking_stability >= float(search.get("minimum_ranking_spearman", 0.7))
     )
+    finalist_seed_contributors = sorted(
+        {
+            seed
+            for candidate in top_candidates
+            for seed in candidate["source_seeds"]
+        }
+    )
+    multi_seed_finalists = len(finalist_seed_contributors) >= int(
+        search.get("minimum_finalist_seed_contributors", 2)
+    )
+    plateau_evidence = all(
+        result.converged
+        or float(result.improvement_history[-1]) <= float(search["improvement_tolerance"])
+        for _, result in pso_results
+    )
+    margin_h = float(config["operations"]["minimum_action_to_drying_margin_h"])
+    margin_probability = float(
+        np.mean(
+            [
+                row.drying_time_h - row.latest_action_time_h >= margin_h - 1e-9
+                for row in selected_evaluations
+            ]
+        )
+    )
+    temperature_metrics = [
+        temperature_profile_metrics(policy, config) for policy in selected_policies
+    ]
+    actuator_configuration_complete = all(
+        config["future_process"]["temperature_actuator"][name] is not None
+        for name in (
+            "probe_bias_scenarios_c",
+            "command_delay_scenarios_h",
+            "initial_temperature_uncertainty_c",
+        )
+    )
     checks = {
         "adapter_gate_pass": adapter_gate["verdict"] == "PASS",
         "source_hashes_verified": len(source_verification) == 4,
@@ -591,10 +635,15 @@ def main() -> None:
             adapter_gate["checks"]["corrected_fim_validation_pass"]
         ),
         "pso_three_independent_seeds_completed": len(pso_results) >= 3,
+        "pso_five_independent_seeds_completed": len(pso_results) >= 5,
         "pso_objectives_finite": bool(
             np.isfinite([result.fun for _, result in pso_results]).all()
         ),
         "pso_convergence_or_ranking_stability": pso_evidence,
+        "pso_finalists_from_multiple_seeds_or_policy_convergence": bool(
+            multi_seed_finalists or any(len(row["source_seeds"]) >= 2 for row in top_candidates)
+        ),
+        "pso_stagnation_or_plateau": plateau_evidence,
         "top_k_revalidated_on_64_members": len(top_candidates)
         == int(search["top_k_candidates"]),
         "actual_objective_evaluated": bool(local_trace_rows),
@@ -606,24 +655,43 @@ def main() -> None:
         >= float(config["completion"]["minimum_probability"]),
         "actuator_scenarios_evaluated": len(actuator) >= 11,
         "all_encoded_actuator_scenarios_feasible": bool(actuator["feasible"].all()),
+        "all_approved_actuator_scenarios_feasible": bool(actuator["feasible"].all()),
         "canonical_policies_have_no_duplicate_pulses": all(
             len({time_h for time_h, _ in policy.nutrition_mg_yan_l})
             == len(policy.nutrition_mg_yan_l)
             for policy in selected_pair
         ),
+        "actions_respect_24h_drying_margin": margin_probability
+        >= float(config["completion"]["minimum_probability"]),
+        "temperature_changes_respect_minimum_1C": all(
+            int(metrics["subthreshold_temperature_changes"]) == 0
+            for metrics in temperature_metrics
+        ),
         "profiles_for_physical_execution_false": True,
     }
     critical_checks = (
-            "adapter_gate_pass",
-            "source_hashes_verified",
-            "pso_objectives_finite",
-            "top_k_revalidated_on_64_members",
-            "canonical_policies_have_no_duplicate_pulses",
+        "adapter_gate_pass",
+        "source_hashes_verified",
+        "corrected_fim_stability_pass",
+        "pso_three_independent_seeds_completed",
+        "pso_five_independent_seeds_completed",
+        "pso_objectives_finite",
+        "pso_convergence_or_ranking_stability",
+        "pso_finalists_from_multiple_seeds_or_policy_convergence",
+        "pso_stagnation_or_plateau",
+        "top_k_revalidated_on_64_members",
+        "actual_objective_evaluated",
+        "local_refinement_qualified",
+        "full_ensemble_completion_probability_at_least_95pct",
+        "canonical_policies_have_no_duplicate_pulses",
+        "actions_respect_24h_drying_margin",
+        "temperature_changes_respect_minimum_1C",
+        "all_approved_actuator_scenarios_feasible",
     )
+    if actuator_configuration_complete:
+        critical_checks += ("all_encoded_actuator_scenarios_feasible",)
     verdict = hybrid_gate_verdict(checks, critical_checks)
     physical_blockers = list(constraints["fail_closed_fields"])
-    if not config["release_policy"]["tank_randomization_policy_approved"]:
-        physical_blockers.append("release_policy.tank_randomization_policy_approved")
     if config["future_process"]["temperature_actuator"]["probe_bias_scenarios_c"] is None:
         physical_blockers.append("temperature_actuator.probe_bias_scenarios_c")
     if config["future_process"]["temperature_actuator"]["command_delay_scenarios_h"] is None:
@@ -643,6 +711,8 @@ def main() -> None:
             "particles_per_seed": int(search["particles"]),
             "maximum_iterations": int(search["maximum_iterations"]),
             "ranking_stability_spearman": ranking_stability,
+            "finalist_seed_contributors": finalist_seed_contributors,
+            "stagnation_or_plateau": plateau_evidence,
             "cache_entries": len(objective_cache),
         },
         "local_refinement": {
@@ -655,11 +725,13 @@ def main() -> None:
             "candidate_robust_information_score": selected_score,
             "three_anchor_robust_information_score": anchor_score,
             **selected_metrics,
+            "action_margin_probability": margin_probability,
+            "minimum_action_to_drying_margin_h": margin_h,
         },
-        "nutrition_translation_blocker": constraints["nutrition"][
-            "approved_product_mix_selection_policy"
-        ]
-        is None,
+        "nutrition_translation_blocker": any(
+            constraints["nutrition"][name] is None
+            for name in ("organic_product_yan_mass_fraction", "dap_yan_mass_fraction")
+        ),
         "physical_release_blockers": physical_blockers,
         "tank_assignments": [],
         "profiles_for_physical_execution": False,
@@ -691,6 +763,7 @@ def main() -> None:
         "gate": run_dir / "hybrid_search_gate.json",
         "config": run_dir / "wave1_mbdoe_config.json",
         "partition": run_dir / "partition_surrogate_provenance.json",
+        "runtime": run_dir / "runtime_summary.json",
     }
     pd.DataFrame(summary_rows).to_csv(filesystem_path(paths["summary"]), index=False)
     pd.DataFrame(history_rows).to_csv(filesystem_path(paths["history"]), index=False)
@@ -746,6 +819,13 @@ def main() -> None:
     write_json(paths["gate"], gate)
     write_json(paths["config"], config)
     write_json(paths["partition"], partition_provenance)
+    write_json(
+        paths["runtime"],
+        {
+            "total_runtime_seconds": float(time.perf_counter() - run_started),
+            "per_seed": summary_rows,
+        },
+    )
     outputs = list(paths.values())
     manifest = build_manifest(
         run_dir=run_dir,

@@ -46,7 +46,7 @@ class Pilot2026MBDoEAdapterTests(unittest.TestCase):
         bounds = vector_bounds(self.config)
         values = bounds[:, 1] + 100.0
         policy = policy_from_vector("test", values, self.config)
-        self.assertTrue(all(15.0 <= value <= 25.0 for value in policy.temperature_c))
+        self.assertTrue(all(15.0 <= value <= 27.0 for value in policy.temperature_c))
         self.assertLessEqual(sum(amount for _, amount in policy.nutrition_mg_yan_l), 232.0)
         self.assertLessEqual(len(policy.nutrition_mg_yan_l), 3)
 
@@ -54,13 +54,13 @@ class Pilot2026MBDoEAdapterTests(unittest.TestCase):
         policy = anchor_policy(self.config)
         modified = type(policy)(
             "step",
-            (25.0,) + policy.temperature_c[1:],
+            (27.0,) + policy.temperature_c[1:],
             policy.nutrition_mg_yan_l,
         )
         design = _future_design(modified, self.config)
         self.assertAlmostEqual(float(design.temperature_c[0]), 18.0)
         self.assertGreater(float(design.temperature_c[1]), 18.0)
-        self.assertLess(float(design.temperature_c[1]), 25.0)
+        self.assertLess(float(design.temperature_c[1]), 27.0)
 
     def test_latest_adapter_and_sampling_gates_do_not_release_profiles(self) -> None:
         adapter = REPOSITORY_DIR / self.state["latest_wave1_adapter_run"] / "adapter_gate.json"

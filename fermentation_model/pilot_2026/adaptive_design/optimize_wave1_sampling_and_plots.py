@@ -4,11 +4,16 @@ import argparse
 import json
 import math
 import sys
-from datetime import datetime, timedelta
+import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import matplotlib
 import numpy as np
 import pandas as pd
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
 
 
 ADAPTIVE_DIR = Path(__file__).resolve().parent
@@ -20,10 +25,14 @@ if str(FERMENTATION_DIR) not in sys.path:
 
 from pilot_2026.adaptive_design.pilot_aroma_calibration import (  # noqa: E402
     load_partition_surrogates,
+    simulate_aroma,
 )
 from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     DesignPolicy,
+    SPECIES,
+    _future_design,
     allowed_sampling_times,
+    effective_temperature_change_indices,
     fim_from_sampling_sensitivity_cache,
     load_json,
     load_wave1_config,
@@ -39,6 +48,7 @@ from pilot_2026.adaptive_design.run_artifacts import (  # noqa: E402
     create_immutable_run_directory,
     filesystem_path,
     sha256_file,
+    sha256_payload,
     verify_manifest_output,
     write_json,
     write_json_atomic,
@@ -93,16 +103,20 @@ def policy_actions_before_drying(
     drying_times: np.ndarray,
     config: dict,
 ) -> bool:
-    effective_changes = list(
-        np.flatnonzero(np.abs(np.diff(policy.temperature_c)) > 1e-12) + 1
-    )
+    effective_changes = list(effective_temperature_change_indices(policy.temperature_c, config))
     action_times = [
         float(config["future_process"]["temperature_slot_h"]) * index
         for index in effective_changes
     ]
     action_times.extend(time_h for time_h, _ in policy.nutrition_mg_yan_l)
+    margin_h = float(config["operations"]["minimum_action_to_drying_margin_h"])
     return all(
-        float(np.mean(np.asarray(drying_times, dtype=float) >= float(action_time)))
+        float(
+            np.mean(
+                np.asarray(drying_times, dtype=float)
+                >= float(action_time) + margin_h - 1e-9
+            )
+        )
         >= float(config["completion"]["minimum_probability"])
         for action_time in action_times
     )
@@ -110,30 +124,32 @@ def policy_actions_before_drying(
 
 def capture_constraints_approved(config: dict) -> bool:
     constraints = config["design_constraints"]["sampling_and_capture"]
-    return all(
-        constraints[name] is not None
-        for name in (
-            "maximum_capture_interval_h",
-            "maximum_trap_loading",
-            "vessel_change_required",
-        )
+    duration_approved = bool(
+        constraints["maximum_capture_interval_h"] is not None
+        or constraints.get("maximum_capture_interval_policy") == "unbounded_by_hardware"
     )
+    loading_approved = bool(
+        constraints["maximum_trap_loading"] is not None
+        or constraints.get("maximum_trap_loading_policy")
+        == "not_applicable_for_sampling_nozzle"
+    )
+    return duration_approved and loading_approved and constraints["vessel_change_required"] is False
 
 
-def _load_policies(path: Path) -> tuple[DesignPolicy, ...]:
+def _load_policies(path: Path, config: dict) -> tuple[DesignPolicy, ...]:
     actions = pd.read_csv(filesystem_path(path))
     policies = []
     for name, group in actions.groupby("policy", sort=False):
         temperature_actions = group[group["action"].eq("temperature_setpoint")].sort_values(
             "time_h"
         )
-        slots = 14
+        slots = int(config["future_process"]["optimized_temperature_slots"])
         profile = np.empty(slots, dtype=float)
         current = float(temperature_actions.iloc[0]["value"])
         action_rows = list(temperature_actions.itertuples())
         action_index = 0
         for slot in range(slots):
-            time_h = 12.0 * slot
+            time_h = float(config["future_process"]["temperature_slot_h"]) * slot
             while action_index + 1 < len(action_rows) and float(
                 action_rows[action_index + 1].time_h
             ) <= time_h + 1e-9:
@@ -271,7 +287,14 @@ def _coordinate_improve(
         policy_order = list(policies)
         rng.shuffle(policy_order)
         for policy in policy_order:
-            old_order = list(schedules[policy.name])
+            protected: set[float] = set()
+            if config["sampling"]["force_first_slot"]:
+                protected.add(float(valid_by_policy[policy.name][0]))
+            if config["sampling"]["force_last_slot"]:
+                protected.add(float(valid_by_policy[policy.name][-1]))
+            old_order = [
+                value for value in schedules[policy.name] if value not in protected
+            ]
             rng.shuffle(old_order)
             for old in old_order:
                 best_schedule, best_score = schedules[policy.name], current
@@ -365,27 +388,81 @@ def _optimize_schedules(
 def _capture_intervals(
     schedules: dict[str, tuple[float, ...]],
     config: dict,
+    sampling_cache: dict[tuple[int, str], object],
+    members: list[int],
 ) -> pd.DataFrame:
     constraints = config["design_constraints"]["sampling_and_capture"]
     rows = []
     for policy, times in schedules.items():
-        for index, (start, end) in enumerate(zip(times[:-1], times[1:]), start=1):
-            maximum = constraints["maximum_capture_interval_h"]
-            rows.append(
-                {
-                    "policy": policy,
-                    "capture_interval": index,
-                    "start_h": start,
-                    "end_h": end,
-                    "duration_h": end - start,
-                    "capture_stage_1_c": 0.0,
-                    "capture_stage_2_c": -40.0,
-                    "maximum_capture_interval_h": maximum,
-                    "within_approved_duration": None if maximum is None else end - start <= maximum,
-                    "maximum_trap_loading": constraints["maximum_trap_loading"],
-                    "vessel_change_required": constraints["vessel_change_required"],
-                }
+        if len(times) != 10 or not math.isclose(float(times[0]), 0.0, abs_tol=1e-12):
+            raise ValueError("Capture intervals require ten wine samples beginning at t=0")
+        for species in SPECIES:
+            cumulative_by_member = []
+            for member in members:
+                cache = sampling_cache[(member, policy)]
+                forcing_time = cache.prepared.forcings[species].time_h
+                cumulative_by_member.append(
+                    np.interp(
+                        np.asarray(times, dtype=float),
+                        forcing_time,
+                        cache.nominal_captured[species],
+                    )
+                )
+            cumulative = np.vstack(cumulative_by_member)
+            intervals = np.diff(cumulative, axis=1)
+            conservation_error = float(
+                np.max(
+                    np.abs(
+                        np.sum(intervals, axis=1)
+                        - (cumulative[:, -1] - cumulative[:, 0])
+                    )
+                )
             )
+            for index, (start, end) in enumerate(zip(times[:-1], times[1:]), start=1):
+                maximum = constraints["maximum_capture_interval_h"]
+                unbounded = (
+                    maximum is None
+                    and constraints["maximum_capture_interval_policy"]
+                    == "unbounded_by_hardware"
+                )
+                interval_values = intervals[:, index - 1]
+                rows.append(
+                    {
+                        "policy": policy,
+                        "species": species,
+                        "capture_interval": index,
+                        "start_h": start,
+                        "end_h": end,
+                        "duration_h": end - start,
+                        "capture_stage_1_c": 0.0,
+                        "capture_stage_2_c": -40.0,
+                        "maximum_capture_interval_h": maximum,
+                        "maximum_capture_interval_policy": constraints[
+                            "maximum_capture_interval_policy"
+                        ],
+                        "within_approved_duration": bool(
+                            unbounded or end - start <= float(maximum)
+                        ),
+                        "captured_mass_mean_ug": float(np.mean(interval_values)),
+                        "captured_mass_min_ug": float(np.min(interval_values)),
+                        "captured_mass_max_ug": float(np.max(interval_values)),
+                        "cumulative_mass_start_mean_ug": float(
+                            np.mean(cumulative[:, index - 1])
+                        ),
+                        "cumulative_mass_end_mean_ug": float(np.mean(cumulative[:, index])),
+                        "mass_conservation_max_abs_error_ug": conservation_error,
+                        "maximum_trap_loading": constraints["maximum_trap_loading"],
+                        "maximum_trap_loading_policy": constraints[
+                            "maximum_trap_loading_policy"
+                        ],
+                        "trap_loading_constraint_satisfied": bool(
+                            constraints["maximum_trap_loading"] is not None
+                            or constraints["maximum_trap_loading_policy"]
+                            == "not_applicable_for_sampling_nozzle"
+                        ),
+                        "vessel_change_required": constraints["vessel_change_required"],
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -400,12 +477,16 @@ def _operational_conflicts(
         sample_times = set(schedules[policy.name])
         pulse_times = {float(time_h) for time_h, _ in policy.nutrition_mg_yan_l}
         for collision in sorted(sample_times & pulse_times):
+            ordered = (
+                constraints["sample_event_order"] == "sample_before_action"
+                and constraints["minimum_minutes_between_sampling_and_nutrition"] == 0
+            )
             rows.append(
                 {
                     "time_h": collision,
                     "policies": policy.name,
                     "conflict_type": "sampling_and_nutrition_same_timestamp",
-                    "status": "unresolved" if constraints["sample_event_order"] is None else "ordered",
+                    "status": "ordered" if ordered else "unresolved",
                     "required_approval": "sample_event_order",
                 }
             )
@@ -444,46 +525,327 @@ def _nutrition_translation(policies: tuple[DesignPolicy, ...], config: dict) -> 
     volume_l = float(nutrition["initial_volume_l"])
     organic_limit = float(nutrition["maximum_total_organic_product_g_hl"]) * volume_l / 100.0
     dap_limit = float(nutrition["maximum_total_dap_fda_g_hl"]) * volume_l / 100.0
+    organic_fraction = nutrition["organic_product_yan_mass_fraction"]
+    dap_fraction = nutrition["dap_yan_mass_fraction"]
+    composition_available = bool(
+        organic_fraction is not None
+        and dap_fraction is not None
+        and float(organic_fraction) > 0.0
+        and float(dap_fraction) > 0.0
+    )
     rows = []
     for policy in policies:
-        total_yan = sum(amount for _, amount in policy.nutrition_mg_yan_l)
-        if total_yan <= 0.0:
-            continue
-        required = total_yan * volume_l
-        dap_min = max(0.0, (required - 100.0 * organic_limit) / 200.0)
-        dap_max = min(dap_limit, required / 200.0)
-        endpoints = {
-            "minimum_dap_endpoint": dap_min,
-            "maximum_dap_endpoint": dap_max,
-        }
-        for endpoint, total_dap in endpoints.items():
-            total_organic = (required - 200.0 * total_dap) / 100.0
-            for time_h, target in policy.nutrition_mg_yan_l:
-                fraction = target / total_yan
-                organic = total_organic * fraction
-                dap = total_dap * fraction
-                reconstructed = (100.0 * organic + 200.0 * dap) / volume_l
-                rows.append(
-                    {
-                        "policy": policy.name,
-                        "time_h": time_h,
-                        "solution": endpoint,
-                        "selected_for_operation": False,
-                        "yan_target_mg_l": target,
-                        "organic_product_g": organic,
-                        "dap_fda_g": dap,
-                        "yan_reconstructed_mg_l": reconstructed,
-                        "reconstruction_error_mg_l": reconstructed - target,
-                        "organic_total_limit_g": organic_limit,
-                        "dap_fda_total_limit_g": dap_limit,
-                        "organic_total_slack_g": organic_limit - total_organic,
-                        "dap_fda_total_slack_g": dap_limit - total_dap,
-                        "per_event_organic_limit_g": nutrition["maximum_organic_product_g_per_event"],
-                        "per_event_dap_fda_limit_g": nutrition["maximum_dap_fda_g_per_event"],
-                        "translation_blocker": nutrition["approved_product_mix_selection_policy"] is None,
-                    }
-                )
+        event_rows = []
+        for time_h, target in policy.nutrition_mg_yan_l:
+            yan_organic = 0.5 * float(target)
+            yan_dap = 0.5 * float(target)
+            organic_g = (
+                (yan_organic * volume_l / 1000.0) / float(organic_fraction)
+                if composition_available
+                else math.nan
+            )
+            dap_g = (
+                (yan_dap * volume_l / 1000.0) / float(dap_fraction)
+                if composition_available
+                else math.nan
+            )
+            event_rows.append((time_h, target, yan_organic, yan_dap, organic_g, dap_g))
+        total_organic = float(sum(row[4] for row in event_rows)) if composition_available else math.nan
+        total_dap = float(sum(row[5] for row in event_rows)) if composition_available else math.nan
+        for time_h, target, yan_organic, yan_dap, organic_g, dap_g in event_rows:
+            reconstructed = yan_organic + yan_dap
+            rows.append(
+                {
+                    "policy": policy.name,
+                    "time_h": time_h,
+                    "mix_policy": nutrition["approved_product_mix_selection_policy"],
+                    "selected_for_operation": False,
+                    "volume_l": volume_l,
+                    "yan_target_mg_l": target,
+                    "organic_yan_contribution_mg_l": yan_organic,
+                    "dap_yan_contribution_mg_l": yan_dap,
+                    "organic_product_yan_mass_fraction": organic_fraction,
+                    "dap_yan_mass_fraction": dap_fraction,
+                    "organic_product_g": organic_g,
+                    "dap_fda_g": dap_g,
+                    "yan_reconstructed_mg_l": reconstructed,
+                    "reconstruction_error_mg_l": reconstructed - target,
+                    "mass_formula": "m_g=(0.5*Y_target_mg_L*V_L/1000)/YAN_mass_fraction",
+                    "organic_total_limit_g": organic_limit,
+                    "dap_fda_total_limit_g": dap_limit,
+                    "organic_total_product_g": total_organic,
+                    "dap_total_product_g": total_dap,
+                    "organic_total_within_limit": bool(total_organic <= organic_limit)
+                    if composition_available
+                    else None,
+                    "dap_total_within_limit": bool(total_dap <= dap_limit)
+                    if composition_available
+                    else None,
+                    "per_event_organic_limit_g": nutrition["maximum_organic_product_g_per_event"],
+                    "per_event_dap_fda_limit_g": nutrition["maximum_dap_fda_g_per_event"],
+                    "composition_source": nutrition["composition_source"],
+                    "translation_blocker": not composition_available,
+                    "blocker_reason": None
+                    if composition_available
+                    else "missing_authoritative_product_YAN_mass_fraction",
+                }
+            )
     return pd.DataFrame(rows)
+
+
+def _tank_randomization(
+    policies: tuple[DesignPolicy, ...], config: dict, frozen_utc: str
+) -> pd.DataFrame:
+    randomization = config["design_constraints"]["tank_randomization"]
+    seed = int(config["tank_randomization_seed"])
+    if seed != int(randomization["seed"]):
+        raise ValueError("Tank-randomization seeds disagree between authoritative configurations")
+    tanks = list(config["design_constraints"]["sampling_and_capture"]["tanks"])
+    if len(policies) != len(tanks):
+        raise ValueError("Tank randomization requires one tank per Wave-1 profile")
+    assigned = np.random.default_rng(seed).permutation(np.asarray(tanks, dtype=object))
+    rows = []
+    for policy, tank in zip(policies, assigned):
+        policy_hash = sha256_payload(
+            {
+                "temperature_c": list(policy.temperature_c),
+                "nutrition_mg_yan_l": [list(row) for row in policy.nutrition_mg_yan_l],
+            }
+        )
+        rows.append(
+            {
+                "profile": policy.name,
+                "tank": str(tank),
+                "seed": seed,
+                "algorithm": randomization["algorithm"],
+                "frozen_utc": frozen_utc,
+                "policy_hash": policy_hash,
+                "owner_policy_approved": bool(randomization["approved"]),
+                "authorized_for_physical_execution": False,
+                "status": "frozen_computational_proposal_not_authorized",
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+FIGURE_NAMES = (
+    "candidate_profiles_v2.png",
+    "executed_temperature_ensemble_v2.png",
+    "aroma_predictions_v2.png",
+    "sampling_schedule_v2.png",
+    "capture_intervals_v2.png",
+    "information_gain_distribution_v2.png",
+    "paired_information_comparison_v2.png",
+    "drying_margin_validation_v2.png",
+    "actuator_robustness_v2.png",
+    "operational_summary_v2.png",
+)
+WATERMARK = "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+PALETTE = ("#235789", "#D4A72C", "#E07A3F")
+
+
+def _finish_figure(fig: plt.Figure, path: Path, subtitle: str) -> None:
+    fig.text(0.01, 0.965, subtitle, ha="left", va="top", fontsize=9, color="#4B5563")
+    fig.text(
+        0.5,
+        0.012,
+        WATERMARK,
+        ha="center",
+        va="bottom",
+        fontsize=9,
+        fontweight="bold",
+        color="#8B1E3F",
+    )
+    fig.tight_layout(rect=(0.02, 0.045, 0.98, 0.94))
+    fig.savefig(filesystem_path(path), dpi=160, facecolor="white", bbox_inches="tight")
+    plt.close(fig)
+
+
+def _generate_figures(
+    figure_paths: dict[str, Path],
+    policies: tuple[DesignPolicy, ...],
+    config: dict,
+    prepared: dict[tuple[int, str], object],
+    members: list[int],
+    schedule: pd.DataFrame,
+    captures: pd.DataFrame,
+    paired: pd.DataFrame,
+    search_full: pd.DataFrame,
+    actuator: pd.DataFrame,
+    conflicts: pd.DataFrame,
+    checks: dict[str, bool],
+) -> list[dict]:
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "axes.edgecolor": "#374151",
+            "axes.labelcolor": "#1F2937",
+            "axes.titlecolor": "#111827",
+            "xtick.color": "#374151",
+            "ytick.color": "#374151",
+            "grid.color": "#D1D5DB",
+            "grid.alpha": 0.55,
+        }
+    )
+    chart_map: list[dict] = []
+    slot_h = float(config["future_process"]["temperature_slot_h"])
+
+    fig, axes = plt.subplots(3, 1, figsize=(11, 8), sharex=True)
+    for axis, policy, color in zip(axes, policies, PALETTE):
+        x = np.arange(len(policy.temperature_c) + 1) * slot_h
+        y = np.r_[policy.temperature_c, policy.temperature_c[-1]]
+        axis.step(x, y, where="post", color=color, linewidth=2, label="Setpoint")
+        for time_h, _amount in policy.nutrition_mg_yan_l:
+            axis.axvline(time_h, color="#374151", linestyle="--", linewidth=1)
+        axis.set_ylabel("°C")
+        axis.set_title(policy.name, loc="left", fontsize=10)
+        axis.set_ylim(14.5, 27.5)
+        axis.grid(axis="y")
+    axes[-1].set_xlabel("Process time (h)")
+    fig.suptitle("Candidate temperature policies", x=0.02, ha="left", fontsize=15)
+    _finish_figure(
+        fig,
+        figure_paths["candidate_profiles_v2.png"],
+        "Setpoint range 15–27 °C; dashed lines identify nutrition actions; candidate only.",
+    )
+    chart_map.append({"figure": "candidate_profiles_v2.png", "family": "Trend", "question": "What excitation policies were evaluated?"})
+
+    fig, axes = plt.subplots(3, 1, figsize=(11, 8), sharex=True, sharey=True)
+    actuator_cfg = config["future_process"]["temperature_actuator"]
+    scenarios = [
+        {"label": "nominal", "tau_h": actuator_cfg["global_tau_h"]},
+        {"label": "tau min", "tau_h": min(actuator_cfg["empirical_tau_h"])},
+        {"label": "tau max", "tau_h": max(actuator_cfg["empirical_tau_h"])},
+        {"label": "tracking -", "tau_h": actuator_cfg["global_tau_h"], "tracking_error_c": -float(np.median(actuator_cfg["observed_tracking_rmse_c"]))},
+        {"label": "tracking +", "tau_h": actuator_cfg["global_tau_h"], "tracking_error_c": float(np.median(actuator_cfg["observed_tracking_rmse_c"]))},
+    ]
+    for axis, policy in zip(axes, policies):
+        for scenario in scenarios:
+            design = _future_design(policy, config, scenario)
+            axis.plot(design.time, design.temperature_c, label=scenario["label"], linewidth=1.3)
+        axis.set_title(policy.name, loc="left", fontsize=10)
+        axis.set_ylabel("°C")
+        axis.grid()
+    axes[0].legend(ncol=5, fontsize=8, loc="upper right")
+    axes[-1].set_xlabel("Process time (h)")
+    fig.suptitle("Executed-temperature actuator scenarios", x=0.02, ha="left", fontsize=15)
+    _finish_figure(fig, figure_paths["executed_temperature_ensemble_v2.png"], "Nominal, empirical tau extremes and approved tracking-error scenarios.")
+    chart_map.append({"figure": "executed_temperature_ensemble_v2.png", "family": "Uncertainty & Benchmark", "question": "How does actuator uncertainty alter executed temperature?"})
+
+    central_member = members[len(members) // 2]
+    fig, axes = plt.subplots(3, 1, figsize=(11, 8), sharex=True)
+    for axis, species in zip(axes, SPECIES):
+        for policy, color in zip(policies, PALETTE):
+            item = prepared[(central_member, policy.name)]
+            liquid, _captured = simulate_aroma(item.forcings[species], item.aroma_log_values[species])
+            axis.plot(item.forcings[species].time_h, liquid, color=color, label=policy.name)
+        axis.set_title(species.replace("_", " "), loc="left", fontsize=10)
+        axis.set_ylabel("µg/L")
+        axis.grid()
+    axes[0].legend(ncol=3, fontsize=8)
+    axes[-1].set_xlabel("Process time (h)")
+    fig.suptitle("Aroma concentration predictions", x=0.02, ha="left", fontsize=15)
+    _finish_figure(fig, figure_paths["aroma_predictions_v2.png"], f"Central ensemble member {central_member}; wine concentration predictions.")
+    chart_map.append({"figure": "aroma_predictions_v2.png", "family": "Trend", "question": "How do candidate policies separate aroma trajectories?"})
+
+    fig, ax = plt.subplots(figsize=(11, 4.8))
+    for y, (policy, group) in enumerate(schedule.groupby("policy", sort=False)):
+        ax.scatter(group["time_h"], np.full(len(group), y), s=55, color=PALETTE[y], edgecolor="#1F2937")
+        for row in group.itertuples():
+            ax.text(row.time_h, y + 0.12, str(row.sample_number), ha="center", fontsize=7)
+    ax.set_yticks(range(len(policies)), [policy.name for policy in policies])
+    ax.set_xlabel("Process time (h)")
+    ax.set_title("Optimized wine-sampling schedule", loc="left", fontsize=15)
+    ax.grid(axis="x")
+    _finish_figure(fig, figure_paths["sampling_schedule_v2.png"], "Ten wine/process samples; sample 1 is the mandatory physical baseline at t=0.")
+    chart_map.append({"figure": "sampling_schedule_v2.png", "family": "Progression", "question": "Where are the ten wine samples placed?"})
+
+    fig, ax = plt.subplots(figsize=(11, 5.2))
+    interval_view = captures[captures["species"].eq(SPECIES[0])]
+    for y, (policy, group) in enumerate(interval_view.groupby("policy", sort=False)):
+        for row in group.itertuples():
+            ax.broken_barh([(row.start_h, row.duration_h)], (y - 0.3, 0.6), facecolors=PALETTE[y], edgecolors="white")
+    ax.set_yticks(range(len(policies)), [policy.name for policy in policies])
+    ax.set_xlabel("Process time (h)")
+    ax.set_title("MIX/condensate capture intervals", loc="left", fontsize=15)
+    ax.grid(axis="x")
+    _finish_figure(fig, figure_paths["capture_intervals_v2.png"], "Nine contiguous intervals/process; every first interval begins at t=0; hardware duration is unbounded.")
+    chart_map.append({"figure": "capture_intervals_v2.png", "family": "Progression", "question": "Do all nine capture intervals cover the process from zero?"})
+
+    fig, ax = plt.subplots(figsize=(10, 5.5))
+    bins = np.linspace(
+        float(paired[["optimized_information_gain", "preliminary_information_gain", "three_anchor_information_gain"]].min().min()),
+        float(paired[["optimized_information_gain", "preliminary_information_gain", "three_anchor_information_gain"]].max().max()),
+        16,
+    )
+    for column, label, color in zip(
+        ("optimized_information_gain", "preliminary_information_gain", "three_anchor_information_gain"),
+        ("Optimized", "Preliminary", "Three-anchor"),
+        PALETTE,
+    ):
+        ax.hist(paired[column], bins=bins, histtype="step", linewidth=2, label=label, color=color)
+    ax.set_xlabel("Information gain")
+    ax.set_ylabel("Ensemble members")
+    ax.set_title("Information-gain distribution", loc="left", fontsize=15)
+    ax.legend()
+    ax.grid(axis="y")
+    _finish_figure(fig, figure_paths["information_gain_distribution_v2.png"], "All 64 joint-ensemble members; common bins and common scale.")
+    chart_map.append({"figure": "information_gain_distribution_v2.png", "family": "Distribution", "question": "How does information vary across the 64 members?"})
+
+    fig, ax = plt.subplots(figsize=(6.5, 6.2))
+    ax.scatter(paired["preliminary_information_gain"], paired["optimized_information_gain"], color=PALETTE[0], edgecolor="#1F2937", alpha=0.8)
+    low = float(min(paired["preliminary_information_gain"].min(), paired["optimized_information_gain"].min()))
+    high = float(max(paired["preliminary_information_gain"].max(), paired["optimized_information_gain"].max()))
+    ax.plot([low, high], [low, high], linestyle="--", color="#374151", label="Equal information")
+    ax.set_xlabel("Preliminary information gain")
+    ax.set_ylabel("Optimized information gain")
+    ax.set_title("Paired information comparison", loc="left", fontsize=15)
+    ax.legend()
+    ax.grid()
+    _finish_figure(fig, figure_paths["paired_information_comparison_v2.png"], "One point per ensemble member; points above the diagonal favor the optimized schedule.")
+    chart_map.append({"figure": "paired_information_comparison_v2.png", "family": "Relationship", "question": "Does optimized sampling improve each paired member?"})
+
+    fig, ax = plt.subplots(figsize=(10, 5.5))
+    margins = search_full["action_margin_to_drying_h"].to_numpy(dtype=float)
+    ax.scatter(search_full["ensemble_member"], margins, color=PALETTE[0], s=32)
+    ax.axhline(float(config["operations"]["minimum_action_to_drying_margin_h"]), color="#8B1E3F", linestyle="--", label="Approved minimum")
+    ax.set_xlabel("Ensemble member")
+    ax.set_ylabel("Latest-action margin to drying (h)")
+    ax.set_title("Drying-margin validation", loc="left", fontsize=15)
+    ax.legend()
+    ax.grid()
+    _finish_figure(fig, figure_paths["drying_margin_validation_v2.png"], "Full 64-member validation; final sample is not treated as an excitation action.")
+    chart_map.append({"figure": "drying_margin_validation_v2.png", "family": "Uncertainty & Benchmark", "question": "Do active actions retain the approved drying margin?"})
+
+    fig, ax = plt.subplots(figsize=(11, 5.8))
+    positions = np.arange(len(actuator))
+    colors = [PALETTE[0] if bool(value) else "#B35C44" for value in actuator["feasible"]]
+    ax.bar(positions, actuator["completion_probability"], color=colors, edgecolor="#374151")
+    ax.axhline(float(config["completion"]["minimum_probability"]), color="#111827", linestyle="--", label="Minimum probability")
+    ax.set_xticks(positions, actuator["scenario"], rotation=35, ha="right", fontsize=8)
+    ax.set_ylim(0.0, 1.05)
+    ax.set_ylabel("Completion and action-margin probability")
+    ax.set_title("Actuator robustness", loc="left", fontsize=15)
+    ax.legend()
+    ax.grid(axis="y")
+    _finish_figure(fig, figure_paths["actuator_robustness_v2.png"], "Nine empirical tau values and signed tracking-error scenarios, each evaluated on 64 members.")
+    chart_map.append({"figure": "actuator_robustness_v2.png", "family": "Comparison & Benchmark", "question": "Which approved actuator scenarios remain feasible?"})
+
+    fig, ax = plt.subplots(figsize=(11, max(5.5, 0.32 * len(checks))))
+    labels = list(checks)
+    values = [1 if checks[label] else 0 for label in labels]
+    colors = [PALETTE[0] if value else "#B35C44" for value in values]
+    ax.barh(np.arange(len(labels)), values, color=colors, edgecolor="#374151")
+    ax.set_yticks(np.arange(len(labels)), [label.replace("_", " ") for label in labels], fontsize=8)
+    ax.set_xlim(0.0, 1.05)
+    ax.set_xticks([0, 1], ["Fail", "Pass"])
+    ax.invert_yaxis()
+    ax.set_title("Operational qualification summary", loc="left", fontsize=15)
+    ax.grid(axis="x")
+    unresolved = int(conflicts["status"].eq("unresolved").sum()) if len(conflicts) else 0
+    _finish_figure(fig, figure_paths["operational_summary_v2.png"], f"Fail-closed checks; unresolved operational conflicts: {unresolved}.")
+    chart_map.append({"figure": "operational_summary_v2.png", "family": "Tables & Scorecards", "question": "Which computational and operational checks pass?"})
+    return chart_map
 
 
 def parse_args() -> argparse.Namespace:
@@ -496,6 +858,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    run_started = time.perf_counter()
     git_snapshot = capture_git_state()
     config = load_wave1_config(CONFIG_PATH, CONSTRAINTS_PATH)
     constraints = config["design_constraints"]
@@ -506,13 +869,15 @@ def main() -> None:
     source_verification = {
         "search_gate": verify_manifest_output(search_run, "hybrid_search_gate.json"),
         "search_actions": verify_manifest_output(search_run, "candidate_policy_actions.csv"),
+        "search_full_ensemble": verify_manifest_output(search_run, "full_ensemble_validation.csv"),
+        "search_actuator": verify_manifest_output(search_run, "actuator_robustness_validation.csv"),
         "ensemble": verify_manifest_output(ensemble_run, "joint_parameter_ensemble.csv"),
         "aroma": verify_manifest_output(aroma_run, "aroma_calibration_gate.json"),
     }
     search_gate = load_json(search_run / "hybrid_search_gate.json")
-    if search_gate["verdict"] not in {"PASS", "PASS_CONDITIONAL"}:
-        raise RuntimeError("Explicit Wave-1 search source is not computationally usable")
-    policies = _load_policies(search_run / "candidate_policy_actions.csv")
+    policies = _load_policies(search_run / "candidate_policy_actions.csv", config)
+    search_full = pd.read_csv(search_run / "full_ensemble_validation.csv")
+    actuator = pd.read_csv(search_run / "actuator_robustness_validation.csv")
     ensemble = pd.read_csv(ensemble_run / "joint_parameter_ensemble.csv")
     partitions, provenance = load_partition_surrogates(aroma_config, REPOSITORY_DIR)
     prior = prior_precision(ensemble, config)
@@ -554,9 +919,8 @@ def main() -> None:
             ],
             dtype=float,
         )
-        if constraints["sampling_and_capture"]["sample_event_order"] is None:
-            pulse_times = {float(time_h) for time_h, _ in policy.nutrition_mg_yan_l}
-            valid = np.asarray([time_h for time_h in valid if float(time_h) not in pulse_times])
+        if not math.isclose(float(valid[0]), 0.0, abs_tol=1e-12):
+            raise RuntimeError("The legal sampling space must contain the mandatory t=0 baseline")
         valid_by_policy[policy.name] = valid
         active_probabilities[policy.name] = probability
     fim_cache: dict[tuple, np.ndarray] = {}
@@ -649,9 +1013,11 @@ def main() -> None:
                 }
             )
     schedule = pd.DataFrame(schedule_rows)
-    captures = _capture_intervals(selected, config)
+    captures = _capture_intervals(selected, config, sampling_cache, members)
     conflicts = _operational_conflicts(selected, policies, config)
     nutrition = _nutrition_translation(policies, config)
+    frozen_utc = datetime.now(timezone.utc).isoformat()
+    randomization = _tank_randomization(policies, config, frozen_utc)
     selected_metrics = robust_information_metrics(
         selected_gains,
         selected_posterior,
@@ -674,8 +1040,42 @@ def main() -> None:
         len(conflicts) and conflicts["status"].eq("unresolved").any()
     )
     capture_limits_approved = capture_constraints_approved(config)
+    baseline_present = bool(
+        schedule.groupby("policy")["time_h"].min().eq(0.0).all()
+    )
+    nine_intervals_from_zero = bool(
+        captures.groupby(["policy", "species"])["capture_interval"].nunique().eq(9).all()
+        and captures.groupby(["policy", "species"])["start_h"].min().eq(0.0).all()
+    )
+    capture_mass_conserved = bool(
+        captures["mass_conservation_max_abs_error_ug"].le(1e-8).all()
+        and captures["cumulative_mass_start_mean_ug"].groupby(
+            [captures["policy"], captures["species"]]
+        ).first().abs().le(1e-10).all()
+    )
+    randomization_repeat = _tank_randomization(policies, config, frozen_utc)
+    randomization_reproducible = bool(
+        randomization[["profile", "tank", "seed", "algorithm", "policy_hash"]].equals(
+            randomization_repeat[["profile", "tank", "seed", "algorithm", "policy_hash"]]
+        )
+        and randomization["tank"].nunique() == len(randomization)
+    )
+    nutrition_reconstructed = bool(
+        nutrition.empty
+        or (
+            nutrition["mix_policy"].eq("50_50_net_YAN_contribution").all()
+            and nutrition["organic_yan_contribution_mg_l"].eq(
+                0.5 * nutrition["yan_target_mg_l"]
+            ).all()
+            and nutrition["dap_yan_contribution_mg_l"].eq(
+                0.5 * nutrition["yan_target_mg_l"]
+            ).all()
+            and nutrition["reconstruction_error_mg_l"].abs().le(1e-12).all()
+        )
+    )
     checks = {
-        "source_hashes_verified": len(source_verification) == 4,
+        "source_hashes_verified": len(source_verification) == 6,
+        "source_search_gate_not_fail": search_gate["verdict"] in {"PASS", "PASS_CONDITIONAL"},
         "source_search_ipopt_execution_recognized": bool(
             search_gate["checks"]["actual_objective_evaluated"]
         ),
@@ -693,6 +1093,9 @@ def main() -> None:
         "exactly_ten_samples_per_process": bool(
             schedule.groupby("policy").size().eq(int(config["sampling"]["samples_per_process"])).all()
         ),
+        "mandatory_wine_baseline_at_t0": baseline_present,
+        "exactly_nine_capture_intervals_starting_at_t0": nine_intervals_from_zero,
+        "captured_mass_conserved_between_intervals": capture_mass_conserved,
         "all_samples_in_legal_windows": bool(
             schedule["weekday"].isin(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]).all()
             and schedule["local_timestamp"].map(
@@ -705,7 +1108,31 @@ def main() -> None:
         ),
         "no_ambiguous_operational_conflicts": not unresolved_conflicts,
         "capture_limits_approved_and_satisfied": capture_limits_approved
-        and bool(captures["within_approved_duration"].fillna(False).all()),
+        and bool(
+            captures["within_approved_duration"].all()
+            and captures["trap_loading_constraint_satisfied"].all()
+            and not captures["vessel_change_required"].any()
+        ),
+        "sample_before_action_coincidence_approved": bool(
+            constraints["sampling_and_capture"]["sample_event_order"]
+            == "sample_before_action"
+            and constraints["sampling_and_capture"][
+                "minimum_minutes_between_sampling_and_nutrition"
+            ]
+            == 0
+        ),
+        "manual_sampling_capacity_three_respected": bool(
+            not len(conflicts)
+            or not (
+                conflicts["conflict_type"].eq("simultaneous_manual_sampling")
+                & conflicts["status"].eq("unresolved")
+            ).any()
+        ),
+        "nutrition_50_50_net_yan_policy_reconstructed": nutrition_reconstructed,
+        "nutrition_product_masses_available": bool(
+            nutrition.empty or not nutrition["translation_blocker"].any()
+        ),
+        "tank_randomization_reproducible_uniform_permutation": randomization_reproducible,
         "nutrition_translation_has_no_arbitrary_mix": bool(
             nutrition.empty or not nutrition["selected_for_operation"].any()
         ),
@@ -718,14 +1145,86 @@ def main() -> None:
         "selected_q10_meets_preliminary_guardrail",
         "automatic_preliminary_fallback_operational",
         "paired_comparison_published",
+        "source_search_gate_not_fail",
         "exactly_ten_samples_per_process",
+        "mandatory_wine_baseline_at_t0",
+        "exactly_nine_capture_intervals_starting_at_t0",
+        "captured_mass_conserved_between_intervals",
         "all_samples_in_legal_windows",
         "samples_and_actions_before_drying",
         "no_ambiguous_operational_conflicts",
         "capture_limits_approved_and_satisfied",
+        "sample_before_action_coincidence_approved",
+        "manual_sampling_capacity_three_respected",
+        "nutrition_50_50_net_yan_policy_reconstructed",
+        "tank_randomization_reproducible_uniform_permutation",
+        "figures_generated_and_watermarked",
+    )
+    physical_blockers = sorted(
+        set(constraints["fail_closed_fields"])
+        | set(search_gate.get("physical_release_blockers", []))
+    )
+    run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_sampling_v2", config)
+    schedule_name = (
+        "optimized_sampling_schedule.csv"
+        if selected_source == "optimized"
+        else "fallback_sampling_schedule.csv"
+    )
+    paths = {
+        "schedule": run_dir / schedule_name,
+        "comparison": run_dir / "sampling_candidate_comparison.csv",
+        "captures": run_dir / "optimized_capture_intervals.csv",
+        "conflicts": run_dir / "operational_conflicts.csv",
+        "nutrition": run_dir / "nutrition_product_translation.csv",
+        "drying": run_dir / "drying_time_ensemble.csv",
+        "candidate_restarts": run_dir / "sampling_search_restarts.csv",
+        "reference_restarts": run_dir / "three_anchor_search_restarts.csv",
+        "gate": run_dir / "sampling_gate.json",
+        "config": run_dir / "wave1_mbdoe_config.json",
+        "partition": run_dir / "partition_surrogate_provenance.json",
+        "randomization": run_dir / "tank_randomization.csv",
+        "figure_map": run_dir / "figure_chart_map.json",
+        "runtime": run_dir / "runtime_summary.json",
+    }
+    for name in FIGURE_NAMES:
+        paths[f"figure_{name[:-4]}"] = run_dir / name
+    schedule.to_csv(filesystem_path(paths["schedule"]), index=False)
+    paired.to_csv(filesystem_path(paths["comparison"]), index=False)
+    captures.to_csv(filesystem_path(paths["captures"]), index=False)
+    conflicts.to_csv(filesystem_path(paths["conflicts"]), index=False)
+    nutrition.to_csv(filesystem_path(paths["nutrition"]), index=False)
+    randomization.to_csv(filesystem_path(paths["randomization"]), index=False)
+    drying.to_csv(filesystem_path(paths["drying"]), index=False)
+    optimization_restarts.to_csv(filesystem_path(paths["candidate_restarts"]), index=False)
+    reference_restarts.to_csv(filesystem_path(paths["reference_restarts"]), index=False)
+    figure_paths = {name: run_dir / name for name in FIGURE_NAMES}
+    chart_map = _generate_figures(
+        figure_paths,
+        policies,
+        config,
+        prepared,
+        members,
+        schedule,
+        captures,
+        paired,
+        search_full,
+        actuator,
+        conflicts,
+        checks,
+    )
+    write_json(
+        paths["figure_map"],
+        {
+            "watermark": WATERMARK,
+            "figures": chart_map,
+            "qa_status": "generated_pending_visual_inspection",
+        },
+    )
+    checks["figures_generated_and_watermarked"] = bool(
+        len(chart_map) == len(FIGURE_NAMES)
+        and all(path.is_file() and path.stat().st_size > 0 for path in figure_paths.values())
     )
     verdict = sampling_gate_verdict(checks, critical_checks)
-    physical_blockers = list(constraints["fail_closed_fields"])
     failed_checks = [name for name, passed in checks.items() if not passed]
     gate = {
         "gate": "phase_D_wave1_sampling_requalification",
@@ -757,39 +1256,18 @@ def main() -> None:
         "nutrition_translation_blocker": bool(
             not nutrition.empty and nutrition["translation_blocker"].any()
         ),
+        "tank_randomization_artifact": paths["randomization"].name,
+        "tank_randomization_authorized": False,
         "tank_assignments": [],
         "profiles_for_physical_execution": False,
     }
-    run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_sampling_v2", config)
-    schedule_name = (
-        "optimized_sampling_schedule.csv"
-        if selected_source == "optimized"
-        else "fallback_sampling_schedule.csv"
-    )
-    paths = {
-        "schedule": run_dir / schedule_name,
-        "comparison": run_dir / "sampling_candidate_comparison.csv",
-        "captures": run_dir / "optimized_capture_intervals.csv",
-        "conflicts": run_dir / "operational_conflicts.csv",
-        "nutrition": run_dir / "nutrition_product_translation.csv",
-        "drying": run_dir / "drying_time_ensemble.csv",
-        "candidate_restarts": run_dir / "sampling_search_restarts.csv",
-        "reference_restarts": run_dir / "three_anchor_search_restarts.csv",
-        "gate": run_dir / "sampling_gate.json",
-        "config": run_dir / "wave1_mbdoe_config.json",
-        "partition": run_dir / "partition_surrogate_provenance.json",
-    }
-    schedule.to_csv(filesystem_path(paths["schedule"]), index=False)
-    paired.to_csv(filesystem_path(paths["comparison"]), index=False)
-    captures.to_csv(filesystem_path(paths["captures"]), index=False)
-    conflicts.to_csv(filesystem_path(paths["conflicts"]), index=False)
-    nutrition.to_csv(filesystem_path(paths["nutrition"]), index=False)
-    drying.to_csv(filesystem_path(paths["drying"]), index=False)
-    optimization_restarts.to_csv(filesystem_path(paths["candidate_restarts"]), index=False)
-    reference_restarts.to_csv(filesystem_path(paths["reference_restarts"]), index=False)
     write_json(paths["gate"], gate)
     write_json(paths["config"], config)
     write_json(paths["partition"], provenance)
+    write_json(
+        paths["runtime"],
+        {"total_runtime_seconds": float(time.perf_counter() - run_started)},
+    )
     manifest = build_manifest(
         run_dir=run_dir,
         stage="wave1_sampling_requalification",
@@ -811,7 +1289,13 @@ def main() -> None:
             CONFIG_PATH,
             CONSTRAINTS_PATH,
         ],
-        random_seeds=[int(config["seed"]) + value for value in range(int(config["sampling"]["search_restarts"]))],
+        random_seeds=[
+            *[
+                int(config["seed"]) + value
+                for value in range(int(config["sampling"]["search_restarts"]))
+            ],
+            int(config["tank_randomization_seed"]),
+        ],
         status="completed" if verdict != "FAIL" else "validation_failed",
         convergence={
             "candidate_restarts": optimization_restarts.to_dict(orient="records"),
