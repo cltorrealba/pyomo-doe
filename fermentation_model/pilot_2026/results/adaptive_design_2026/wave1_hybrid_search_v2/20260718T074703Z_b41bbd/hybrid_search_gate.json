@@ -1,0 +1,96 @@
+{
+  "candidate_source": "ipopt_refined",
+  "checks": {
+    "actions_respect_24h_drying_margin": true,
+    "actual_objective_evaluated": true,
+    "actuator_scenarios_evaluated": true,
+    "adapter_gate_pass": true,
+    "all_approved_actuator_scenarios_feasible": true,
+    "all_encoded_actuator_scenarios_feasible": true,
+    "canonical_policies_have_no_duplicate_pulses": true,
+    "corrected_fim_stability_pass": true,
+    "full_ensemble_completion_probability_at_least_95pct": true,
+    "local_candidate_accepted": true,
+    "local_refinement_qualified": false,
+    "profiles_for_physical_execution_false": true,
+    "pso_convergence_or_ranking_stability": false,
+    "pso_finalists_from_multiple_seeds_or_policy_convergence": false,
+    "pso_five_independent_seeds_completed": true,
+    "pso_objectives_finite": true,
+    "pso_stagnation_or_plateau": false,
+    "pso_three_independent_seeds_completed": true,
+    "source_hashes_verified": true,
+    "temperature_changes_respect_minimum_1C": true,
+    "top_k_revalidated_on_64_members": true
+  },
+  "conditions": [
+    "failed_check:pso_convergence_or_ranking_stability",
+    "failed_check:pso_finalists_from_multiple_seeds_or_policy_convergence",
+    "failed_check:pso_stagnation_or_plateau",
+    "failed_check:local_refinement_qualified",
+    "physical_release_blocker:nutrition.organic_product_yan_mass_fraction",
+    "physical_release_blocker:nutrition.dap_yan_mass_fraction",
+    "physical_release_blocker:approval.candidate_plots_approved_by_owner",
+    "physical_release_blocker:temperature_actuator.probe_bias_scenarios_c",
+    "physical_release_blocker:temperature_actuator.command_delay_scenarios_h",
+    "physical_release_blocker:temperature_actuator.initial_temperature_uncertainty_c"
+  ],
+  "full_ensemble": {
+    "action_margin_probability": 1.0,
+    "candidate_robust_information_score": 21.12570795200615,
+    "completion_probability": 1.0,
+    "fraction_exceeding_reference": 0.984375,
+    "maximum_posterior_fim_condition_number": 5954.187985028495,
+    "maximum_residual_sugar_g_l": 2.7291044289753046,
+    "median": 22.52896091115665,
+    "minimum": 12.664781034014599,
+    "minimum_action_to_drying_margin_h": 24.0,
+    "minimum_posterior_fim_eigenvalue": 0.1879003280928024,
+    "q10": 16.986647597771253,
+    "robust_score": 21.1433825828103,
+    "tail_cvar": 15.196823887458839,
+    "three_anchor_robust_information_score": 19.448927196640224,
+    "worst_paired_loss_vs_reference": -0.5837793943120744
+  },
+  "gate": "phase_D_wave1_hybrid_search_requalification",
+  "local_refinement": {
+    "accepted_after_full_ensemble_revalidation": true,
+    "candidate_states": [
+      "rejected_model_mismatch",
+      "accepted_improvement",
+      "rejected_model_mismatch"
+    ],
+    "candidates_refined": 3,
+    "qualified": false
+  },
+  "next_action": "repair critical computational failure",
+  "nutrition_translation_blocker": true,
+  "physical_release_blockers": [
+    "nutrition.organic_product_yan_mass_fraction",
+    "nutrition.dap_yan_mass_fraction",
+    "approval.candidate_plots_approved_by_owner",
+    "temperature_actuator.probe_bias_scenarios_c",
+    "temperature_actuator.command_delay_scenarios_h",
+    "temperature_actuator.initial_temperature_uncertainty_c"
+  ],
+  "profiles_for_physical_execution": false,
+  "pso": {
+    "cache_entries": 2746,
+    "finalist_seed_contributors": [
+      20260731
+    ],
+    "independent_seeds": [
+      20260717,
+      20260731,
+      20260747,
+      20260761,
+      20260779
+    ],
+    "maximum_iterations": 20,
+    "particles_per_seed": 24,
+    "ranking_stability_spearman": 0.39999999999999997,
+    "stagnation_or_plateau": false
+  },
+  "tank_assignments": [],
+  "verdict": "FAIL"
+}

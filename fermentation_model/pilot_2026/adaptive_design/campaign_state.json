@@ -25,25 +25,22 @@
       -40.0
     ]
   },
-  "current_gate": "phase_C_wave1_MBDoE_adapter_requalification",
-  "current_phase": "computational_wave1_adapter_v3_requalification",
+  "current_gate": "phase_D_wave1_hybrid_search_requalification",
+  "current_phase": "computational_wave1_requalification",
   "executable_schedule_issued": false,
   "gate_blockers": [
-    "no_ambiguous_operational_conflicts",
-    "capture_limits_approved_and_satisfied",
-    "temperature.maximum_temperature_jump_c",
-    "temperature.maximum_total_thermal_variation_c",
-    "nutrition.approved_product_mix_selection_policy",
-    "sampling_and_capture.maximum_capture_interval_h",
-    "sampling_and_capture.maximum_trap_loading",
-    "sampling_and_capture.vessel_change_required",
-    "sampling_and_capture.sample_event_order",
-    "sampling_and_capture.minimum_minutes_between_sampling_and_nutrition",
-    "sampling_and_capture.manual_sampling_capacity_per_time_slot",
-    "sampling_and_capture.minimum_action_to_drying_margin_h",
-    "tank_randomization.policy"
+    "pso_convergence_or_ranking_stability",
+    "pso_finalists_from_multiple_seeds_or_policy_convergence",
+    "pso_stagnation_or_plateau",
+    "local_refinement_qualified",
+    "nutrition.organic_product_yan_mass_fraction",
+    "nutrition.dap_yan_mass_fraction",
+    "approval.candidate_plots_approved_by_owner",
+    "temperature_actuator.probe_bias_scenarios_c",
+    "temperature_actuator.command_delay_scenarios_h",
+    "temperature_actuator.initial_temperature_uncertainty_c"
   ],
-  "gate_verdict": "PASS",
+  "gate_verdict": "FAIL",
   "latest_aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
   "latest_engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
   "latest_gate_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_sampling_v2/20260718T021159Z_70e343",
@@ -53,7 +50,7 @@
   "latest_temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0",
   "latest_wave1_adapter_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd",
   "latest_wave1_sampling_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_sampling_v2/20260718T021159Z_70e343",
-  "latest_wave1_search_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T020952Z_70e343",
+  "latest_wave1_search_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_hybrid_search_v2/20260718T074703Z_b41bbd",
   "owner_approvals": {
     "active_fermentation_vs_cooling": "approved_2026-07-17",
     "automated_temperature_changes_24_7": true,
@@ -70,16 +67,12 @@
     "wave1_tentative_start": "2026-07-20"
   },
   "wave1": {
-    "candidate_sampling_schedule_ready_for_review": false,
     "candidate_source": "ipopt_refined",
-    "full_ensemble_robust_score": 20.513303509752255,
+    "full_ensemble_robust_score": 21.12570795200615,
     "ipopt_executed": true,
     "ipopt_proposal_accepted": true,
-    "local_refinement_qualified": true,
-    "sampling_fallback_reason": null,
-    "sampling_gate_verdict": "FAIL",
-    "sampling_schedule_source": "optimized",
-    "status": "computational_search_PASS_CONDITIONAL_sampling_FAIL_not_physically_released",
+    "local_refinement_qualified": false,
+    "status": "computational_candidate_FAIL_not_physically_released",
     "tank_randomization_required": true
   },
   "wave2": {

@@ -1,0 +1,39 @@
+{
+  "canonical_candidate_hash": "ad4be374e74d878238cfc9cc1100ddfb83add29f8962b49d6df863218ea38b4c",
+  "canonical_round_trip_exact": true,
+  "raw_particle_hash": "9a5d5f041def59cf210d9fc65cb61386cb11621c1668f8835e529a82a9df8fd7",
+  "raw_particle_to_canonical_repairs": [
+    {
+      "action": "relocate_duplicate_temperature_changepoint",
+      "entry": 1,
+      "from_slot": 1,
+      "policy": "seed20260731_A",
+      "to_slot": 2
+    },
+    {
+      "action": "relocate_duplicate_nutrition_time",
+      "dose_preserved_mg_yan_l": 80.0,
+      "entry": 1,
+      "from_index": 0,
+      "policy": "seed20260731_A",
+      "to_index": 1
+    },
+    {
+      "action": "relocate_duplicate_temperature_changepoint",
+      "entry": 3,
+      "from_slot": 1,
+      "policy": "seed20260731_B",
+      "to_slot": 2
+    },
+    {
+      "action": "clip_to_bounds",
+      "changed_coordinates": 2,
+      "policy": "refined_2_A"
+    },
+    {
+      "action": "clip_to_bounds",
+      "changed_coordinates": 1,
+      "policy": "refined_2_B"
+    }
+  ]
+}

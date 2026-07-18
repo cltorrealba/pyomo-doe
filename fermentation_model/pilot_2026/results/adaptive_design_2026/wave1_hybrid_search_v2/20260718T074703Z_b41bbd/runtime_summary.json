@@ -1,0 +1,70 @@
+{
+  "per_seed": [
+    {
+      "best_search_objective": -18.580039962587364,
+      "best_search_robust_score": 18.580039962587364,
+      "converged": false,
+      "evaluations": 504,
+      "final_position_diversity": 0.06510272624649184,
+      "independent_seed": 20260717,
+      "iterations_completed": 20,
+      "last_iteration_improvement": 0.03065655509448817,
+      "restarts_completed": 0,
+      "runtime_seconds": 1259.9849436999066,
+      "stop_reason": "maximum_iterations"
+    },
+    {
+      "best_search_objective": -18.860766157754014,
+      "best_search_robust_score": 18.860766157754014,
+      "converged": false,
+      "evaluations": 504,
+      "final_position_diversity": 0.03166602660211599,
+      "independent_seed": 20260731,
+      "iterations_completed": 20,
+      "last_iteration_improvement": 0.0,
+      "restarts_completed": 0,
+      "runtime_seconds": 989.214673499926,
+      "stop_reason": "maximum_iterations"
+    },
+    {
+      "best_search_objective": -18.540824482346004,
+      "best_search_robust_score": 18.540824482346004,
+      "converged": false,
+      "evaluations": 510,
+      "final_position_diversity": 0.061298503987528695,
+      "independent_seed": 20260747,
+      "iterations_completed": 20,
+      "last_iteration_improvement": 0.016067619217533746,
+      "restarts_completed": 1,
+      "runtime_seconds": 567.4367305000778,
+      "stop_reason": "maximum_iterations"
+    },
+    {
+      "best_search_objective": -18.203525097561606,
+      "best_search_robust_score": 18.203525097561606,
+      "converged": false,
+      "evaluations": 504,
+      "final_position_diversity": 0.03144364899407536,
+      "independent_seed": 20260761,
+      "iterations_completed": 20,
+      "last_iteration_improvement": 0.006863782518603756,
+      "restarts_completed": 0,
+      "runtime_seconds": 821.8846510000294,
+      "stop_reason": "maximum_iterations"
+    },
+    {
+      "best_search_objective": -18.54025294995631,
+      "best_search_robust_score": 18.54025294995631,
+      "converged": false,
+      "evaluations": 504,
+      "final_position_diversity": 0.05232938110704735,
+      "independent_seed": 20260779,
+      "iterations_completed": 20,
+      "last_iteration_improvement": 0.0008872293182236035,
+      "restarts_completed": 0,
+      "runtime_seconds": 924.7573624999495,
+      "stop_reason": "maximum_iterations"
+    }
+  ],
+  "total_runtime_seconds": 5554.471765899914
+}
