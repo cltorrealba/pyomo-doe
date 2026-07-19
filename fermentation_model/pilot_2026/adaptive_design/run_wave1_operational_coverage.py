@@ -2358,6 +2358,266 @@ def _build_review_package(
     return copied
 
 
+def _verify_complete_source_run(source_run: Path) -> dict[str, Any]:
+    manifest = _read_json(source_run / "run_manifest.json")
+    checked = 0
+    canonical_lf = 0
+    failures = []
+    for declared_path, declared in manifest.get("outputs", {}).items():
+        path = _run_path(declared_path)
+        try:
+            actual_hash = sha256_file(path)
+            actual_bytes = filesystem_path(path).stat().st_size
+            mode = "byte_exact"
+            declared_bytes = int(declared["bytes"])
+            if actual_hash != declared["sha256"]:
+                raw = filesystem_path(path).read_bytes()
+                normalized = raw.replace(b"\r\n", b"\n")
+                normalized_hash = __import__("hashlib").sha256(normalized).hexdigest()
+                if normalized_hash == declared["sha256"]:
+                    mode = "canonical_lf_text"
+                    canonical_lf += 1
+                    if len(normalized) != declared_bytes:
+                        failures.append(f"bytes:{declared_path}")
+                else:
+                    failures.append(f"hash:{declared_path}")
+            elif actual_bytes != declared_bytes:
+                failures.append(f"bytes:{declared_path}")
+            checked += 1
+        except (OSError, KeyError, TypeError, ValueError) as error:
+            failures.append(f"missing:{declared_path}:{error}")
+    return {
+        "source_run": relative_or_absolute(source_run),
+        "source_manifest_sha256": sha256_file(source_run / "run_manifest.json"),
+        "declared_outputs": len(manifest.get("outputs", {})),
+        "checked_outputs": checked,
+        "canonical_lf_matches": canonical_lf,
+        "failures": failures,
+        "verdict": "PASS" if not failures and checked else "FAIL",
+    }
+
+
+def _copy_completed_run_payload(
+    source_run: Path, destination_run: Path
+) -> tuple[list[Path], dict[str, Path]]:
+    outputs: list[Path] = []
+    by_name: dict[str, Path] = {}
+    source_fs = filesystem_path(source_run)
+    destination_fs = filesystem_path(destination_run)
+    for item in source_fs.iterdir():
+        if item.name in {"run_manifest.json", "coverage_review_package"}:
+            continue
+        target = destination_fs / item.name
+        if item.is_dir():
+            shutil.copytree(item, target)
+            for copied in target.rglob("*"):
+                if copied.is_file():
+                    outputs.append(destination_run / copied.relative_to(destination_fs))
+        else:
+            shutil.copy2(item, target)
+            standard = destination_run / item.name
+            outputs.append(standard)
+            by_name[item.name] = standard
+    return outputs, by_name
+
+
+def _repair_physical_candidate_labels(run_dir: Path) -> dict[str, Any]:
+    actions_path = run_dir / "coverage_candidate_actions.csv"
+    physical_path = run_dir / "physical_temperature_envelope_by_candidate.csv"
+    actions = pd.read_csv(filesystem_path(actions_path))
+    physical = pd.read_csv(filesystem_path(physical_path))
+    mapping = (
+        actions.loc[
+            actions.action.eq("initial_transition_audit"),
+            ["strategy", "dose_design", "candidate_id", "policy", "value"],
+        ]
+        .drop_duplicates()
+        .rename(
+            columns={
+                "policy": "expected_candidate",
+                "value": "initial_setpoint_c",
+            }
+        )
+    )
+    key_columns = [
+        "strategy",
+        "dose_design",
+        "candidate_id",
+        "initial_setpoint_c",
+    ]
+    if mapping.duplicated(key_columns, keep=False).any():
+        ambiguous = mapping.loc[
+            mapping.duplicated(key_columns, keep=False),
+            key_columns + ["expected_candidate"],
+        ]
+        raise RuntimeError(
+            "Ambiguous controller-policy label mapping: "
+            f"{ambiguous.to_dict('records')}"
+        )
+    expected = physical[key_columns].merge(
+        mapping,
+        on=key_columns,
+        how="left",
+        validate="many_to_one",
+    )["expected_candidate"]
+    if expected.isna().any():
+        missing = physical.loc[
+            expected.isna(),
+            key_columns,
+        ].drop_duplicates()
+        raise RuntimeError(
+            "Cannot restore physical candidate labels: " f"{missing.to_dict('records')}"
+        )
+    repaired = physical.copy()
+    mismatches_before = int((repaired["candidate"] != expected).sum())
+    repaired["candidate"] = expected.to_numpy()
+    non_label_columns = [column for column in physical if column != "candidate"]
+    pd.testing.assert_frame_equal(
+        physical[non_label_columns],
+        repaired[non_label_columns],
+        check_exact=True,
+    )
+    repaired.to_csv(filesystem_path(physical_path), index=False, lineterminator="\n")
+    return {
+        "rows": len(repaired),
+        "labels_corrected": mismatches_before,
+        "all_rows_match_controller_policy": bool(
+            repaired["candidate"].eq(expected).all()
+        ),
+        "all_non_label_columns_byte_value_identical": True,
+        "repair_key": key_columns,
+    }
+
+
+def _repackage_completed_run(
+    source_run: Path,
+    result_root: Path,
+    coverage_config: dict[str, Any],
+    git_snapshot: dict[str, Any],
+) -> Path:
+    source_run = source_run.resolve()
+    source_audit = _verify_complete_source_run(source_run)
+    if source_audit["verdict"] != "PASS":
+        raise RuntimeError(f"Source coverage run audit failed: {source_audit}")
+    source_manifest = _read_json(source_run / "run_manifest.json")
+    if source_manifest.get("status") != "completed":
+        raise RuntimeError("Only a completed immutable coverage run may be repackaged")
+    qualification_config = {
+        "coverage": coverage_config,
+        "qualification_action": "restore_cached_physical_candidate_labels",
+        "source_run_manifest_sha256": source_audit["source_manifest_sha256"],
+        "numeric_results_reused": True,
+    }
+    run_dir = create_immutable_run_directory(
+        result_root, "wave1_operational_coverage", qualification_config
+    )
+    outputs, outputs_by_name = _copy_completed_run_payload(source_run, run_dir)
+    repair = _repair_physical_candidate_labels(run_dir)
+    runtime_path = run_dir / "runtime_summary.json"
+    runtime = _read_json(runtime_path)
+    runtime.update(
+        {
+            "qualification_repackaged_from": relative_or_absolute(source_run),
+            "source_run_manifest_sha256": source_audit["source_manifest_sha256"],
+            "numeric_search_sampling_and_prediction_results_reused": True,
+            "physical_candidate_label_integrity_repair": repair,
+            "watermark": WATERMARK,
+            **closed_authorization(),
+        }
+    )
+    write_json(runtime_path, runtime)
+    recommendation = _read_json(run_dir / "wave1_recommended_coverage_candidate.json")
+    figure_paths = [run_dir / name for name in FIGURE_NAMES]
+    review_outputs = _build_review_package(
+        run_dir, outputs_by_name, figure_paths, recommendation
+    )
+    outputs.extend(review_outputs)
+    runs = {
+        name: _run_path(value) for name, value in coverage_config["source_runs"].items()
+    }
+    closed_payloads = (source_manifest, runtime, recommendation)
+    gate_checks = {
+        "source_completed_run_hashes_verified": source_audit["verdict"] == "PASS",
+        "source_numerical_gate_pass": source_manifest["gate"]["verdict"] == "PASS",
+        "physical_candidate_labels_match_controller_policy": repair[
+            "all_rows_match_controller_policy"
+        ],
+        "only_label_column_changed_in_physical_table": repair[
+            "all_non_label_columns_byte_value_identical"
+        ],
+        "review_package_rebuilt_with_review_only_suffix": bool(review_outputs)
+        and all(REVIEW_SUFFIX in path.name for path in review_outputs),
+        "physical_flags_closed": all(
+            payload.get(key) == value
+            for payload in closed_payloads
+            for key, value in AUTHORIZATION_FLAGS.items()
+        ),
+        "watermark_preserved": all(
+            payload.get("watermark") == WATERMARK for payload in closed_payloads
+        ),
+    }
+    manifest = build_manifest(
+        run_dir=run_dir,
+        stage="wave1_operational_coverage",
+        config=qualification_config,
+        sources={
+            "source_coverage_run_manifest": source_run / "run_manifest.json",
+            "coverage_config": COVERAGE_CONFIG_PATH,
+            "adapter_manifest": runs["adapter"] / "run_manifest.json",
+            "ensemble_manifest": runs["joint_ensemble"] / "run_manifest.json",
+            "aroma_manifest": runs["aroma_calibration"] / "run_manifest.json",
+            "actuator_manifest": runs["temperature_actuator"] / "run_manifest.json",
+            "information_reference_manifest": runs["information_reference"]
+            / "run_manifest.json",
+            "sampling_reference_manifest": runs["sampling_reference"]
+            / "run_manifest.json",
+        },
+        code_paths=[
+            Path(__file__),
+            ADAPTIVE_DIR / "operational_coverage.py",
+        ],
+        random_seeds=[
+            int(value) for value in coverage_config["search"]["independent_seeds"]
+        ],
+        status=(
+            "completed"
+            if gate_verdict(gate_checks, tuple(gate_checks)) == "PASS"
+            else "failed"
+        ),
+        convergence=source_manifest["solver_status_and_convergence"],
+        gate={
+            "verdict": gate_verdict(gate_checks, tuple(gate_checks)),
+            "checks": gate_checks,
+            "physical_authorization_gate": "FAIL_NOT_AUTHORIZED",
+        },
+        outputs=outputs,
+        git_snapshot=git_snapshot,
+    )
+    manifest.update(
+        {
+            "qualification_type": "immutable_label_integrity_repackage",
+            "source_run_output_audit": source_audit,
+            "physical_candidate_label_integrity_repair": repair,
+            "numeric_results_reused": True,
+            "watermark": WATERMARK,
+            **closed_authorization(),
+        }
+    )
+    write_json(run_dir / "run_manifest.json", manifest)
+    print(
+        json.dumps(
+            {
+                "run_dir": relative_or_absolute(run_dir),
+                "verdict": manifest["gate"]["verdict"],
+                "qualification_type": manifest["qualification_type"],
+                **closed_authorization(),
+            }
+        ),
+        flush=True,
+    )
+    return run_dir
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run immutable operational-coverage MBDoE qualification"
@@ -2366,6 +2626,13 @@ def parse_args() -> argparse.Namespace:
         "--result-root",
         default=str(RESULT_ROOT),
         help="Parent adaptive-design result root; a unique run directory is always created",
+    )
+    parser.add_argument(
+        "--reuse-completed-run",
+        help=(
+            "Create a new immutable qualification run from a completed run, "
+            "verifying hashes and restoring cached physical candidate labels"
+        ),
     )
     return parser.parse_args()
 
@@ -2381,6 +2648,14 @@ def main() -> None:
         raise ValueError("Coverage watermark must match the required exact text")
     if coverage_config["authorization"] != AUTHORIZATION_FLAGS:
         raise ValueError("Coverage configuration must remain fail closed")
+    if args.reuse_completed_run:
+        _repackage_completed_run(
+            _run_path(args.reuse_completed_run),
+            _run_path(args.result_root),
+            coverage_config,
+            git_snapshot,
+        )
+        return
     model_config = load_wave1_config(MODEL_CONFIG_PATH, CONSTRAINTS_PATH)
     model_config = copy.deepcopy(model_config)
     # Coverage uses a strict lexicographic objective. Complexity is a safety
@@ -2748,6 +3023,7 @@ def main() -> None:
         )
         physical_frames.append(
             frame.assign(
+                candidate=policy.name,
                 strategy="I_reference_information",
                 dose_design="N80",
                 candidate_id="reference_source_final",
@@ -2781,6 +3057,7 @@ def main() -> None:
             )
             physical_frames.append(
                 frame.assign(
+                    candidate=policy.name,
                     strategy=strategy,
                     dose_design=dose_design,
                     candidate_id=selected["candidate_id"],

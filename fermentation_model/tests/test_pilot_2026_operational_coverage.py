@@ -3,10 +3,12 @@ from __future__ import annotations
 import json
 import math
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 
 FERMENTATION_DIR = Path(__file__).resolve().parents[1]
@@ -35,6 +37,9 @@ from pilot_2026.adaptive_design.operational_coverage import (  # noqa: E402
 from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     DesignPolicy,
     load_wave1_config,
+)
+from pilot_2026.adaptive_design.run_wave1_operational_coverage import (  # noqa: E402
+    _repair_physical_candidate_labels,
 )
 
 
@@ -285,6 +290,69 @@ class OperationalCoverageTests(unittest.TestCase):
             self.coverage,
         )
         self.assertTrue(all(checks.values()))
+
+    def test_cached_physical_labels_are_repaired_without_numeric_changes(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            run_dir = Path(temporary)
+            actions = pd.DataFrame(
+                [
+                    {
+                        "strategy": "II_diagonal_1",
+                        "dose_design": "N76_all_conservative",
+                        "candidate_id": "candidate",
+                        "policy": "cold_early",
+                        "action": "initial_transition_audit",
+                        "value": 16.5,
+                    },
+                    {
+                        "strategy": "II_diagonal_1",
+                        "dose_design": "N76_all_conservative",
+                        "candidate_id": "candidate",
+                        "policy": "warm_late",
+                        "action": "initial_transition_audit",
+                        "value": 20.5,
+                    },
+                ]
+            )
+            physical = pd.DataFrame(
+                [
+                    {
+                        "strategy": "II_diagonal_1",
+                        "dose_design": "N76_all_conservative",
+                        "candidate_id": "candidate",
+                        "candidate": "stale_cold_label",
+                        "initial_setpoint_c": 16.5,
+                        "minimum_physical_temperature_c": 15.2,
+                    },
+                    {
+                        "strategy": "II_diagonal_1",
+                        "dose_design": "N76_all_conservative",
+                        "candidate_id": "candidate",
+                        "candidate": "stale_warm_label",
+                        "initial_setpoint_c": 20.5,
+                        "minimum_physical_temperature_c": 17.2,
+                    },
+                ]
+            )
+            actions.to_csv(run_dir / "coverage_candidate_actions.csv", index=False)
+            physical.to_csv(
+                run_dir / "physical_temperature_envelope_by_candidate.csv",
+                index=False,
+            )
+            repair = _repair_physical_candidate_labels(run_dir)
+            repaired = pd.read_csv(
+                run_dir / "physical_temperature_envelope_by_candidate.csv"
+            )
+            self.assertEqual(repair["labels_corrected"], 2)
+            self.assertTrue(repair["all_non_label_columns_byte_value_identical"])
+            self.assertEqual(repaired.candidate.tolist(), ["cold_early", "warm_late"])
+            pd.testing.assert_frame_equal(
+                physical.drop(columns="candidate"),
+                repaired.drop(columns="candidate"),
+                check_exact=True,
+            )
 
 
 if __name__ == "__main__":
