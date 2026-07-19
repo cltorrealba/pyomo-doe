@@ -2694,6 +2694,8 @@ def _repackage_completed_run(
         {
             "tradeoff_label_layout": "encoded_by_color_marker_and_fill_with_only_reference_and_recommendation_annotated",
             "tradeoff_label_overlap_from_source_run_addressed": True,
+            "watermark": WATERMARK,
+            **closed_authorization(),
         }
     )
     write_json(run_dir / "visual_qa.json", figure_qa)
@@ -2720,7 +2722,7 @@ def _repackage_completed_run(
     runs = {
         name: _run_path(value) for name, value in coverage_config["source_runs"].items()
     }
-    closed_payloads = (source_manifest, runtime, recommendation)
+    closed_payloads = (source_manifest, runtime, recommendation, figure_qa)
     gate_checks = {
         "source_completed_run_hashes_verified": source_audit["verdict"] == "PASS",
         "source_numerical_gate_pass": source_manifest["gate"]["verdict"] == "PASS",
