@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import gzip
+import hashlib
 import json
 import math
 import shutil
@@ -2373,7 +2375,7 @@ def _verify_complete_source_run(source_run: Path) -> dict[str, Any]:
             if actual_hash != declared["sha256"]:
                 raw = filesystem_path(path).read_bytes()
                 normalized = raw.replace(b"\r\n", b"\n")
-                normalized_hash = __import__("hashlib").sha256(normalized).hexdigest()
+                normalized_hash = hashlib.sha256(normalized).hexdigest()
                 if normalized_hash == declared["sha256"]:
                     mode = "canonical_lf_text"
                     canonical_lf += 1
@@ -2424,67 +2426,95 @@ def _copy_completed_run_payload(
 def _repair_physical_candidate_labels(run_dir: Path) -> dict[str, Any]:
     actions_path = run_dir / "coverage_candidate_actions.csv"
     physical_path = run_dir / "physical_temperature_envelope_by_candidate.csv"
-    actions = pd.read_csv(filesystem_path(actions_path))
-    physical = pd.read_csv(filesystem_path(physical_path))
-    mapping = (
-        actions.loc[
-            actions.action.eq("initial_transition_audit"),
-            ["strategy", "dose_design", "candidate_id", "policy", "value"],
-        ]
-        .drop_duplicates()
-        .rename(
-            columns={
-                "policy": "expected_candidate",
-                "value": "initial_setpoint_c",
-            }
-        )
-    )
     key_columns = [
         "strategy",
         "dose_design",
         "candidate_id",
         "initial_setpoint_c",
     ]
-    if mapping.duplicated(key_columns, keep=False).any():
-        ambiguous = mapping.loc[
-            mapping.duplicated(key_columns, keep=False),
-            key_columns + ["expected_candidate"],
-        ]
-        raise RuntimeError(
-            "Ambiguous controller-policy label mapping: "
-            f"{ambiguous.to_dict('records')}"
+    with filesystem_path(actions_path).open(
+        "r", encoding="utf-8", newline=""
+    ) as handle:
+        action_rows = list(csv.DictReader(handle))
+    mapping: dict[tuple[str, ...], str] = {}
+    ambiguous: list[dict[str, str]] = []
+    for row in action_rows:
+        if row["action"] != "initial_transition_audit":
+            continue
+        key = (
+            row["strategy"],
+            row["dose_design"],
+            row["candidate_id"],
+            row["value"],
         )
-    expected = physical[key_columns].merge(
-        mapping,
-        on=key_columns,
-        how="left",
-        validate="many_to_one",
-    )["expected_candidate"]
-    if expected.isna().any():
-        missing = physical.loc[
-            expected.isna(),
-            key_columns,
-        ].drop_duplicates()
+        expected = row["policy"]
+        if key in mapping and mapping[key] != expected:
+            ambiguous.append({**dict(zip(key_columns, key)), "policy": expected})
+        mapping[key] = expected
+    if ambiguous:
+        raise RuntimeError(f"Ambiguous controller-policy label mapping: {ambiguous}")
+
+    with filesystem_path(physical_path).open(
+        "r", encoding="utf-8", newline=""
+    ) as handle:
+        reader = csv.reader(handle)
+        header = next(reader)
+        original_rows = list(reader)
+    column = {name: index for index, name in enumerate(header)}
+    required = set(key_columns + ["candidate"])
+    if missing_columns := sorted(required - set(column)):
+        raise RuntimeError(f"Missing physical table columns: {missing_columns}")
+    candidate_index = column["candidate"]
+    non_label_indices = [
+        index for index in range(len(header)) if index != candidate_index
+    ]
+
+    missing: list[dict[str, str]] = []
+    repaired_rows: list[list[str]] = []
+    mismatches_before = 0
+    for original in original_rows:
+        key = tuple(original[column[name]] for name in key_columns)
+        expected = mapping.get(key)
+        if expected is None:
+            missing.append(dict(zip(key_columns, key)))
+            continue
+        repaired = list(original)
+        mismatches_before += int(repaired[candidate_index] != expected)
+        repaired[candidate_index] = expected
+        repaired_rows.append(repaired)
+    if missing:
+        unique_missing = list({tuple(row.items()): row for row in missing}.values())
         raise RuntimeError(
-            "Cannot restore physical candidate labels: " f"{missing.to_dict('records')}"
+            f"Cannot restore physical candidate labels: {unique_missing}"
         )
-    repaired = physical.copy()
-    mismatches_before = int((repaired["candidate"] != expected).sum())
-    repaired["candidate"] = expected.to_numpy()
-    non_label_columns = [column for column in physical if column != "candidate"]
-    pd.testing.assert_frame_equal(
-        physical[non_label_columns],
-        repaired[non_label_columns],
-        check_exact=True,
-    )
-    repaired.to_csv(filesystem_path(physical_path), index=False, lineterminator="\n")
+    original_non_labels = [
+        tuple(row[index] for index in non_label_indices) for row in original_rows
+    ]
+    repaired_non_labels = [
+        tuple(row[index] for index in non_label_indices) for row in repaired_rows
+    ]
+    if original_non_labels != repaired_non_labels:
+        raise RuntimeError("A non-label CSV token changed during label repair")
+    token_hash = sha256_payload(original_non_labels)
+    with filesystem_path(physical_path).open(
+        "w", encoding="utf-8", newline=""
+    ) as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(header)
+        writer.writerows(repaired_rows)
     return {
-        "rows": len(repaired),
+        "rows": len(repaired_rows),
         "labels_corrected": mismatches_before,
         "all_rows_match_controller_policy": bool(
-            repaired["candidate"].eq(expected).all()
+            repaired_rows
+            and all(
+                row[candidate_index]
+                == mapping[tuple(row[column[name]] for name in key_columns)]
+                for row in repaired_rows
+            )
         ),
-        "all_non_label_columns_byte_value_identical": True,
+        "all_non_label_csv_tokens_identical": True,
+        "non_label_csv_token_sha256_before_and_after": token_hash,
         "repair_key": key_columns,
     }
 
@@ -2543,7 +2573,7 @@ def _repackage_completed_run(
             "all_rows_match_controller_policy"
         ],
         "only_label_column_changed_in_physical_table": repair[
-            "all_non_label_columns_byte_value_identical"
+            "all_non_label_csv_tokens_identical"
         ],
         "review_package_rebuilt_with_review_only_suffix": bool(review_outputs)
         and all(REVIEW_SUFFIX in path.name for path in review_outputs),

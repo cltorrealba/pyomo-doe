@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import math
 import sys
@@ -341,13 +342,33 @@ class OperationalCoverageTests(unittest.TestCase):
                 run_dir / "physical_temperature_envelope_by_candidate.csv",
                 index=False,
             )
+            with (run_dir / "physical_temperature_envelope_by_candidate.csv").open(
+                encoding="utf-8", newline=""
+            ) as handle:
+                before = list(csv.reader(handle))
             repair = _repair_physical_candidate_labels(run_dir)
+            with (run_dir / "physical_temperature_envelope_by_candidate.csv").open(
+                encoding="utf-8", newline=""
+            ) as handle:
+                after = list(csv.reader(handle))
             repaired = pd.read_csv(
                 run_dir / "physical_temperature_envelope_by_candidate.csv"
             )
             self.assertEqual(repair["labels_corrected"], 2)
-            self.assertTrue(repair["all_non_label_columns_byte_value_identical"])
+            self.assertTrue(repair["all_non_label_csv_tokens_identical"])
             self.assertEqual(repaired.candidate.tolist(), ["cold_early", "warm_late"])
+            candidate_index = before[0].index("candidate")
+            self.assertEqual(before[0], after[0])
+            self.assertEqual(
+                [
+                    row[:candidate_index] + row[candidate_index + 1 :]
+                    for row in before[1:]
+                ],
+                [
+                    row[:candidate_index] + row[candidate_index + 1 :]
+                    for row in after[1:]
+                ],
+            )
             pd.testing.assert_frame_equal(
                 physical.drop(columns="candidate"),
                 repaired.drop(columns="candidate"),
