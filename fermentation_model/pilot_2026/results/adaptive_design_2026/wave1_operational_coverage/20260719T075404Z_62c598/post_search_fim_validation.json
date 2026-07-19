@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "all_posterior_fims_finite": true,
+    "all_posterior_fims_psd": true,
+    "all_posterior_fims_symmetric": true,
+    "all_sampling_designs_use_64_members": true,
+    "originals_and_refinements_compared": true,
+    "parameter_level_information_published": true,
+    "source_adapter_and_manifests_verified": true,
+    "tail_metrics_published": true
+  },
+  "executable_schedule_issued": false,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "source_reconciliation": {
+    "maximum_abs_current_gain_difference": 3.552713678800501e-15,
+    "maximum_abs_three_anchor_gain_difference": 3.552713678800501e-15,
+    "verdict": "PASS"
+  },
+  "tank_assignments": [],
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

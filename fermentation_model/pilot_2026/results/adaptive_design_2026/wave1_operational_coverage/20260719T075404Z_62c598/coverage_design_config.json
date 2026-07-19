@@ -1,0 +1,207 @@
+{
+  "authorization": {
+    "executable_schedule_issued": false,
+    "physical_execution_authorized": false,
+    "profiles_for_physical_execution": false,
+    "tank_assignments": []
+  },
+  "campaign_start_local": "2026-07-20T15:00:00-04:00",
+  "dose_designs": {
+    "N76_all_conservative": {
+      "anchor_yan_mg_l": 76.0,
+      "coverage_yan_mg_l": 76.0
+    },
+    "N76_historical_anchor": {
+      "anchor_yan_mg_l": 80.0,
+      "coverage_yan_mg_l": 76.0
+    },
+    "N80": {
+      "anchor_yan_mg_l": 80.0,
+      "coverage_yan_mg_l": 80.0
+    }
+  },
+  "executable_schedule_issued": false,
+  "nutrition": {
+    "coincident_sample_action_order": "sample_before_action",
+    "dap_net_yan_fraction": 0.5,
+    "dap_product": "DAP",
+    "dap_yan_mass_fraction": 0.2,
+    "early_slots_h": [
+      0.0,
+      2.0
+    ],
+    "early_window_h": [
+      0.0,
+      6.0
+    ],
+    "late_slots_h": [
+      42.0,
+      46.0,
+      50.0
+    ],
+    "late_window_h": [
+      42.0,
+      50.0
+    ],
+    "minimum_early_late_contrast_h": 36.0,
+    "organic_manufacturer": "Fermentis",
+    "organic_net_yan_fraction": 0.5,
+    "organic_product": "SpringFerm Xtrem",
+    "organic_yan_mass_fraction": 0.1,
+    "prefer_n76_maximum_score_loss_fraction": 0.005,
+    "preferred_early_slot_h": 2.0,
+    "variants": {
+      "N76": {
+        "dap_g": 43.7,
+        "organic_limit_fraction": 0.95,
+        "organic_product_g": 87.4,
+        "yan_mg_l": 76.0
+      },
+      "N80": {
+        "dap_g": 46.0,
+        "organic_limit_fraction": 1.0,
+        "organic_product_g": 92.0,
+        "yan_mg_l": 80.0
+      }
+    },
+    "volume_l": 230.0
+  },
+  "objective": {
+    "criterion": "robust_bayesian_D_information_gain",
+    "median_weight": 0.75,
+    "members": 64,
+    "near_best_fraction": 0.005,
+    "priority_parameter_count": 9,
+    "q10_weight": 0.25,
+    "safety_tiebreakers": [
+      "maximum_initial_or_internal_jump_c",
+      "maximum_robust_physical_temperature_c",
+      "total_thermal_variation_c",
+      "temperature_changes",
+      "minimum_drying_margin_h",
+      "nutrition_operational_margin"
+    ]
+  },
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "recommendation": {
+    "coverage_cost_can_be_justified_below_threshold": true,
+    "minimum_retained_information_improvement_fraction": 0.9
+  },
+  "review_mapping_only": {
+    "anchor": "TK33",
+    "authorized": false,
+    "first_diagonal_corner": "TK31",
+    "second_diagonal_corner": "TK32"
+  },
+  "sampling": {
+    "capture_intervals_per_process": 9,
+    "harmonized_maximum_score_loss_fraction": 0.005,
+    "harmonized_minimum_operator_round_reduction": 1,
+    "local_window": [
+      "09:00",
+      "17:00"
+    ],
+    "manual_capacity_per_slot": 3,
+    "members": 64,
+    "sample_event_order": "sample_before_action",
+    "samples_per_process": 10,
+    "weekdays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ]
+  },
+  "schema_version": 1,
+  "search": {
+    "cognitive": 1.49,
+    "independent_seeds": [
+      20260803,
+      20260817,
+      20260831,
+      20260847,
+      20260861
+    ],
+    "inertia": 0.72,
+    "local_full_ensemble_trials_per_seed": 2,
+    "local_step_fraction": 0.04,
+    "particles": 8,
+    "practical_score_tolerance_fraction": 0.005,
+    "social": 1.49,
+    "stage1_four_member_iterations": 3,
+    "stage2_eight_member_iterations": 2
+  },
+  "source_runs": {
+    "adapter": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd",
+    "aroma_calibration": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+    "information_reference": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179",
+    "joint_ensemble": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+    "sampling_reference": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179",
+    "temperature_actuator": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+  },
+  "strategies": {
+    "III_diagonal_2": [
+      "anchor",
+      "cold_late",
+      "warm_early"
+    ],
+    "II_diagonal_1": [
+      "anchor",
+      "cold_early",
+      "warm_late"
+    ],
+    "IV_adaptive_3_2_1": {
+      "wave1": [
+        "anchor",
+        "cold_early",
+        "warm_late"
+      ],
+      "wave2": [
+        "cold_late",
+        "warm_early"
+      ],
+      "wave3": [
+        "adaptive_confirmation_or_replicate"
+      ]
+    },
+    "I_reference_information": [
+      "anchor",
+      "warm_early",
+      "warm_early"
+    ]
+  },
+  "tank_assignments": [],
+  "thermal": {
+    "after_optimized_window": "hold_last_setpoint",
+    "block_duration_h": 12.0,
+    "cold": {
+      "first_24h_block_maximum_c": 20.0,
+      "first_24h_mean_maximum_c": 18.0,
+      "required_block_maximum_c": 17.0
+    },
+    "controller_horizon_h": 504.0,
+    "initial_temperature_scenarios_c": [
+      17.0,
+      18.0,
+      19.0
+    ],
+    "maximum_change_c": 5.0,
+    "maximum_effective_changes": 4,
+    "maximum_initial_jump_c": 5.0,
+    "minimum_cold_warm_first_24h_mean_contrast_c": 4.0,
+    "minimum_effective_change_c": 1.0,
+    "optimized_blocks": 14,
+    "physical_maximum_c": 27.0,
+    "physical_minimum_c": 15.0,
+    "setpoint_maximum_c": 27.0,
+    "setpoint_minimum_c": 15.0,
+    "warm": {
+      "first_24h_block_minimum_c": 20.0,
+      "first_24h_mean_minimum_c": 22.0,
+      "required_12_to_36h_block_minimum_c": 23.0
+    }
+  },
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

@@ -1,0 +1,114 @@
+{
+  "coverage_variants": {
+    "III_diagonal_2__N76_all_conservative": {
+      "candidate_id": "4814fa24fdcd61f0",
+      "checks": {
+        "coverage": true,
+        "drying_margin_nonnegative": true,
+        "information_sources_and_fim": true,
+        "nutrition": true,
+        "physical_flags_closed": true,
+        "practical_convergence": true,
+        "sampling_and_capture": true,
+        "thermal": true
+      },
+      "verdict": "PASS"
+    },
+    "III_diagonal_2__N76_historical_anchor": {
+      "candidate_id": "426dc067d6647c28",
+      "checks": {
+        "coverage": true,
+        "drying_margin_nonnegative": true,
+        "information_sources_and_fim": true,
+        "nutrition": true,
+        "physical_flags_closed": true,
+        "practical_convergence": true,
+        "sampling_and_capture": true,
+        "thermal": true
+      },
+      "verdict": "PASS"
+    },
+    "III_diagonal_2__N80": {
+      "candidate_id": "414d5478256d2dc0",
+      "checks": {
+        "coverage": true,
+        "drying_margin_nonnegative": false,
+        "information_sources_and_fim": true,
+        "nutrition": true,
+        "physical_flags_closed": true,
+        "practical_convergence": true,
+        "sampling_and_capture": false,
+        "thermal": true
+      },
+      "verdict": "FAIL"
+    },
+    "II_diagonal_1__N76_all_conservative": {
+      "candidate_id": "f2addcf70aa5958d",
+      "checks": {
+        "coverage": true,
+        "drying_margin_nonnegative": true,
+        "information_sources_and_fim": true,
+        "nutrition": true,
+        "physical_flags_closed": true,
+        "practical_convergence": true,
+        "sampling_and_capture": true,
+        "thermal": true
+      },
+      "verdict": "PASS"
+    },
+    "II_diagonal_1__N76_historical_anchor": {
+      "candidate_id": "8d6eff1a9d7b0f79",
+      "checks": {
+        "coverage": true,
+        "drying_margin_nonnegative": true,
+        "information_sources_and_fim": true,
+        "nutrition": true,
+        "physical_flags_closed": true,
+        "practical_convergence": true,
+        "sampling_and_capture": true,
+        "thermal": true
+      },
+      "verdict": "PASS"
+    },
+    "II_diagonal_1__N80": {
+      "candidate_id": "dbfd67a2e686416b",
+      "checks": {
+        "coverage": true,
+        "drying_margin_nonnegative": true,
+        "information_sources_and_fim": true,
+        "nutrition": true,
+        "physical_flags_closed": true,
+        "practical_convergence": true,
+        "sampling_and_capture": true,
+        "thermal": true
+      },
+      "verdict": "PASS"
+    }
+  },
+  "executable_schedule_issued": false,
+  "physical_authorization_gate": "FAIL_NOT_AUTHORIZED",
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "reference_revalidation": {
+    "corrected_failure_reasons": [
+      "coverage lacks a cold treatment and late/early diagonal",
+      "warm initial setpoints exceed the robust 5 C transition limit",
+      "robust physical wine temperature exceeds 27 C",
+      "candidate A and B are operationally equivalent warm/early treatments"
+    ],
+    "coverage_gate": "FAIL",
+    "coverage_pass": false,
+    "coverage_treatments_duplicate": true,
+    "maximum_initial_jump_c": 9.330859861428252,
+    "maximum_internal_jump_c": 4.845915883159485,
+    "maximum_robust_physical_temperature_c": 27.725479778413906,
+    "minimum_robust_physical_temperature_c": 16.605380083014346,
+    "nutrition_pass": true,
+    "temperature_changes": 2,
+    "thermal_gate": "FAIL",
+    "thermal_pass": false,
+    "total_thermal_variation_c": 9.630127624202974
+  },
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

@@ -1,0 +1,81 @@
+{
+  "all_negative_margin_rows_fail_closed": true,
+  "csv_repairs": [
+    {
+      "affected_negative_margin_rows": 2,
+      "all_non_gate_csv_tokens_identical": true,
+      "mutable_gate_columns": [
+        "sampling_gate"
+      ],
+      "non_gate_csv_token_sha256_before_and_after": "b787bc7d37e22e2b9bcd4b007b45cc612daec2b3facba1d1641e0dca973ada8f",
+      "rows": 12,
+      "table": "sampling_strategy_comparison"
+    },
+    {
+      "affected_negative_margin_rows": 2,
+      "all_non_gate_csv_tokens_identical": true,
+      "mutable_gate_columns": [
+        "all_operational_gates_pass",
+        "information_gate",
+        "sampling_gate"
+      ],
+      "non_gate_csv_token_sha256_before_and_after": "45c2a0bd2863e40343ea33b8e038ef2de03f919af4e55f214c570fde4db8ad49",
+      "rows": 13,
+      "table": "coverage_strategy_comparison"
+    }
+  ],
+  "executable_schedule_issued": false,
+  "failed_variants": [
+    {
+      "dose_design": "N80",
+      "drying_margin_gate": "FAIL",
+      "minimum_drying_margin_h": -2.1894220054833795,
+      "strategy": "III_diagonal_2"
+    }
+  ],
+  "numerical_and_non_gate_csv_tokens_reused_exactly": true,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "rule": "minimum_drying_margin_h >= 0",
+  "tank_assignments": [],
+  "variants": [
+    {
+      "dose_design": "N76_all_conservative",
+      "drying_margin_gate": "PASS",
+      "minimum_drying_margin_h": 12.674733345535929,
+      "strategy": "III_diagonal_2"
+    },
+    {
+      "dose_design": "N76_historical_anchor",
+      "drying_margin_gate": "PASS",
+      "minimum_drying_margin_h": 12.674733345535929,
+      "strategy": "III_diagonal_2"
+    },
+    {
+      "dose_design": "N80",
+      "drying_margin_gate": "FAIL",
+      "minimum_drying_margin_h": -2.1894220054833795,
+      "strategy": "III_diagonal_2"
+    },
+    {
+      "dose_design": "N76_all_conservative",
+      "drying_margin_gate": "PASS",
+      "minimum_drying_margin_h": 39.03371597703901,
+      "strategy": "II_diagonal_1"
+    },
+    {
+      "dose_design": "N76_historical_anchor",
+      "drying_margin_gate": "PASS",
+      "minimum_drying_margin_h": 39.03371597703901,
+      "strategy": "II_diagonal_1"
+    },
+    {
+      "dose_design": "N80",
+      "drying_margin_gate": "PASS",
+      "minimum_drying_margin_h": 38.1309511668879,
+      "strategy": "II_diagonal_1"
+    }
+  ],
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

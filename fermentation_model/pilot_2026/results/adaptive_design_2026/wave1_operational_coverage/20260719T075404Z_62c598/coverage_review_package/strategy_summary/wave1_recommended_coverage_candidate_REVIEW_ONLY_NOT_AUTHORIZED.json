@@ -1,0 +1,27 @@
+{
+  "best_compromise": "II_diagonal_1",
+  "best_coverage_design": "II_diagonal_1",
+  "best_information_design": "I_reference_information",
+  "candidate_id": "f2addcf70aa5958d",
+  "coverage_justification": "replaces duplicated warm/early treatments with two unambiguous diagonal thermal-nutrition cells while retaining explicit, quantified information cost",
+  "coverage_justification_used": true,
+  "dose_design": "N76_all_conservative",
+  "executable_schedule_issued": false,
+  "meets_90pct_information_improvement_rule": false,
+  "minimum_recommended_retention_fraction": 0.9,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "recommended": true,
+  "retained_information_improvement_fraction": 0.875811715073395,
+  "review_mapping_only": {
+    "anchor": "TK33",
+    "authorized": false,
+    "first_diagonal_corner": "TK31",
+    "second_diagonal_corner": "TK32"
+  },
+  "robust_score": 21.467529830518824,
+  "sampling_mode": "partially_harmonized",
+  "strategy": "II_diagonal_1",
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

@@ -1,0 +1,21 @@
+{
+  "decision_inputs": [
+    "posterior_variance_reduction_after_waves_1_and_2",
+    "least_identified_parameter_direction",
+    "model_data_discrepancy",
+    "replicate_need",
+    "aroma_and_sensory_coverage"
+  ],
+  "executable_schedule_issued": false,
+  "physical_execution_authorized": false,
+  "physical_instructions_generated": false,
+  "profiles_for_physical_execution": false,
+  "rule": [
+    "replicate the condition with material model-data discrepancy or poor reproducibility",
+    "otherwise select the feasible condition maximizing expected reduction along the least identified direction",
+    "use aroma/sensory coverage as the final tie-breaker"
+  ],
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "wave": 3
+}

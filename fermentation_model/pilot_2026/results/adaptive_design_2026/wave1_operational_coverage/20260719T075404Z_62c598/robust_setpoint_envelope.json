@@ -1,0 +1,38 @@
+{
+  "approved_scenario_count": 243,
+  "derivation": "physical_equilibrium=setpoint-probe_bias+tracking_error; bounds are the intersection over all 243 approved actuator scenarios",
+  "executable_schedule_issued": false,
+  "first_block_safe_setpoint_maximum_c": 22.0,
+  "first_block_safe_setpoint_minimum_c": 16.394619916985654,
+  "initial_jump_only_setpoint_maximum_c": 22.0,
+  "initial_jump_only_setpoint_minimum_c": 14.0,
+  "initial_temperature_scenarios_c": [
+    17.0,
+    18.0,
+    19.0
+  ],
+  "physical_execution_authorized": false,
+  "physical_temperature_bounds_c": [
+    15.0,
+    27.0
+  ],
+  "probe_bias_scenarios_c": [
+    -0.5,
+    0.0,
+    0.5
+  ],
+  "profiles_for_physical_execution": false,
+  "setpoint_hardware_bounds_c": [
+    15.0,
+    27.0
+  ],
+  "steady_state_safe_setpoint_maximum_c": 25.605380083014346,
+  "steady_state_safe_setpoint_minimum_c": 16.394619916985654,
+  "tank_assignments": [],
+  "tracking_error_scenarios_c": [
+    -0.8946199169856546,
+    0.0,
+    0.8946199169856546
+  ],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

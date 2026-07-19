@@ -1,0 +1,124 @@
+{
+  "exact_expected_inventory": true,
+  "executable_schedule_issued": false,
+  "expected_watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "figures": [
+    {
+      "bytes": 85840,
+      "exists": true,
+      "figure": "operational_coverage_map.png",
+      "height_px": 1026,
+      "passed": true,
+      "pixel_dynamic_range": 1.0,
+      "pixel_standard_deviation": 0.08705285240697568,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 1657
+    },
+    {
+      "bytes": 94849,
+      "exists": true,
+      "figure": "coverage_strategy_profiles.png",
+      "height_px": 1026,
+      "passed": true,
+      "pixel_dynamic_range": 1.0,
+      "pixel_standard_deviation": 0.10127642178612037,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 1987
+    },
+    {
+      "bytes": 118925,
+      "exists": true,
+      "figure": "coverage_vs_information_tradeoff.png",
+      "height_px": 1026,
+      "passed": true,
+      "pixel_dynamic_range": 1.0,
+      "pixel_standard_deviation": 0.09906170210778684,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 1657
+    },
+    {
+      "bytes": 196989,
+      "exists": true,
+      "figure": "parameter_variance_comparison.png",
+      "height_px": 1026,
+      "passed": true,
+      "pixel_dynamic_range": 1.0,
+      "pixel_standard_deviation": 0.21619928099590413,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 1987
+    },
+    {
+      "bytes": 305684,
+      "exists": true,
+      "figure": "cold_early_predictions.png",
+      "height_px": 2184,
+      "passed": true,
+      "pixel_dynamic_range": 0.9333333298563957,
+      "pixel_standard_deviation": 0.10541943136509177,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 2152
+    },
+    {
+      "bytes": 315692,
+      "exists": true,
+      "figure": "cold_late_predictions.png",
+      "height_px": 2184,
+      "passed": true,
+      "pixel_dynamic_range": 0.9333333298563957,
+      "pixel_standard_deviation": 0.10524421857131314,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 2152
+    },
+    {
+      "bytes": 311810,
+      "exists": true,
+      "figure": "warm_early_predictions.png",
+      "height_px": 2184,
+      "passed": true,
+      "pixel_dynamic_range": 0.9333333298563957,
+      "pixel_standard_deviation": 0.10575493764361923,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 2152
+    },
+    {
+      "bytes": 315504,
+      "exists": true,
+      "figure": "warm_late_predictions.png",
+      "height_px": 2184,
+      "passed": true,
+      "pixel_dynamic_range": 0.9333333298563957,
+      "pixel_standard_deviation": 0.1059458790380008,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 2152
+    },
+    {
+      "bytes": 140789,
+      "exists": true,
+      "figure": "physical_temperature_envelope.png",
+      "height_px": 1522,
+      "passed": true,
+      "pixel_dynamic_range": 0.9333333298563957,
+      "pixel_standard_deviation": 0.10050699746118523,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 2152
+    },
+    {
+      "bytes": 99973,
+      "exists": true,
+      "figure": "wave_3_2_1_coverage_plan.png",
+      "height_px": 1026,
+      "passed": true,
+      "pixel_dynamic_range": 1.0,
+      "pixel_standard_deviation": 0.09701204703758114,
+      "watermark_added_by_shared_export_function": true,
+      "width_px": 1987
+    }
+  ],
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "tradeoff_label_layout": "encoded_by_color_marker_and_fill_with_only_reference_and_recommendation_annotated",
+  "tradeoff_label_overlap_from_source_run_addressed": true,
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

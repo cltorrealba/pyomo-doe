@@ -1,0 +1,443 @@
+{
+  "executable_schedule_issued": false,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "variants": {
+    "III_diagonal_2__N76_all_conservative": {
+      "best_full_ensemble_robust_score": 19.77543382978818,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.004164298188871016,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260831,
+        20260847,
+        20260861
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1616977585985321,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.3328158250677588
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.0508688396684497,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.07806495631398139
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1554311595054023,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3037564701920771
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.05378773906609517,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.08536220480809507
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18282378399425026,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.37223803141419703
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.12982527143759703,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.23974175002256398
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18606334040880138,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.38033692245057477
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.11103658353211154,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.24187717311599313
+        },
+        {
+          "changepoint_distance": 0.0,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.004414728995191042,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.011036822487977604
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260847,
+          "policy_distance": 0.10698030449663111,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.23173647552729204
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "III_diagonal_2__N76_historical_anchor": {
+      "best_full_ensemble_robust_score": 19.80903657810562,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.0041574210509848645,
+      "near_best_seeds": [
+        20260817,
+        20260831,
+        20260847,
+        20260861
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18282378399425026,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.37223803141419703
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.12472878139780659,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.22700052492308792
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18606334040880138,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.38033692245057477
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.11856308539196325,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.2606934277656224
+        },
+        {
+          "changepoint_distance": 0.0,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.004414728995191042,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.011036822487977604
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260847,
+          "policy_distance": 0.11445977155330822,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.2504351431689848
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "III_diagonal_2__N80": {
+      "best_full_ensemble_robust_score": 19.789708778741357,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.006120183552292417,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260831,
+        20260861
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1431098428433916,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.32206032139419327
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.04659682862594125,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.06738492870771025
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.04759434285062923,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.06987871426943022
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18633204133506837,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.3810086747662423
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18713336082603693,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.38301197349366367
+        },
+        {
+          "changepoint_distance": 0.0,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.0015581611900970403,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.0038954029752426003
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "II_diagonal_1__N76_all_conservative": {
+      "best_full_ensemble_robust_score": 19.813954528728328,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.0016214623958277206,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260847
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1658012063823023,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.27276194452718433
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.08444872057720741,
+          "pulse_time_distance": 0.041666666666666664,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.11067537287158996
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.375,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.19591999196123533,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3346660513316597
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "II_diagonal_1__N76_historical_anchor": {
+      "best_full_ensemble_robust_score": 19.81902100901898,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.0016192300336489516,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260847
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1658012063823023,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.27276194452718433
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.08444872057720741,
+          "pulse_time_distance": 0.041666666666666664,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.11067537287158996
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.375,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.19591999196123533,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3346660513316597
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "II_diagonal_1__N80": {
+      "best_full_ensemble_robust_score": 19.808943185784944,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 1.3079269897938393,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260847
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.15363154131107784,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.25015028184912314
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.05889987218138646,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.10372289473918042
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.171846024406905,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3235882753029768
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    }
+  },
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

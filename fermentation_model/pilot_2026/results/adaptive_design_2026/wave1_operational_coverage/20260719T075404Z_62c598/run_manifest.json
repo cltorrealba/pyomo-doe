@@ -1,0 +1,2000 @@
+{
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/operational_coverage.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_wave1_operational_coverage.py"
+    ],
+    "sha256": "7319fc633644cdea7861eb33d91765b09c04fed4dd52009a9ac5358829f432ea"
+  },
+  "configuration": {
+    "payload": {
+      "coverage": {
+        "authorization": {
+          "executable_schedule_issued": false,
+          "physical_execution_authorized": false,
+          "profiles_for_physical_execution": false,
+          "tank_assignments": []
+        },
+        "campaign_start_local": "2026-07-20T15:00:00-04:00",
+        "dose_designs": {
+          "N76_all_conservative": {
+            "anchor_yan_mg_l": 76.0,
+            "coverage_yan_mg_l": 76.0
+          },
+          "N76_historical_anchor": {
+            "anchor_yan_mg_l": 80.0,
+            "coverage_yan_mg_l": 76.0
+          },
+          "N80": {
+            "anchor_yan_mg_l": 80.0,
+            "coverage_yan_mg_l": 80.0
+          }
+        },
+        "nutrition": {
+          "coincident_sample_action_order": "sample_before_action",
+          "dap_net_yan_fraction": 0.5,
+          "dap_product": "DAP",
+          "dap_yan_mass_fraction": 0.2,
+          "early_slots_h": [
+            0.0,
+            2.0
+          ],
+          "early_window_h": [
+            0.0,
+            6.0
+          ],
+          "late_slots_h": [
+            42.0,
+            46.0,
+            50.0
+          ],
+          "late_window_h": [
+            42.0,
+            50.0
+          ],
+          "minimum_early_late_contrast_h": 36.0,
+          "organic_manufacturer": "Fermentis",
+          "organic_net_yan_fraction": 0.5,
+          "organic_product": "SpringFerm Xtrem",
+          "organic_yan_mass_fraction": 0.1,
+          "prefer_n76_maximum_score_loss_fraction": 0.005,
+          "preferred_early_slot_h": 2.0,
+          "variants": {
+            "N76": {
+              "dap_g": 43.7,
+              "organic_limit_fraction": 0.95,
+              "organic_product_g": 87.4,
+              "yan_mg_l": 76.0
+            },
+            "N80": {
+              "dap_g": 46.0,
+              "organic_limit_fraction": 1.0,
+              "organic_product_g": 92.0,
+              "yan_mg_l": 80.0
+            }
+          },
+          "volume_l": 230.0
+        },
+        "objective": {
+          "criterion": "robust_bayesian_D_information_gain",
+          "median_weight": 0.75,
+          "members": 64,
+          "near_best_fraction": 0.005,
+          "priority_parameter_count": 9,
+          "q10_weight": 0.25,
+          "safety_tiebreakers": [
+            "maximum_initial_or_internal_jump_c",
+            "maximum_robust_physical_temperature_c",
+            "total_thermal_variation_c",
+            "temperature_changes",
+            "minimum_drying_margin_h",
+            "nutrition_operational_margin"
+          ]
+        },
+        "recommendation": {
+          "coverage_cost_can_be_justified_below_threshold": true,
+          "minimum_retained_information_improvement_fraction": 0.9
+        },
+        "review_mapping_only": {
+          "anchor": "TK33",
+          "authorized": false,
+          "first_diagonal_corner": "TK31",
+          "second_diagonal_corner": "TK32"
+        },
+        "sampling": {
+          "capture_intervals_per_process": 9,
+          "harmonized_maximum_score_loss_fraction": 0.005,
+          "harmonized_minimum_operator_round_reduction": 1,
+          "local_window": [
+            "09:00",
+            "17:00"
+          ],
+          "manual_capacity_per_slot": 3,
+          "members": 64,
+          "sample_event_order": "sample_before_action",
+          "samples_per_process": 10,
+          "weekdays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ]
+        },
+        "schema_version": 1,
+        "search": {
+          "cognitive": 1.49,
+          "independent_seeds": [
+            20260803,
+            20260817,
+            20260831,
+            20260847,
+            20260861
+          ],
+          "inertia": 0.72,
+          "local_full_ensemble_trials_per_seed": 2,
+          "local_step_fraction": 0.04,
+          "particles": 8,
+          "practical_score_tolerance_fraction": 0.005,
+          "social": 1.49,
+          "stage1_four_member_iterations": 3,
+          "stage2_eight_member_iterations": 2
+        },
+        "source_runs": {
+          "adapter": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd",
+          "aroma_calibration": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+          "information_reference": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179",
+          "joint_ensemble": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+          "sampling_reference": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179",
+          "temperature_actuator": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+        },
+        "strategies": {
+          "III_diagonal_2": [
+            "anchor",
+            "cold_late",
+            "warm_early"
+          ],
+          "II_diagonal_1": [
+            "anchor",
+            "cold_early",
+            "warm_late"
+          ],
+          "IV_adaptive_3_2_1": {
+            "wave1": [
+              "anchor",
+              "cold_early",
+              "warm_late"
+            ],
+            "wave2": [
+              "cold_late",
+              "warm_early"
+            ],
+            "wave3": [
+              "adaptive_confirmation_or_replicate"
+            ]
+          },
+          "I_reference_information": [
+            "anchor",
+            "warm_early",
+            "warm_early"
+          ]
+        },
+        "thermal": {
+          "after_optimized_window": "hold_last_setpoint",
+          "block_duration_h": 12.0,
+          "cold": {
+            "first_24h_block_maximum_c": 20.0,
+            "first_24h_mean_maximum_c": 18.0,
+            "required_block_maximum_c": 17.0
+          },
+          "controller_horizon_h": 504.0,
+          "initial_temperature_scenarios_c": [
+            17.0,
+            18.0,
+            19.0
+          ],
+          "maximum_change_c": 5.0,
+          "maximum_effective_changes": 4,
+          "maximum_initial_jump_c": 5.0,
+          "minimum_cold_warm_first_24h_mean_contrast_c": 4.0,
+          "minimum_effective_change_c": 1.0,
+          "optimized_blocks": 14,
+          "physical_maximum_c": 27.0,
+          "physical_minimum_c": 15.0,
+          "setpoint_maximum_c": 27.0,
+          "setpoint_minimum_c": 15.0,
+          "warm": {
+            "first_24h_block_minimum_c": 20.0,
+            "first_24h_mean_minimum_c": 22.0,
+            "required_12_to_36h_block_minimum_c": 23.0
+          }
+        },
+        "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+      },
+      "numeric_results_reused": true,
+      "qualification_actions": [
+        "restore_cached_physical_candidate_labels",
+        "fail_close_negative_drying_margin_gates",
+        "regenerate_nonoverlapping_information_tradeoff_figure",
+        "refresh_structural_figure_qa",
+        "rebuild_review_only_package"
+      ],
+      "source_run_manifest_sha256": "1563a15739260291a6c0a1ce19678133172b54898705dc6ee09d9b6cc98dd526"
+    },
+    "sha256": "62c598190ad1b89ba7c310f0b93b7fe2b8541ddd7d060a58d5f5f88d18bc13bf"
+  },
+  "created_utc": "2026-07-19T07:54:07.655739+00:00",
+  "drying_margin_qualification": {
+    "all_negative_margin_rows_fail_closed": true,
+    "csv_repairs": [
+      {
+        "affected_negative_margin_rows": 2,
+        "all_non_gate_csv_tokens_identical": true,
+        "mutable_gate_columns": [
+          "sampling_gate"
+        ],
+        "non_gate_csv_token_sha256_before_and_after": "b787bc7d37e22e2b9bcd4b007b45cc612daec2b3facba1d1641e0dca973ada8f",
+        "rows": 12,
+        "table": "sampling_strategy_comparison"
+      },
+      {
+        "affected_negative_margin_rows": 2,
+        "all_non_gate_csv_tokens_identical": true,
+        "mutable_gate_columns": [
+          "all_operational_gates_pass",
+          "information_gate",
+          "sampling_gate"
+        ],
+        "non_gate_csv_token_sha256_before_and_after": "45c2a0bd2863e40343ea33b8e038ef2de03f919af4e55f214c570fde4db8ad49",
+        "rows": 13,
+        "table": "coverage_strategy_comparison"
+      }
+    ],
+    "executable_schedule_issued": false,
+    "failed_variants": [
+      {
+        "dose_design": "N80",
+        "drying_margin_gate": "FAIL",
+        "minimum_drying_margin_h": -2.1894220054833795,
+        "strategy": "III_diagonal_2"
+      }
+    ],
+    "numerical_and_non_gate_csv_tokens_reused_exactly": true,
+    "physical_execution_authorized": false,
+    "profiles_for_physical_execution": false,
+    "rule": "minimum_drying_margin_h >= 0",
+    "tank_assignments": [],
+    "variants": [
+      {
+        "dose_design": "N76_all_conservative",
+        "drying_margin_gate": "PASS",
+        "minimum_drying_margin_h": 12.674733345535929,
+        "strategy": "III_diagonal_2"
+      },
+      {
+        "dose_design": "N76_historical_anchor",
+        "drying_margin_gate": "PASS",
+        "minimum_drying_margin_h": 12.674733345535929,
+        "strategy": "III_diagonal_2"
+      },
+      {
+        "dose_design": "N80",
+        "drying_margin_gate": "FAIL",
+        "minimum_drying_margin_h": -2.1894220054833795,
+        "strategy": "III_diagonal_2"
+      },
+      {
+        "dose_design": "N76_all_conservative",
+        "drying_margin_gate": "PASS",
+        "minimum_drying_margin_h": 39.03371597703901,
+        "strategy": "II_diagonal_1"
+      },
+      {
+        "dose_design": "N76_historical_anchor",
+        "drying_margin_gate": "PASS",
+        "minimum_drying_margin_h": 39.03371597703901,
+        "strategy": "II_diagonal_1"
+      },
+      {
+        "dose_design": "N80",
+        "drying_margin_gate": "PASS",
+        "minimum_drying_margin_h": 38.1309511668879,
+        "strategy": "II_diagonal_1"
+      }
+    ],
+    "verdict": "PASS",
+    "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+  },
+  "environment": {
+    "executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\python.exe",
+    "packages": {
+      "chemicals": "1.5.2",
+      "idaes-pse": "2.11.0",
+      "matplotlib": "3.9.2",
+      "nbclient": "0.8.0",
+      "nbformat": "5.10.4",
+      "numpy": "1.26.4",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.2",
+      "pyomo": "6.10.0",
+      "scipy": "1.13.1",
+      "thermo": "0.6.0"
+    },
+    "platform": "Windows-11-10.0.22631-SP0",
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "solver": {
+      "ipopt_available_on_path": true,
+      "ipopt_executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\Library\\bin\\ipopt.EXE"
+    }
+  },
+  "executable_schedule_issued": false,
+  "figure_layout_qualification": {
+    "manual_visual_inspection_required_before_publication": true,
+    "structural_qa_verdict": "PASS",
+    "tradeoff_figure_regenerated": true
+  },
+  "gate": {
+    "checks": {
+      "negative_drying_margin_variants_fail_closed": true,
+      "only_label_column_changed_in_physical_table": true,
+      "physical_candidate_labels_match_controller_policy": true,
+      "physical_flags_closed": true,
+      "recommended_variant_has_nonnegative_drying_margin": true,
+      "review_package_rebuilt_with_review_only_suffix": true,
+      "source_completed_run_hashes_verified": true,
+      "source_numerical_gate_pass": true,
+      "structural_figure_qa_pass": true,
+      "tradeoff_figure_rebuilt_with_nonoverlapping_encoding": true,
+      "watermark_preserved": true
+    },
+    "physical_authorization_gate": "FAIL_NOT_AUTHORIZED",
+    "verdict": "PASS"
+  },
+  "git": {
+    "branch": "wave1_operational_coverage",
+    "captured_before_output_directory": true,
+    "commit": "88c81ac215d356fef58b400dc8a43ad98d257a4f",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty": false,
+    "dirty_paths": [],
+    "porcelain_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_paths": []
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598",
+  "numeric_results_reused": true,
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/capture_interval_summary.csv": {
+      "bytes": 388575,
+      "sha256": "491d9c52800a8a0ced5225037089020ef4010e95cdaf0280ef6e83d4d76b6fcd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__001__four_member__iteration_000.json.gz": {
+      "bytes": 4155,
+      "sha256": "2892ff2d4933a51b4d72c4f606ce436e5af75dfe141288287668f6d4bb4a72dd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__002__four_member__iteration_001.json.gz": {
+      "bytes": 4640,
+      "sha256": "0d6f3e61100200dffbd85d3aef1627ed718cdf6c035b11039a697806d75b71e4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__003__four_member__iteration_002.json.gz": {
+      "bytes": 4617,
+      "sha256": "9481c105a8340a98c24133fce60e8ea5bb3643f6013e077c58d9edb8fdf352b8"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__004__four_member__iteration_003.json.gz": {
+      "bytes": 4534,
+      "sha256": "28b45059a7caac576f9df97a73342e5e16cfaa1c8bad1b0df94dc2a86b2c7ac8"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4550,
+      "sha256": "3ff481b5321e509ac038ec7c8ef93a1baac3fbb9646ddee13ade52b684d9809e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4509,
+      "sha256": "d2dc4e419fbe82658340173f86daa8c0100e092a612dd82b20acdddcebd8207b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260803__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5040,
+      "sha256": "f20b945ba18e82363165b80d9283c126befff1fb92558870e5faac2d67a53c32"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__001__four_member__iteration_000.json.gz": {
+      "bytes": 4174,
+      "sha256": "de2c5dc25111d54cfc0eb4e4971ae2ea233d7f6c1d1bce918591e046c51d726e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__002__four_member__iteration_001.json.gz": {
+      "bytes": 4706,
+      "sha256": "38e54db55c1c4a7ed7bee0a18b5c939399bbe2bf0bda32e9f3279145a18bdae3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__003__four_member__iteration_002.json.gz": {
+      "bytes": 5612,
+      "sha256": "f435c78026279b96f9385b3f61523a19542356d0371eff5324fcee568ff1edb7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__004__four_member__iteration_003.json.gz": {
+      "bytes": 5654,
+      "sha256": "34ec14246ed5fe999639667b0f803a07601f877af4c91eceb20ce55dd2a81e04"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__005__eight_member__iteration_003.json.gz": {
+      "bytes": 5649,
+      "sha256": "09f51c4069095b91671dd1bb72bc9b88aadbfc7447ddb57a6faf71fbfd5a8b14"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5001,
+      "sha256": "f727b115170a2af489527f37bb1d02efbe55e72add1e2a5e7807cb96ee475e98"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260817__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5868,
+      "sha256": "9606b57201415cd0412bea76924746a9ed9e55674e00c56de878d7bd8a7903e5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__001__four_member__iteration_000.json.gz": {
+      "bytes": 4171,
+      "sha256": "a2a4467226e778c028046c2600bdde944149f33685a95a771ffda06e4f59ef8d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__002__four_member__iteration_001.json.gz": {
+      "bytes": 4408,
+      "sha256": "5e804ca232bcfaf19adc42c174077ef11f0fd95183b34b9850ddeece883b3f60"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__003__four_member__iteration_002.json.gz": {
+      "bytes": 4354,
+      "sha256": "a1fb41c47255b8ed68e79c25792a1cb1fee070f53dd9674b1f8292cef19cca7d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__004__four_member__iteration_003.json.gz": {
+      "bytes": 4424,
+      "sha256": "8bfa0efaff86ef5ec35b6f50295d11b74212004e1379eb044f7eeba5f890b2a3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4444,
+      "sha256": "5b7d01260fd11097855a2d4c5a15a8cb4e4003f030f5cf2795ba2e129b41bf0b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4568,
+      "sha256": "774c534ae66ff3f6a088afe378f1f44a094d1cdd6650dc2d124a049b2610a1a5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260831__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4706,
+      "sha256": "699c9419ec949df3329dd91df45aa52aec83eb0b42a5de87121da2a7759de768"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__001__four_member__iteration_000.json.gz": {
+      "bytes": 4181,
+      "sha256": "cba67889f1fab32cbca3cc4747f3689060234ddb7d6cebd77bb3ecaae7ed8e2f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__002__four_member__iteration_001.json.gz": {
+      "bytes": 4425,
+      "sha256": "9384fd5f2c02e1d31862af38c2a36ec14b97eff287aeff7ad985cdc852d95aa3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__003__four_member__iteration_002.json.gz": {
+      "bytes": 4620,
+      "sha256": "8cbb144156c9e2e877c02e46c2c91bc893c6dc4049c497739907a675d46ea83d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__004__four_member__iteration_003.json.gz": {
+      "bytes": 4662,
+      "sha256": "8c6b29ca5313fec42ec74f4f1ccdcd1889758fa6266635eb7ec4cd8637e613d0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4446,
+      "sha256": "1b7fead5b382522165d9f64b7d386789a1725dc416e886eb353d9220b6c5f4cb"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4894,
+      "sha256": "cd062098dc9d37623ac2666c959677aee0b2e90a2a2213cb6e95c18717138580"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260847__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4962,
+      "sha256": "8847ebded2eea8388698297517f52b248de3ad59dc45a024ac8944f064db86c3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__001__four_member__iteration_000.json.gz": {
+      "bytes": 4160,
+      "sha256": "fe6e612b3b3530413b037ec15c5f6461c9d7e57b1ea7efa02b05e096bb0bb890"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__002__four_member__iteration_001.json.gz": {
+      "bytes": 4599,
+      "sha256": "5d801cbd078fa37923d122c724f974453efd6553dfe21aed9117f78dca0dbb9a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__003__four_member__iteration_002.json.gz": {
+      "bytes": 4354,
+      "sha256": "30408c64bf6dadcc1b1a738ea0c5ca65763cd1a9d3fc97b44ca266d25379b8d0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__004__four_member__iteration_003.json.gz": {
+      "bytes": 4286,
+      "sha256": "46fd13ecb5e0114bf83670b2f4d2e348ed099b0a2e51a31ce3811ef1bce40eba"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4301,
+      "sha256": "cf1575b88aa6e791cbbad597ebc9e8c5ab13704f651ccea4326a675424b26c5a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4445,
+      "sha256": "f9af8ae9dd62865aac2dbce8c016e4711682ddb2c7fd7c63ca3b638478bd4f2b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_all_conservative__seed_20260861__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4222,
+      "sha256": "67f26ee6eb1a4e3f41cc16ce6151232ac6d4cf7b795bae9a5513c31b35cf2b36"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__001__four_member__iteration_000.json.gz": {
+      "bytes": 4152,
+      "sha256": "81b7c2156674137970b95b95c2f3d8564711bc13eaecb98f6c4bdc2d007521d6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__002__four_member__iteration_001.json.gz": {
+      "bytes": 4633,
+      "sha256": "ea07188a084230a77f4867b760042f9d75fc62cccaaf697437179e5a27a62fa9"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__003__four_member__iteration_002.json.gz": {
+      "bytes": 4617,
+      "sha256": "e080cc750cbf5c2eb4b38ce64734b57dd0e27df59edd81b9384c4c5528fc4b09"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__004__four_member__iteration_003.json.gz": {
+      "bytes": 4525,
+      "sha256": "209c1504fc88c4ab529c1d171cd9c6db55124b1f154d3719bfc873cb0e90b706"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4535,
+      "sha256": "6802ad7bb71ef18728279458447403355c5e6201d635df4487793bf178220512"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4505,
+      "sha256": "a7d71d5a3607f690f770de41ebe15d15482600d8c4e95593c7366d4a94f1aac9"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260803__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5041,
+      "sha256": "3e92a16dc0d86e0dd30365bdf58ad5332e294cf1a631c4a9ada273ff3570668f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__001__four_member__iteration_000.json.gz": {
+      "bytes": 4173,
+      "sha256": "0cf4996e609d9777ef08b2730b0e2b9436d3b7a605f2a590db5fc2c8e54f850c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__002__four_member__iteration_001.json.gz": {
+      "bytes": 4697,
+      "sha256": "9101eddbba656971c79d3e1a3dc607d6821d7175497d24726493525007fadf0d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__003__four_member__iteration_002.json.gz": {
+      "bytes": 5612,
+      "sha256": "0998cacc1c0f5a71051ccbc55c3dc7b6b5ace89206d7a4873c91274a31f4e0d5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__004__four_member__iteration_003.json.gz": {
+      "bytes": 5651,
+      "sha256": "69d8c0ee706cc489bfd73717807a62dd58a92eac5042a8ad5f4234abe00de1f3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__005__eight_member__iteration_003.json.gz": {
+      "bytes": 5652,
+      "sha256": "ebfd8a0cf1e23cd6e566870fa049eb4ee24a384a75405739a96d20b13d2df7ad"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5011,
+      "sha256": "ddb8e385743f493697a5acd946463e726d52584a47751316f2d2ead71e1bfe7e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260817__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5881,
+      "sha256": "9481c49cceb13066fd7923e136c5fbe7411bdea05e769ae74d70ad24e5122708"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__001__four_member__iteration_000.json.gz": {
+      "bytes": 4172,
+      "sha256": "d9f23abe1179bc9035179219bada3e2e52141706c17666c5560df06e925b696d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__002__four_member__iteration_001.json.gz": {
+      "bytes": 4408,
+      "sha256": "49f0a80c2789379e7665046ff52d5d9f177a37926cd9e817537f89d66fab264f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__003__four_member__iteration_002.json.gz": {
+      "bytes": 4346,
+      "sha256": "9d96781ddef05db81ec38a980a640952a33a0073e010aeb57c6a4cc1ddbbcb7f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__004__four_member__iteration_003.json.gz": {
+      "bytes": 4422,
+      "sha256": "b34930c7bad587748ee72540ddac7ee503ed526bfd47c4f608726138be03f4b1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4437,
+      "sha256": "994cd46b842de35e6ff47f80ae811905bea5e5f7a02bbd8924a158aeb217293d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4557,
+      "sha256": "5cbe02d3a85b59b7a91585411baa1d439e51ff0deced9f5284e772ce82e2328f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260831__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4565,
+      "sha256": "2b325d03cd1a10784ef70d4140541b37d16f87aeea836177c7b4e8d2768a7b39"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__001__four_member__iteration_000.json.gz": {
+      "bytes": 4175,
+      "sha256": "441401170e2aab38904ba15acd097f7c8cb190ad3dd9c1fa167ecb259342a6d3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__002__four_member__iteration_001.json.gz": {
+      "bytes": 4418,
+      "sha256": "64c1b20509137f64b614b8fff040f31b1e7ea34a7a361a9d558bdc7d585f9e2e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__003__four_member__iteration_002.json.gz": {
+      "bytes": 4617,
+      "sha256": "3c9c6cacc224af792ffbe5cd3de8590fd03e935e4a11c5d683246d4c1ff7ce92"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__004__four_member__iteration_003.json.gz": {
+      "bytes": 4660,
+      "sha256": "9d3d825b1721fd08367aaf69666b4c952a8657dc6ff00213c45d2341a32507cd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4432,
+      "sha256": "918d09d82682465642d475c0067a8fa1a11529075dfcbe20b44f752cbf6b4251"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5121,
+      "sha256": "1387ef3b9353e5f0ee87b5d30070085861bf4859163e310d0e630e57543a6d33"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260847__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4956,
+      "sha256": "9a90b7ffc0e709645edc67bf06e5cc76db4842339af1ce7dac909d5d7875014e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__001__four_member__iteration_000.json.gz": {
+      "bytes": 4155,
+      "sha256": "3f23882459938e84a61da0bfdd2ff59a9fcb7f5c19ce3db30deab8d54a489a8f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__002__four_member__iteration_001.json.gz": {
+      "bytes": 4592,
+      "sha256": "6ba0aa6dc8be2b818f24448ac44f53c0de943306da5edf4395429c2ff1f22210"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__003__four_member__iteration_002.json.gz": {
+      "bytes": 4347,
+      "sha256": "aed9c9c816fbfc339b91b2b1b69fcc86bff6bac58a31d5999f79dd1e22d47317"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__004__four_member__iteration_003.json.gz": {
+      "bytes": 4280,
+      "sha256": "c03f2c7f9fc877955d6721675a313a825765aea718db4fbc57d63d422437ced1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4295,
+      "sha256": "b68740c94bee851e8a6b0759aa14e40468c842b86e73d4c8c0923053982e1f98"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4437,
+      "sha256": "dc336e558dc447dd8aaf31501fe1e825f08266df63389c3746803ec962433e42"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N76_historical_anchor__seed_20260861__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4225,
+      "sha256": "1c6a0094812c53517766ea3119521619d416fa074e15da6fd94343b4c7e0affc"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__001__four_member__iteration_000.json.gz": {
+      "bytes": 4125,
+      "sha256": "02d37233a793063048166222709492a7a13c1c651f09bde3d6142670c635fb5f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__002__four_member__iteration_001.json.gz": {
+      "bytes": 4602,
+      "sha256": "76dd1df2fca833eeceb1a3346abb8b03bb6886d2086bfac9519c4701868f8179"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__003__four_member__iteration_002.json.gz": {
+      "bytes": 4577,
+      "sha256": "33b15c6868707f2f67132c3f0c2eb702791729a22be559dd3de9417f257cd81a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__004__four_member__iteration_003.json.gz": {
+      "bytes": 4493,
+      "sha256": "40b1c17c16c2977ac8a83584538f63653b71a0cd3117ba45aebdf098e5a8d280"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4513,
+      "sha256": "3c2b0eb7428375d27b80c483302378b4d13b89e85d17735b9e4cb13bf70869f4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4480,
+      "sha256": "cc7d4986cceb3cbc8b9dcd22a5c8959f94ac15db2ebc8a1820cf396f6561a81f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260803__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4952,
+      "sha256": "e8251658e9f75058f805f112a662a12a8c1d85a800e1dba20691ef20625e3101"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__001__four_member__iteration_000.json.gz": {
+      "bytes": 4145,
+      "sha256": "662e3cd180a89944f55f342d2bca5c3c4f0f9cef8e038b62acb63539482a96c1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__002__four_member__iteration_001.json.gz": {
+      "bytes": 4670,
+      "sha256": "4ac65dba0b0f14e00d8aa9ed35fef650009be57bf48c177387a01f690023e587"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__003__four_member__iteration_002.json.gz": {
+      "bytes": 5584,
+      "sha256": "3afdba44dfd4c739be80cfbb4409faee39ce365a7958c95ce1e4693cecb1bb16"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__004__four_member__iteration_003.json.gz": {
+      "bytes": 5636,
+      "sha256": "3ef22c78ff80de1099c4dcde97cfc9c46528708c1d12f566d34a07071063f170"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__005__eight_member__iteration_003.json.gz": {
+      "bytes": 5617,
+      "sha256": "76f7e4bf3d711c05aca61ac55e690083e956590442b3d3a7ca5a4a6234e8db51"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4979,
+      "sha256": "411e6078a73b72116b7c7f2ca4c0c1508fdc579d6d50de0d68f9fac030d16b1b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260817__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5657,
+      "sha256": "58c956d2b3122bbfb829ae9feb0295c0b06aec044bcfacdec2efd421d97a6d6e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__001__four_member__iteration_000.json.gz": {
+      "bytes": 4144,
+      "sha256": "7842940f63eb409ae98eab2699a7686204ab4a6454e486e6cbb7c991af75b775"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__002__four_member__iteration_001.json.gz": {
+      "bytes": 4579,
+      "sha256": "a8b8f34c2f7ae3c9234be8bc3d0c4038cdaaac2a1ec80c39dee2bf46fe2ff6ce"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__003__four_member__iteration_002.json.gz": {
+      "bytes": 4368,
+      "sha256": "e4dc6a6bbbef4b78da6fa6565a6fd8a2060a005d64b4c5c45155ba30e4c7b89d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__004__four_member__iteration_003.json.gz": {
+      "bytes": 4468,
+      "sha256": "49f8086fe9e7df71b06567a249be81ade3a0e3cb590f1bfbb6c1ca97e9fcb13d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4480,
+      "sha256": "9aee08c88817243a1419a607fb063079673b1c86dfd891153d1ba2d1cf42b059"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4552,
+      "sha256": "7e0d853821f87472dfe3cd2cf724c16a04dc1668ce7f536dd058a1199efa80bd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260831__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4158,
+      "sha256": "db0637b519e487da678ac2dd477fdf5e72f05fb79581feeaafe5710de05fb682"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__001__four_member__iteration_000.json.gz": {
+      "bytes": 4145,
+      "sha256": "ab8fb2f58a7679ba1141f2d8e418fa9dfbb880b6399117332c0e328ecf75d34c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__002__four_member__iteration_001.json.gz": {
+      "bytes": 4393,
+      "sha256": "e1c6f9c588d3ccd89994a769373b52087eaf5f3892f98157abec9dace630ea4d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__003__four_member__iteration_002.json.gz": {
+      "bytes": 4353,
+      "sha256": "44bca8ee23edb6c0cf652c2fbbba1bcec5889f11bd019fc623d3c3362da87c64"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__004__four_member__iteration_003.json.gz": {
+      "bytes": 4403,
+      "sha256": "1c2aaeea20436f8e7349d95f0aa02b8a44d9dfd3fd52d722752e286123e71369"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4420,
+      "sha256": "097a7acc19b888ee59db8988f6b6e7e8ce6663c32b412640413c176a556d2d25"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4339,
+      "sha256": "ff60965478665747e6ef766f991d2c456afa48e9e02dfd73fdc68d80d85190d5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260847__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4852,
+      "sha256": "9093b0ee5071d0d90df0a0f2da9bc524331ca4850b8c0609a20178178782624a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__001__four_member__iteration_000.json.gz": {
+      "bytes": 4130,
+      "sha256": "961ebc401490f0cf3b3c08c4dd8f78e58327889816155d9a6ac30c4ce6721c81"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__002__four_member__iteration_001.json.gz": {
+      "bytes": 4563,
+      "sha256": "b62bb9cdc8657a581e213b1c6d4732d31aa07481d647bd4ad4ae2ef7871141b9"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__003__four_member__iteration_002.json.gz": {
+      "bytes": 4325,
+      "sha256": "b1e8c4913cd5d24518c8ff799225c907e75b1cdb66684e3f56bfcfb4c602615f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__004__four_member__iteration_003.json.gz": {
+      "bytes": 4253,
+      "sha256": "7780fcc6d65c6113c8baaf763ef71ec34c5d928255eb08c763a77b92e9c05320"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4271,
+      "sha256": "a3088e6d6c75c5d1e88b7004962c1e99dd4db75409e7a30f470416f4abf9cb45"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4613,
+      "sha256": "ce242053535984bd4d39889fe5d079dc739ec84be1a2aac02cba9819935d6a0c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/III_diagonal_2__N80__seed_20260861__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4225,
+      "sha256": "44640fa755d3cc53a3620808e166bbe97b5442d3e61a7667e29ac8c699e7ca55"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__001__four_member__iteration_000.json.gz": {
+      "bytes": 4151,
+      "sha256": "3aaeb2fb2a1e5d9843c03092416a32dcd2478c363c75d58afffe1307fb87995c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__002__four_member__iteration_001.json.gz": {
+      "bytes": 4876,
+      "sha256": "d682c2d07a6706b5e08e24f57343547d5ce61ef55610a94bd2ec134059710707"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__003__four_member__iteration_002.json.gz": {
+      "bytes": 5128,
+      "sha256": "8a2c0bc6a8a973bf11fbd2092b07dbd63623fd6b3f9b2102759784d9035681fc"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__004__four_member__iteration_003.json.gz": {
+      "bytes": 4851,
+      "sha256": "1ec3c4ab54ffac51bd3b26d1cd05fe392a85507cb8783f46a5a6f35130b5b3cc"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4875,
+      "sha256": "32c9b9ffc41ea8a373fda8b805501d6c4acf69d73690f818bdb22aa98c53cd2b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5557,
+      "sha256": "e0ca07b4a93fa989c06f0f6ae226fd827d44439de404adc11c56a975f2cb430d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260803__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5207,
+      "sha256": "78d1ff882ce2fc145416ef434e58af691ad6300a510a1d026cbad98bfa6603f1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__001__four_member__iteration_000.json.gz": {
+      "bytes": 4169,
+      "sha256": "a86047dfd945b36eade7de79534b837fe6c5feac1a2e686c550ac79269733dab"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__002__four_member__iteration_001.json.gz": {
+      "bytes": 4692,
+      "sha256": "4588cb6949766b2bf962d032baeaa9de8bd15fe2b58873621633b0c28854aebd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__003__four_member__iteration_002.json.gz": {
+      "bytes": 5323,
+      "sha256": "5c861600652ee1bf83626ff667f1062cf7a4da85dddc14a551b5ebecfce1afbc"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__004__four_member__iteration_003.json.gz": {
+      "bytes": 5500,
+      "sha256": "977cff54a9c3b2595025166c2f5fd7690eae176e688d59687811ddbec9278606"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__005__eight_member__iteration_003.json.gz": {
+      "bytes": 5523,
+      "sha256": "3a8bb7bf0130fde76568846b6c3a34475d77ba71c7e97f2a59cee250049b830d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5520,
+      "sha256": "8b90122efd5d2483bd7b11b317f8eb992f5ec7cf33a35a70798ca4bef6639959"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260817__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5730,
+      "sha256": "16ec4d96e8369849d1261844ee43fb4815a6e880293dae2a6424ab6d0070ee04"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__001__four_member__iteration_000.json.gz": {
+      "bytes": 4177,
+      "sha256": "c43f6e564e81287040436c48830a777a725ec2a42ea168b10bfcc49418ae858b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__002__four_member__iteration_001.json.gz": {
+      "bytes": 4615,
+      "sha256": "b6e27452111020ff1773a0994533a61b3d5bf3d798dd9bf53757564027003112"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__003__four_member__iteration_002.json.gz": {
+      "bytes": 4447,
+      "sha256": "0d49b33ebfdc96d5c5747507295a83c330d4668d89e7dbedee599362cb11c36e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__004__four_member__iteration_003.json.gz": {
+      "bytes": 4285,
+      "sha256": "0805c3d2cb9fb84ac514b9de4279a3eae2cb3da4a54cd0be188e2dd6261e8f30"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4306,
+      "sha256": "5f2af6c64d8e16724efcbbd0d8c603c83c57a4eb0ac3d9d866c50b90fc4082c6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4682,
+      "sha256": "46bbee7af753706b3c6a1182591bde043fb04bf55df9a081bc0a29f7bff5f845"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260831__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4827,
+      "sha256": "71f8c2d9869a5789cc262aa61dc036aa8896510608a8b35cabc4df0df263ad68"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__001__four_member__iteration_000.json.gz": {
+      "bytes": 4181,
+      "sha256": "26403a6ab4864de8ded629d8b0f2c5e621210095ba9e125041b418d663911728"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__002__four_member__iteration_001.json.gz": {
+      "bytes": 4406,
+      "sha256": "2a9f5beff89bbcdd0cd033a1b6e531c46a502c52a727bf41c6b9078ae2de75dd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__003__four_member__iteration_002.json.gz": {
+      "bytes": 4575,
+      "sha256": "3fe232dea47e406e1b0806202359c49e9eabfa539c4a8827c7eeb4bd0aa3f7ed"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__004__four_member__iteration_003.json.gz": {
+      "bytes": 4774,
+      "sha256": "c1bba76ca980f0e62b0c494dc0e6989902fcc2655120b6ad8d6a018c4edff3a4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4803,
+      "sha256": "380ae936574fffdbf7f5d89cb11950c0d891203cda9a6b38efc7110f97bc64b4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4512,
+      "sha256": "f395c397a8983611d02a3e0f10a013a0ed8fac232081d4de55e5f2c769739766"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260847__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4129,
+      "sha256": "d069644a455729788e9ee4156a3311015f7c95a5e6391ef0d238d75920d431ea"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__001__four_member__iteration_000.json.gz": {
+      "bytes": 4158,
+      "sha256": "f8db2c45436ffce10806d0abe85ddb245660c3d107f93dd7fec0589832bcca7d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__002__four_member__iteration_001.json.gz": {
+      "bytes": 4829,
+      "sha256": "6150cf7518572345f4acd2c6def518db53148881beba9e8e3bc6218879bb1c76"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__003__four_member__iteration_002.json.gz": {
+      "bytes": 4634,
+      "sha256": "46f93141da847bd7e823d7e37b457155e162bdf9e2ae5e08930366e4178aff6f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__004__four_member__iteration_003.json.gz": {
+      "bytes": 4185,
+      "sha256": "1a5f46aab312fb507ff1d5ae5c1b62df59cd4181bb8290be9f1265d74c2d7741"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4208,
+      "sha256": "44050edb7b8b935242b9698c6619af6755ee8b916818c339f94539252ad1850e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4686,
+      "sha256": "e42123837e8c822a0a4e925c76d92375f2471626baa3f268c337d6cb811dbe2e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_all_conservative__seed_20260861__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5282,
+      "sha256": "12cc79138b41606a9f9bc9e437a994b552b4dfb2f2140e193393c3beca3bae19"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__001__four_member__iteration_000.json.gz": {
+      "bytes": 4152,
+      "sha256": "ac63f4795a22fd044d4ef512b5fe7ae7fbbf7fecd91ae3a5d5e6aa5523987006"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__002__four_member__iteration_001.json.gz": {
+      "bytes": 4861,
+      "sha256": "1eb0c87a2166e6d8180088f9ed89768b3b2622d99dd1d755aee4fb985b88d7d7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__003__four_member__iteration_002.json.gz": {
+      "bytes": 5122,
+      "sha256": "c7953b343a14c85b431d9476e88217985d4ca9b9ae4980a4784f41adf2c17370"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__004__four_member__iteration_003.json.gz": {
+      "bytes": 4843,
+      "sha256": "145cc11c1a4d18981465f636ebbf257988e5f687bea35b3bfe4e45992164b709"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4868,
+      "sha256": "00fde1c4dbe4a6f41d352f92f4768fae60007d1c48b9e66eb379ddfe1fbb75d1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5547,
+      "sha256": "11ccce1673dde9c11602531f3b912d51a9282b14ef1b8832cede41881720d9d0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260803__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5196,
+      "sha256": "7bb20c385309b816990b267ea53844f19fc6d5d460948e7a87193360dc11c169"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__001__four_member__iteration_000.json.gz": {
+      "bytes": 4163,
+      "sha256": "c8d6c6241c449cc8588a936d3f672dd77d60f5dc08353057c7a70beb29c796e1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__002__four_member__iteration_001.json.gz": {
+      "bytes": 4692,
+      "sha256": "b140e1b54ef1568f14ef1c54af05ddbcfbe0ecc9706a407bcfbc0d78fcf9fdf7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__003__four_member__iteration_002.json.gz": {
+      "bytes": 5308,
+      "sha256": "6269bcdbf52a475e09869fbcd86d8689696db57e66ee3be962ca44a00c5ea2e4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__004__four_member__iteration_003.json.gz": {
+      "bytes": 5504,
+      "sha256": "4d218a61de8594ef930332b733284f28a977b65a3b6b0584a82704da21c89054"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__005__eight_member__iteration_003.json.gz": {
+      "bytes": 5526,
+      "sha256": "f53b47ed829512a48e9d77954f0f98bc0565a01b34508897327d451eef95f2b0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5522,
+      "sha256": "0e8b1fe105cb6462fb5c98d2407b2e9207a817177abe07442048e29db1443c6d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260817__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5728,
+      "sha256": "5f962e628d8f3b9d9ff37b73ac360f5de9e5cc85ca832b964d4ac3eb9c3c2746"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__001__four_member__iteration_000.json.gz": {
+      "bytes": 4164,
+      "sha256": "7950193db89d177c4e136d63353f258652db85b8428d8a0cb4550c8b77ac5faa"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__002__four_member__iteration_001.json.gz": {
+      "bytes": 4609,
+      "sha256": "1b4a2ec69a91d7fbdf4919fdeb1b68e6e6352b5ecde10e895a64e0048a18f0be"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__003__four_member__iteration_002.json.gz": {
+      "bytes": 4435,
+      "sha256": "d885cedc8eb400615833dcf88d01538c0119f8e71467ec73f9058fe082a41b0c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__004__four_member__iteration_003.json.gz": {
+      "bytes": 4277,
+      "sha256": "2e32f97112ee13ccefe85f5a24d062798d0534cd2d2c79f4c8d6168256d065cc"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4304,
+      "sha256": "39d3f122e827ebb63830b62d623b52dfc8e2d50c8b54c344a07831fc4dba9e72"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4681,
+      "sha256": "26d4386582c0b014137c114910263b64b5fe5f07d7a4e63b7e0dd07890978219"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260831__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4814,
+      "sha256": "242e716608d824ed02d9b338c11977d15260945313e3658c49dd85901c9bac74"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__001__four_member__iteration_000.json.gz": {
+      "bytes": 4176,
+      "sha256": "cc61d39793146e89f6705844ddab7f2d63e4301f7dce33e98d3a84d3fcb715b2"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__002__four_member__iteration_001.json.gz": {
+      "bytes": 4400,
+      "sha256": "f23be70455a8f3e138d12db4bfbb98ca9329cc441c9419d3cd1bfa1293bc4d87"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__003__four_member__iteration_002.json.gz": {
+      "bytes": 4570,
+      "sha256": "9b20b6cd599ff85ee6bc45d581ee91477c611c476991a3dd4b63debe142391d2"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__004__four_member__iteration_003.json.gz": {
+      "bytes": 4773,
+      "sha256": "98099fc5866d7816740c5e317729857b848f5923445346edc0cd40f8f44adb3e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4791,
+      "sha256": "2e0f22d363089b9dde3b23a9734278aa3a1b8fe80d4e08254d579fb59ec7aea1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4501,
+      "sha256": "d6d1abb9418cfd542f28a84ea113ad0eb5f30b51b4f955d132ed4810021cc44c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260847__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4119,
+      "sha256": "97c4b48f6a3f364fce1e136b949b6e239e61886e010f39b2df51f1ff1523acf7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__001__four_member__iteration_000.json.gz": {
+      "bytes": 4154,
+      "sha256": "86115c68558eabd3e986ea74436c6dcbf6e9edd48be648fb816dc80ee0095811"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__002__four_member__iteration_001.json.gz": {
+      "bytes": 4824,
+      "sha256": "53e84a7194b8f7ff3215e1f333a98eb1b34c942df4c5f1ff53ada335f071e0a6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__003__four_member__iteration_002.json.gz": {
+      "bytes": 4630,
+      "sha256": "7d5d38c0e3134179cb6e4442c3e3203839ba5ecd1983225bbf91e4da7cb20716"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__004__four_member__iteration_003.json.gz": {
+      "bytes": 4182,
+      "sha256": "2a7b11ab9a34c99c6118290679d710446bb501a08db36506bde09674b958119e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4202,
+      "sha256": "b10a240599a2c17791eff34771119b1706ec8296ee9a545b1f8a7edc65919f62"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4676,
+      "sha256": "f8c989802c8b4118f9cc8f9170bd30048969047391282ac44aa61572e5bae336"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N76_historical_anchor__seed_20260861__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5280,
+      "sha256": "684cd90a9aaecb776b90db0a2e933201dfd96f157d34bdbe7e262173382e4e46"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__001__four_member__iteration_000.json.gz": {
+      "bytes": 4125,
+      "sha256": "35c79cc7fa4aa0c46093f26d43d58433d98921cd9b2b687fbfa52a0ddadb7374"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__002__four_member__iteration_001.json.gz": {
+      "bytes": 4840,
+      "sha256": "4733e5449dce8bdc91a044dbb429debee427fd22a95d2d327c4e637b6e6fa877"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__003__four_member__iteration_002.json.gz": {
+      "bytes": 4610,
+      "sha256": "03c0b9fe60228f360656356f786565b66d4ad745d472ba87a0b640e66872d515"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__004__four_member__iteration_003.json.gz": {
+      "bytes": 4305,
+      "sha256": "edb0fc42b1decfd1e88d7e98545ae7790ea745675e41fd9a9f26a68c9ba3dae1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4334,
+      "sha256": "bc6966be862a0f62d980330dc066680ba7185ed3059eb25e6bb55afc234fbb9e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4714,
+      "sha256": "ef78b2fe9d3675c676a9ae8f2679acd9caf987a0ee987ee4fe29d39f0eff7bc3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260803__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5379,
+      "sha256": "a14373e617041f5f4252744e208d58bf73396294b5c542a7e7d551aeecc3f20f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__001__four_member__iteration_000.json.gz": {
+      "bytes": 4143,
+      "sha256": "c3e6667e914ba1f4a90caaec394abc59f2ae1dfc0cf531ade031699209be4a74"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__002__four_member__iteration_001.json.gz": {
+      "bytes": 4669,
+      "sha256": "b0ba916c80d2d50d8537d2dde2f93fdf273956bf39050ce4182448aa8a51e70b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__003__four_member__iteration_002.json.gz": {
+      "bytes": 5495,
+      "sha256": "35dd1bb9a897ab3b848f5acfaef576afe3df7de7a1aed92b70eb9354759d721c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__004__four_member__iteration_003.json.gz": {
+      "bytes": 5735,
+      "sha256": "307e40ea4bada0499c01333a80177b738792235a1b3bd3faa3b24453a3f2ed32"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__005__eight_member__iteration_003.json.gz": {
+      "bytes": 5761,
+      "sha256": "2bace0b3fe63bba3ca7582464fa8c06988c89032321bfebce8b52f0225cebae4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5755,
+      "sha256": "489f36807f4cf6c81478e676babea838f307db8add02e6ce2ea0e9028b73d5d8"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260817__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5918,
+      "sha256": "8be80aa6c0ed0e5ae332ecd9c66ae02ebbc7cfc48bec8b424c072a71966bc191"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__001__four_member__iteration_000.json.gz": {
+      "bytes": 4144,
+      "sha256": "4c94c452654879cfc0542fcd2dccc9a05b851b7b87a7d5f2c73c3c31c8fe71a3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__002__four_member__iteration_001.json.gz": {
+      "bytes": 4796,
+      "sha256": "dca0f35ee1592813ef37f41f9842513ed9743472f2b23578b941ff5f91f9aa4d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__003__four_member__iteration_002.json.gz": {
+      "bytes": 4467,
+      "sha256": "ce84b5f1776f3feb05be852e7130524cbe9ae3130c10c9244dd6e613fbc918ff"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__004__four_member__iteration_003.json.gz": {
+      "bytes": 4312,
+      "sha256": "ca651a43fe4fbb218d160d1b90e44541901eaab1aff6fe9880dbb7cfa184a445"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4323,
+      "sha256": "49a4e37bdd885c1e3ff044a94bc35b1d366343a9be3e21e25dd0922029ed5b95"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4896,
+      "sha256": "4799526cf92a70a26edf896050706b47d2e17e84b633b959ffbc589db6c5c819"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260831__007__eight_member__iteration_005.json.gz": {
+      "bytes": 4876,
+      "sha256": "ac893fbfe23710517712113835879019266f57f030e526d49b683b859640b8aa"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__001__four_member__iteration_000.json.gz": {
+      "bytes": 4155,
+      "sha256": "e44d13d84348774c671bd3a9b66bd454cdbf11a80cbda7d5fe64307b2c7591b5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__002__four_member__iteration_001.json.gz": {
+      "bytes": 4368,
+      "sha256": "5f7fdeb53c7aa83e738825c3d0da6cc398c4a6961365d274b6dba3fae3a49069"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__003__four_member__iteration_002.json.gz": {
+      "bytes": 4551,
+      "sha256": "022d38ec9412e0bf69e5c5f73d812b0ab7c3362fdf4012929760f87c01d316b6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__004__four_member__iteration_003.json.gz": {
+      "bytes": 5061,
+      "sha256": "234ea273856a0663502734661c08d60e1d2ec206cd129c6e296ab8a7e505e119"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4620,
+      "sha256": "ae6d3c59a7a3e90e3f8fb6f84ff9ad760bdf840f50e905bda9d8e75972fa0fdf"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__006__eight_member__iteration_004.json.gz": {
+      "bytes": 5062,
+      "sha256": "cbd036da192c9a5caf0ce52c831ff2eceff7522814f6ca82a25b4bd757ce5134"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260847__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5262,
+      "sha256": "938ee0f0fed1427a8c914f059edc6f56a5b1e599d22f1a7ab4de9c068683385a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__001__four_member__iteration_000.json.gz": {
+      "bytes": 4125,
+      "sha256": "2de11e19a96f308400a20a028f9d2148b356b510ea332ce657e5b33c2a903aa1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__002__four_member__iteration_001.json.gz": {
+      "bytes": 4798,
+      "sha256": "a9fd770e3fe3405b9fc5650e22f10aec3a0b7c57924309d9937f68672fa70bed"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__003__four_member__iteration_002.json.gz": {
+      "bytes": 4600,
+      "sha256": "79bd104ea5e699f2e25720b115a085e69d99b812174f65a4ff6f42a49309b13f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__004__four_member__iteration_003.json.gz": {
+      "bytes": 4149,
+      "sha256": "1db0b5b4881d25ca68c461cafb1bf8acc65aa3706fc7d96391284953c20005c5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__005__eight_member__iteration_003.json.gz": {
+      "bytes": 4176,
+      "sha256": "456a54fd19b95d873965dfaefd86221e799d4a9ebd90d8c0d4b32c973c9a3578"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__006__eight_member__iteration_004.json.gz": {
+      "bytes": 4654,
+      "sha256": "3ee0c3962d5ef7ee1dc82a1681afc8123cc5bb19e57e425df530f2f969c7f25d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/checkpoints/II_diagonal_1__N80__seed_20260861__007__eight_member__iteration_005.json.gz": {
+      "bytes": 5244,
+      "sha256": "b1e0178905ba568814959c8ff231445282f2b4d8ee3885c7c03945ccb438afb7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/cold_early_predictions.png": {
+      "bytes": 305684,
+      "sha256": "97e9c7d64e3a7a340aa9877028e9709d802411f7436a7c2001d3760e19747df2"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/cold_late_predictions.png": {
+      "bytes": 315692,
+      "sha256": "c0223c899d1b52434b74420c8c00e81bd3f589538e28697b510c7c20813a4a98"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_archetype_gate.json": {
+      "bytes": 3813,
+      "sha256": "2d679855af3a46d065751d0d8d37da74b8156c2cb9fe5fb2a046195a47885abf"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_candidate_actions.csv": {
+      "bytes": 268672,
+      "sha256": "57eb7b4a125d9104caa424e82a3521c5564b8f924ec7da97052c3475cd9d990f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_design_config.json": {
+      "bytes": 5926,
+      "sha256": "bbf4c766da41cc424e76a580c41c47958d25ad7a5893df5ca8fecad140006c37"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/authorization/authorization_state_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 1532,
+      "sha256": "938a27236b54a60a476976f1ad254a3a76355f085b3991bb480f1ca7de9dd20d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/capture/capture_interval_summary_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 388575,
+      "sha256": "491d9c52800a8a0ced5225037089020ef4010e95cdaf0280ef6e83d4d76b6fcd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/cold_early_predictions_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 305684,
+      "sha256": "97e9c7d64e3a7a340aa9877028e9709d802411f7436a7c2001d3760e19747df2"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/cold_late_predictions_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 315692,
+      "sha256": "c0223c899d1b52434b74420c8c00e81bd3f589538e28697b510c7c20813a4a98"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/coverage_strategy_profiles_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 94849,
+      "sha256": "35ffccafd325d7ca0933a0fb860a411a3b9485ed8ec1b56dfb4d7b2c274d718c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/coverage_vs_information_tradeoff_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 118925,
+      "sha256": "f4dd9c082a3f5a63ced22b6a8d1a69067c746bfc15c7f2911b6944c7823afebf"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/operational_coverage_map_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 85840,
+      "sha256": "d1e6a09b27b0c78e062241e070b97067c922ab2f83e4ba884713c75a301e5829"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/parameter_variance_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 196989,
+      "sha256": "9fc17f2418ab245ecbbe287a067d260a0be04a498d6fcc96e132a225e792b8c3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/physical_temperature_envelope_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 140789,
+      "sha256": "833a3840c515659420e24fb5a8d3710a6a34abe4017e8fe17ef26390ce5d39e5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/warm_early_predictions_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 311810,
+      "sha256": "a5f2dd893b63ba651890e0ba9316e9776a26c4ec25a81e4ee47a7338eae75333"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/warm_late_predictions_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 315504,
+      "sha256": "6237aa58eeb8b474006520c7ae1f5a046a04cdc586a6ae8306f27fa076db4bdd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/figures/wave_3_2_1_coverage_plan_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 99973,
+      "sha256": "d3ca07023a2c9aefd666a020dd9537d048c5c5496cec01d598a7763b254c57a0"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/nutrition/nutrition_margin_comparison_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 7793,
+      "sha256": "fa36eed503f46c192e1707b3b514f45eca4b722222d482fb56084183d4bba94c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/package_manifest_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 5610,
+      "sha256": "0874a86fc25a2a243e9d2abe5725f1a6467ea8b52ff1a814c51c9c70dc2a49de"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/profiles/coverage_candidate_actions_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 268672,
+      "sha256": "57eb7b4a125d9104caa424e82a3521c5564b8f924ec7da97052c3475cd9d990f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/profiles/physical_temperature_envelope_by_candidate_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 1563114,
+      "sha256": "c587a9a14172fd33a4936329187a3fdcc8c7452e3780d31392bb9f137d985abd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/profiles/robust_setpoint_envelope_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 1142,
+      "sha256": "1747704133137fcc598811c552982501bd15d2523bb50f5c78c366a3b1431c36"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/sampling/optimized_sampling_schedules_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 77401,
+      "sha256": "f08f49e49a26aac696d98a1bc97578c81713ad891d84df3a18e3ace800b7a02a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/sampling/sampling_strategy_comparison_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 5793,
+      "sha256": "6c242f71fdf5fbed4aa253c6970fde904d7d91e4df7e5fff6902b24c53f04989"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/strategy_summary/coverage_archetype_gate_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 3813,
+      "sha256": "2d679855af3a46d065751d0d8d37da74b8156c2cb9fe5fb2a046195a47885abf"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/strategy_summary/coverage_strategy_comparison_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 9130,
+      "sha256": "ff252202ac2827961c6fbfa51bad2aeb697de56f826911b95e1ff6275ba10689"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/strategy_summary/coverage_vs_information_reference_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 9128,
+      "sha256": "a7486bbd126b874911e557e34c0a07339b428af07d7c98e542118c3447d9e3db"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/strategy_summary/drying_margin_qualification_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 2561,
+      "sha256": "7a2c68196e506fdfc34661ff1eee1a72594ed7d9dd708c2a157a51f2067bf553"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/strategy_summary/wave1_recommended_coverage_candidate_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 1166,
+      "sha256": "3c5180f202f66ea878ab9c9a6adcd1034a35b55d0d125fa90f0419cc043fce3d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/wave_plan/wave2_complementary_candidates_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 1200,
+      "sha256": "4ce1bf773cade92b55f0c5ad3455ca3920347e79667d7b67c4ad4ce75265312d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_review_package/wave_plan/wave3_adaptive_decision_rule_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 819,
+      "sha256": "59f4ecfd1725387a2e25e6d7a11c1f18ca390ec383e86d6d8f7e89bbaefda22f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_strategy_comparison.csv": {
+      "bytes": 9130,
+      "sha256": "ff252202ac2827961c6fbfa51bad2aeb697de56f826911b95e1ff6275ba10689"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_strategy_profiles.png": {
+      "bytes": 94849,
+      "sha256": "35ffccafd325d7ca0933a0fb860a411a3b9485ed8ec1b56dfb4d7b2c274d718c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_vs_information_reference.csv": {
+      "bytes": 9128,
+      "sha256": "a7486bbd126b874911e557e34c0a07339b428af07d7c98e542118c3447d9e3db"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/coverage_vs_information_tradeoff.png": {
+      "bytes": 118925,
+      "sha256": "f4dd9c082a3f5a63ced22b6a8d1a69067c746bfc15c7f2911b6944c7823afebf"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/drying_margin_qualification.json": {
+      "bytes": 2561,
+      "sha256": "7a2c68196e506fdfc34661ff1eee1a72594ed7d9dd708c2a157a51f2067bf553"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/drying_time_by_member_candidate.csv": {
+      "bytes": 199591,
+      "sha256": "ee84a9f576e0675391afa5b7b9580b4d7e872912e0e0dd6318368872d5266b0f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/fim_eigenvalue_comparison.csv": {
+      "bytes": 23492,
+      "sha256": "d9f5732218263f5c3090dcf3b6e07543d18b04d6e79e0651200938d0f4c69f84"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/local_refinement_comparison.csv": {
+      "bytes": 14566,
+      "sha256": "a0b90b2177ce13ae18006a7aa7ef85055bbd970b4ca4d8093a9d60d927265469"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/multifidelity_continuation_summary.csv": {
+      "bytes": 6099,
+      "sha256": "b98182da18ce00bd5651695a794d5426abc93b7857adcaf635797f5fce5bbe00"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/multifidelity_search_history.csv": {
+      "bytes": 27631,
+      "sha256": "a73278ea1cbe3673fa11dd8f05991270a9fb6b596656bee8d8623cf66b61ba70"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/nutrition_margin_comparison.csv": {
+      "bytes": 7793,
+      "sha256": "fa36eed503f46c192e1707b3b514f45eca4b722222d482fb56084183d4bba94c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/operational_coverage_map.png": {
+      "bytes": 85840,
+      "sha256": "d1e6a09b27b0c78e062241e070b97067c922ab2f83e4ba884713c75a301e5829"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/operational_prediction_ensemble_bands.csv": {
+      "bytes": 1383081,
+      "sha256": "4bc6e6f540ffdeff88767183cc42bff4fb62bf5f62d3448215926c8c2d774b3e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/optimized_sampling_schedules.csv": {
+      "bytes": 77401,
+      "sha256": "f08f49e49a26aac696d98a1bc97578c81713ad891d84df3a18e3ace800b7a02a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/originals_and_refinements_64_member.csv": {
+      "bytes": 48937,
+      "sha256": "7d47e49220a8219dc23ea337371de7bf404ca7ec4da866ed48b55579e002051a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/parameter_information_comparison.csv": {
+      "bytes": 38017,
+      "sha256": "9fc8fb3bb3a90069387013dc5e93ce04a3e0c67ae1f82589728482172b14168d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/parameter_variance_comparison.png": {
+      "bytes": 196989,
+      "sha256": "9fc17f2418ab245ecbbe287a067d260a0be04a498d6fcc96e132a225e792b8c3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/per_seed_champions_64_member.csv": {
+      "bytes": 18040,
+      "sha256": "339ef8ab5b244744d873eb063642b3c3f6088464c2a7991567d9de17f81301cf"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/physical_temperature_envelope.png": {
+      "bytes": 140789,
+      "sha256": "833a3840c515659420e24fb5a8d3710a6a34abe4017e8fe17ef26390ce5d39e5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/physical_temperature_envelope_by_candidate.csv": {
+      "bytes": 1563114,
+      "sha256": "c587a9a14172fd33a4936329187a3fdcc8c7452e3780d31392bb9f137d985abd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/physical_temperature_trajectory_bands.csv": {
+      "bytes": 149009,
+      "sha256": "4f30674719351bbc23da87e865e8bc7aa1f3c69c5050e4751d332478080e7b1c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/post_search_fim_validation.json": {
+      "bytes": 854,
+      "sha256": "7e1b196902f316e8965090dde610ba6e5f9a1644d8bfac135888a7f6a83d3f6c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/posterior_correlation_summary.csv": {
+      "bytes": 18581,
+      "sha256": "b3d77f01308937a643193ff5ebccc4cbab373b311014562968b96741232aa682"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/posterior_variance_ratio_by_strategy.csv": {
+      "bytes": 26732,
+      "sha256": "43915211fba7b9276925da5dbb3a38eedf40f679185b3bd2ae432341920c1eec"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/practical_convergence_gate.json": {
+      "bytes": 15927,
+      "sha256": "a28733f20cfebf22d6d4632fc1d325b4ac8efa7127fc2a7cfda8a4f28fffb434"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/robust_setpoint_envelope.json": {
+      "bytes": 1142,
+      "sha256": "1747704133137fcc598811c552982501bd15d2523bb50f5c78c366a3b1431c36"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/runtime_summary.json": {
+      "bytes": 4067,
+      "sha256": "9382707df9e15a7fcb6225ea81eca999fc70eaaf522c9ae86819469a2ea63ce8"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/sampling_operational_conflicts.csv": {
+      "bytes": 44600,
+      "sha256": "07fba6abfdbd5e65af3ecff4922186037a2e3df45e1dd143c56daa79e70b1c36"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/sampling_search_restarts.csv": {
+      "bytes": 3115,
+      "sha256": "4c383b89cafbb71ee6956fb500bdc93d250b6211e30fcc710e371f1a5c639df7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/sampling_strategy_comparison.csv": {
+      "bytes": 5793,
+      "sha256": "6c242f71fdf5fbed4aa253c6970fde904d7d91e4df7e5fff6902b24c53f04989"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/visual_qa.json": {
+      "bytes": 4022,
+      "sha256": "b91f30367970eed6f25b09290515a696c5e0ac5b34b20a2d03df0b71b4f13a13"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/warm_early_predictions.png": {
+      "bytes": 311810,
+      "sha256": "a5f2dd893b63ba651890e0ba9316e9776a26c4ec25a81e4ee47a7338eae75333"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/warm_late_predictions.png": {
+      "bytes": 315504,
+      "sha256": "6237aa58eeb8b474006520c7ae1f5a046a04cdc586a6ae8306f27fa076db4bdd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/wave1_recommended_coverage_candidate.json": {
+      "bytes": 1166,
+      "sha256": "3c5180f202f66ea878ab9c9a6adcd1034a35b55d0d125fa90f0419cc043fce3d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/wave2_complementary_candidates.csv": {
+      "bytes": 1200,
+      "sha256": "4ce1bf773cade92b55f0c5ad3455ca3920347e79667d7b67c4ad4ce75265312d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/wave3_adaptive_decision_rule.json": {
+      "bytes": 819,
+      "sha256": "59f4ecfd1725387a2e25e6d7a11c1f18ca390ec383e86d6d8f7e89bbaefda22f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598/wave_3_2_1_coverage_plan.png": {
+      "bytes": 99973,
+      "sha256": "d3ca07023a2c9aefd666a020dd9537d048c5c5496cec01d598a7763b254c57a0"
+    }
+  },
+  "physical_candidate_label_integrity_repair": {
+    "all_non_label_csv_tokens_identical": true,
+    "all_rows_match_controller_policy": true,
+    "labels_corrected": 2187,
+    "non_label_csv_token_sha256_before_and_after": "3a0aea968f58d21b4a87026b47562c1afcd7328e69c9646eb8f7e508aa276fc9",
+    "repair_key": [
+      "strategy",
+      "dose_design",
+      "candidate_id",
+      "initial_setpoint_c"
+    ],
+    "rows": 5103
+  },
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "qualification_type": "immutable_label_and_figure_qualification_repackage",
+  "random_seeds": [
+    20260803,
+    20260817,
+    20260831,
+    20260847,
+    20260861
+  ],
+  "run_id": "20260719T075404Z_62c598",
+  "schema_version": 1,
+  "solver_status_and_convergence": {
+    "III_diagonal_2__N76_all_conservative": {
+      "best_full_ensemble_robust_score": 19.77543382978818,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.004164298188871016,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260831,
+        20260847,
+        20260861
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1616977585985321,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.3328158250677588
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.0508688396684497,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.07806495631398139
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1554311595054023,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3037564701920771
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.05378773906609517,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.08536220480809507
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18282378399425026,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.37223803141419703
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.12982527143759703,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.23974175002256398
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18606334040880138,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.38033692245057477
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.11103658353211154,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.24187717311599313
+        },
+        {
+          "changepoint_distance": 0.0,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.004414728995191042,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.011036822487977604
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260847,
+          "policy_distance": 0.10698030449663111,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.23173647552729204
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "III_diagonal_2__N76_historical_anchor": {
+      "best_full_ensemble_robust_score": 19.80903657810562,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.0041574210509848645,
+      "near_best_seeds": [
+        20260817,
+        20260831,
+        20260847,
+        20260861
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18282378399425026,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.37223803141419703
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.12472878139780659,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.22700052492308792
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18606334040880138,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.38033692245057477
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.11856308539196325,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.2606934277656224
+        },
+        {
+          "changepoint_distance": 0.0,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.004414728995191042,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.011036822487977604
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260847,
+          "policy_distance": 0.11445977155330822,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.2504351431689848
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "III_diagonal_2__N80": {
+      "best_full_ensemble_robust_score": 19.789708778741357,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.006120183552292417,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260831,
+        20260861
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1431098428433916,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.32206032139419327
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.04659682862594125,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.06738492870771025
+        },
+        {
+          "changepoint_distance": 0.03571428571428571,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.04759434285062923,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.06987871426943022
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18633204133506837,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260831,
+          "setpoint_distance": 0.3810086747662423
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.18713336082603693,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.38301197349366367
+        },
+        {
+          "changepoint_distance": 0.0,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260831,
+          "policy_distance": 0.0015581611900970403,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260861,
+          "setpoint_distance": 0.0038954029752426003
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "II_diagonal_1__N76_all_conservative": {
+      "best_full_ensemble_robust_score": 19.813954528728328,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.0016214623958277206,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260847
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1658012063823023,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.27276194452718433
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.08444872057720741,
+          "pulse_time_distance": 0.041666666666666664,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.11067537287158996
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.375,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.19591999196123533,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3346660513316597
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "II_diagonal_1__N76_historical_anchor": {
+      "best_full_ensemble_robust_score": 19.81902100901898,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 0.0016192300336489516,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260847
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.1658012063823023,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.27276194452718433
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.125,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.08444872057720741,
+          "pulse_time_distance": 0.041666666666666664,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.11067537287158996
+        },
+        {
+          "changepoint_distance": 0.10714285714285714,
+          "complexity_distance": 0.375,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.19591999196123533,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3346660513316597
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    },
+    "II_diagonal_1__N80": {
+      "best_full_ensemble_robust_score": 19.808943185784944,
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "operational_policy_family_has_three_seeds": true
+      },
+      "maximum_eight_member_continuation_improvement_fraction": 1.3079269897938393,
+      "near_best_seeds": [
+        20260803,
+        20260817,
+        20260847
+      ],
+      "pairwise_policy_distances": [
+        {
+          "changepoint_distance": 0.14285714285714285,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.15363154131107784,
+          "pulse_time_distance": 0.0,
+          "right_seed": 20260817,
+          "setpoint_distance": 0.25015028184912314
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.0,
+          "dose_distance": 0.0,
+          "left_seed": 20260803,
+          "policy_distance": 0.05889987218138646,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.10372289473918042
+        },
+        {
+          "changepoint_distance": 0.07142857142857142,
+          "complexity_distance": 0.25,
+          "dose_distance": 0.0,
+          "left_seed": 20260817,
+          "policy_distance": 0.171846024406905,
+          "pulse_time_distance": 0.020833333333333332,
+          "right_seed": 20260847,
+          "setpoint_distance": 0.3235882753029768
+        }
+      ],
+      "passed": true,
+      "score_tolerance_fraction": 0.005
+    }
+  },
+  "source_run_output_audit": {
+    "canonical_lf_matches": 0,
+    "checked_outputs": 277,
+    "declared_outputs": 277,
+    "failures": [],
+    "source_manifest_sha256": "1563a15739260291a6c0a1ce19678133172b54898705dc6ee09d9b6cc98dd526",
+    "source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T062455Z_ee1998",
+    "verdict": "PASS"
+  },
+  "sources": {
+    "actuator_manifest": {
+      "bytes": 3756,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/run_manifest.json",
+      "sha256": "963eec91adc887076e2e5dfc95069106c3ce0f3753424c91483a4a27415dcb65"
+    },
+    "adapter_manifest": {
+      "bytes": 34920,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd/run_manifest.json",
+      "sha256": "ac966d3b8a03a69e8a6a162c47243af3bc6f75f99371cd7885d7a45024cbc28c"
+    },
+    "aroma_manifest": {
+      "bytes": 15257,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "sha256": "f97efc5cbafc5f955a748003921edadf19ca9f8a5b9a0091cbf1e551335bee76"
+    },
+    "coverage_config": {
+      "bytes": 5240,
+      "path": "fermentation_model/pilot_2026/adaptive_design/coverage_design_config.json",
+      "sha256": "7de5faa930dfd1438c05966d3cf8fa70f2de2d7d9aace196d26cccd29fa385f5"
+    },
+    "ensemble_manifest": {
+      "bytes": 4910,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/run_manifest.json",
+      "sha256": "17f83fcc43859a7b4f4fc3a717150f0c82b98e5757c0e45c2ce3fd1bb368ffe8"
+    },
+    "information_reference_manifest": {
+      "bytes": 132796,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375"
+    },
+    "sampling_reference_manifest": {
+      "bytes": 94724,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc"
+    },
+    "source_coverage_run_manifest": {
+      "bytes": 146181,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T062455Z_ee1998/run_manifest.json",
+      "sha256": "1563a15739260291a6c0a1ce19678133172b54898705dc6ee09d9b6cc98dd526"
+    }
+  },
+  "stage": "wave1_operational_coverage",
+  "status": "completed",
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}
