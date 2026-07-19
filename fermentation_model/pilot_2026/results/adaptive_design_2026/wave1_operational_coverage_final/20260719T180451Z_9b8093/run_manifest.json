@@ -1,0 +1,2031 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "code": {
+    "files": [
+      "fermentation_model/pilot_2026/adaptive_design/aroma_calibration_config.json",
+      "fermentation_model/pilot_2026/adaptive_design/coverage_design_config.json",
+      "fermentation_model/pilot_2026/adaptive_design/coverage_final_design_config.json",
+      "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+      "fermentation_model/pilot_2026/adaptive_design/final_search_logic.py",
+      "fermentation_model/pilot_2026/adaptive_design/hybrid_optimizer.py",
+      "fermentation_model/pilot_2026/adaptive_design/local_refinement.py",
+      "fermentation_model/pilot_2026/adaptive_design/operational_coverage.py",
+      "fermentation_model/pilot_2026/adaptive_design/optimize_wave1_sampling_and_plots.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_aroma_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_calibration.py",
+      "fermentation_model/pilot_2026/adaptive_design/pilot_mbdoe_adapter.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_artifacts.py",
+      "fermentation_model/pilot_2026/adaptive_design/run_wave1_operational_coverage.py",
+      "fermentation_model/pilot_2026/adaptive_design/wave1_mbdoe_config.json",
+      "fermentation_model/pilot_2026/adaptive_design/run_wave1_operational_coverage_final.py"
+    ],
+    "sha256": "3509fe7b41ccc5d84cf24d7822ac96a5815b6e4caaf6f781d5d41f68f2095481"
+  },
+  "configuration": {
+    "payload": {
+      "coverage": {
+        "authorization": {
+          "executable_schedule_issued": false,
+          "physical_execution_authorized": false,
+          "profiles_for_physical_execution": false,
+          "tank_assignments": []
+        },
+        "campaign_start_local": "2026-07-20T15:00:00-04:00",
+        "dose_designs": {
+          "N76_all_conservative": {
+            "anchor_yan_mg_l": 76.0,
+            "coverage_yan_mg_l": 76.0
+          },
+          "N76_historical_anchor": {
+            "anchor_yan_mg_l": 80.0,
+            "coverage_yan_mg_l": 76.0
+          },
+          "N80": {
+            "anchor_yan_mg_l": 80.0,
+            "coverage_yan_mg_l": 80.0
+          }
+        },
+        "nutrition": {
+          "coincident_sample_action_order": "sample_before_action",
+          "dap_net_yan_fraction": 0.5,
+          "dap_product": "DAP",
+          "dap_yan_mass_fraction": 0.2,
+          "early_slots_h": [
+            0.0,
+            2.0
+          ],
+          "early_window_h": [
+            0.0,
+            6.0
+          ],
+          "late_slots_h": [
+            42.0,
+            46.0,
+            50.0
+          ],
+          "late_window_h": [
+            42.0,
+            50.0
+          ],
+          "minimum_early_late_contrast_h": 36.0,
+          "organic_manufacturer": "Fermentis",
+          "organic_net_yan_fraction": 0.5,
+          "organic_product": "SpringFerm Xtrem",
+          "organic_yan_mass_fraction": 0.1,
+          "prefer_n76_maximum_score_loss_fraction": 0.005,
+          "preferred_early_slot_h": 2.0,
+          "variants": {
+            "N76": {
+              "dap_g": 43.7,
+              "organic_limit_fraction": 0.95,
+              "organic_product_g": 87.4,
+              "yan_mg_l": 76.0
+            },
+            "N80": {
+              "dap_g": 46.0,
+              "organic_limit_fraction": 1.0,
+              "organic_product_g": 92.0,
+              "yan_mg_l": 80.0
+            }
+          },
+          "volume_l": 230.0
+        },
+        "objective": {
+          "criterion": "robust_bayesian_D_information_gain",
+          "median_weight": 0.75,
+          "members": 64,
+          "near_best_fraction": 0.005,
+          "priority_parameter_count": 9,
+          "q10_weight": 0.25,
+          "safety_tiebreakers": [
+            "maximum_initial_or_internal_jump_c",
+            "maximum_robust_physical_temperature_c",
+            "total_thermal_variation_c",
+            "temperature_changes",
+            "minimum_drying_margin_h",
+            "nutrition_operational_margin"
+          ]
+        },
+        "recommendation": {
+          "coverage_cost_can_be_justified_below_threshold": true,
+          "minimum_retained_information_improvement_fraction": 0.9
+        },
+        "review_mapping_only": {
+          "anchor": "TK33",
+          "authorized": false,
+          "first_diagonal_corner": "TK31",
+          "second_diagonal_corner": "TK32"
+        },
+        "sampling": {
+          "capture_intervals_per_process": 9,
+          "harmonized_maximum_score_loss_fraction": 0.005,
+          "harmonized_minimum_operator_round_reduction": 1,
+          "local_window": [
+            "09:00",
+            "17:00"
+          ],
+          "manual_capacity_per_slot": 3,
+          "members": 64,
+          "sample_event_order": "sample_before_action",
+          "samples_per_process": 10,
+          "weekdays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ]
+        },
+        "schema_version": 1,
+        "search": {
+          "cognitive": 1.49,
+          "independent_seeds": [
+            20260803,
+            20260817,
+            20260831,
+            20260847,
+            20260861
+          ],
+          "inertia": 0.72,
+          "local_full_ensemble_trials_per_seed": 2,
+          "local_step_fraction": 0.04,
+          "particles": 8,
+          "practical_score_tolerance_fraction": 0.005,
+          "social": 1.49,
+          "stage1_four_member_iterations": 3,
+          "stage2_eight_member_iterations": 2
+        },
+        "source_runs": {
+          "adapter": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd",
+          "aroma_calibration": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+          "information_reference": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179",
+          "joint_ensemble": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+          "sampling_reference": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179",
+          "temperature_actuator": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+        },
+        "strategies": {
+          "III_diagonal_2": [
+            "anchor",
+            "cold_late",
+            "warm_early"
+          ],
+          "II_diagonal_1": [
+            "anchor",
+            "cold_early",
+            "warm_late"
+          ],
+          "IV_adaptive_3_2_1": {
+            "wave1": [
+              "anchor",
+              "cold_early",
+              "warm_late"
+            ],
+            "wave2": [
+              "cold_late",
+              "warm_early"
+            ],
+            "wave3": [
+              "adaptive_confirmation_or_replicate"
+            ]
+          },
+          "I_reference_information": [
+            "anchor",
+            "warm_early",
+            "warm_early"
+          ]
+        },
+        "thermal": {
+          "after_optimized_window": "hold_last_setpoint",
+          "block_duration_h": 12.0,
+          "cold": {
+            "first_24h_block_maximum_c": 20.0,
+            "first_24h_mean_maximum_c": 18.0,
+            "required_block_maximum_c": 17.0
+          },
+          "controller_horizon_h": 504.0,
+          "initial_temperature_scenarios_c": [
+            17.0,
+            18.0,
+            19.0
+          ],
+          "maximum_change_c": 5.0,
+          "maximum_effective_changes": 4,
+          "maximum_initial_jump_c": 5.0,
+          "minimum_cold_warm_first_24h_mean_contrast_c": 4.0,
+          "minimum_effective_change_c": 1.0,
+          "optimized_blocks": 14,
+          "physical_maximum_c": 27.0,
+          "physical_minimum_c": 15.0,
+          "setpoint_maximum_c": 27.0,
+          "setpoint_minimum_c": 15.0,
+          "warm": {
+            "first_24h_block_minimum_c": 20.0,
+            "first_24h_mean_minimum_c": 22.0,
+            "required_12_to_36h_block_minimum_c": 23.0
+          }
+        },
+        "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+      },
+      "final": {
+        "authorization": {
+          "executable_schedule_issued": false,
+          "physical_execution_authorized": false,
+          "profiles_for_physical_execution": false,
+          "tank_assignments": []
+        },
+        "balanced_search": {
+          "budget_hours": 5.0,
+          "continuation_improvement_tolerance_fraction": 0.001,
+          "continuation_window_iterations": 3,
+          "eight_member_iterations": 8,
+          "four_member_iterations": 10,
+          "full_ensemble_top_k_per_seed": 5,
+          "local_refinement_top_k": 3,
+          "maximum_continuation_windows": 12,
+          "minimum_near_best_seed_champions": 3,
+          "near_best_fraction": 0.005,
+          "particles": 24,
+          "policy_family_distance_threshold": 0.35,
+          "seeds": [
+            20260803,
+            20260817,
+            20260831,
+            20260847,
+            20260861
+          ],
+          "warm_start_candidate_id": "f2addcf70aa5958d",
+          "warm_start_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598"
+        },
+        "campaign_start_local": "2026-07-20T15:00:00-04:00",
+        "feasible_information_benchmark": {
+          "budget_hours": 1.5,
+          "eight_member_iterations": 4,
+          "four_member_iterations": 6,
+          "minimum_full_ensemble_champions_per_seed": 1,
+          "particles": 16,
+          "seeds": [
+            20260903,
+            20260917,
+            20260931
+          ],
+          "strategy": "I_feasible_information_only_N76",
+          "timeout_label": "feasible_information_lower_bound"
+        },
+        "fim_validation": {
+          "finite_difference_log_steps": [
+            0.01,
+            0.02,
+            0.04
+          ],
+          "member_cases": [
+            "central_member",
+            "lowest_information_member",
+            "highest_information_member",
+            "worst_gain_member",
+            "critical_drying_member",
+            "extreme_actuator_member",
+            "selected_candidate_exact"
+          ],
+          "time_grid_steps_h": [
+            4.0,
+            2.0,
+            1.0
+          ]
+        },
+        "historical_comparator_label": "historical_infeasible_information_upper_bound",
+        "owner_selection": {
+          "anchor_nutrition_h": 46.0,
+          "dap_g_per_230_l": 43.7,
+          "dose_design": "N76_all_conservative",
+          "early_nutrition_h": 2.0,
+          "late_nutrition_slots_h": [
+            42.0,
+            46.0,
+            50.0
+          ],
+          "logical_treatments": [
+            "operational_anchor_18C_N76",
+            "cold_early_N76",
+            "warm_late_N76"
+          ],
+          "mapping_authorized": false,
+          "net_yan_fraction_dap": 0.5,
+          "net_yan_fraction_springferm": 0.5,
+          "organic_limit_fraction": 0.95,
+          "proposed_tank_mapping_for_review": {
+            "TK31": "cold_early_N76",
+            "TK32": "warm_late_N76",
+            "TK33": "operational_anchor_18C_N76"
+          },
+          "springferm_xtrem_g_per_230_l": 87.4,
+          "strategy": "II_diagonal_1",
+          "yan_mg_l": 76.0
+        },
+        "required_minimum_action_to_drying_margin_h": 24.0,
+        "result_stage": "wave1_operational_coverage_final",
+        "runtime": {
+          "checkpoint_every_iteration": true,
+          "checkpoint_interval_minutes": 20.0,
+          "maximum_total_hours": 8.0,
+          "post_search_budget_hours": 1.5
+        },
+        "sampling": {
+          "basal_time_h": 0.0,
+          "capture_intervals_per_tank": 9,
+          "harmonized_maximum_score_loss_fraction": 0.005,
+          "local_window": [
+            "09:00",
+            "17:00"
+          ],
+          "manual_capacity_per_slot": 3,
+          "maximum_operator_rounds": 12,
+          "members": 64,
+          "sample_event_order": "sample_before_action",
+          "samples_per_tank": 10,
+          "weekdays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ]
+        },
+        "schema_version": 1,
+        "timezone": "America/Santiago",
+        "verdict_labels": [
+          "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+          "PASS_CONDITIONAL — NOT READY FOR EXECUTION",
+          "FAIL — NOT READY FOR EXECUTION"
+        ],
+        "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+      },
+      "model_overlay": {
+        "anchor": {
+          "nutrition_pulses_mg_yan_l": [
+            [
+              46.0,
+              76.0
+            ]
+          ],
+          "status": "operational_anchor_18C_N76_review_candidate",
+          "temperature_c": 18.0
+        },
+        "campaign_id": "pilot_2026",
+        "completion": {
+          "drying_grid_step_h": 3.0,
+          "minimum_probability": 0.95,
+          "penalty_per_failed_fraction": 1000.0,
+          "residual_sugar_g_l": 4.0
+        },
+        "coverage_harmonized_minimum_operator_round_reduction": 0,
+        "coverage_sampling_loss_fraction": 0.005,
+        "design_constraints": {
+          "approval": {
+            "active_cooling_separation_approved": true,
+            "automated_final_audit_required": true,
+            "calibration_gate_passed": true,
+            "candidate_plot_format_approved_by_owner": true,
+            "candidate_plots_approved_by_owner": true,
+            "engine_qualification_passed": true,
+            "independent_human_reviewer_required": false,
+            "owner_loading_qc_approved": true,
+            "physical_execution_authorized": false
+          },
+          "campaign_id": "pilot_2026",
+          "campaign_timing": {
+            "maximum_process_duration_days": 21,
+            "minimum_interwave_separation_days": 7,
+            "wave1_tentative_start": "2026-07-20",
+            "wave_sizes": [
+              3,
+              2,
+              1
+            ]
+          },
+          "completion": {
+            "actions_after_predicted_drying": "prohibited",
+            "drying_definition_residual_sugar_g_l": 4.0,
+            "minimum_probability": 0.95
+          },
+          "fail_closed_fields": [
+            "approval.physical_execution_authorized"
+          ],
+          "manual_action_window": {
+            "applies_to": [
+              "nutrition",
+              "sampling"
+            ],
+            "end_local": "17:00",
+            "start_local": "09:00",
+            "weekdays": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ]
+          },
+          "nutrition": {
+            "approved_product_mix_selection_policy": "50_50_net_YAN_contribution",
+            "composition_source": "owner-provided operational composition, 2026-07-18",
+            "dap_net_yan_fraction": 0.5,
+            "dap_product_name": "DAP",
+            "dap_yan_mass_fraction": 0.2,
+            "historical_pulse_yan_mg_l": 80.0,
+            "initial_volume_l": 230.0,
+            "latest_allowable_pulse_h": 96.0,
+            "maximum_dap_fda_g_per_event": null,
+            "maximum_organic_product_g_per_event": null,
+            "maximum_pulses": 3,
+            "maximum_total_dap_fda_g_hl": 96.0,
+            "maximum_total_organic_product_g_hl": 40.0,
+            "maximum_total_yan_mg_l": null,
+            "maximum_total_yan_policy": "derive_from_product_composition_volume_mix_and_total_product_limits",
+            "maximum_yan_per_pulse_mg_l": 80.0,
+            "organic_net_yan_fraction": 0.5,
+            "organic_product_manufacturer": "Fermentis",
+            "organic_product_name": "SpringFerm Xtrem",
+            "organic_product_yan_mass_fraction": 0.1,
+            "per_event_mass_limit_policy": "no_separate_limit; total product and per-pulse YAN constraints apply",
+            "standard_anchor_nutrition_approved": true,
+            "yan_80_vs_90_435_mg_l_reconciled": true,
+            "yan_formula": "YAN_product_mg_L = 1000 * product_mass_g * product_yan_mass_fraction / volume_L",
+            "yan_reconciliation": "80 mgYAN/L is the owner-approved historical pulse basis used by calibration; 90.435 mgYAN/L is not an approved replacement dose"
+          },
+          "review_status": "owner_final_wave1_operational_decisions_encoded_physical_release_pending_2026-07-18",
+          "sampling_and_capture": {
+            "analytical_budget_configured": true,
+            "capture_stages_c": [
+              0.0,
+              -40.0
+            ],
+            "capture_train_per_tank": true,
+            "capture_trains_available": 3,
+            "manual_sampling_capacity_per_time_slot": 3,
+            "maximum_capture_interval_h": null,
+            "maximum_capture_interval_policy": "unbounded_by_hardware",
+            "maximum_capture_intervals_per_process": 9,
+            "maximum_samples_per_process": 10,
+            "maximum_trap_loading": null,
+            "maximum_trap_loading_policy": "not_applicable_for_sampling_nozzle",
+            "minimum_action_to_drying_margin_h": 24.0,
+            "minimum_minutes_between_sampling_and_nutrition": 0,
+            "objective": "maximize_information_on_aroma_formation_and_loss",
+            "optimize_schedule": true,
+            "priority_analytes": [
+              "ethyl_acetate",
+              "ethyl_octanoate",
+              "isoamyl_acetate"
+            ],
+            "sample_event_order": "sample_before_action",
+            "sampling_local_window": [
+              "09:00",
+              "17:00"
+            ],
+            "sampling_weekdays": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "tanks": [
+              "TK31",
+              "TK32",
+              "TK33"
+            ],
+            "vessel_change_required": false
+          },
+          "schema_version": 5,
+          "tank_randomization": {
+            "algorithm": "numpy.random.Generator(PCG64).permutation",
+            "approved": true,
+            "authorization_status": "mapping_frozen_but_not_authorized_for_execution",
+            "frozen_mapping": {
+              "A": "TK31",
+              "B": "TK32",
+              "anchor": "TK33"
+            },
+            "policy": "frozen_logical_profile_mapping",
+            "seed": 20260718
+          },
+          "temperature": {
+            "actuator_model_required": true,
+            "automated_setpoint_changes_allowed_24_7": true,
+            "maximum_active_segments": 42,
+            "maximum_c": 27.0,
+            "maximum_temperature_jump_c": 5.0,
+            "maximum_temperature_jump_policy": "hard_limit_between_consecutive_12h_blocks",
+            "maximum_total_thermal_variation_c": null,
+            "maximum_total_thermal_variation_policy": "no_additional_limit",
+            "minimum_c": 15.0,
+            "minimum_effective_temperature_change_c": 1.0,
+            "minimum_segment_duration_h": 12.0,
+            "setpoint_changes_follow_manual_action_window": false
+          },
+          "timezone": "America/Santiago"
+        },
+        "design_constraints_path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+        "fim_validation": {
+          "independent_pyomo_doe_comparison_required_where_applicable": true,
+          "log_steps": [
+            0.01,
+            0.02,
+            0.04
+          ],
+          "maximum_relative_grid_fim_difference": 0.12,
+          "maximum_relative_step_fim_difference": 0.08,
+          "minimum_eigenvalue_tolerance": -1e-08,
+          "nominal_time_grid_step_h": 2.0,
+          "time_grid_steps_h": [
+            4.0,
+            2.0,
+            1.0
+          ],
+          "tolerance_origin": "declared numerical convergence criteria for finite-difference and discretization QA; not physical operating limits",
+          "validation_scope": [
+            "anchor",
+            "candidate_A",
+            "candidate_B",
+            "central_member",
+            "lowest_information_member",
+            "highest_information_member",
+            "critical_drying_member",
+            "critical_actuator_scenario"
+          ]
+        },
+        "future_process": {
+          "information_horizon_h": 264.0,
+          "initials": {
+            "E": 9.8625,
+            "F": 77.57,
+            "G": 78.72,
+            "Gly": 0.98,
+            "N": 0.272,
+            "X": 0.022436671416774176,
+            "Xd": 0.4851803289627321
+          },
+          "maximum_horizon_h": 504.0,
+          "maximum_temperature_changes": 4,
+          "maximum_temperature_jump_c": 5.0,
+          "minimum_effective_temperature_change_c": 1.0,
+          "optimized_temperature_slots": 14,
+          "start_local": "2026-07-20T15:00:00-04:00",
+          "temperature_actuator": {
+            "command_delay_scenarios_h": [
+              0.0
+            ],
+            "empirical_tau_h": [
+              0.3390769978649166,
+              0.3177272541838157,
+              0.25038706632644936,
+              0.45812979693594796,
+              0.4344760109578126,
+              0.21148207178811254,
+              0.230758146706305,
+              0.33440804404660923,
+              0.28259073573647164
+            ],
+            "global_tau_h": 0.3177272541838157,
+            "initial_temperature_c": 18.0,
+            "initial_temperature_uncertainty_c": [
+              -1.0,
+              0.0,
+              1.0
+            ],
+            "model": "first_order_setpoint_to_Sonda1",
+            "observed_tracking_rmse_c": [
+              0.9851097887437072,
+              0.8946199169856546,
+              0.6670134541450007,
+              0.9032656411286033,
+              0.8912394007877706,
+              0.5176355604540641,
+              1.0294061985071536,
+              0.9077744893326539,
+              0.4132035267116012
+            ],
+            "probe_bias_control_approximation": "physical_equilibrium_equals_setpoint_minus_probe_bias_plus_tracking_error; probe_reading_equals_physical_temperature_plus_probe_bias",
+            "probe_bias_scenarios_c": [
+              -0.5,
+              0.0,
+              0.5
+            ],
+            "simulation_step_h": 0.25,
+            "tracking_error_scenario_policy": "negative_nominal_positive_median_observed_tracking_rmse"
+          },
+          "temperature_after_optimized_window": "hold_last_setpoint",
+          "temperature_maximum_c": 27.0,
+          "temperature_minimum_c": 15.0,
+          "temperature_slot_h": 12.0
+        },
+        "independent_seeds": [
+          20260717,
+          20260731,
+          20260747,
+          20260761,
+          20260779
+        ],
+        "nutrition": {
+          "derived_product_limits": {
+            "dap_implied_maximum_total_yan_mg_l": 384.00000000000006,
+            "dap_net_yan_fraction": 0.5,
+            "dap_yan_mass_fraction": 0.2,
+            "maximum_total_dap_g": 220.8,
+            "maximum_total_organic_product_g": 92.0,
+            "maximum_total_yan_mg_l": 80.00000000000001,
+            "organic_implied_maximum_total_yan_mg_l": 80.00000000000001,
+            "organic_net_yan_fraction": 0.5,
+            "organic_yan_mass_fraction": 0.1,
+            "volume_l": 230.0
+          },
+          "latest_h": 96.0,
+          "manual_hours_local": [
+            9,
+            13,
+            17
+          ],
+          "manual_weekdays": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "maximum_pulses": 3,
+          "maximum_total_yan_mg_l": 80.00000000000001,
+          "maximum_yan_per_pulse_mg_l": 80.0,
+          "product_mapping_policy": "optimize_total_YAN_only_then_translate_without_selecting_a_product_mix_when_owner_policy_is_missing",
+          "zero_pulse_threshold_mg_l": 0.0
+        },
+        "objective": {
+          "criterion": "robust_bayesian_D_information_gain",
+          "design_complexity_penalty": {
+            "origin": "disabled_for_final_lexicographic_information_level",
+            "per_degree_total_variation": 0.0,
+            "per_temperature_change": 0.0
+          },
+          "finite_difference_log_parameter_bounds": [
+            [
+              -9.210340371976184,
+              9.210340371976184
+            ],
+            [
+              -9.210340371976184,
+              9.210340371976184
+            ],
+            [
+              -11.512925464970229,
+              2.302585092994046
+            ]
+          ],
+          "finite_difference_log_step": 0.02,
+          "lower_decile_weight": 0.25,
+          "median_weight": 0.75,
+          "prior_ridge": 0.001,
+          "priority_parameters": [
+            "ethyl_acetate__formation_growth_ug_per_g_sugar",
+            "ethyl_acetate__formation_stationary_ug_per_g_sugar",
+            "ethyl_acetate__effective_loss_scale",
+            "ethyl_octanoate__formation_growth_ug_per_g_sugar",
+            "ethyl_octanoate__formation_stationary_ug_per_g_sugar",
+            "ethyl_octanoate__effective_loss_scale",
+            "isoamyl_acetate__formation_growth_ug_per_g_sugar",
+            "isoamyl_acetate__formation_stationary_ug_per_g_sugar",
+            "isoamyl_acetate__effective_loss_scale"
+          ],
+          "representative_ensemble_members": 8,
+          "tail_guardrails": {
+            "maximum_q10_regression_vs_reference": 0.0,
+            "maximum_worst_paired_loss_vs_reference": 2.0,
+            "minimum_fraction_exceeding_reference": 0.95,
+            "owner_approval_required_for_null_guardrails": false
+          },
+          "tail_probability": 0.1
+        },
+        "observation_error_model": {
+          "condensate_minimum_sigma_ug": 1.0,
+          "condensate_relative_sigma": 0.25,
+          "differentiate_sigma_with_parameters": false,
+          "source": "aroma_calibration_config.json:error_model",
+          "wine_minimum_sigma_ug_l": 2.0,
+          "wine_relative_sigma": 0.2
+        },
+        "operations": {
+          "manual_sampling_capacity_per_time_slot": 3,
+          "minimum_action_to_drying_margin_h": 24.0,
+          "minimum_minutes_between_sampling_and_nutrition": 0,
+          "numerical_sample_event_order": "sample_before_action",
+          "sample_event_order": "sample_before_action"
+        },
+        "regression_reference": {
+          "current_sampling_median": 7.063653215850975,
+          "current_sampling_q10": 2.8670854796732175,
+          "current_sampling_robust_score": 6.014511281806535,
+          "ipopt_proposal_correctly_rejected": true,
+          "preliminary_median": 7.887877738160874,
+          "preliminary_q10": 5.216373362200951,
+          "preliminary_robust_score": 7.220001644649798,
+          "reduced_pso_objective": -4.916027892059978,
+          "revalidated_ipopt_proposal": -4.803791952620369,
+          "source_commit": "dda40c42e39b1b812a155dc475fc678fcf34bf74"
+        },
+        "release_policy": {
+          "adapter_validation_required": true,
+          "automated_final_audit_required": true,
+          "candidate_plot_format_approved_by_owner": true,
+          "full_ensemble_qualification_required": true,
+          "independent_human_reviewer_required": false,
+          "owner_plot_approval_required": false,
+          "physical_execution_authorized": false,
+          "tank_randomization_policy_approved": true,
+          "ultra_audit_required": true
+        },
+        "sampling": {
+          "beam_width": 4,
+          "capture_intervals_per_process": 9,
+          "capture_stages_c": [
+            0.0,
+            -40.0
+          ],
+          "coordinate_passes": 4,
+          "force_first_slot": true,
+          "force_last_slot": false,
+          "full_ensemble_score_tolerance": 1e-09,
+          "preliminary_times_h": [
+            0.0,
+            2.0,
+            18.0,
+            22.0,
+            26.0,
+            42.0,
+            46.0,
+            50.0,
+            66.0,
+            74.0
+          ],
+          "q10_regression_tolerance": 0.0,
+          "samples_per_process": 10,
+          "search_restarts": 3
+        },
+        "schema_version": 4,
+        "search": {
+          "cache_temperature_decimals": 3,
+          "cache_yan_decimals": 3,
+          "checkpoint_every_iteration": true,
+          "checkpoint_interval_minutes": 30.0,
+          "cognitive": 1.49,
+          "continuation_improvement_tolerance_fraction": 0.001,
+          "frequent_rerank_members": 8,
+          "full_ensemble_members": 64,
+          "improvement_tolerance": 1e-05,
+          "inertia": 0.72,
+          "local_acceptance_ratio": 0.1,
+          "local_expansion_ratio": 0.75,
+          "local_finite_difference_step": 0.03,
+          "local_gradient_tolerance": 0.0001,
+          "local_initial_trust_radius": 0.12,
+          "local_maximum_iterations": 4,
+          "local_maximum_trust_radius": 0.3,
+          "local_minimum_trust_radius": 0.0075,
+          "maximum_iterations": 20,
+          "maximum_wall_clock_h": 8.0,
+          "minimum_finalist_seed_contributors": 2,
+          "minimum_practically_converged_seed_champions": 3,
+          "minimum_ranking_spearman": 0.7,
+          "particles": 24,
+          "policy_family_distance_threshold": 0.35,
+          "practical_score_tolerance_fraction": 0.005,
+          "representative_members": 4,
+          "rerank_interval": 2,
+          "restarts": 2,
+          "seed_profile_fraction": 0.34,
+          "social": 1.49,
+          "stage1_members": 4,
+          "stage2_continuation_iterations": 6,
+          "stage2_members": 8,
+          "stage5_continuation_window": 3,
+          "stagnation_iterations": 5,
+          "top_k_candidates": 5,
+          "top_k_local_refinement": 3
+        },
+        "seed": 20260717,
+        "source_contract": {
+          "aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+          "engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
+          "explicit_cli_source_required": true,
+          "joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+          "manifest_output_hash_verification_required": true,
+          "temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+        },
+        "tank_randomization_seed": 20260718
+      }
+    },
+    "sha256": "b481ddcd93d426136c86a752354ab48a3b340555a8d966f85998a8a4190b797a"
+  },
+  "created_utc": "2026-07-19T20:57:25.719048+00:00",
+  "environment": {
+    "executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\python.exe",
+    "packages": {
+      "chemicals": "1.5.2",
+      "idaes-pse": "2.11.0",
+      "matplotlib": "3.9.2",
+      "nbclient": "0.8.0",
+      "nbformat": "5.10.4",
+      "numpy": "1.26.4",
+      "openpyxl": "3.1.5",
+      "pandas": "2.2.2",
+      "pyomo": "6.10.0",
+      "scipy": "1.13.1",
+      "thermo": "0.6.0"
+    },
+    "platform": "Windows-11-10.0.22631-SP0",
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+    "solver": {
+      "ipopt_available_on_path": true,
+      "ipopt_executable": "C:\\Users\\ctorrealba\\AppData\\Local\\anaconda3\\Library\\bin\\ipopt.EXE"
+    }
+  },
+  "executable_schedule_issued": false,
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "gate": {
+    "checks": {
+      "cross_artifact_consistency_pass": true,
+      "physical_flags_closed": true,
+      "runtime_within_8h": true,
+      "scientific_qualification_pass": true,
+      "source_hashes_verified": true,
+      "tank_assignments_empty": true,
+      "visual_qa_pass": true
+    },
+    "physical_authorization_gate": "FAIL / PENDING OWNER APPROVAL",
+    "verdict": "PASS"
+  },
+  "git": {
+    "branch": "wave1_operational_coverage",
+    "captured_before_output_directory": true,
+    "commit": "e4dea3aecb0cfd074b40da47c7430632c25d310d",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty": true,
+    "dirty_paths": [
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_eligible_candidate_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_local_refinement_trace.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_per_seed_champions_64_member.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_practical_convergence_gate.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_025_cont_i022.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_026_cont_i023.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_027_cont_i024.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_028_complete_i024.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_01_after_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_01_before_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_02_after_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_02_before_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_03_after_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_03_before_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/capture_interval_summary.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_candidate_actions.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_final_design_config.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_strategy_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_vs_feasible_information.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_vs_feasible_information.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/cross_artifact_consistency_audit.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/drying_margin_by_policy_member.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/drying_margin_by_policy_member.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/eligible_candidate_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_benchmark.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_008_before_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_009_after_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_010_eightm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_011_eightm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_012_eightm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_013_eightm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_014_complete_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_008_before_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_009_after_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_010_eightm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_011_eightm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_012_eightm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_013_eightm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_014_complete_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_008_before_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_009_after_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_010_eightm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_011_eightm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_012_eightm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_013_eightm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_014_complete_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/fim_eigenvalue_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/fim_eigenvalue_comparison.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_gate_summary.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/authorization/authorization_state_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK31_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK32_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK33_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/capture/capture_intervals_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK31_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK32_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK33_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_checksums_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_profiles_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_profiles_gui_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/coverage_vs_feasible_information_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/fim_eigenvalue_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/final_temperature_profiles_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/operational_coverage_map_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/parameter_information_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/physical_temperature_envelope_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/wave1_sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/nutrition/nutrition_plan_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/package_manifest_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/sampling/sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/tanks/proposed_logical_tank_mapping_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_temperature_profiles.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/local_refinement_rejected_candidates.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/local_refinement_trace.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/operational_coverage_map.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/optimized_sampling_schedules.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/parameter_information_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/parameter_information_comparison.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/physical_temperature_envelope.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/physical_temperature_envelope_by_candidate.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_direct_vs_cached_fim.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fd_stability.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fim_validation.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fim_validation_cases.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_grid_stability.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/posterior_correlation_summary.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/posterior_variance_ratio_by_strategy.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/qualification_state.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/robust_setpoint_envelope.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/run_manifest.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/runtime_summary.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/sampling_search_restarts.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/sampling_strategy_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/scientific_dependency_manifest.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/selected_candidate_provenance.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/visual_qa.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/wave1_sampling_calendar.png"
+    ],
+    "porcelain_sha256": "7198a1f3903f3c1b185ce2a4e19b183c787710f05b4ea26cbb03362a01254d88",
+    "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked_paths": [
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_eligible_candidate_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_local_refinement_trace.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_per_seed_champions_64_member.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_practical_convergence_gate.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260803_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260817_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260831_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260847_025_complete_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_008_fourm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_009_fourm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_010_fourm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_011_fourm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_012_before_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_013_after_fidelity_change_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_014_eightm_i011.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_015_eightm_i012.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_016_eightm_i013.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_017_eightm_i014.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_018_eightm_i015.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_019_eightm_i016.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_020_eightm_i017.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_021_eightm_i018.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_022_cont_i019.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_023_cont_i020.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_024_cont_i021.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_025_cont_i022.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_026_cont_i023.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_027_cont_i024.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/b_s20260861_028_complete_i024.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_01_after_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_01_before_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_02_after_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_02_before_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_03_after_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_03_before_ipopt.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/capture_interval_summary.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_candidate_actions.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_final_design_config.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_strategy_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_vs_feasible_information.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_vs_feasible_information.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/cross_artifact_consistency_audit.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/drying_margin_by_policy_member.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/drying_margin_by_policy_member.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/eligible_candidate_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_benchmark.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_008_before_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_009_after_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_010_eightm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_011_eightm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_012_eightm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_013_eightm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260903_014_complete_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_008_before_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_009_after_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_010_eightm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_011_eightm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_012_eightm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_013_eightm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260917_014_complete_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_001_fourm_i000.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_002_fourm_i001.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_003_fourm_i002.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_004_fourm_i003.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_005_fourm_i004.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_006_fourm_i005.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_007_fourm_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_008_before_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_009_after_fidelity_change_i006.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_010_eightm_i007.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_011_eightm_i008.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_012_eightm_i009.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_013_eightm_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_search_checkpoints/i_s20260931_014_complete_i010.json.gz",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/fim_eigenvalue_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/fim_eigenvalue_comparison.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_gate_summary.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/authorization/authorization_state_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK31_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK32_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK33_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/capture/capture_intervals_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK31_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK32_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK33_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_checksums_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_profiles_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_profiles_gui_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/coverage_vs_feasible_information_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/fim_eigenvalue_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/final_temperature_profiles_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/operational_coverage_map_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/parameter_information_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/physical_temperature_envelope_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/wave1_sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/nutrition/nutrition_plan_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/package_manifest_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/sampling/sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/tanks/proposed_logical_tank_mapping_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_temperature_profiles.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/local_refinement_rejected_candidates.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/local_refinement_trace.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/operational_coverage_map.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/optimized_sampling_schedules.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/parameter_information_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/parameter_information_comparison.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/physical_temperature_envelope.png",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/physical_temperature_envelope_by_candidate.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_direct_vs_cached_fim.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fd_stability.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fim_validation.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fim_validation_cases.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_grid_stability.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/posterior_correlation_summary.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/posterior_variance_ratio_by_strategy.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/qualification_state.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/robust_setpoint_envelope.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/run_manifest.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/runtime_summary.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/sampling_search_restarts.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/sampling_strategy_comparison.csv",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/scientific_dependency_manifest.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/selected_candidate_provenance.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/visual_qa.json",
+      "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/wave1_sampling_calendar.png"
+    ]
+  },
+  "immutable_run_directory": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093",
+  "outputs": {
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_eligible_candidate_comparison.csv": {
+      "bytes": 10747,
+      "sha256": "1500bf5c646a9da452c6d92be44984ba6d2b890699a5b94c9da6c8173053e49b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_local_refinement_trace.csv": {
+      "bytes": 10405,
+      "sha256": "ce9184cffcb9690043dbe2821944397dc4d68d0a0d5405b365554ff1d6effe2f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_per_seed_champions_64_member.csv": {
+      "bytes": 4598,
+      "sha256": "d083a73f75023f87d846c13d9f28ace6638570d5529baa7b21c22ce931504215"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_practical_convergence_gate.json": {
+      "bytes": 6216,
+      "sha256": "70758818bcf14f0938e56b8a484d255c5d3fb548374bfbcbbc8160789d3f10a7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_01_after_ipopt.json.gz": {
+      "bytes": 1726,
+      "sha256": "0217dae802ac6c7396959c4940771955c1a9fc14efaa499dc0b4b98bcdf993ff"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_01_before_ipopt.json.gz": {
+      "bytes": 615,
+      "sha256": "df2a8906dc9aa948f25e39f84f4b12ba518835e4fc20479792b68174d30a737a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_02_after_ipopt.json.gz": {
+      "bytes": 1791,
+      "sha256": "10cd1061f66010c471b66c066a44a5c12e0be02132533f8b60ad00a4c65a5657"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_02_before_ipopt.json.gz": {
+      "bytes": 618,
+      "sha256": "ba33d112ea6d086b0314520d20a6e3b9bcc7ef7104963f6700f10563af689e47"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_03_after_ipopt.json.gz": {
+      "bytes": 1706,
+      "sha256": "d8243da706868d567da706f96ade191cdce91de0005b71a23ce2eaf8ab5193fb"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/balanced_search_checkpoints/local_refinement/rank_03_before_ipopt.json.gz": {
+      "bytes": 623,
+      "sha256": "81dd913f115479288cb4d214a34f9d3f64a8e13127f81788deec7e7a7c8db2bd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/capture_interval_summary.csv": {
+      "bytes": 179326,
+      "sha256": "9cbc91363c7c969be7fda12eb3ea39c39c1b103bdb4ce9bd7aaa63884e8f00ab"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_candidate_actions.csv": {
+      "bytes": 119135,
+      "sha256": "df4ccb90d6f6d55efda12bd82116894aa4982c3c36f9b946131729fcb34d8c64"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_final_design_config.json": {
+      "bytes": 3845,
+      "sha256": "3dfd8a8b6106d1e04666ed58ed33ce61ca402b5e790632cbc4be0975a73709bd"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_strategy_comparison.csv": {
+      "bytes": 1779,
+      "sha256": "f08667a40afd35b499dcead2d57d1fac8a4d85c413766b3c2bdc97da2e5894d4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_vs_feasible_information.csv": {
+      "bytes": 1779,
+      "sha256": "f08667a40afd35b499dcead2d57d1fac8a4d85c413766b3c2bdc97da2e5894d4"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/coverage_vs_feasible_information.png": {
+      "bytes": 72492,
+      "sha256": "f88bba53c5e2d990905fd31a1b69fb99621bc0f44eb43c96c0dc6c9c4503fcef"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/cross_artifact_consistency_audit.json": {
+      "bytes": 1435,
+      "sha256": "351928d92e06e1701abf6c944080b67fff6d2d2ff4f6d937497e0fc9f165fa0b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/drying_margin_by_policy_member.csv": {
+      "bytes": 69861,
+      "sha256": "1b798fad104255626ebd4df7ca38b4bb06bc8a36baf900600b2ce9bc92ed87f2"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/drying_margin_by_policy_member.png": {
+      "bytes": 95178,
+      "sha256": "8577d43b5411f1b68dd813025164cecce68c06d0e5f60a4fac8cca7b449b02d7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/eligible_candidate_comparison.csv": {
+      "bytes": 10747,
+      "sha256": "1500bf5c646a9da452c6d92be44984ba6d2b890699a5b94c9da6c8173053e49b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/feasible_information_benchmark.csv": {
+      "bytes": 3219,
+      "sha256": "6f7605c2279bf704abeee337bb10009ae8415283741360b77bfd34805a2f8b0d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/fim_eigenvalue_comparison.csv": {
+      "bytes": 9944,
+      "sha256": "6dd2babba2694e32b89993810cc06242dc44302014eff76e50d131d639604d50"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/fim_eigenvalue_comparison.png": {
+      "bytes": 68748,
+      "sha256": "e4e98a64f0faf0590c6c71466d5dbb6e79f796b8564d4b88d90f0b23f47d7b7b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_gate_summary.json": {
+      "bytes": 4488,
+      "sha256": "5c730b790d8b6ce227632faf71a21a8017d0a89b2072b24b81010da569a1204a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/authorization/authorization_state_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 488,
+      "sha256": "28d7ace895897a144a1329336ee406196a91b0642829278e34a56fbb0991f260"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK31_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics": {
+      "bytes": 5491,
+      "sha256": "1bf59557f672fa583b71ffd82e4048b5973bcb2165717f747093c059ac2092f9"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK32_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics": {
+      "bytes": 5174,
+      "sha256": "8b22ddce6ede9a9ab358d5cfdd07f165afd0efe043e96cbdc00b986ea062b2df"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/TK33_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics": {
+      "bytes": 4540,
+      "sha256": "363c2902bada7ed11133a3ec1643bd72cb82bf3d0a68ca9155c7d3fe6bbfaf94"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/calendar/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 52205,
+      "sha256": "cba690709e9f505d2ad17b47102eab096afca4421bb813aa71599db306bf4e59"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/capture/capture_intervals_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 38673,
+      "sha256": "8e26bd605978da9952622ca4f7cb94c250d3897c949cd8ccfd915a6bdacd0409"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK31_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md": {
+      "bytes": 637,
+      "sha256": "f25fef559c572ab30837746e35ce792e396b1d3aae49cfb92ef10ceaf48bd49f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK32_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md": {
+      "bytes": 636,
+      "sha256": "212f536085975db68e0352fe8924c174dd0f1291330e65ef1ab0d723bc6f4c07"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/checklists/TK33_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md": {
+      "bytes": 649,
+      "sha256": "6d985c034c367b8ea0f150d4293506d4c98db1fe6e69379c826460705b08830d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_checksums_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 667,
+      "sha256": "610013537129a25bb1ee8d089d3caa6626d76f14f8c949c797fc845344b84017"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_profiles_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 19759,
+      "sha256": "846155ec2bf26546628bdd6b0592c408cfa9f0984bebb5d3e2f0caa67486938b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/controller/controller_profiles_gui_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 40476,
+      "sha256": "70055c6c19bfb4a30ccd3859a2cb1da51608c42699555865bc2fcd226550e672"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/coverage_vs_feasible_information_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 72492,
+      "sha256": "f88bba53c5e2d990905fd31a1b69fb99621bc0f44eb43c96c0dc6c9c4503fcef"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 95178,
+      "sha256": "8577d43b5411f1b68dd813025164cecce68c06d0e5f60a4fac8cca7b449b02d7"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/fim_eigenvalue_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 68748,
+      "sha256": "e4e98a64f0faf0590c6c71466d5dbb6e79f796b8564d4b88d90f0b23f47d7b7b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/final_temperature_profiles_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 74404,
+      "sha256": "8e3dba75ca1fed3b7149c5e50cc0d2ff60e25265f9586ac8919a42175097db4e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/operational_coverage_map_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 83167,
+      "sha256": "6978b6293d27d0cd4bae641f2a0ac386d453e18f6b41049391f8ccc8c79ce163"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/parameter_information_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 161948,
+      "sha256": "ccc64e93ebdf5a2f47835e9a34c23c7135e1abf1a9be84a7dfcc2e37f9459306"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/physical_temperature_envelope_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 97413,
+      "sha256": "dc71d38ddeb383c07cb2ee37d8a4612a4094b992022f6163a72f89d803bbb37c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/figures/wave1_sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.png": {
+      "bytes": 71649,
+      "sha256": "49aff56fbc39c6c9e19bd285b75677e82262d68c034168abeb03588d1cb502fa"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/nutrition/nutrition_plan_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 822,
+      "sha256": "65e0f0041142700d88b21f69b798eeeefa20e82a80ddc0520bb2d6cc885b8c37"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/package_manifest_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 5147,
+      "sha256": "e2e9f91bb454bfdf3579a071993c46112414153acb2a9de1a70102e2050e50f1"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/sampling/sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.csv": {
+      "bytes": 8856,
+      "sha256": "ee096c2fe019fe301abad9f06739971c8dbca15adae8192a52417cd2bca0761b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_protocol_review_package/tanks/proposed_logical_tank_mapping_REVIEW_ONLY_NOT_AUTHORIZED.json": {
+      "bytes": 571,
+      "sha256": "b8962269318d9a8852d376fb3d80d8b145ddabf11a3980c4711c7d868946006d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/final_temperature_profiles.png": {
+      "bytes": 74404,
+      "sha256": "8e3dba75ca1fed3b7149c5e50cc0d2ff60e25265f9586ac8919a42175097db4e"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/local_refinement_rejected_candidates.json": {
+      "bytes": 7184,
+      "sha256": "21c8c2ed9111a973e00559780dfbdb0a3f64f2f8f86a7c392da6d55ced3b20be"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/local_refinement_trace.csv": {
+      "bytes": 10405,
+      "sha256": "ce9184cffcb9690043dbe2821944397dc4d68d0a0d5405b365554ff1d6effe2f"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/operational_coverage_map.png": {
+      "bytes": 83167,
+      "sha256": "6978b6293d27d0cd4bae641f2a0ac386d453e18f6b41049391f8ccc8c79ce163"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/optimized_sampling_schedules.csv": {
+      "bytes": 44564,
+      "sha256": "86c5f4ed8eddaaedddd4b176a1034dbd9276ece2d9d777525155409069689282"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/parameter_information_comparison.csv": {
+      "bytes": 13139,
+      "sha256": "5090c9bcc5aded1d57b71a942fa52292e063b67ae9688d31da3add52ec76fe92"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/parameter_information_comparison.png": {
+      "bytes": 161948,
+      "sha256": "ccc64e93ebdf5a2f47835e9a34c23c7135e1abf1a9be84a7dfcc2e37f9459306"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/physical_temperature_envelope.png": {
+      "bytes": 97413,
+      "sha256": "dc71d38ddeb383c07cb2ee37d8a4612a4094b992022f6163a72f89d803bbb37c"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/physical_temperature_envelope_by_candidate.csv": {
+      "bytes": 687671,
+      "sha256": "514e6c83314114f653653cb27f5ce3d5ba8668a267d48b4a6561e4a1c62bacff"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_direct_vs_cached_fim.csv": {
+      "bytes": 6862,
+      "sha256": "a165a2f12add3741b0c7c1de5eca7376dc32760a94456390362a2dc9fe15e913"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fd_stability.csv": {
+      "bytes": 19338,
+      "sha256": "0489c222bcdb1b934cdc5500be81d67a6c56a39f2f7cbca6fae4380f1b1d19d3"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fim_validation.json": {
+      "bytes": 1648,
+      "sha256": "f4f2c1ff3a15810eb57084ee53ab5016628f6097ced2076bb9ee81c41b8d9b4b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_fim_validation_cases.csv": {
+      "bytes": 9494,
+      "sha256": "5612dcd40dbd60b9e9f728f615080fdac903da6abc77fcc7f223a530d68be39d"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/post_search_grid_stability.csv": {
+      "bytes": 19203,
+      "sha256": "acc851b5dd3a23ae2be88e82df43871d734a75493440c2f5b88b4e5a11955ba5"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/posterior_correlation_summary.csv": {
+      "bytes": 6882,
+      "sha256": "1e1fb252360d9405f91528c3f58d4b9214a6282ceafbecb6905972631cce462a"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/posterior_variance_ratio_by_strategy.csv": {
+      "bytes": 11183,
+      "sha256": "9ab0e2935c1435c34d4f1858395b5deb677e49b622edf02b84aa334c15f79b1b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/qualification_state.json": {
+      "bytes": 64867,
+      "sha256": "d8efe5c3d459cd2858568ba656383fa1c060ed5f9a1ceb08e7bf547a619c9e63"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/robust_setpoint_envelope.json": {
+      "bytes": 1142,
+      "sha256": "1747704133137fcc598811c552982501bd15d2523bb50f5c78c366a3b1431c36"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/runtime_summary.json": {
+      "bytes": 882,
+      "sha256": "79b595889ec3e3506240a15b6719176192923b17ad768b45f0cfac4979714834"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/sampling_search_restarts.csv": {
+      "bytes": 3225,
+      "sha256": "e1794e6be43426672818133d017189f276bdb18c935773cd5c0c43fa41e0d3b8"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/sampling_strategy_comparison.csv": {
+      "bytes": 3270,
+      "sha256": "9cd185c0d9f89332eeb12cb442fc046f046353eca5ffe9bb51a75630aa93a8df"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/scientific_dependency_manifest.json": {
+      "bytes": 13680,
+      "sha256": "41a3d63e9b7c9a241d8cd844fcf4ddf7289e2a30aef6dc0ce352e87451d663f6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/selected_candidate_provenance.json": {
+      "bytes": 1810,
+      "sha256": "9296398b7cb75ff6604a5bde5e60758760e9b65cb3f3fa344e5ad5a913a0df5b"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/visual_qa.json": {
+      "bytes": 3247,
+      "sha256": "13c1c8d58416341528b795f43521f028de6360925813fcc70e1baed65bfe75f6"
+    },
+    "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage_final/20260719T180451Z_9b8093/wave1_sampling_calendar.png": {
+      "bytes": 71649,
+      "sha256": "49aff56fbc39c6c9e19bd285b75677e82262d68c034168abeb03588d1cb502fa"
+    }
+  },
+  "partition_surrogate_provenance": {
+    "path": "fermentation_model\\legacy\\development_2026\\results\\aroma_campaign_doe\\aroma_campaign_metadata.json",
+    "sha256": "c43eb407318799432599db7a5bf6c0955300b5216ca4818e391ae7792c190f99"
+  },
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "random_seeds": [
+    20260803,
+    20260817,
+    20260831,
+    20260847,
+    20260861,
+    20260903,
+    20260917,
+    20260931
+  ],
+  "run_id": "20260719T180451Z_9b8093",
+  "schema_version": 1,
+  "scientific_dependency_sha256": "0efdc0c3b4cf785a3ab901c2ccf249c360786e06dc0b60a73e96f8708e946e47",
+  "solver_status_and_convergence": {
+    "best_full_ensemble_robust_score": 19.857374370721477,
+    "checks": {
+      "all_near_best_champions_feasible": true,
+      "at_least_three_seed_champions_within_0_5pct": true,
+      "continuation_improvement_at_most_0_1pct": true,
+      "eight_member_continuation_completed": true,
+      "five_seed_champions_available": true,
+      "ipopt_executed_for_top_three": true,
+      "operational_policy_family_has_three_seeds": true,
+      "selected_candidate_locally_qualified": true
+    },
+    "latest_continuation_window_by_seed": [
+      {
+        "continuation_improvement_fraction": 0.0,
+        "end_iteration": 21,
+        "score_after": 17.697257495786637,
+        "score_before": 17.697257495786637,
+        "seed": 20260803,
+        "start_iteration": 18,
+        "window": 1
+      },
+      {
+        "continuation_improvement_fraction": 3.2617105734771365e-05,
+        "end_iteration": 21,
+        "score_after": 17.755330261369668,
+        "score_before": 17.754751152774023,
+        "seed": 20260817,
+        "start_iteration": 18,
+        "window": 1
+      },
+      {
+        "continuation_improvement_fraction": 0.00029961290719248123,
+        "end_iteration": 21,
+        "score_after": 17.69802239641148,
+        "score_before": 17.69272142870808,
+        "seed": 20260831,
+        "start_iteration": 18,
+        "window": 1
+      },
+      {
+        "continuation_improvement_fraction": 0.0009759479084344004,
+        "end_iteration": 21,
+        "score_after": 17.736704961053597,
+        "score_before": 17.719411738228985,
+        "seed": 20260847,
+        "start_iteration": 18,
+        "window": 1
+      },
+      {
+        "continuation_improvement_fraction": 0.00045816299824207594,
+        "end_iteration": 24,
+        "score_after": 17.758860539984735,
+        "score_before": 17.75072781330881,
+        "seed": 20260861,
+        "start_iteration": 21,
+        "window": 2
+      }
+    ],
+    "maximum_continuation_improvement_fraction": 0.0009759479084344004,
+    "near_best_seeds": [
+      20260803,
+      20260817,
+      20260831,
+      20260847,
+      20260861
+    ],
+    "pairwise_policy_distances": [
+      {
+        "changepoint_distance": 0.03571428571428571,
+        "complexity_distance": 0.125,
+        "dose_distance": 0.0,
+        "left_seed": 20260803,
+        "policy_distance": 0.09377616614408649,
+        "pulse_time_distance": 0.010416666666666666,
+        "right_seed": 20260817,
+        "setpoint_distance": 0.18142702250307335
+      },
+      {
+        "changepoint_distance": 0.14285714285714285,
+        "complexity_distance": 0.5,
+        "dose_distance": 0.0,
+        "left_seed": 20260803,
+        "policy_distance": 0.17301827111132778,
+        "pulse_time_distance": 0.0,
+        "right_seed": 20260831,
+        "setpoint_distance": 0.23611710634974803
+      },
+      {
+        "changepoint_distance": 0.14285714285714285,
+        "complexity_distance": 0.5,
+        "dose_distance": 0.0,
+        "left_seed": 20260803,
+        "policy_distance": 0.16769185130626596,
+        "pulse_time_distance": 0.05208333333333333,
+        "right_seed": 20260847,
+        "setpoint_distance": 0.2032698068370935
+      },
+      {
+        "changepoint_distance": 0.03571428571428571,
+        "complexity_distance": 0.125,
+        "dose_distance": 0.0,
+        "left_seed": 20260803,
+        "policy_distance": 0.09221160192707908,
+        "pulse_time_distance": 0.0,
+        "right_seed": 20260861,
+        "setpoint_distance": 0.18142186196055485
+      },
+      {
+        "changepoint_distance": 0.10714285714285714,
+        "complexity_distance": 0.375,
+        "dose_distance": 0.0,
+        "left_seed": 20260817,
+        "policy_distance": 0.11434008805413594,
+        "pulse_time_distance": 0.010416666666666666,
+        "right_seed": 20260831,
+        "setpoint_distance": 0.13462254156391126
+      },
+      {
+        "changepoint_distance": 0.10714285714285714,
+        "complexity_distance": 0.375,
+        "dose_distance": 0.0,
+        "left_seed": 20260817,
+        "policy_distance": 0.16831221415363415,
+        "pulse_time_distance": 0.041666666666666664,
+        "right_seed": 20260847,
+        "setpoint_distance": 0.2578341068126567
+      },
+      {
+        "changepoint_distance": 0.0,
+        "complexity_distance": 0.0,
+        "dose_distance": 0.0,
+        "left_seed": 20260817,
+        "policy_distance": 0.006566907749741768,
+        "pulse_time_distance": 0.010416666666666666,
+        "right_seed": 20260861,
+        "setpoint_distance": 0.01251101937435442
+      },
+      {
+        "changepoint_distance": 0.14285714285714285,
+        "complexity_distance": 0.0,
+        "dose_distance": 0.0,
+        "left_seed": 20260831,
+        "policy_distance": 0.15358731600258102,
+        "pulse_time_distance": 0.05208333333333333,
+        "right_seed": 20260847,
+        "setpoint_distance": 0.2930084685778811
+      },
+      {
+        "changepoint_distance": 0.10714285714285714,
+        "complexity_distance": 0.375,
+        "dose_distance": 0.0,
+        "left_seed": 20260831,
+        "policy_distance": 0.11200059209309932,
+        "pulse_time_distance": 0.0,
+        "right_seed": 20260861,
+        "setpoint_distance": 0.1326800516613197
+      },
+      {
+        "changepoint_distance": 0.10714285714285714,
+        "complexity_distance": 0.375,
+        "dose_distance": 0.0,
+        "left_seed": 20260847,
+        "policy_distance": 0.16766812350468582,
+        "pulse_time_distance": 0.05208333333333333,
+        "right_seed": 20260861,
+        "setpoint_distance": 0.25231763019028597
+      }
+    ],
+    "required_maximum_continuation_improvement_fraction": 0.001,
+    "verdict": "PASS"
+  },
+  "source_output_verification": {
+    "actuator": {
+      "canonical_lf_output_sha256": "87bd37b989654ece4007ad3f2a8be10d9b4771bb90b828708e4404b49fe66897",
+      "configuration_sha256": "95efe039a2a6f02d1eb5e66a8c997b17fd294cd1d1179bd29cbc77740dac8e5b",
+      "declared_output_sha256": "87bd37b989654ece4007ad3f2a8be10d9b4771bb90b828708e4404b49fe66897",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/run_manifest.json",
+      "manifest_sha256": "963eec91adc887076e2e5dfc95069106c3ce0f3753424c91483a4a27415dcb65",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/actuator_estimates_by_run.csv",
+      "run_id": "20260717T170749Z_95efe0",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "34bbd72d267fea940a5b736eed517d5c508454e6c30e76b72600babea514d86c"
+    },
+    "adapter_gate": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "b41bbde8959bc3e1dcf9f818b6d6718831053c6b92404451ce2b670540b33664",
+      "declared_output_sha256": "5aabac325174d598019b44afb97353ad318842856e2a7eeb293c1a8cc50863f5",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd/run_manifest.json",
+      "manifest_sha256": "ac966d3b8a03a69e8a6a162c47243af3bc6f75f99371cd7885d7a45024cbc28c",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd/adapter_gate.json",
+      "run_id": "20260718T061321Z_b41bbd",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "5aabac325174d598019b44afb97353ad318842856e2a7eeb293c1a8cc50863f5"
+    },
+    "aroma_gate": {
+      "canonical_lf_output_sha256": "4d8847272c022d8e7290000c884b9ec91b8772e8f5271bcdab05e20b98d8d92f",
+      "configuration_sha256": "e927a5ef5befbf957896e2475dc73ecbd23ec2542c595942a0dfdb1adaa897cf",
+      "declared_output_sha256": "4d8847272c022d8e7290000c884b9ec91b8772e8f5271bcdab05e20b98d8d92f",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "manifest_sha256": "f97efc5cbafc5f955a748003921edadf19ca9f8a5b9a0091cbf1e551335bee76",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/aroma_calibration_gate.json",
+      "run_id": "20260717T161527Z_e927a5",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "b627aaa7b64f9eb7b9a952fc1f1a5e1705ab23b513f4d9c3cbc3038e6649ee8b"
+    },
+    "ensemble": {
+      "canonical_lf_output_sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c",
+      "configuration_sha256": "6b9889d4bb5b9cca8a97791b72aa573c467f13a3d3ce67edc1cd20a1abefa5eb",
+      "declared_output_sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/run_manifest.json",
+      "manifest_sha256": "17f83fcc43859a7b4f4fc3a717150f0c82b98e5757c0e45c2ce3fd1bb368ffe8",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/joint_parameter_ensemble.csv",
+      "run_id": "20260717T162323Z_6b9889",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "ad75052af715a0dc3921702c03c379504ecf52c808fed723df31b34d55b30ccf"
+    },
+    "reference_actions": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "82d59823fed1a298ad018cc1b77b3c14432b425a4edc3097a6d147787d0ede82",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/final_candidate_policy_actions.csv",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "82d59823fed1a298ad018cc1b77b3c14432b425a4edc3097a6d147787d0ede82"
+    },
+    "reference_actuator": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "8a3b7c08fc90280451a38ed0f97cd55e53719ba43e35f87a35b84b89c50eb29c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/actuator_robustness_validation.csv",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "8a3b7c08fc90280451a38ed0f97cd55e53719ba43e35f87a35b84b89c50eb29c"
+    },
+    "reference_full_ensemble": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "fc143a7730b27d9203892a83ab95854aff44af299fd3793be029650f8e8a95df",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/full_ensemble_validation.csv",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "fc143a7730b27d9203892a83ab95854aff44af299fd3793be029650f8e8a95df"
+    },
+    "reference_sampling_comparison": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "71b78bff480d49fbd8072703dd5753ce16f95658aa4fb984e65ffd0073f3e9aa",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "manifest_sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/sampling_candidate_comparison.csv",
+      "run_id": "20260719T042832Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "71b78bff480d49fbd8072703dd5753ce16f95658aa4fb984e65ffd0073f3e9aa"
+    },
+    "reference_sampling_gate": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "3bd68e1ddf97424d387e7ba857b5f9bbc965256d9f51215c65269fdc79b7161c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "manifest_sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/final_sampling_gate.json",
+      "run_id": "20260719T042832Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "3bd68e1ddf97424d387e7ba857b5f9bbc965256d9f51215c65269fdc79b7161c"
+    },
+    "reference_sampling_schedule": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "a5fcf50bb8c515b365321b3dbbf41831e9c5d90cab4b0328d43637ed04056092",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "manifest_sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/optimized_sampling_schedule.csv",
+      "run_id": "20260719T042832Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "a5fcf50bb8c515b365321b3dbbf41831e9c5d90cab4b0328d43637ed04056092"
+    },
+    "reference_search_gate": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "f7943bf03470f0d9274f84a656e62f1fe94ed74c69d9a7177fb8768fea0ee465",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/final_search_gate.json",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "f7943bf03470f0d9274f84a656e62f1fe94ed74c69d9a7177fb8768fea0ee465"
+    }
+  },
+  "sources": {
+    "actuator_manifest": {
+      "bytes": 3756,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/run_manifest.json",
+      "sha256": "963eec91adc887076e2e5dfc95069106c3ce0f3753424c91483a4a27415dcb65"
+    },
+    "adapter_manifest": {
+      "bytes": 34920,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd/run_manifest.json",
+      "sha256": "ac966d3b8a03a69e8a6a162c47243af3bc6f75f99371cd7885d7a45024cbc28c"
+    },
+    "aroma_manifest": {
+      "bytes": 15257,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "sha256": "f97efc5cbafc5f955a748003921edadf19ca9f8a5b9a0091cbf1e551335bee76"
+    },
+    "coverage_config": {
+      "bytes": 5240,
+      "path": "fermentation_model/pilot_2026/adaptive_design/coverage_design_config.json",
+      "sha256": "7de5faa930dfd1438c05966d3cf8fa70f2de2d7d9aace196d26cccd29fa385f5"
+    },
+    "design_constraints": {
+      "bytes": 4807,
+      "path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+      "sha256": "b82a22eee7839bccfb3a073d3195d76b46d7a8e433115e24724589e94d2765f5"
+    },
+    "ensemble_manifest": {
+      "bytes": 4910,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/run_manifest.json",
+      "sha256": "17f83fcc43859a7b4f4fc3a717150f0c82b98e5757c0e45c2ce3fd1bb368ffe8"
+    },
+    "final_config": {
+      "bytes": 3538,
+      "path": "fermentation_model/pilot_2026/adaptive_design/coverage_final_design_config.json",
+      "sha256": "00dfb8a26a708498ff1746b65a9eeb0068c5a600b67e1c73482dca81307b1faf"
+    },
+    "information_reference_manifest": {
+      "bytes": 132796,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375"
+    },
+    "model_config": {
+      "bytes": 8571,
+      "path": "fermentation_model/pilot_2026/adaptive_design/wave1_mbdoe_config.json",
+      "sha256": "f394468f3291b40bf51b3b3b559db6f395b143b462d5718688283d9ab2702e19"
+    },
+    "sampling_reference_manifest": {
+      "bytes": 94724,
+      "path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc"
+    }
+  },
+  "stage": "wave1_operational_coverage_final",
+  "status": "completed",
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

@@ -1,0 +1,216 @@
+{
+  "all_source_output_hashes_verified": true,
+  "dependencies": [
+    {
+      "bytes": 33862,
+      "path": "fermentation_model/pilot_2026/adaptive_design/operational_coverage.py",
+      "sha256": "c50a18c041206e20e1d892bd7322b24f3f79beb1903122f0ae113d6edfa2ff5c"
+    },
+    {
+      "bytes": 143249,
+      "path": "fermentation_model/pilot_2026/adaptive_design/run_wave1_operational_coverage.py",
+      "sha256": "5e332b7fe6f9b1f14be4b78b7ddec8a8b1ac9a9308c2aa2484c01e32cb3a38c2"
+    },
+    {
+      "bytes": 129994,
+      "path": "fermentation_model/pilot_2026/adaptive_design/run_wave1_operational_coverage_final.py",
+      "sha256": "3be4f1b54a4d1762a70defd98fcafc3731af610eb945bc84f1bf326b98b38ff2"
+    },
+    {
+      "bytes": 58882,
+      "path": "fermentation_model/pilot_2026/adaptive_design/pilot_mbdoe_adapter.py",
+      "sha256": "38c27aa8bde5bae44f36153a1e7b64b61cab7778c35e900c8259d686eeb9726d"
+    },
+    {
+      "bytes": 16453,
+      "path": "fermentation_model/pilot_2026/adaptive_design/hybrid_optimizer.py",
+      "sha256": "48749198c9f40e35221c60baae1c507591491086509c2b95f49806568668e113"
+    },
+    {
+      "bytes": 13744,
+      "path": "fermentation_model/pilot_2026/adaptive_design/local_refinement.py",
+      "sha256": "46183b1bed8183aba02ce36bd17aceb92978f2155c2fb7dc22f2b25d0f34d103"
+    },
+    {
+      "bytes": 11839,
+      "path": "fermentation_model/pilot_2026/adaptive_design/final_search_logic.py",
+      "sha256": "1fe7d09193e6bb4c26372270b70e33571a41700069e9701fb0b9d53ee46db1d0"
+    },
+    {
+      "bytes": 23381,
+      "path": "fermentation_model/pilot_2026/adaptive_design/pilot_aroma_calibration.py",
+      "sha256": "3334fb9468f9c70e7a3cd7c5fc3c51be9f2e44771a85434e7169cde8b1c61be9"
+    },
+    {
+      "bytes": 39873,
+      "path": "fermentation_model/pilot_2026/adaptive_design/pilot_calibration.py",
+      "sha256": "fe66af7a8e4558a73cefdca0bc4a512032b928a19998efc7f8790d28503ffb4d"
+    },
+    {
+      "bytes": 66273,
+      "path": "fermentation_model/pilot_2026/adaptive_design/optimize_wave1_sampling_and_plots.py",
+      "sha256": "bc10d28fabed8b5abce198b9caf87fc5f4285d82dc3aadadbb638679359faeff"
+    },
+    {
+      "bytes": 9467,
+      "path": "fermentation_model/pilot_2026/adaptive_design/run_artifacts.py",
+      "sha256": "31187f1d345ccc7b88af957208544811dbc9c5e12c15e93b02e583d0af5a3f6c"
+    },
+    {
+      "bytes": 3538,
+      "path": "fermentation_model/pilot_2026/adaptive_design/coverage_final_design_config.json",
+      "sha256": "00dfb8a26a708498ff1746b65a9eeb0068c5a600b67e1c73482dca81307b1faf"
+    },
+    {
+      "bytes": 5240,
+      "path": "fermentation_model/pilot_2026/adaptive_design/coverage_design_config.json",
+      "sha256": "7de5faa930dfd1438c05966d3cf8fa70f2de2d7d9aace196d26cccd29fa385f5"
+    },
+    {
+      "bytes": 8571,
+      "path": "fermentation_model/pilot_2026/adaptive_design/wave1_mbdoe_config.json",
+      "sha256": "f394468f3291b40bf51b3b3b559db6f395b143b462d5718688283d9ab2702e19"
+    },
+    {
+      "bytes": 4807,
+      "path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+      "sha256": "b82a22eee7839bccfb3a073d3195d76b46d7a8e433115e24724589e94d2765f5"
+    },
+    {
+      "bytes": 3826,
+      "path": "fermentation_model/pilot_2026/adaptive_design/aroma_calibration_config.json",
+      "sha256": "07d9d6893109aa963eaf3b0064eb448dcdcfac4c258f7d90a76f9e2565975f9b"
+    }
+  ],
+  "executable_schedule_issued": false,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "schema_version": 1,
+  "scientific_dependency_sha256": "0efdc0c3b4cf785a3ab901c2ccf249c360786e06dc0b60a73e96f8708e946e47",
+  "tank_assignments": [],
+  "transitive_dependency_count": 16,
+  "verified_source_outputs": {
+    "actuator": {
+      "canonical_lf_output_sha256": "87bd37b989654ece4007ad3f2a8be10d9b4771bb90b828708e4404b49fe66897",
+      "configuration_sha256": "95efe039a2a6f02d1eb5e66a8c997b17fd294cd1d1179bd29cbc77740dac8e5b",
+      "declared_output_sha256": "87bd37b989654ece4007ad3f2a8be10d9b4771bb90b828708e4404b49fe66897",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/run_manifest.json",
+      "manifest_sha256": "963eec91adc887076e2e5dfc95069106c3ce0f3753424c91483a4a27415dcb65",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0/actuator_estimates_by_run.csv",
+      "run_id": "20260717T170749Z_95efe0",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "34bbd72d267fea940a5b736eed517d5c508454e6c30e76b72600babea514d86c"
+    },
+    "adapter_gate": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "b41bbde8959bc3e1dcf9f818b6d6718831053c6b92404451ce2b670540b33664",
+      "declared_output_sha256": "5aabac325174d598019b44afb97353ad318842856e2a7eeb293c1a8cc50863f5",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd/run_manifest.json",
+      "manifest_sha256": "ac966d3b8a03a69e8a6a162c47243af3bc6f75f99371cd7885d7a45024cbc28c",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_mbdoe_adapter_v3/20260718T061321Z_b41bbd/adapter_gate.json",
+      "run_id": "20260718T061321Z_b41bbd",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "5aabac325174d598019b44afb97353ad318842856e2a7eeb293c1a8cc50863f5"
+    },
+    "aroma_gate": {
+      "canonical_lf_output_sha256": "4d8847272c022d8e7290000c884b9ec91b8772e8f5271bcdab05e20b98d8d92f",
+      "configuration_sha256": "e927a5ef5befbf957896e2475dc73ecbd23ec2542c595942a0dfdb1adaa897cf",
+      "declared_output_sha256": "4d8847272c022d8e7290000c884b9ec91b8772e8f5271bcdab05e20b98d8d92f",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/run_manifest.json",
+      "manifest_sha256": "f97efc5cbafc5f955a748003921edadf19ca9f8a5b9a0091cbf1e551335bee76",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5/aroma_calibration_gate.json",
+      "run_id": "20260717T161527Z_e927a5",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "b627aaa7b64f9eb7b9a952fc1f1a5e1705ab23b513f4d9c3cbc3038e6649ee8b"
+    },
+    "ensemble": {
+      "canonical_lf_output_sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c",
+      "configuration_sha256": "6b9889d4bb5b9cca8a97791b72aa573c467f13a3d3ce67edc1cd20a1abefa5eb",
+      "declared_output_sha256": "e6fcd582daea2b9872038cb689fe4bac498cb6735be72ac4eb6cfdbedbfc430c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/run_manifest.json",
+      "manifest_sha256": "17f83fcc43859a7b4f4fc3a717150f0c82b98e5757c0e45c2ce3fd1bb368ffe8",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889/joint_parameter_ensemble.csv",
+      "run_id": "20260717T162323Z_6b9889",
+      "verification_mode": "canonical_lf_text",
+      "working_tree_output_sha256": "ad75052af715a0dc3921702c03c379504ecf52c808fed723df31b34d55b30ccf"
+    },
+    "reference_actions": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "82d59823fed1a298ad018cc1b77b3c14432b425a4edc3097a6d147787d0ede82",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/final_candidate_policy_actions.csv",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "82d59823fed1a298ad018cc1b77b3c14432b425a4edc3097a6d147787d0ede82"
+    },
+    "reference_actuator": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "8a3b7c08fc90280451a38ed0f97cd55e53719ba43e35f87a35b84b89c50eb29c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/actuator_robustness_validation.csv",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "8a3b7c08fc90280451a38ed0f97cd55e53719ba43e35f87a35b84b89c50eb29c"
+    },
+    "reference_full_ensemble": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "fc143a7730b27d9203892a83ab95854aff44af299fd3793be029650f8e8a95df",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/full_ensemble_validation.csv",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "fc143a7730b27d9203892a83ab95854aff44af299fd3793be029650f8e8a95df"
+    },
+    "reference_sampling_comparison": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "71b78bff480d49fbd8072703dd5753ce16f95658aa4fb984e65ffd0073f3e9aa",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "manifest_sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/sampling_candidate_comparison.csv",
+      "run_id": "20260719T042832Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "71b78bff480d49fbd8072703dd5753ce16f95658aa4fb984e65ffd0073f3e9aa"
+    },
+    "reference_sampling_gate": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "3bd68e1ddf97424d387e7ba857b5f9bbc965256d9f51215c65269fdc79b7161c",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "manifest_sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/final_sampling_gate.json",
+      "run_id": "20260719T042832Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "3bd68e1ddf97424d387e7ba857b5f9bbc965256d9f51215c65269fdc79b7161c"
+    },
+    "reference_sampling_schedule": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "a5fcf50bb8c515b365321b3dbbf41831e9c5d90cab4b0328d43637ed04056092",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/run_manifest.json",
+      "manifest_sha256": "76bb5c5185778ce823ce5ce6c76614792c70c0f74450eb8d052976de5be062bc",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/20260719T042832Z_cf5179/optimized_sampling_schedule.csv",
+      "run_id": "20260719T042832Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "a5fcf50bb8c515b365321b3dbbf41831e9c5d90cab4b0328d43637ed04056092"
+    },
+    "reference_search_gate": {
+      "canonical_lf_output_sha256": null,
+      "configuration_sha256": "cf517990af48ebf02a9b20806f3f46db6393bb05f0f51dce6f02267a26ed1479",
+      "declared_output_sha256": "f7943bf03470f0d9274f84a656e62f1fe94ed74c69d9a7177fb8768fea0ee465",
+      "manifest_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/run_manifest.json",
+      "manifest_sha256": "964486646735d1317ce9ccc0ba3eb5aa3445832a4fee992ec31e97dc17720375",
+      "output_path": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/20260718T211306Z_cf5179/final_search_gate.json",
+      "run_id": "20260718T211306Z_cf5179",
+      "verification_mode": "byte_exact",
+      "working_tree_output_sha256": "f7943bf03470f0d9274f84a656e62f1fe94ed74c69d9a7177fb8768fea0ee465"
+    }
+  },
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

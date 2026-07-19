@@ -1,0 +1,22 @@
+{
+  "balanced_checkpoint_count": 134,
+  "balanced_resumed_seed_count": 5,
+  "benchmark_checkpoint_count": 42,
+  "benchmark_resumed_seed_count": 3,
+  "executable_schedule_issued": false,
+  "maximum_total_hours": 8.0,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "runtime_hours": 0.2861083738611261,
+  "runtime_seconds": 1029.990145900054,
+  "stage_runtime_seconds": {
+    "balanced_search_and_ipopt_seconds": 743.9014852999244,
+    "feasible_information_benchmark_seconds": 72.63376160000917,
+    "preflight_and_sources_seconds": 0.0950666000135243,
+    "sampling_fim_figures_package_seconds": 212.74885289999656
+  },
+  "started_at_utc": "2026-07-19T20:57:25+00:00",
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "within_total_budget": true
+}

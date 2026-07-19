@@ -1,0 +1,190 @@
+{
+  "best_full_ensemble_robust_score": 19.857374370721477,
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "checks": {
+    "all_near_best_champions_feasible": true,
+    "at_least_three_seed_champions_within_0_5pct": true,
+    "continuation_improvement_at_most_0_1pct": true,
+    "eight_member_continuation_completed": true,
+    "five_seed_champions_available": true,
+    "ipopt_executed_for_top_three": true,
+    "operational_policy_family_has_three_seeds": true,
+    "selected_candidate_locally_qualified": true
+  },
+  "executable_schedule_issued": false,
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "gate_verdicts": {
+    "consistency": "PASS",
+    "coverage": "PASS",
+    "information": "PASS",
+    "nutrition": "PASS",
+    "physical_authorization": "FAIL / PENDING OWNER APPROVAL",
+    "sampling": "PASS",
+    "search": "PASS",
+    "thermal": "PASS"
+  },
+  "latest_continuation_window_by_seed": [
+    {
+      "continuation_improvement_fraction": 0.0,
+      "end_iteration": 21,
+      "score_after": 17.697257495786637,
+      "score_before": 17.697257495786637,
+      "seed": 20260803,
+      "start_iteration": 18,
+      "window": 1
+    },
+    {
+      "continuation_improvement_fraction": 3.2617105734771365e-05,
+      "end_iteration": 21,
+      "score_after": 17.755330261369668,
+      "score_before": 17.754751152774023,
+      "seed": 20260817,
+      "start_iteration": 18,
+      "window": 1
+    },
+    {
+      "continuation_improvement_fraction": 0.00029961290719248123,
+      "end_iteration": 21,
+      "score_after": 17.69802239641148,
+      "score_before": 17.69272142870808,
+      "seed": 20260831,
+      "start_iteration": 18,
+      "window": 1
+    },
+    {
+      "continuation_improvement_fraction": 0.0009759479084344004,
+      "end_iteration": 21,
+      "score_after": 17.736704961053597,
+      "score_before": 17.719411738228985,
+      "seed": 20260847,
+      "start_iteration": 18,
+      "window": 1
+    },
+    {
+      "continuation_improvement_fraction": 0.00045816299824207594,
+      "end_iteration": 24,
+      "score_after": 17.758860539984735,
+      "score_before": 17.75072781330881,
+      "seed": 20260861,
+      "start_iteration": 21,
+      "window": 2
+    }
+  ],
+  "maximum_continuation_improvement_fraction": 0.0009759479084344004,
+  "near_best_seeds": [
+    20260803,
+    20260817,
+    20260831,
+    20260847,
+    20260861
+  ],
+  "pairwise_policy_distances": [
+    {
+      "changepoint_distance": 0.03571428571428571,
+      "complexity_distance": 0.125,
+      "dose_distance": 0.0,
+      "left_seed": 20260803,
+      "policy_distance": 0.09377616614408649,
+      "pulse_time_distance": 0.010416666666666666,
+      "right_seed": 20260817,
+      "setpoint_distance": 0.18142702250307335
+    },
+    {
+      "changepoint_distance": 0.14285714285714285,
+      "complexity_distance": 0.5,
+      "dose_distance": 0.0,
+      "left_seed": 20260803,
+      "policy_distance": 0.17301827111132778,
+      "pulse_time_distance": 0.0,
+      "right_seed": 20260831,
+      "setpoint_distance": 0.23611710634974803
+    },
+    {
+      "changepoint_distance": 0.14285714285714285,
+      "complexity_distance": 0.5,
+      "dose_distance": 0.0,
+      "left_seed": 20260803,
+      "policy_distance": 0.16769185130626596,
+      "pulse_time_distance": 0.05208333333333333,
+      "right_seed": 20260847,
+      "setpoint_distance": 0.2032698068370935
+    },
+    {
+      "changepoint_distance": 0.03571428571428571,
+      "complexity_distance": 0.125,
+      "dose_distance": 0.0,
+      "left_seed": 20260803,
+      "policy_distance": 0.09221160192707908,
+      "pulse_time_distance": 0.0,
+      "right_seed": 20260861,
+      "setpoint_distance": 0.18142186196055485
+    },
+    {
+      "changepoint_distance": 0.10714285714285714,
+      "complexity_distance": 0.375,
+      "dose_distance": 0.0,
+      "left_seed": 20260817,
+      "policy_distance": 0.11434008805413594,
+      "pulse_time_distance": 0.010416666666666666,
+      "right_seed": 20260831,
+      "setpoint_distance": 0.13462254156391126
+    },
+    {
+      "changepoint_distance": 0.10714285714285714,
+      "complexity_distance": 0.375,
+      "dose_distance": 0.0,
+      "left_seed": 20260817,
+      "policy_distance": 0.16831221415363415,
+      "pulse_time_distance": 0.041666666666666664,
+      "right_seed": 20260847,
+      "setpoint_distance": 0.2578341068126567
+    },
+    {
+      "changepoint_distance": 0.0,
+      "complexity_distance": 0.0,
+      "dose_distance": 0.0,
+      "left_seed": 20260817,
+      "policy_distance": 0.006566907749741768,
+      "pulse_time_distance": 0.010416666666666666,
+      "right_seed": 20260861,
+      "setpoint_distance": 0.01251101937435442
+    },
+    {
+      "changepoint_distance": 0.14285714285714285,
+      "complexity_distance": 0.0,
+      "dose_distance": 0.0,
+      "left_seed": 20260831,
+      "policy_distance": 0.15358731600258102,
+      "pulse_time_distance": 0.05208333333333333,
+      "right_seed": 20260847,
+      "setpoint_distance": 0.2930084685778811
+    },
+    {
+      "changepoint_distance": 0.10714285714285714,
+      "complexity_distance": 0.375,
+      "dose_distance": 0.0,
+      "left_seed": 20260831,
+      "policy_distance": 0.11200059209309932,
+      "pulse_time_distance": 0.0,
+      "right_seed": 20260861,
+      "setpoint_distance": 0.1326800516613197
+    },
+    {
+      "changepoint_distance": 0.10714285714285714,
+      "complexity_distance": 0.375,
+      "dose_distance": 0.0,
+      "left_seed": 20260847,
+      "policy_distance": 0.16766812350468582,
+      "pulse_time_distance": 0.05208333333333333,
+      "right_seed": 20260861,
+      "setpoint_distance": 0.25231763019028597
+    }
+  ],
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "required_maximum_continuation_improvement_fraction": 0.001,
+  "tank_assignments": [],
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

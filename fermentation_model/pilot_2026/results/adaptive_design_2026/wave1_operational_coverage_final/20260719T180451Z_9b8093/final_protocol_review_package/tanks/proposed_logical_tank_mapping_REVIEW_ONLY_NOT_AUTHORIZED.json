@@ -1,0 +1,15 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "executable_schedule_issued": false,
+  "mapping_authorized": false,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "proposed_tank_mapping_for_review": {
+    "TK31": "cold_early_N76",
+    "TK32": "warm_late_N76",
+    "TK33": "operational_anchor_18C_N76"
+  },
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

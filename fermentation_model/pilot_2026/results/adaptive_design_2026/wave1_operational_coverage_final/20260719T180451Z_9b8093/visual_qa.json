@@ -1,0 +1,117 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "executable_schedule_issued": false,
+  "figures": [
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "coverage_vs_feasible_information.png",
+      "height_px": 972,
+      "verdict": "PASS",
+      "width_px": 1711
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "final_temperature_profiles.png",
+      "height_px": 972,
+      "verdict": "PASS",
+      "width_px": 1711
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "operational_coverage_map.png",
+      "height_px": 1059,
+      "verdict": "PASS",
+      "width_px": 1535
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "physical_temperature_envelope.png",
+      "height_px": 972,
+      "verdict": "PASS",
+      "width_px": 1711
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "parameter_information_comparison.png",
+      "height_px": 1059,
+      "verdict": "PASS",
+      "width_px": 1888
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "wave1_sampling_calendar.png",
+      "height_px": 973,
+      "verdict": "PASS",
+      "width_px": 1800
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "drying_margin_by_policy_member.png",
+      "height_px": 972,
+      "verdict": "PASS",
+      "width_px": 1711
+    },
+    {
+      "checks": {
+        "file_nonempty": true,
+        "finite_pixels": true,
+        "height_at_least_700px": true,
+        "not_blank": true,
+        "width_at_least_1200px": true
+      },
+      "figure": "fim_eigenvalue_comparison.png",
+      "height_px": 972,
+      "verdict": "PASS",
+      "width_px": 1711
+    }
+  ],
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

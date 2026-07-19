@@ -1,0 +1,133 @@
+{
+  "authorization": {
+    "executable_schedule_issued": false,
+    "physical_execution_authorized": false,
+    "profiles_for_physical_execution": false,
+    "tank_assignments": []
+  },
+  "balanced_search": {
+    "budget_hours": 5.0,
+    "continuation_improvement_tolerance_fraction": 0.001,
+    "continuation_window_iterations": 3,
+    "eight_member_iterations": 8,
+    "four_member_iterations": 10,
+    "full_ensemble_top_k_per_seed": 5,
+    "local_refinement_top_k": 3,
+    "maximum_continuation_windows": 12,
+    "minimum_near_best_seed_champions": 3,
+    "near_best_fraction": 0.005,
+    "particles": 24,
+    "policy_family_distance_threshold": 0.35,
+    "seeds": [
+      20260803,
+      20260817,
+      20260831,
+      20260847,
+      20260861
+    ],
+    "warm_start_candidate_id": "f2addcf70aa5958d",
+    "warm_start_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598"
+  },
+  "campaign_start_local": "2026-07-20T15:00:00-04:00",
+  "feasible_information_benchmark": {
+    "budget_hours": 1.5,
+    "eight_member_iterations": 4,
+    "four_member_iterations": 6,
+    "minimum_full_ensemble_champions_per_seed": 1,
+    "particles": 16,
+    "seeds": [
+      20260903,
+      20260917,
+      20260931
+    ],
+    "strategy": "I_feasible_information_only_N76",
+    "timeout_label": "feasible_information_lower_bound"
+  },
+  "fim_validation": {
+    "finite_difference_log_steps": [
+      0.01,
+      0.02,
+      0.04
+    ],
+    "member_cases": [
+      "central_member",
+      "lowest_information_member",
+      "highest_information_member",
+      "worst_gain_member",
+      "critical_drying_member",
+      "extreme_actuator_member",
+      "selected_candidate_exact"
+    ],
+    "time_grid_steps_h": [
+      4.0,
+      2.0,
+      1.0
+    ]
+  },
+  "historical_comparator_label": "historical_infeasible_information_upper_bound",
+  "owner_selection": {
+    "anchor_nutrition_h": 46.0,
+    "dap_g_per_230_l": 43.7,
+    "dose_design": "N76_all_conservative",
+    "early_nutrition_h": 2.0,
+    "late_nutrition_slots_h": [
+      42.0,
+      46.0,
+      50.0
+    ],
+    "logical_treatments": [
+      "operational_anchor_18C_N76",
+      "cold_early_N76",
+      "warm_late_N76"
+    ],
+    "mapping_authorized": false,
+    "net_yan_fraction_dap": 0.5,
+    "net_yan_fraction_springferm": 0.5,
+    "organic_limit_fraction": 0.95,
+    "proposed_tank_mapping_for_review": {
+      "TK31": "cold_early_N76",
+      "TK32": "warm_late_N76",
+      "TK33": "operational_anchor_18C_N76"
+    },
+    "springferm_xtrem_g_per_230_l": 87.4,
+    "strategy": "II_diagonal_1",
+    "yan_mg_l": 76.0
+  },
+  "required_minimum_action_to_drying_margin_h": 24.0,
+  "result_stage": "wave1_operational_coverage_final",
+  "runtime": {
+    "checkpoint_every_iteration": true,
+    "checkpoint_interval_minutes": 20.0,
+    "maximum_total_hours": 8.0,
+    "post_search_budget_hours": 1.5
+  },
+  "sampling": {
+    "basal_time_h": 0.0,
+    "capture_intervals_per_tank": 9,
+    "harmonized_maximum_score_loss_fraction": 0.005,
+    "local_window": [
+      "09:00",
+      "17:00"
+    ],
+    "manual_capacity_per_slot": 3,
+    "maximum_operator_rounds": 12,
+    "members": 64,
+    "sample_event_order": "sample_before_action",
+    "samples_per_tank": 10,
+    "weekdays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ]
+  },
+  "schema_version": 1,
+  "timezone": "America/Santiago",
+  "verdict_labels": [
+    "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+    "PASS_CONDITIONAL — NOT READY FOR EXECUTION",
+    "FAIL — NOT READY FOR EXECUTION"
+  ],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

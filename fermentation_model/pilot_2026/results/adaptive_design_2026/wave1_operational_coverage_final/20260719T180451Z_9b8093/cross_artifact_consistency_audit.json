@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "all_gate_verdicts_match": true,
+    "drying_candidate_id": true,
+    "drying_margin_matches": true,
+    "drying_policy_hash": true,
+    "gate_summary_candidate_id": true,
+    "gate_summary_policy_hash": true,
+    "gate_summary_verdict": true,
+    "package_candidate_id": true,
+    "package_policy_hash": true,
+    "package_verdict": true,
+    "provenance_candidate_id": true,
+    "provenance_policy_hash": true,
+    "qualification_state_candidate_id": true,
+    "qualification_state_policy_hash": true,
+    "qualification_state_verdict": true,
+    "sampling_candidate_metadata": true,
+    "visual_qa_candidate_id": true,
+    "visual_qa_pass": true,
+    "visual_qa_policy_hash": true
+  },
+  "executable_schedule_issued": false,
+  "expected": {
+    "candidate_id": "707410af2741165f",
+    "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+    "coverage_gate": "PASS",
+    "drying_margin_h": 32.72046222489497,
+    "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+    "information_gate": "PASS",
+    "nutrition_gate": "PASS",
+    "sampling_gate": "PASS",
+    "thermal_gate": "PASS"
+  },
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

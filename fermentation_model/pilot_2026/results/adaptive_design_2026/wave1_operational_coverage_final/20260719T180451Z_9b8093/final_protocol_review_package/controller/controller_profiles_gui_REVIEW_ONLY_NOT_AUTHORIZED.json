@@ -1,0 +1,1293 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "controllers": [
+    {
+      "blocks": [
+        {
+          "block_index": 0,
+          "end_h": 12.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 0.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 1,
+          "end_h": 24.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 12.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 2,
+          "end_h": 36.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 24.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 3,
+          "end_h": 48.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 36.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 4,
+          "end_h": 60.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 48.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 5,
+          "end_h": 72.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 60.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 6,
+          "end_h": 84.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 72.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 7,
+          "end_h": 96.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 84.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 8,
+          "end_h": 108.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 96.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 9,
+          "end_h": 120.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 108.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 10,
+          "end_h": 132.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 120.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 11,
+          "end_h": 144.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 132.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 12,
+          "end_h": 156.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 144.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 13,
+          "end_h": 168.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 156.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 14,
+          "end_h": 180.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 168.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 15,
+          "end_h": 192.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 180.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 16,
+          "end_h": 204.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 192.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 17,
+          "end_h": 216.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 204.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 18,
+          "end_h": 228.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 216.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 19,
+          "end_h": 240.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 228.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 20,
+          "end_h": 252.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 240.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 21,
+          "end_h": 264.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 252.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 22,
+          "end_h": 276.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 264.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 23,
+          "end_h": 288.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 276.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 24,
+          "end_h": 300.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 288.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 25,
+          "end_h": 312.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 300.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 26,
+          "end_h": 324.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 312.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 27,
+          "end_h": 336.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 324.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 28,
+          "end_h": 348.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 336.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 29,
+          "end_h": 360.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 348.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 30,
+          "end_h": 372.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 360.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 31,
+          "end_h": 384.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 372.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 32,
+          "end_h": 396.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 384.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 33,
+          "end_h": 408.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 396.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 34,
+          "end_h": 420.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 408.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 35,
+          "end_h": 432.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 420.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 36,
+          "end_h": 444.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 432.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 37,
+          "end_h": 456.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 444.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 38,
+          "end_h": 468.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 456.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 39,
+          "end_h": 480.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 468.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 40,
+          "end_h": 492.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 480.0,
+          "tank_review_mapping": "TK33"
+        },
+        {
+          "block_index": 41,
+          "end_h": 504.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "operational_anchor_18C_N76",
+          "setpoint_c": 18.0,
+          "start_h": 492.0,
+          "tank_review_mapping": "TK33"
+        }
+      ],
+      "checksum_sha256": "c7b0ec596a21c69cff82893bd797505b5b4c408f4439b378959a817a5c68eeb8",
+      "policy": "operational_anchor_18C_N76",
+      "tank_review_mapping": "TK33"
+    },
+    {
+      "blocks": [
+        {
+          "block_index": 0,
+          "end_h": 12.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 16.394619981064412,
+          "start_h": 0.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 1,
+          "end_h": 24.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 17.394620031705895,
+          "start_h": 12.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 2,
+          "end_h": 36.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 16.394619916985654,
+          "start_h": 24.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 3,
+          "end_h": 48.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 16.394619916985654,
+          "start_h": 36.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 4,
+          "end_h": 60.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 48.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 5,
+          "end_h": 72.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 60.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 6,
+          "end_h": 84.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 72.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 7,
+          "end_h": 96.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 84.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 8,
+          "end_h": 108.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 96.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 9,
+          "end_h": 120.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 108.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 10,
+          "end_h": 132.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 120.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 11,
+          "end_h": 144.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 132.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 12,
+          "end_h": 156.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 144.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 13,
+          "end_h": 168.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 156.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 14,
+          "end_h": 180.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 168.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 15,
+          "end_h": 192.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 180.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 16,
+          "end_h": 204.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 192.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 17,
+          "end_h": 216.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 204.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 18,
+          "end_h": 228.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 216.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 19,
+          "end_h": 240.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 228.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 20,
+          "end_h": 252.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 240.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 21,
+          "end_h": 264.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 252.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 22,
+          "end_h": 276.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 264.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 23,
+          "end_h": 288.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 276.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 24,
+          "end_h": 300.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 288.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 25,
+          "end_h": 312.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 300.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 26,
+          "end_h": 324.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 312.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 27,
+          "end_h": 336.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 324.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 28,
+          "end_h": 348.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 336.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 29,
+          "end_h": 360.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 348.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 30,
+          "end_h": 372.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 360.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 31,
+          "end_h": 384.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 372.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 32,
+          "end_h": 396.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 384.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 33,
+          "end_h": 408.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 396.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 34,
+          "end_h": 420.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 408.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 35,
+          "end_h": 432.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 420.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 36,
+          "end_h": 444.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 432.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 37,
+          "end_h": 456.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 444.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 38,
+          "end_h": 468.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 456.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 39,
+          "end_h": 480.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 468.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 40,
+          "end_h": 492.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 480.0,
+          "tank_review_mapping": "TK31"
+        },
+        {
+          "block_index": 41,
+          "end_h": 504.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "cold_early_N76",
+          "setpoint_c": 21.39461969973337,
+          "start_h": 492.0,
+          "tank_review_mapping": "TK31"
+        }
+      ],
+      "checksum_sha256": "ad239953fbe937d8879f921c4097f3f020080bc1f767356e0714ade9769c06ca",
+      "policy": "cold_early_N76",
+      "tank_review_mapping": "TK31"
+    },
+    {
+      "blocks": [
+        {
+          "block_index": 0,
+          "end_h": 12.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.999999041379578,
+          "start_h": 0.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 1,
+          "end_h": 24.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 25.605379509350957,
+          "start_h": 12.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 2,
+          "end_h": 36.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 25.605379509350957,
+          "start_h": 24.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 3,
+          "end_h": 48.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 25.605379509350957,
+          "start_h": 36.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 4,
+          "end_h": 60.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 25.605379509350957,
+          "start_h": 48.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 5,
+          "end_h": 72.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 25.605379509350957,
+          "start_h": 60.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 6,
+          "end_h": 84.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 25.605379509350957,
+          "start_h": 72.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 7,
+          "end_h": 96.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 84.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 8,
+          "end_h": 108.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 96.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 9,
+          "end_h": 120.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 108.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 10,
+          "end_h": 132.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 120.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 11,
+          "end_h": 144.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 132.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 12,
+          "end_h": 156.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 144.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 13,
+          "end_h": 168.0,
+          "hold_last_setpoint": false,
+          "phase": "optimized_window",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 156.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 14,
+          "end_h": 180.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 168.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 15,
+          "end_h": 192.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 180.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 16,
+          "end_h": 204.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 192.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 17,
+          "end_h": 216.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 204.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 18,
+          "end_h": 228.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 216.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 19,
+          "end_h": 240.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 228.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 20,
+          "end_h": 252.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 240.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 21,
+          "end_h": 264.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 252.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 22,
+          "end_h": 276.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 264.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 23,
+          "end_h": 288.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 276.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 24,
+          "end_h": 300.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 288.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 25,
+          "end_h": 312.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 300.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 26,
+          "end_h": 324.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 312.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 27,
+          "end_h": 336.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 324.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 28,
+          "end_h": 348.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 336.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 29,
+          "end_h": 360.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 348.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 30,
+          "end_h": 372.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 360.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 31,
+          "end_h": 384.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 372.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 32,
+          "end_h": 396.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 384.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 33,
+          "end_h": 408.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 396.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 34,
+          "end_h": 420.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 408.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 35,
+          "end_h": 432.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 420.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 36,
+          "end_h": 444.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 432.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 37,
+          "end_h": 456.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 444.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 38,
+          "end_h": 468.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 456.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 39,
+          "end_h": 480.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 468.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 40,
+          "end_h": 492.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 480.0,
+          "tank_review_mapping": "TK32"
+        },
+        {
+          "block_index": 41,
+          "end_h": 504.0,
+          "hold_last_setpoint": true,
+          "phase": "explicit_hold_last",
+          "policy": "warm_late_N76",
+          "setpoint_c": 21.326220833815718,
+          "start_h": 492.0,
+          "tank_review_mapping": "TK32"
+        }
+      ],
+      "checksum_sha256": "90a62d19e95da65f2a41907256acde9ac3a5cb8afac47f15214fe8f0d7064523",
+      "policy": "warm_late_N76",
+      "tank_review_mapping": "TK32"
+    }
+  ],
+  "executable_schedule_issued": false,
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "review_only": true,
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

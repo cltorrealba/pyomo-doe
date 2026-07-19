@@ -1,0 +1,128 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "executable_schedule_issued": false,
+  "files": [
+    {
+      "bytes": 488,
+      "path": "authorization/authorization_state_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "sha256": "28d7ace895897a144a1329336ee406196a91b0642829278e34a56fbb0991f260"
+    },
+    {
+      "bytes": 5491,
+      "path": "calendar/TK31_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "sha256": "1bf59557f672fa583b71ffd82e4048b5973bcb2165717f747093c059ac2092f9"
+    },
+    {
+      "bytes": 5174,
+      "path": "calendar/TK32_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "sha256": "8b22ddce6ede9a9ab358d5cfdd07f165afd0efe043e96cbdc00b986ea062b2df"
+    },
+    {
+      "bytes": 4540,
+      "path": "calendar/TK33_calendar_REVIEW_ONLY_NOT_AUTHORIZED.ics",
+      "sha256": "363c2902bada7ed11133a3ec1643bd72cb82bf3d0a68ca9155c7d3fe6bbfaf94"
+    },
+    {
+      "bytes": 52205,
+      "path": "calendar/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "sha256": "cba690709e9f505d2ad17b47102eab096afca4421bb813aa71599db306bf4e59"
+    },
+    {
+      "bytes": 38673,
+      "path": "capture/capture_intervals_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "sha256": "8e26bd605978da9952622ca4f7cb94c250d3897c949cd8ccfd915a6bdacd0409"
+    },
+    {
+      "bytes": 637,
+      "path": "checklists/TK31_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "sha256": "f25fef559c572ab30837746e35ce792e396b1d3aae49cfb92ef10ceaf48bd49f"
+    },
+    {
+      "bytes": 636,
+      "path": "checklists/TK32_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "sha256": "212f536085975db68e0352fe8924c174dd0f1291330e65ef1ab0d723bc6f4c07"
+    },
+    {
+      "bytes": 649,
+      "path": "checklists/TK33_checklist_REVIEW_ONLY_NOT_AUTHORIZED.md",
+      "sha256": "6d985c034c367b8ea0f150d4293506d4c98db1fe6e69379c826460705b08830d"
+    },
+    {
+      "bytes": 667,
+      "path": "controller/controller_checksums_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "sha256": "610013537129a25bb1ee8d089d3caa6626d76f14f8c949c797fc845344b84017"
+    },
+    {
+      "bytes": 19759,
+      "path": "controller/controller_profiles_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "sha256": "846155ec2bf26546628bdd6b0592c408cfa9f0984bebb5d3e2f0caa67486938b"
+    },
+    {
+      "bytes": 40476,
+      "path": "controller/controller_profiles_gui_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "sha256": "70055c6c19bfb4a30ccd3859a2cb1da51608c42699555865bc2fcd226550e672"
+    },
+    {
+      "bytes": 72492,
+      "path": "figures/coverage_vs_feasible_information_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "f88bba53c5e2d990905fd31a1b69fb99621bc0f44eb43c96c0dc6c9c4503fcef"
+    },
+    {
+      "bytes": 95178,
+      "path": "figures/drying_margin_by_policy_member_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "8577d43b5411f1b68dd813025164cecce68c06d0e5f60a4fac8cca7b449b02d7"
+    },
+    {
+      "bytes": 68748,
+      "path": "figures/fim_eigenvalue_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "e4e98a64f0faf0590c6c71466d5dbb6e79f796b8564d4b88d90f0b23f47d7b7b"
+    },
+    {
+      "bytes": 74404,
+      "path": "figures/final_temperature_profiles_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "8e3dba75ca1fed3b7149c5e50cc0d2ff60e25265f9586ac8919a42175097db4e"
+    },
+    {
+      "bytes": 83167,
+      "path": "figures/operational_coverage_map_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "6978b6293d27d0cd4bae641f2a0ac386d453e18f6b41049391f8ccc8c79ce163"
+    },
+    {
+      "bytes": 161948,
+      "path": "figures/parameter_information_comparison_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "ccc64e93ebdf5a2f47835e9a34c23c7135e1abf1a9be84a7dfcc2e37f9459306"
+    },
+    {
+      "bytes": 97413,
+      "path": "figures/physical_temperature_envelope_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "dc71d38ddeb383c07cb2ee37d8a4612a4094b992022f6163a72f89d803bbb37c"
+    },
+    {
+      "bytes": 71649,
+      "path": "figures/wave1_sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.png",
+      "sha256": "49aff56fbc39c6c9e19bd285b75677e82262d68c034168abeb03588d1cb502fa"
+    },
+    {
+      "bytes": 822,
+      "path": "nutrition/nutrition_plan_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "sha256": "65e0f0041142700d88b21f69b798eeeefa20e82a80ddc0520bb2d6cc885b8c37"
+    },
+    {
+      "bytes": 8856,
+      "path": "sampling/sampling_calendar_REVIEW_ONLY_NOT_AUTHORIZED.csv",
+      "sha256": "ee096c2fe019fe301abad9f06739971c8dbca15adae8192a52417cd2bca0761b"
+    },
+    {
+      "bytes": 571,
+      "path": "tanks/proposed_logical_tank_mapping_REVIEW_ONLY_NOT_AUTHORIZED.json",
+      "sha256": "b8962269318d9a8852d376fb3d80d8b145ddabf11a3980c4711c7d868946006d"
+    }
+  ],
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "review_only": true,
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

@@ -1,0 +1,123 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "executable_schedule_issued": false,
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "gates": {
+    "consistency": {
+      "checks": {
+        "canonical_state_defined_before_artifact_generation": true,
+        "cross_artifact_audit_required": true
+      },
+      "verdict": "PASS"
+    },
+    "coverage": {
+      "checks": {
+        "cold_early_classified_correctly": true,
+        "nutrition_contrast_at_least_36h": true,
+        "thermal_contrast_at_least_4c": true,
+        "treatments_not_equivalent": true,
+        "warm_late_classified_correctly": true
+      },
+      "verdict": "PASS"
+    },
+    "information": {
+      "checks": {
+        "all_cases_pass": true,
+        "all_direct_vs_cached_checks_pass": true,
+        "all_fd_stability_checks_pass": true,
+        "all_fims_finite_symmetric_psd": true,
+        "all_grid_stability_checks_pass": true,
+        "all_required_member_cases_covered": true,
+        "exact_selected_policies_covered": true,
+        "fd_steps_0_01_0_02_0_04_covered": true,
+        "grids_4_2_1h_covered": true
+      },
+      "executable_schedule_issued": false,
+      "extreme_actuator_scenario": {
+        "command_delay_h": 0.0,
+        "initial_temperature_offset_c": -1.0,
+        "probe_bias_c": -0.5,
+        "scenario": "approved_actuator_082",
+        "tau_h": 0.45812979693594796,
+        "tracking_error_c": -0.8946199169856546
+      },
+      "physical_execution_authorized": false,
+      "profiles_for_physical_execution": false,
+      "tank_assignments": [],
+      "thresholds": {
+        "maximum_direct_vs_cached_relative_difference": 1e-10,
+        "maximum_relative_grid_fim_difference": 0.12,
+        "maximum_relative_step_fim_difference": 0.08,
+        "minimum_eigenvalue_tolerance": -1e-08
+      },
+      "verdict": "PASS",
+      "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+    },
+    "nutrition": {
+      "checks": {
+        "masses_reconstruct_76_mgYAN_L": true,
+        "n76_in_all_three_tanks": true,
+        "net_yan_split_50_50": true,
+        "organic_limit_and_margin_met": true
+      },
+      "verdict": "PASS"
+    },
+    "physical_authorization": {
+      "checks": {
+        "executable_schedule_issued": false,
+        "physical_execution_authorized": false,
+        "profiles_for_physical_execution": false,
+        "tank_assignments_empty": true
+      },
+      "verdict": "FAIL / PENDING OWNER APPROVAL"
+    },
+    "sampling": {
+      "checks": {
+        "64_members_evaluated": true,
+        "basal_t0_included": true,
+        "exactly_3_by_64_drying_rows": true,
+        "harmonization_guardrail": true,
+        "harmonized_loss_at_most_0_5pct": true,
+        "manual_capacity_three": true,
+        "manual_windows_legal": true,
+        "minimum_action_to_drying_margin_met": true,
+        "minimum_margin_24h_by_policy_member": true,
+        "nine_capture_intervals": true,
+        "operator_rounds_at_most_12": true,
+        "sample_before_action": true,
+        "selected_sampling_is_partially_harmonized": true,
+        "ten_samples_per_process": true
+      },
+      "verdict": "PASS"
+    },
+    "search": {
+      "checks": {
+        "all_near_best_champions_feasible": true,
+        "at_least_three_seed_champions_within_0_5pct": true,
+        "continuation_improvement_at_most_0_1pct": true,
+        "eight_member_continuation_completed": true,
+        "five_seed_champions_available": true,
+        "ipopt_executed_for_top_three": true,
+        "operational_policy_family_has_three_seeds": true,
+        "selected_candidate_locally_qualified": true
+      },
+      "verdict": "PASS"
+    },
+    "thermal": {
+      "checks": {
+        "all_effective_changes_at_least_1c": true,
+        "controller_explicit_to_504h": true,
+        "exactly_243_scenarios_per_policy": true,
+        "maximum_internal_jump_at_most_5c": true,
+        "maximum_robust_initial_jump_at_most_5c": true,
+        "physical_temperature_within_15_27c": true
+      },
+      "verdict": "PASS"
+    }
+  },
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

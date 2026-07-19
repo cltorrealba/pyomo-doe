@@ -1,0 +1,46 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "checks": {
+    "all_cases_pass": true,
+    "all_direct_vs_cached_checks_pass": true,
+    "all_fd_stability_checks_pass": true,
+    "all_fims_finite_symmetric_psd": true,
+    "all_grid_stability_checks_pass": true,
+    "all_required_member_cases_covered": true,
+    "exact_selected_policies_covered": true,
+    "fd_steps_0_01_0_02_0_04_covered": true,
+    "grids_4_2_1h_covered": true
+  },
+  "executable_schedule_issued": false,
+  "extreme_actuator_scenario": {
+    "command_delay_h": 0.0,
+    "initial_temperature_offset_c": -1.0,
+    "probe_bias_c": -0.5,
+    "scenario": "approved_actuator_082",
+    "tau_h": 0.45812979693594796,
+    "tracking_error_c": -0.8946199169856546
+  },
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "gate_verdicts": {
+    "consistency": "PASS",
+    "coverage": "PASS",
+    "information": "PASS",
+    "nutrition": "PASS",
+    "physical_authorization": "FAIL / PENDING OWNER APPROVAL",
+    "sampling": "PASS",
+    "search": "PASS",
+    "thermal": "PASS"
+  },
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "thresholds": {
+    "maximum_direct_vs_cached_relative_difference": 1e-10,
+    "maximum_relative_grid_fim_difference": 0.12,
+    "maximum_relative_step_fim_difference": 0.08,
+    "minimum_eigenvalue_tolerance": -1e-08
+  },
+  "verdict": "PASS",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}

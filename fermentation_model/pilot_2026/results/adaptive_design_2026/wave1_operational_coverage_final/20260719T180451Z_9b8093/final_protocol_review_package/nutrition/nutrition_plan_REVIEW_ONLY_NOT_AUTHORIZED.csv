@@ -1,0 +1,4 @@
+tank_review_mapping,policy,nutrition_time_h,nutrition_timestamp_local,sequence_if_sample_coincident,springferm_xtrem_g,dap_g,yan_mg_l,cumulative_springferm_xtrem_g,cumulative_dap_g,organic_limit_margin_fraction,watermark,candidate_only_not_for_physical_execution
+TK33,operational_anchor_18C_N76,46.0,2026-07-22T13:00:00-04:00,sample_then_nutrition,87.4,43.7,76.0,87.4,43.7,0.05,COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION,True
+TK31,cold_early_N76,2.0,2026-07-20T17:00:00-04:00,sample_then_nutrition,87.4,43.7,76.0,87.4,43.7,0.05,COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION,True
+TK32,warm_late_N76,42.0,2026-07-22T09:00:00-04:00,sample_then_nutrition,87.4,43.7,76.0,87.4,43.7,0.05,COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION,True

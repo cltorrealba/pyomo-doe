@@ -1,0 +1,51 @@
+{
+  "candidate_id": "707410af2741165f",
+  "canonical_policy_hash": "0a015af39a2bee3e071faf8b0125482e58bf7c56ccbf34366daca852b271a235",
+  "compared_candidate_ids": [
+    "01b0245445bf944b",
+    "05e15b9716ca4f68",
+    "1c0162c67764a199",
+    "1ffa9b7c01ca554c",
+    "28812097aef28e07",
+    "2b0c92efe3f2ac4e",
+    "707410af2741165f",
+    "85b86c912f0f76a9",
+    "9c8487daa97000c7",
+    "af119bac806e343d",
+    "e297c37ff0b4c2d8",
+    "ea61d6cb780b25ac"
+  ],
+  "executable_schedule_issued": false,
+  "final_verdict": "PASS — READY FOR OWNER PHYSICAL RELEASE REVIEW",
+  "gate_verdicts": {
+    "consistency": "PASS",
+    "coverage": "PASS",
+    "information": "PASS",
+    "nutrition": "PASS",
+    "physical_authorization": "FAIL / PENDING OWNER APPROVAL",
+    "sampling": "PASS",
+    "search": "PASS",
+    "thermal": "PASS"
+  },
+  "independent_seed": 20260861,
+  "local_refinement_qualified": true,
+  "local_refinement_state": "accepted_improvement",
+  "parent_candidate_id": "1c0162c67764a199",
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "selected_source_type": "ipopt_local_refinement",
+  "selection_rule": {
+    "best_robust_score": 19.864908516915374,
+    "near_best_candidate_ids": [
+      "e297c37ff0b4c2d8",
+      "85b86c912f0f76a9",
+      "707410af2741165f"
+    ],
+    "near_best_fraction": 0.005,
+    "primary_rule": "maximum robust score among physically feasible coverage candidates",
+    "secondary_rule": "minimum initial-or-internal jump, robust physical maximum, total variation, changes; maximum drying and nutrition margins",
+    "selected_candidate_id": "707410af2741165f"
+  },
+  "tank_assignments": [],
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION"
+}
