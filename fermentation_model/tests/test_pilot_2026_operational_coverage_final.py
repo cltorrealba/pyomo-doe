@@ -37,6 +37,7 @@ from pilot_2026.adaptive_design.run_wave1_operational_coverage_final import (  #
     _dependency_manifest,
     _latest_valid_checkpoint,
     _model_config,
+    _native_bool_checks,
     _save_checkpoint,
 )
 
@@ -214,6 +215,28 @@ class FinalOperationalCoverageTests(unittest.TestCase):
             "run_artifacts.py",
         ):
             self.assertIn(required, names)
+
+    def test_gate_checks_normalize_numpy_booleans(self) -> None:
+        checks = _native_bool_checks(
+            {"pandas_all_true": np.bool_(True), "native_true": True}
+        )
+        self.assertIs(checks["pandas_all_true"], True)
+        self.assertIs(checks["native_true"], True)
+
+    def test_resume_config_comparison_is_semantic(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            serialized = Path(temporary) / "coverage_final_design_config.json"
+            serialized.write_text(
+                json.dumps(self.final, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            self.assertNotEqual(
+                serialized.read_bytes(),
+                (ADAPTIVE_DIR / "coverage_final_design_config.json").read_bytes(),
+            )
+            self.assertEqual(
+                json.loads(serialized.read_text(encoding="utf-8")), self.final
+            )
 
 
 if __name__ == "__main__":

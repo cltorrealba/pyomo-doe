@@ -167,6 +167,12 @@ def _write_csv(path: Path, frame: pd.DataFrame, outputs: list[Path]) -> None:
     outputs.append(path)
 
 
+def _native_bool_checks(checks: dict[str, Any]) -> dict[str, bool]:
+    """Normalize NumPy/Pandas scalar booleans before strict gate evaluation."""
+
+    return {key: bool(value) for key, value in checks.items()}
+
+
 def _dependency_manifest() -> dict[str, Any]:
     files = []
     for path in DEPENDENCY_PATHS:
@@ -2595,6 +2601,7 @@ def _cross_artifact_consistency_audit(
         checks["package_omitted_only_on_failed_scientific_gate"] = not bool(
             state["scientific_qualification_pass"]
         )
+    checks = _native_bool_checks(checks)
     verdict = gate_verdict(checks, tuple(checks))
     return {
         "verdict": verdict,
@@ -2775,7 +2782,7 @@ def main() -> None:
     if not filesystem_path(final_config_output).exists():
         _write_json(final_config_output, final_config, outputs)
     else:
-        if sha256_file(final_config_output) != sha256_file(FINAL_CONFIG_PATH):
+        if _json(final_config_output) != final_config:
             raise RuntimeError("Resume final configuration hash mismatch")
         outputs.append(final_config_output)
     dependency_output = run_dir / "scientific_dependency_manifest.json"
