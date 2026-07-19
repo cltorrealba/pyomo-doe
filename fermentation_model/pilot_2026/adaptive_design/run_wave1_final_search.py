@@ -525,8 +525,8 @@ def main() -> None:
         raise ValueError("Final search wall-clock limit must be in (0, 8] hours")
     existing_checkpoints = list(checkpoint_dir.glob("*.json.gz"))
     prior_search_elapsed = (
-        max(path.stat().st_mtime for path in existing_checkpoints)
-        - run_dir.stat().st_ctime
+        max(filesystem_path(path).stat().st_mtime for path in existing_checkpoints)
+        - filesystem_path(run_dir).stat().st_ctime
         if args.resume_run and existing_checkpoints
         else 0.0
     )

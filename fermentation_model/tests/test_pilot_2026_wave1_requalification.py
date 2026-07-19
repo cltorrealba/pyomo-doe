@@ -47,7 +47,10 @@ from pilot_2026.adaptive_design.build_wave1_execution_package import (  # noqa: 
     _controller_blocks,
 )
 from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # noqa: E402
+    FIGURE_NAMES,
+    _audit_generated_figures,
     _capture_intervals,
+    _finish_figure,
     _nutrition_translation,
     _operational_conflicts,
     _tank_randomization,
@@ -665,6 +668,24 @@ class Wave1RequalificationTests(unittest.TestCase):
         )
         self.assertIn('add_argument("--source-search-run", required=True)', source)
         self.assertNotIn("sorted((RESULT_ROOT", source)
+
+    def test_final_figure_audit_checks_exact_nonblank_inventory(self) -> None:
+        import matplotlib.pyplot as plt
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            paths = {name: root / name for name in FIGURE_NAMES}
+            x = np.linspace(0.0, 1.0, 250)
+            for index, name in enumerate(FIGURE_NAMES):
+                fig, axis = plt.subplots(figsize=(7.0, 5.0))
+                axis.plot(x, np.sin((index + 1) * np.pi * x), linewidth=2)
+                axis.set_title(name)
+                _finish_figure(fig, paths[name], "Automated QA fixture")
+            chart_map = [{"figure": name} for name in FIGURE_NAMES]
+            audit = _audit_generated_figures(paths, chart_map)
+        self.assertEqual(audit["verdict"], "PASS")
+        self.assertTrue(audit["exact_expected_inventory_in_order"])
+        self.assertTrue(all(row["passed"] for row in audit["figures"]))
 
 
 if __name__ == "__main__":

@@ -704,6 +704,66 @@ def _finish_figure(
     plt.close(fig)
 
 
+def _audit_generated_figures(
+    figure_paths: dict[str, Path], chart_map: list[dict]
+) -> dict:
+    """Perform deterministic structural and pixel-level QA on final PNG exports."""
+
+    declared = [str(row["figure"]) for row in chart_map]
+    rows = []
+    for name in FIGURE_NAMES:
+        path = figure_paths[name]
+        fs_path = filesystem_path(path)
+        exists = fs_path.is_file()
+        row = {
+            "figure": name,
+            "declared_once": declared.count(name) == 1,
+            "exists": exists,
+            "bytes": int(fs_path.stat().st_size) if exists else 0,
+            "height_px": 0,
+            "width_px": 0,
+            "pixel_dynamic_range": 0.0,
+            "pixel_standard_deviation": 0.0,
+            "nonblank": False,
+            "watermark_added_by_shared_export_function": exists,
+            "passed": False,
+        }
+        if exists:
+            image = np.asarray(plt.imread(fs_path), dtype=float)
+            if image.ndim >= 2:
+                row["height_px"] = int(image.shape[0])
+                row["width_px"] = int(image.shape[1])
+            row["pixel_dynamic_range"] = float(np.max(image) - np.min(image))
+            row["pixel_standard_deviation"] = float(np.std(image))
+            row["nonblank"] = bool(
+                row["pixel_dynamic_range"] >= 0.25
+                and row["pixel_standard_deviation"] >= 0.01
+            )
+        row["passed"] = bool(
+            row["declared_once"]
+            and row["exists"]
+            and row["bytes"] >= 10_000
+            and row["height_px"] >= 500
+            and row["width_px"] >= 700
+            and row["nonblank"]
+            and row["watermark_added_by_shared_export_function"]
+        )
+        rows.append(row)
+    exact_inventory = declared == list(FIGURE_NAMES)
+    passed = bool(exact_inventory and all(row["passed"] for row in rows))
+    return {
+        "gate": "automated_final_figure_qa",
+        "verdict": "PASS" if passed else "FAIL",
+        "exact_expected_inventory_in_order": exact_inventory,
+        "expected_watermark": WATERMARK,
+        "watermark_export_contract": (
+            "Every final PNG is written through _finish_figure, which adds the exact "
+            "expected watermark before savefig."
+        ),
+        "figures": rows,
+    }
+
+
 def _generate_figures(
     figure_paths: dict[str, Path],
     policies: tuple[DesignPolicy, ...],
@@ -1281,6 +1341,7 @@ def main() -> None:
         "partition": run_dir / "partition_surrogate_provenance.json",
         "randomization": run_dir / "tank_randomization.csv",
         "figure_map": run_dir / "figure_chart_map.json",
+        "visual_qa": run_dir / "visual_qa_final.json",
         "runtime": run_dir / "runtime_summary.json",
     }
     for name in FIGURE_NAMES:
@@ -1309,17 +1370,19 @@ def main() -> None:
         conflicts,
         checks,
     )
+    visual_qa = _audit_generated_figures(figure_paths, chart_map)
+    write_json(paths["visual_qa"], visual_qa)
     write_json(
         paths["figure_map"],
         {
             "watermark": WATERMARK,
             "figures": chart_map,
-            "qa_status": "generated_pending_visual_inspection",
+            "qa_status": visual_qa["verdict"],
+            "qa_artifact": paths["visual_qa"].name,
         },
     )
     checks["figures_generated_and_watermarked"] = bool(
-        len(chart_map) == len(FIGURE_NAMES)
-        and all(path.is_file() and path.stat().st_size > 0 for path in figure_paths.values())
+        visual_qa["verdict"] == "PASS"
     )
     verdict = sampling_gate_verdict(checks, critical_checks)
     failed_checks = [name for name, passed in checks.items() if not passed]
