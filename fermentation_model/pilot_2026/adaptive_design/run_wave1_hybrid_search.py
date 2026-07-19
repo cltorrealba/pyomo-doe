@@ -612,7 +612,7 @@ def main() -> None:
     margin_probability = float(
         np.mean(
             [
-                row.drying_time_h - row.latest_action_time_h >= margin_h - 1e-9
+                row.minimum_action_to_drying_margin_h >= margin_h - 1e-9
                 for row in selected_evaluations
             ]
         )
@@ -808,7 +808,7 @@ def main() -> None:
                 "residual_sugar_g_l": row.residual_sugar_g_l,
                 "drying_time_h": row.drying_time_h,
                 "latest_action_time_h": row.latest_action_time_h,
-                "action_margin_to_drying_h": row.drying_time_h - row.latest_action_time_h,
+                "action_margin_to_drying_h": row.minimum_action_to_drying_margin_h,
                 "three_anchor_information_gain": reference.information_gain,
                 "paired_delta_vs_three_anchor": row.information_gain - reference.information_gain,
             }

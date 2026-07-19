@@ -325,7 +325,7 @@ def _campaign_metrics(
         max(row.residual_sugar_g_l for row in evaluations)
     )
     metrics["minimum_drying_margin_h"] = float(
-        min(row.drying_time_h - row.latest_action_time_h for row in evaluations)
+        min(row.minimum_action_to_drying_margin_h for row in evaluations)
     )
     return float(score), evaluations, metrics
 
@@ -460,7 +460,12 @@ def _full_candidate_record(
         information["completion_probability"]
         >= float(model_config["completion"]["minimum_probability"]) - 1e-12
     )
-    drying_margin_pass = bool(information["minimum_drying_margin_h"] >= -1e-12)
+    required_drying_margin = float(
+        model_config["operations"]["minimum_action_to_drying_margin_h"]
+    )
+    drying_margin_pass = bool(
+        information["minimum_drying_margin_h"] >= required_drying_margin - 1e-12
+    )
     minimum_nutrition_margin = min(
         float(row["organic_margin_fraction"]) for row in nutrition_rows
     )
@@ -1138,8 +1143,10 @@ def _sampling_mode_result(
         "sample_before_action": model_config["operations"]["sample_event_order"]
         == "sample_before_action",
         "harmonization_guardrail": harmonized_pass,
-        "nonnegative_minimum_drying_margin": bool(
-            search_record["minimum_drying_margin_h"] >= -1e-12
+        "minimum_action_to_drying_margin_met": bool(
+            search_record["minimum_drying_margin_h"]
+            >= float(model_config["operations"]["minimum_action_to_drying_margin_h"])
+            - 1e-12
         ),
     }
     row = {

@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "campaign_start_local": "2026-07-20T15:00:00-04:00",
+  "timezone": "America/Santiago",
+  "result_stage": "wave1_operational_coverage_final",
+  "watermark": "COMPUTATIONAL COVERAGE CANDIDATE \u2014 NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "verdict_labels": [
+    "PASS \u2014 READY FOR OWNER PHYSICAL RELEASE REVIEW",
+    "PASS_CONDITIONAL \u2014 NOT READY FOR EXECUTION",
+    "FAIL \u2014 NOT READY FOR EXECUTION"
+  ],
+  "authorization": {
+    "profiles_for_physical_execution": false,
+    "physical_execution_authorized": false,
+    "executable_schedule_issued": false,
+    "tank_assignments": []
+  },
+  "owner_selection": {
+    "strategy": "II_diagonal_1",
+    "dose_design": "N76_all_conservative",
+    "logical_treatments": [
+      "operational_anchor_18C_N76",
+      "cold_early_N76",
+      "warm_late_N76"
+    ],
+    "proposed_tank_mapping_for_review": {
+      "TK33": "operational_anchor_18C_N76",
+      "TK31": "cold_early_N76",
+      "TK32": "warm_late_N76"
+    },
+    "mapping_authorized": false,
+    "early_nutrition_h": 2.0,
+    "late_nutrition_slots_h": [42.0, 46.0, 50.0],
+    "anchor_nutrition_h": 46.0,
+    "yan_mg_l": 76.0,
+    "springferm_xtrem_g_per_230_l": 87.4,
+    "dap_g_per_230_l": 43.7,
+    "net_yan_fraction_springferm": 0.5,
+    "net_yan_fraction_dap": 0.5,
+    "organic_limit_fraction": 0.95
+  },
+  "balanced_search": {
+    "seeds": [20260803, 20260817, 20260831, 20260847, 20260861],
+    "particles": 24,
+    "four_member_iterations": 10,
+    "eight_member_iterations": 8,
+    "continuation_window_iterations": 3,
+    "continuation_improvement_tolerance_fraction": 0.001,
+    "maximum_continuation_windows": 12,
+    "budget_hours": 5.0,
+    "full_ensemble_top_k_per_seed": 5,
+    "local_refinement_top_k": 3,
+    "warm_start_candidate_id": "f2addcf70aa5958d",
+    "warm_start_source_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_operational_coverage/20260719T075404Z_62c598",
+    "minimum_near_best_seed_champions": 3,
+    "near_best_fraction": 0.005,
+    "policy_family_distance_threshold": 0.35
+  },
+  "feasible_information_benchmark": {
+    "strategy": "I_feasible_information_only_N76",
+    "seeds": [20260903, 20260917, 20260931],
+    "particles": 16,
+    "four_member_iterations": 6,
+    "eight_member_iterations": 4,
+    "budget_hours": 1.5,
+    "minimum_full_ensemble_champions_per_seed": 1,
+    "timeout_label": "feasible_information_lower_bound"
+  },
+  "runtime": {
+    "maximum_total_hours": 8.0,
+    "post_search_budget_hours": 1.5,
+    "checkpoint_interval_minutes": 20.0,
+    "checkpoint_every_iteration": true
+  },
+  "sampling": {
+    "samples_per_tank": 10,
+    "basal_time_h": 0.0,
+    "capture_intervals_per_tank": 9,
+    "members": 64,
+    "sample_event_order": "sample_before_action",
+    "manual_capacity_per_slot": 3,
+    "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "local_window": ["09:00", "17:00"],
+    "harmonized_maximum_score_loss_fraction": 0.005,
+    "maximum_operator_rounds": 12
+  },
+  "fim_validation": {
+    "finite_difference_log_steps": [0.01, 0.02, 0.04],
+    "time_grid_steps_h": [4.0, 2.0, 1.0],
+    "member_cases": [
+      "central_member",
+      "lowest_information_member",
+      "highest_information_member",
+      "worst_gain_member",
+      "critical_drying_member",
+      "extreme_actuator_member",
+      "selected_candidate_exact"
+    ]
+  },
+  "required_minimum_action_to_drying_margin_h": 24.0,
+  "historical_comparator_label": "historical_infeasible_information_upper_bound"
+}

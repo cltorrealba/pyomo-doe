@@ -47,6 +47,7 @@ class ScenarioEvaluation:
     fim: np.ndarray
     drying_time_h: float
     latest_action_time_h: float
+    minimum_action_to_drying_margin_h: float
 
 
 @dataclass(frozen=True)
@@ -1272,6 +1273,7 @@ def evaluate_campaign(
         max_residual = 0.0
         minimum_drying = math.inf
         latest_action = 0.0
+        minimum_policy_margin = math.inf
         for policy in policies:
             scenario_key = tuple(sorted((actuator_scenario or {}).items()))
             cache_key = (
@@ -1305,12 +1307,14 @@ def evaluate_campaign(
             policy_latest_action = max(action_times, default=0.0)
             latest_action = max(latest_action, policy_latest_action)
             minimum_drying = min(minimum_drying, drying_time)
+            policy_margin = float(drying_time) - float(policy_latest_action)
+            minimum_policy_margin = min(minimum_policy_margin, policy_margin)
             approved_margin = config["operations"].get("minimum_action_to_drying_margin_h")
             numerical_margin = 0.0 if approved_margin is None else float(approved_margin)
             completed = (
                 completed
                 and residual <= float(config["completion"]["residual_sugar_g_l"])
-                and policy_latest_action <= drying_time - numerical_margin + 1e-9
+                and policy_margin >= numerical_margin - 1e-9
             )
         evaluations.append(
             ScenarioEvaluation(
@@ -1321,6 +1325,7 @@ def evaluate_campaign(
                 total - prior,
                 minimum_drying,
                 latest_action,
+                minimum_policy_margin,
             )
         )
     gains = np.asarray([item.information_gain for item in evaluations], dtype=float)

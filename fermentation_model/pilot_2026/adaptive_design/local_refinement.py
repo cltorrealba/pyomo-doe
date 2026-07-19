@@ -269,6 +269,15 @@ def sequential_ipopt_refine(
         accepted = bool(
             full_improvement > improvement_tolerance and full_ratio >= acceptance_ratio
         )
+        model_gradient = gradient + hessian @ step_vector
+        projected_gradient = model_gradient.copy()
+        step_lower = np.maximum(-radius, -z)
+        step_upper = np.minimum(radius, 1.0 - z)
+        at_lower = step_vector <= step_lower + 1e-7
+        at_upper = step_vector >= step_upper - 1e-7
+        projected_gradient[at_lower & (model_gradient > 0.0)] = 0.0
+        projected_gradient[at_upper & (model_gradient < 0.0)] = 0.0
+        kkt_error = float(np.linalg.norm(projected_gradient, ord=np.inf))
         row = {
             "candidate_id": candidate_id,
             "iteration": iteration,
@@ -295,7 +304,7 @@ def sequential_ipopt_refine(
             "ipopt_termination": termination,
             "ipopt_iterations": solver_iterations,
             "infeasibility": None,
-            "kkt_error": None,
+            "kkt_error": kkt_error,
         }
         trace.append(row)
         if accepted:
@@ -315,10 +324,17 @@ def sequential_ipopt_refine(
             rejected.append({**row, "candidate_vector": candidate.tolist()})
             radius *= 0.5
             if radius < minimum_radius:
-                state = "rejected_model_mismatch"
+                state = "trust_region_minimum_no_acceptable_step"
                 break
     final_fun = float(full_objective(x))
-    qualified = state in {"accepted_improvement", "stationary_no_improving_step"}
+    qualified = bool(
+        accepted_any
+        or state
+        in {
+            "stationary_no_improving_step",
+            "trust_region_minimum_no_acceptable_step",
+        }
+    )
     return LocalRefinementResult(
         x=x,
         fun=final_fun,

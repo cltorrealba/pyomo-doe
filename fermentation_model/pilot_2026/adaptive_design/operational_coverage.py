@@ -12,6 +12,7 @@ from pilot_2026.adaptive_design.final_search_logic import approved_actuator_scen
 from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (
     DesignPolicy,
     actuator_temperature_trajectory,
+    design_fim_with_drying,
     effective_temperature_change_indices,
     nutrition_product_masses,
     temperature_profile_metrics,
@@ -123,6 +124,87 @@ def robust_initial_jump_rows(
             }
         )
     return rows
+
+
+def latest_active_action_h(
+    policy: DesignPolicy, model_config: Mapping[str, Any]
+) -> float:
+    """Return the latest nutrition or effective thermal action for one policy."""
+
+    slot_h = float(model_config["future_process"]["temperature_slot_h"])
+    action_times = [
+        slot_h * int(slot)
+        for slot in effective_temperature_change_indices(
+            policy.temperature_c, dict(model_config)
+        )
+    ]
+    action_times.extend(float(time_h) for time_h, _ in policy.nutrition_mg_yan_l)
+    return max(action_times, default=0.0)
+
+
+def policy_member_drying_margin_row(
+    policy: DesignPolicy,
+    member: int,
+    drying_time_h: float,
+    model_config: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build one non-crossed drying margin record for one policy and member."""
+
+    latest = latest_active_action_h(policy, model_config)
+    margin = float(drying_time_h) - latest
+    required = float(
+        model_config["operations"]["minimum_action_to_drying_margin_h"]
+    )
+    return {
+        "policy": policy.name,
+        "ensemble_member": int(member),
+        "drying_time_h": float(drying_time_h),
+        "latest_active_action_h": latest,
+        "action_to_drying_margin_h": margin,
+        "required_minimum_margin_h": required,
+        "drying_margin_pass": bool(margin >= required - 1e-9),
+    }
+
+
+def drying_margin_by_policy_member(
+    policies: Sequence[DesignPolicy],
+    ensemble: pd.DataFrame,
+    model_config: Mapping[str, Any],
+    partitions: Mapping[str, Mapping[str, float]],
+    *,
+    design_cache: dict[tuple, tuple[np.ndarray, float, float]] | None = None,
+) -> pd.DataFrame:
+    """Evaluate policy/member margins without combining different policies."""
+
+    rows: list[dict[str, Any]] = []
+    config = dict(model_config)
+    for member_index in range(len(ensemble)):
+        member = ensemble.iloc[member_index]
+        member_id = int(member.get("ensemble_member", member_index))
+        for policy in policies:
+            key = (
+                member_id,
+                tuple(policy.temperature_c),
+                tuple(policy.nutrition_mg_yan_l),
+                tuple(),
+            )
+            cached = None if design_cache is None else design_cache.get(key)
+            if cached is None:
+                cached = design_fim_with_drying(
+                    policy,
+                    member,
+                    config,
+                    dict(partitions),
+                )
+                if design_cache is not None:
+                    design_cache[key] = cached
+            _fim, _residual, drying_time = cached
+            rows.append(
+                policy_member_drying_margin_row(
+                    policy, member_id, float(drying_time), config
+                )
+            )
+    return pd.DataFrame(rows)
 
 
 def coverage_policy_metrics(
@@ -490,6 +572,76 @@ def coverage_policy_from_unit_vector(
     )
     if not all(expected.values()):
         raise ValueError(f"Coverage decoder produced an invalid policy: {expected}")
+    return policy
+
+
+def feasible_information_policy_from_unit_vector(
+    name: str,
+    yan_mg_l: float,
+    values: Sequence[float],
+    model_config: Mapping[str, Any],
+    coverage_config: Mapping[str, Any],
+    robust_envelope: Mapping[str, Any],
+) -> DesignPolicy:
+    """Decode an information-only policy inside the same physical envelope.
+
+    The policy has no cold/warm or early/late obligation, but it retains the
+    identical setpoint, jump, nutrition-slot, and controller constraints used
+    for the balanced design.
+    """
+
+    vector = np.clip(np.asarray(values, dtype=float), 0.0, 1.0)
+    if vector.shape != (12,):
+        raise ValueError("Information policies require 12 unit coordinates")
+    slots = int(coverage_config["thermal"]["optimized_blocks"])
+    lower = float(robust_envelope["steady_state_safe_setpoint_minimum_c"])
+    upper = float(robust_envelope["steady_state_safe_setpoint_maximum_c"])
+    first_lower = float(robust_envelope["first_block_safe_setpoint_minimum_c"])
+    first_upper = min(
+        22.0, float(robust_envelope["first_block_safe_setpoint_maximum_c"])
+    )
+    first = first_lower + vector[0] * (first_upper - first_lower)
+    profile = np.full(slots, first, dtype=float)
+    used: set[int] = set()
+    changes: list[tuple[int, float]] = []
+    for index in range(3):
+        offset = 1 + 3 * index
+        if vector[offset] < 0.35:
+            continue
+        desired = 1 + int(round(vector[offset + 1] * (slots - 2)))
+        slot = _nearest_free_slot(desired, used, 1, slots - 1)
+        used.add(slot)
+        changes.append((slot, float(vector[offset + 2])))
+    current = float(first)
+    for slot, encoded in sorted(changes):
+        changed = _apply_safe_change(current, encoded, lower, upper)
+        if changed is None:
+            continue
+        profile[slot:] = changed
+        current = changed
+    nutrition_slots = sorted(
+        {
+            *(float(value) for value in coverage_config["nutrition"]["early_slots_h"]),
+            *(float(value) for value in coverage_config["nutrition"]["late_slots_h"]),
+        }
+    )
+    chosen = min(int(math.floor(vector[10] * len(nutrition_slots))), len(nutrition_slots) - 1)
+    policy = DesignPolicy(
+        name,
+        tuple(float(value) for value in profile),
+        ((nutrition_slots[chosen], float(yan_mg_l)),),
+    )
+    metrics = coverage_policy_metrics(policy, model_config, coverage_config)
+    if metrics.maximum_initial_jump_c > float(
+        coverage_config["thermal"]["maximum_initial_jump_c"]
+    ) + 1e-9:
+        raise ValueError("Information decoder violated the robust initial jump")
+    if metrics.maximum_internal_jump_c > float(
+        coverage_config["thermal"]["maximum_change_c"]
+    ) + 1e-9:
+        raise ValueError("Information decoder violated the internal jump limit")
+    if not _active_changes_at_least_minimum(policy, coverage_config):
+        raise ValueError("Information decoder produced a subthreshold change")
     return policy
 
 
