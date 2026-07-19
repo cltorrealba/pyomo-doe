@@ -20,6 +20,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.lines import Line2D
 
 
 ADAPTIVE_DIR = Path(__file__).resolve().parent
@@ -1753,17 +1754,7 @@ def _prediction_figure(prediction: pd.DataFrame, archetype: str, path: Path) -> 
     )
 
 
-def _generate_figures(
-    *,
-    run_dir: Path,
-    comparison: pd.DataFrame,
-    candidate_actions: pd.DataFrame,
-    parameter_ratios: pd.DataFrame,
-    predictions: pd.DataFrame,
-    physical_bands: pd.DataFrame,
-    recommended: dict[str, Any],
-    selected_policies_by_strategy: dict[str, tuple[DesignPolicy, ...]],
-) -> tuple[list[Path], dict[str, Any]]:
+def _apply_figure_style() -> None:
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
@@ -1776,6 +1767,197 @@ def _generate_figures(
             "grid.alpha": 0.55,
         }
     )
+
+
+def _coverage_tradeoff_figure(
+    comparison: pd.DataFrame,
+    recommended: dict[str, Any],
+    path: Path,
+) -> None:
+    _apply_figure_style()
+    plotted = comparison[comparison.sampling_mode.notna()].copy()
+    colors = {
+        "I_reference_information": PALETTE["grey"],
+        "II_diagonal_1": PALETTE["blue"],
+        "III_diagonal_2": PALETTE["orange"],
+    }
+    markers = {
+        "N80": "o",
+        "N76_historical_anchor": "s",
+        "N76_all_conservative": "^",
+    }
+    strategy_offsets = {
+        "I_reference_information": 0.0,
+        "II_diagonal_1": -0.045,
+        "III_diagonal_2": 0.045,
+    }
+    sampling_offsets = {
+        "independent_source_final": -0.006,
+        "independent": -0.006,
+        "partially_harmonized": 0.006,
+    }
+    dose_offsets = {
+        "N80": -0.018,
+        "N76_historical_anchor": 0.0,
+        "N76_all_conservative": 0.018,
+    }
+    fig, axis = plt.subplots(figsize=(10, 6))
+    for _, row in plotted.iterrows():
+        strategy = str(row["strategy"])
+        sampling = str(row["sampling_mode"])
+        base_x = 1.0 if strategy == "I_reference_information" else 2.0
+        x = (
+            base_x
+            + strategy_offsets[strategy]
+            + sampling_offsets.get(sampling, 0.0)
+            + dose_offsets[str(row["dose_design"])]
+        )
+        color = colors[strategy]
+        harmonized = sampling == "partially_harmonized"
+        axis.scatter(
+            [x],
+            [float(row["robust_score"])],
+            marker=markers[str(row["dose_design"])],
+            s=82,
+            facecolors="white" if harmonized else color,
+            edgecolors=color,
+            linewidths=1.6,
+            zorder=3,
+        )
+        is_reference = strategy == "I_reference_information"
+        is_recommended = (
+            strategy == recommended.get("strategy")
+            and row["dose_design"] == recommended.get("dose_design")
+            and sampling == recommended.get("sampling_mode")
+        )
+        if is_reference:
+            axis.annotate(
+                "Current information reference",
+                (x, float(row["robust_score"])),
+                xytext=(8, -12),
+                textcoords="offset points",
+                fontsize=7,
+            )
+        elif is_recommended:
+            axis.annotate(
+                "Recommended: II / N76 all / harmonized",
+                (x, float(row["robust_score"])),
+                xytext=(-185, -28),
+                textcoords="offset points",
+                arrowprops={"arrowstyle": "->", "color": PALETTE["ink"], "lw": 0.8},
+                fontsize=7,
+            )
+    handles = [
+        Line2D(
+            [],
+            [],
+            marker="o",
+            linestyle="none",
+            markerfacecolor=colors[strategy],
+            markeredgecolor=colors[strategy],
+            label=label,
+        )
+        for strategy, label in (
+            ("I_reference_information", "Strategy I: information reference"),
+            ("II_diagonal_1", "Strategy II: cold/early + warm/late"),
+            ("III_diagonal_2", "Strategy III: cold/late + warm/early"),
+        )
+    ]
+    handles.extend(
+        Line2D(
+            [],
+            [],
+            marker=marker,
+            linestyle="none",
+            markerfacecolor="none",
+            markeredgecolor=PALETTE["ink"],
+            label=label,
+        )
+        for marker, label in (
+            ("o", "N80"),
+            ("s", "N76 historical anchor"),
+            ("^", "N76 all conservative"),
+        )
+    )
+    handles.extend(
+        [
+            Line2D(
+                [],
+                [],
+                marker="D",
+                linestyle="none",
+                markerfacecolor=PALETTE["ink"],
+                markeredgecolor=PALETTE["ink"],
+                label="Independent sampling",
+            ),
+            Line2D(
+                [],
+                [],
+                marker="D",
+                linestyle="none",
+                markerfacecolor="white",
+                markeredgecolor=PALETTE["ink"],
+                label="Partially harmonized sampling",
+            ),
+        ]
+    )
+    axis.set_xlim(0.82, 2.18)
+    axis.set_xticks([1, 2], ["one represented cell", "two diagonal cells"])
+    axis.set_ylabel("Robust Bayesian D-information score")
+    axis.set_title("Operational coverage versus information")
+    axis.grid(True, axis="y")
+    axis.legend(handles=handles, frameon=False, fontsize=7, ncol=2, loc="lower left")
+    _finish_figure(
+        fig,
+        path,
+        "64-member comparison after sampling optimization",
+    )
+
+
+def _figure_quality_audit(paths: dict[str, Path]) -> dict[str, Any]:
+    qa_rows = []
+    for name in FIGURE_NAMES:
+        path = paths[name]
+        image = np.asarray(plt.imread(filesystem_path(path)), dtype=float)
+        qa_rows.append(
+            {
+                "figure": name,
+                "exists": filesystem_path(path).is_file(),
+                "bytes": int(filesystem_path(path).stat().st_size),
+                "height_px": int(image.shape[0]),
+                "width_px": int(image.shape[1]),
+                "pixel_dynamic_range": float(np.max(image) - np.min(image)),
+                "pixel_standard_deviation": float(np.std(image)),
+                "watermark_added_by_shared_export_function": True,
+                "passed": bool(
+                    filesystem_path(path).stat().st_size >= 10_000
+                    and image.shape[0] >= 500
+                    and image.shape[1] >= 700
+                    and float(np.max(image) - np.min(image)) >= 0.25
+                    and float(np.std(image)) >= 0.01
+                ),
+            }
+        )
+    return {
+        "verdict": "PASS" if all(row["passed"] for row in qa_rows) else "FAIL",
+        "exact_expected_inventory": list(paths) == list(FIGURE_NAMES),
+        "expected_watermark": WATERMARK,
+        "figures": qa_rows,
+    }
+
+
+def _generate_figures(
+    *,
+    run_dir: Path,
+    comparison: pd.DataFrame,
+    candidate_actions: pd.DataFrame,
+    parameter_ratios: pd.DataFrame,
+    predictions: pd.DataFrame,
+    physical_bands: pd.DataFrame,
+    recommended: dict[str, Any],
+    selected_policies_by_strategy: dict[str, tuple[DesignPolicy, ...]],
+) -> tuple[list[Path], dict[str, Any]]:
+    _apply_figure_style()
     paths = {name: run_dir / name for name in FIGURE_NAMES}
 
     actions = candidate_actions[
@@ -1835,32 +2017,10 @@ def _generate_figures(
         "Selected 12 h policies; explicit hold continues to 504 h",
     )
 
-    fig, axis = plt.subplots(figsize=(10, 6))
-    plotted = comparison[comparison.sampling_mode.notna()].copy()
-    cell_count = np.where(plotted.strategy.eq("I_reference_information"), 1, 2)
-    colors = [
-        PALETTE["grey"] if value == 1 else PALETTE["blue"] for value in cell_count
-    ]
-    axis.scatter(cell_count, plotted["robust_score"], c=colors, s=70, alpha=0.8)
-    for _, row in plotted.iterrows():
-        axis.annotate(
-            f"{row['strategy'].split('_')[0]}\n{row['dose_design']}\n{row['sampling_mode']}",
-            (
-                1 if row["strategy"] == "I_reference_information" else 2,
-                row["robust_score"],
-            ),
-            xytext=(4, 4),
-            textcoords="offset points",
-            fontsize=6,
-        )
-    axis.set_xticks([1, 2], ["one represented cell", "two diagonal cells"])
-    axis.set_ylabel("Robust Bayesian D-information score")
-    axis.set_title("Operational coverage versus information")
-    axis.grid(True, axis="y")
-    _finish_figure(
-        fig,
+    _coverage_tradeoff_figure(
+        comparison,
+        recommended,
         paths["coverage_vs_information_tradeoff.png"],
-        "64-member comparison after sampling optimization",
     )
 
     recommended_rows = parameter_ratios[
@@ -1988,36 +2148,7 @@ def _generate_figures(
         "Architecture only; no physical Wave 2 or Wave 3 instructions",
     )
 
-    qa_rows = []
-    for name in FIGURE_NAMES:
-        path = paths[name]
-        image = np.asarray(plt.imread(filesystem_path(path)), dtype=float)
-        qa_rows.append(
-            {
-                "figure": name,
-                "exists": filesystem_path(path).is_file(),
-                "bytes": int(filesystem_path(path).stat().st_size),
-                "height_px": int(image.shape[0]),
-                "width_px": int(image.shape[1]),
-                "pixel_dynamic_range": float(np.max(image) - np.min(image)),
-                "pixel_standard_deviation": float(np.std(image)),
-                "watermark_added_by_shared_export_function": True,
-                "passed": bool(
-                    filesystem_path(path).stat().st_size >= 10_000
-                    and image.shape[0] >= 500
-                    and image.shape[1] >= 700
-                    and float(np.max(image) - np.min(image)) >= 0.25
-                    and float(np.std(image)) >= 0.01
-                ),
-            }
-        )
-    qa = {
-        "verdict": "PASS" if all(row["passed"] for row in qa_rows) else "FAIL",
-        "exact_expected_inventory": list(paths) == list(FIGURE_NAMES),
-        "expected_watermark": WATERMARK,
-        "figures": qa_rows,
-    }
-    return list(paths.values()), qa
+    return list(paths.values()), _figure_quality_audit(paths)
 
 
 def _flat_search_record(row: dict[str, Any]) -> dict[str, Any]:
@@ -2534,7 +2665,12 @@ def _repackage_completed_run(
         raise RuntimeError("Only a completed immutable coverage run may be repackaged")
     qualification_config = {
         "coverage": coverage_config,
-        "qualification_action": "restore_cached_physical_candidate_labels",
+        "qualification_actions": [
+            "restore_cached_physical_candidate_labels",
+            "regenerate_nonoverlapping_information_tradeoff_figure",
+            "refresh_structural_figure_qa",
+            "rebuild_review_only_package",
+        ],
         "source_run_manifest_sha256": source_audit["source_manifest_sha256"],
         "numeric_results_reused": True,
     }
@@ -2543,6 +2679,24 @@ def _repackage_completed_run(
     )
     outputs, outputs_by_name = _copy_completed_run_payload(source_run, run_dir)
     repair = _repair_physical_candidate_labels(run_dir)
+    recommendation = _read_json(run_dir / "wave1_recommended_coverage_candidate.json")
+    comparison = pd.read_csv(
+        filesystem_path(run_dir / "coverage_strategy_comparison.csv")
+    )
+    figure_path_map = {name: run_dir / name for name in FIGURE_NAMES}
+    _coverage_tradeoff_figure(
+        comparison,
+        recommendation,
+        figure_path_map["coverage_vs_information_tradeoff.png"],
+    )
+    figure_qa = _figure_quality_audit(figure_path_map)
+    figure_qa.update(
+        {
+            "tradeoff_label_layout": "encoded_by_color_marker_and_fill_with_only_reference_and_recommendation_annotated",
+            "tradeoff_label_overlap_from_source_run_addressed": True,
+        }
+    )
+    write_json(run_dir / "visual_qa.json", figure_qa)
     runtime_path = run_dir / "runtime_summary.json"
     runtime = _read_json(runtime_path)
     runtime.update(
@@ -2551,13 +2705,14 @@ def _repackage_completed_run(
             "source_run_manifest_sha256": source_audit["source_manifest_sha256"],
             "numeric_search_sampling_and_prediction_results_reused": True,
             "physical_candidate_label_integrity_repair": repair,
+            "tradeoff_figure_regenerated_for_label_legibility": True,
+            "structural_figure_qa": figure_qa["verdict"],
             "watermark": WATERMARK,
             **closed_authorization(),
         }
     )
     write_json(runtime_path, runtime)
-    recommendation = _read_json(run_dir / "wave1_recommended_coverage_candidate.json")
-    figure_paths = [run_dir / name for name in FIGURE_NAMES]
+    figure_paths = list(figure_path_map.values())
     review_outputs = _build_review_package(
         run_dir, outputs_by_name, figure_paths, recommendation
     )
@@ -2575,6 +2730,10 @@ def _repackage_completed_run(
         "only_label_column_changed_in_physical_table": repair[
             "all_non_label_csv_tokens_identical"
         ],
+        "tradeoff_figure_rebuilt_with_nonoverlapping_encoding": bool(
+            figure_qa["tradeoff_label_overlap_from_source_run_addressed"]
+        ),
+        "structural_figure_qa_pass": figure_qa["verdict"] == "PASS",
         "review_package_rebuilt_with_review_only_suffix": bool(review_outputs)
         and all(REVIEW_SUFFIX in path.name for path in review_outputs),
         "physical_flags_closed": all(
@@ -2625,9 +2784,14 @@ def _repackage_completed_run(
     )
     manifest.update(
         {
-            "qualification_type": "immutable_label_integrity_repackage",
+            "qualification_type": "immutable_label_and_figure_qualification_repackage",
             "source_run_output_audit": source_audit,
             "physical_candidate_label_integrity_repair": repair,
+            "figure_layout_qualification": {
+                "tradeoff_figure_regenerated": True,
+                "structural_qa_verdict": figure_qa["verdict"],
+                "manual_visual_inspection_required_before_publication": True,
+            },
             "numeric_results_reused": True,
             "watermark": WATERMARK,
             **closed_authorization(),
@@ -2661,7 +2825,8 @@ def parse_args() -> argparse.Namespace:
         "--reuse-completed-run",
         help=(
             "Create a new immutable qualification run from a completed run, "
-            "verifying hashes and restoring cached physical candidate labels"
+            "verifying hashes, restoring cached physical candidate labels, "
+            "and rebuilding the tradeoff figure and review package"
         ),
     )
     return parser.parse_args()
