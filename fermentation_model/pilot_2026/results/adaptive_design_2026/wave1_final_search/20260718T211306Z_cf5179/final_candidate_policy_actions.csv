@@ -1,0 +1,9 @@
+policy,action,time_h,value,unit,canonical_effective_action
+anchor_18C,temperature_setpoint,0.0,18.0,degC,True
+anchor_18C,nutrition,46.0,80.0,mgYAN/L,True
+candidate_A,temperature_setpoint,0.0,26.31385069209483,degC,True
+candidate_A,temperature_setpoint,12.0,21.529638951051346,degC,True
+candidate_A,nutrition,2.0,80.0,mgYAN/L,True
+candidate_B,temperature_setpoint,0.0,26.33085986142825,degC,True
+candidate_B,temperature_setpoint,12.0,21.484943978268767,degC,True
+candidate_B,nutrition,2.0,80.0,mgYAN/L,True

@@ -1,0 +1,30 @@
+{
+  "canonical_policy_hash": "71fce618799fba8dd7a7b0c9fbf73562b1e9ec8c67c0981188660ac22aab7377",
+  "local_multistart_consistency": true,
+  "parent_candidate_id": "122399fbe4093781",
+  "selected_candidate_id": "71fce618799fba8d",
+  "selected_candidate_local_qualification_reason": "selected_refinement_improved_real_full_ensemble_objective",
+  "selected_candidate_local_qualified": true,
+  "selection_reason": {
+    "near_best_candidate_ids": [
+      "122399fbe4093781",
+      "192fc13f9683fcfc",
+      "a498aca1912716e4",
+      "71fce618799fba8d",
+      "4da756e5c5580ea7",
+      "6753e2f80756ff3f"
+    ],
+    "near_best_tolerance_fraction": 0.005,
+    "primary_rule": "all eligible candidates compared on real 64-member objective",
+    "secondary_rule": "minimum maximum jump, then minimum total variation, temperature changes, total YAN, and maximum drying margin",
+    "selected_candidate_id": "71fce618799fba8d",
+    "selected_is_exact_objective_best": true
+  },
+  "source_seeds": [
+    20260761
+  ],
+  "source_type": "accepted_refinement",
+  "source_types": [
+    "accepted_refinement"
+  ]
+}

@@ -1,0 +1,4 @@
+.gitattributes text eol=lf
+fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_search/** -text whitespace=cr-at-eol,-blank-at-eof
+fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_sampling/** -text whitespace=cr-at-eol,-blank-at-eof
+fermentation_model/pilot_2026/results/adaptive_design_2026/wave1_final_execution_package/** -text whitespace=cr-at-eol,-blank-at-eof

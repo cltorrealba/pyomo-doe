@@ -55,6 +55,22 @@ def _write_text(path: Path, value: str) -> None:
         stream.write(value)
 
 
+def _json_native_checks(checks: dict[str, Any]) -> dict[str, bool]:
+    """Return audit checks as strict JSON-native booleans."""
+    return {name: bool(value) for name, value in checks.items()}
+
+
+def _files_below(root: Path) -> list[Path]:
+    """Enumerate files below ``root`` through Windows extended-length paths."""
+    logical_root = Path(root)
+    physical_root = filesystem_path(logical_root)
+    return sorted(
+        logical_root / path.relative_to(physical_root)
+        for path in physical_root.rglob("*")
+        if path.is_file()
+    )
+
+
 def _logical_profile(name: str) -> str:
     lowered = str(name).lower()
     if "anchor" in lowered:
@@ -466,9 +482,7 @@ def main() -> None:
         index=False,
     )
 
-    package_files_before_audit = sorted(
-        path for path in package.rglob("*") if filesystem_path(path).is_file()
-    )
+    package_files_before_audit = _files_below(package)
     maximum_jump = float(controller["jump_from_previous_c"].abs().max())
     nutrition_totals = operational_nutrition.groupby("policy").agg(
         organic_total_g=("organic_product_g", "sum"),
@@ -519,6 +533,7 @@ def main() -> None:
         "independent_human_reviewer_required_false": True,
         "automated_final_audit_required": True,
     }
+    audit_checks = _json_native_checks(audit_checks)
     audit = {
         "audit": "wave1_automated_final_operational_audit",
         "verdict": "PASS" if all(audit_checks.values()) else "FAIL",
@@ -570,9 +585,7 @@ def main() -> None:
         runtime_path,
         {"total_runtime_seconds": float(time.perf_counter() - started)},
     )
-    outputs = sorted(
-        path for path in package.rglob("*") if filesystem_path(path).is_file()
-    ) + [
+    outputs = _files_below(package) + [
         audit_path,
         gate_path,
         runtime_path,

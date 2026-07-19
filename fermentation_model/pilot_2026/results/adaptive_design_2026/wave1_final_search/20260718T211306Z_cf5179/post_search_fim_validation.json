@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "all_cases_pass": true,
+    "approved_actuator_extreme_covered": true,
+    "critical_member_cases_covered": true,
+    "exact_final_anchor_A_B_covered": true,
+    "fd_steps_0_01_0_02_0_04_covered": true,
+    "grids_4_2_1h_covered": true
+  },
+  "gate": "post_search_fim_validation",
+  "thresholds": {
+    "maximum_relative_grid_fim_difference": 0.12,
+    "maximum_relative_step_fim_difference": 0.08
+  },
+  "verdict": "PASS",
+  "worst_approved_actuator_scenario": {
+    "command_delay_h": 0.0,
+    "initial_temperature_offset_c": -1.0,
+    "probe_bias_c": 0.5,
+    "tau_h": 0.45812979693594796,
+    "tracking_error_c": -0.8946199169856546
+  }
+}

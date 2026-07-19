@@ -1,0 +1,16 @@
+{
+  "algorithm": "numpy.random.Generator(PCG64).permutation",
+  "authorized_for_physical_execution": false,
+  "mapping": {
+    "A": "TK31",
+    "B": "TK32",
+    "anchor": "TK33"
+  },
+  "notice": "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "policy_hashes": {
+    "A": "874bfa3f7706f1466765d1f6c2f60ed8b1f32a2b6822f1ba8c1e5fbec1a68acb",
+    "B": "cd75cac8fe802108e749d22daf54b80e03650907ecc6c811509d46bcff93774c",
+    "anchor": "dda5a2fc4fd7033b2f7749f25df7e93ed9e380e662fbde50e42cfa59817ba944"
+  },
+  "seed": 20260718
+}

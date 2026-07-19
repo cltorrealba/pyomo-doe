@@ -1,0 +1,459 @@
+{
+  "anchor": {
+    "nutrition_pulses_mg_yan_l": [
+      [
+        46.0,
+        80.0
+      ]
+    ],
+    "status": "exploratory_seed_only",
+    "temperature_c": 18.0
+  },
+  "campaign_id": "pilot_2026",
+  "completion": {
+    "drying_grid_step_h": 3.0,
+    "minimum_probability": 0.95,
+    "penalty_per_failed_fraction": 1000.0,
+    "residual_sugar_g_l": 4.0
+  },
+  "design_constraints": {
+    "approval": {
+      "active_cooling_separation_approved": true,
+      "automated_final_audit_required": true,
+      "calibration_gate_passed": true,
+      "candidate_plot_format_approved_by_owner": true,
+      "candidate_plots_approved_by_owner": true,
+      "engine_qualification_passed": true,
+      "independent_human_reviewer_required": false,
+      "owner_loading_qc_approved": true,
+      "physical_execution_authorized": false
+    },
+    "campaign_id": "pilot_2026",
+    "campaign_timing": {
+      "maximum_process_duration_days": 21,
+      "minimum_interwave_separation_days": 7,
+      "wave1_tentative_start": "2026-07-20",
+      "wave_sizes": [
+        3,
+        2,
+        1
+      ]
+    },
+    "completion": {
+      "actions_after_predicted_drying": "prohibited",
+      "drying_definition_residual_sugar_g_l": 4.0,
+      "minimum_probability": 0.95
+    },
+    "fail_closed_fields": [
+      "approval.physical_execution_authorized"
+    ],
+    "manual_action_window": {
+      "applies_to": [
+        "nutrition",
+        "sampling"
+      ],
+      "end_local": "17:00",
+      "start_local": "09:00",
+      "weekdays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ]
+    },
+    "nutrition": {
+      "approved_product_mix_selection_policy": "50_50_net_YAN_contribution",
+      "composition_source": "owner-provided operational composition, 2026-07-18",
+      "dap_net_yan_fraction": 0.5,
+      "dap_product_name": "DAP",
+      "dap_yan_mass_fraction": 0.2,
+      "historical_pulse_yan_mg_l": 80.0,
+      "initial_volume_l": 230.0,
+      "latest_allowable_pulse_h": 96.0,
+      "maximum_dap_fda_g_per_event": null,
+      "maximum_organic_product_g_per_event": null,
+      "maximum_pulses": 3,
+      "maximum_total_dap_fda_g_hl": 96.0,
+      "maximum_total_organic_product_g_hl": 40.0,
+      "maximum_total_yan_mg_l": null,
+      "maximum_total_yan_policy": "derive_from_product_composition_volume_mix_and_total_product_limits",
+      "maximum_yan_per_pulse_mg_l": 80.0,
+      "organic_net_yan_fraction": 0.5,
+      "organic_product_manufacturer": "Fermentis",
+      "organic_product_name": "SpringFerm Xtrem",
+      "organic_product_yan_mass_fraction": 0.1,
+      "per_event_mass_limit_policy": "no_separate_limit; total product and per-pulse YAN constraints apply",
+      "standard_anchor_nutrition_approved": true,
+      "yan_80_vs_90_435_mg_l_reconciled": true,
+      "yan_formula": "YAN_product_mg_L = 1000 * product_mass_g * product_yan_mass_fraction / volume_L",
+      "yan_reconciliation": "80 mgYAN/L is the owner-approved historical pulse basis used by calibration; 90.435 mgYAN/L is not an approved replacement dose"
+    },
+    "review_status": "owner_final_wave1_operational_decisions_encoded_physical_release_pending_2026-07-18",
+    "sampling_and_capture": {
+      "analytical_budget_configured": true,
+      "capture_stages_c": [
+        0.0,
+        -40.0
+      ],
+      "capture_train_per_tank": true,
+      "capture_trains_available": 3,
+      "manual_sampling_capacity_per_time_slot": 3,
+      "maximum_capture_interval_h": null,
+      "maximum_capture_interval_policy": "unbounded_by_hardware",
+      "maximum_capture_intervals_per_process": 9,
+      "maximum_samples_per_process": 10,
+      "maximum_trap_loading": null,
+      "maximum_trap_loading_policy": "not_applicable_for_sampling_nozzle",
+      "minimum_action_to_drying_margin_h": 24.0,
+      "minimum_minutes_between_sampling_and_nutrition": 0,
+      "objective": "maximize_information_on_aroma_formation_and_loss",
+      "optimize_schedule": true,
+      "priority_analytes": [
+        "ethyl_acetate",
+        "ethyl_octanoate",
+        "isoamyl_acetate"
+      ],
+      "sample_event_order": "sample_before_action",
+      "sampling_local_window": [
+        "09:00",
+        "17:00"
+      ],
+      "sampling_weekdays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "tanks": [
+        "TK31",
+        "TK32",
+        "TK33"
+      ],
+      "vessel_change_required": false
+    },
+    "schema_version": 5,
+    "tank_randomization": {
+      "algorithm": "numpy.random.Generator(PCG64).permutation",
+      "approved": true,
+      "authorization_status": "mapping_frozen_but_not_authorized_for_execution",
+      "frozen_mapping": {
+        "A": "TK31",
+        "B": "TK32",
+        "anchor": "TK33"
+      },
+      "policy": "frozen_logical_profile_mapping",
+      "seed": 20260718
+    },
+    "temperature": {
+      "actuator_model_required": true,
+      "automated_setpoint_changes_allowed_24_7": true,
+      "maximum_active_segments": 42,
+      "maximum_c": 27.0,
+      "maximum_temperature_jump_c": 5.0,
+      "maximum_temperature_jump_policy": "hard_limit_between_consecutive_12h_blocks",
+      "maximum_total_thermal_variation_c": null,
+      "maximum_total_thermal_variation_policy": "no_additional_limit",
+      "minimum_c": 15.0,
+      "minimum_effective_temperature_change_c": 1.0,
+      "minimum_segment_duration_h": 12.0,
+      "setpoint_changes_follow_manual_action_window": false
+    },
+    "timezone": "America/Santiago"
+  },
+  "design_constraints_path": "fermentation_model/pilot_2026/adaptive_design/design_constraints.json",
+  "fim_validation": {
+    "independent_pyomo_doe_comparison_required_where_applicable": true,
+    "log_steps": [
+      0.01,
+      0.02,
+      0.04
+    ],
+    "maximum_relative_grid_fim_difference": 0.12,
+    "maximum_relative_step_fim_difference": 0.08,
+    "minimum_eigenvalue_tolerance": -1e-08,
+    "nominal_time_grid_step_h": 2.0,
+    "time_grid_steps_h": [
+      4.0,
+      2.0,
+      1.0
+    ],
+    "tolerance_origin": "declared numerical convergence criteria for finite-difference and discretization QA; not physical operating limits",
+    "validation_scope": [
+      "anchor",
+      "candidate_A",
+      "candidate_B",
+      "central_member",
+      "lowest_information_member",
+      "highest_information_member",
+      "critical_drying_member",
+      "critical_actuator_scenario"
+    ]
+  },
+  "future_process": {
+    "information_horizon_h": 264.0,
+    "initials": {
+      "E": 9.8625,
+      "F": 77.57,
+      "G": 78.72,
+      "Gly": 0.98,
+      "N": 0.272,
+      "X": 0.022436671416774176,
+      "Xd": 0.4851803289627321
+    },
+    "maximum_horizon_h": 504.0,
+    "maximum_temperature_changes": 4,
+    "maximum_temperature_jump_c": 5.0,
+    "minimum_effective_temperature_change_c": 1.0,
+    "optimized_temperature_slots": 14,
+    "start_local": "2026-07-20T15:00:00-04:00",
+    "temperature_actuator": {
+      "command_delay_scenarios_h": [
+        0.0
+      ],
+      "empirical_tau_h": [
+        0.3390769978649166,
+        0.3177272541838157,
+        0.25038706632644936,
+        0.45812979693594796,
+        0.4344760109578126,
+        0.21148207178811254,
+        0.230758146706305,
+        0.33440804404660923,
+        0.28259073573647164
+      ],
+      "global_tau_h": 0.3177272541838157,
+      "initial_temperature_c": 18.0,
+      "initial_temperature_uncertainty_c": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "model": "first_order_setpoint_to_Sonda1",
+      "observed_tracking_rmse_c": [
+        0.9851097887437072,
+        0.8946199169856546,
+        0.6670134541450007,
+        0.9032656411286033,
+        0.8912394007877706,
+        0.5176355604540641,
+        1.0294061985071536,
+        0.9077744893326539,
+        0.4132035267116012
+      ],
+      "probe_bias_control_approximation": "physical_equilibrium_equals_setpoint_minus_probe_bias_plus_tracking_error; probe_reading_equals_physical_temperature_plus_probe_bias",
+      "probe_bias_scenarios_c": [
+        -0.5,
+        0.0,
+        0.5
+      ],
+      "simulation_step_h": 0.25,
+      "tracking_error_scenario_policy": "negative_nominal_positive_median_observed_tracking_rmse"
+    },
+    "temperature_after_optimized_window": "hold_last_setpoint",
+    "temperature_maximum_c": 27.0,
+    "temperature_minimum_c": 15.0,
+    "temperature_slot_h": 12.0
+  },
+  "independent_seeds": [
+    20260717,
+    20260731,
+    20260747,
+    20260761,
+    20260779
+  ],
+  "nutrition": {
+    "derived_product_limits": {
+      "dap_implied_maximum_total_yan_mg_l": 384.00000000000006,
+      "dap_net_yan_fraction": 0.5,
+      "dap_yan_mass_fraction": 0.2,
+      "maximum_total_dap_g": 220.8,
+      "maximum_total_organic_product_g": 92.0,
+      "maximum_total_yan_mg_l": 80.00000000000001,
+      "organic_implied_maximum_total_yan_mg_l": 80.00000000000001,
+      "organic_net_yan_fraction": 0.5,
+      "organic_yan_mass_fraction": 0.1,
+      "volume_l": 230.0
+    },
+    "latest_h": 96.0,
+    "manual_hours_local": [
+      9,
+      13,
+      17
+    ],
+    "manual_weekdays": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "maximum_pulses": 3,
+    "maximum_total_yan_mg_l": 80.00000000000001,
+    "maximum_yan_per_pulse_mg_l": 80.0,
+    "product_mapping_policy": "optimize_total_YAN_only_then_translate_without_selecting_a_product_mix_when_owner_policy_is_missing",
+    "zero_pulse_threshold_mg_l": 0.0
+  },
+  "objective": {
+    "criterion": "robust_bayesian_D_information_gain",
+    "design_complexity_penalty": {
+      "origin": "numerical tie-breaker declared for reproducibility; not a physical limit",
+      "per_degree_total_variation": 0.0002,
+      "per_temperature_change": 0.002
+    },
+    "finite_difference_log_parameter_bounds": [
+      [
+        -9.210340371976184,
+        9.210340371976184
+      ],
+      [
+        -9.210340371976184,
+        9.210340371976184
+      ],
+      [
+        -11.512925464970229,
+        2.302585092994046
+      ]
+    ],
+    "finite_difference_log_step": 0.02,
+    "lower_decile_weight": 0.25,
+    "median_weight": 0.75,
+    "prior_ridge": 0.001,
+    "priority_parameters": [
+      "ethyl_acetate__formation_growth_ug_per_g_sugar",
+      "ethyl_acetate__formation_stationary_ug_per_g_sugar",
+      "ethyl_acetate__effective_loss_scale",
+      "ethyl_octanoate__formation_growth_ug_per_g_sugar",
+      "ethyl_octanoate__formation_stationary_ug_per_g_sugar",
+      "ethyl_octanoate__effective_loss_scale",
+      "isoamyl_acetate__formation_growth_ug_per_g_sugar",
+      "isoamyl_acetate__formation_stationary_ug_per_g_sugar",
+      "isoamyl_acetate__effective_loss_scale"
+    ],
+    "representative_ensemble_members": 8,
+    "tail_guardrails": {
+      "maximum_q10_regression_vs_reference": 0.0,
+      "maximum_worst_paired_loss_vs_reference": 2.0,
+      "minimum_fraction_exceeding_reference": 0.95,
+      "owner_approval_required_for_null_guardrails": false
+    },
+    "tail_probability": 0.1
+  },
+  "observation_error_model": {
+    "condensate_minimum_sigma_ug": 1.0,
+    "condensate_relative_sigma": 0.25,
+    "differentiate_sigma_with_parameters": false,
+    "source": "aroma_calibration_config.json:error_model",
+    "wine_minimum_sigma_ug_l": 2.0,
+    "wine_relative_sigma": 0.2
+  },
+  "operations": {
+    "manual_sampling_capacity_per_time_slot": 3,
+    "minimum_action_to_drying_margin_h": 24.0,
+    "minimum_minutes_between_sampling_and_nutrition": 0,
+    "numerical_sample_event_order": "sample_before_action",
+    "sample_event_order": "sample_before_action"
+  },
+  "regression_reference": {
+    "current_sampling_median": 7.063653215850975,
+    "current_sampling_q10": 2.8670854796732175,
+    "current_sampling_robust_score": 6.014511281806535,
+    "ipopt_proposal_correctly_rejected": true,
+    "preliminary_median": 7.887877738160874,
+    "preliminary_q10": 5.216373362200951,
+    "preliminary_robust_score": 7.220001644649798,
+    "reduced_pso_objective": -4.916027892059978,
+    "revalidated_ipopt_proposal": -4.803791952620369,
+    "source_commit": "dda40c42e39b1b812a155dc475fc678fcf34bf74"
+  },
+  "release_policy": {
+    "adapter_validation_required": true,
+    "automated_final_audit_required": true,
+    "candidate_plot_format_approved_by_owner": true,
+    "full_ensemble_qualification_required": true,
+    "independent_human_reviewer_required": false,
+    "owner_plot_approval_required": false,
+    "physical_execution_authorized": false,
+    "tank_randomization_policy_approved": true,
+    "ultra_audit_required": true
+  },
+  "sampling": {
+    "beam_width": 4,
+    "capture_intervals_per_process": 9,
+    "capture_stages_c": [
+      0.0,
+      -40.0
+    ],
+    "coordinate_passes": 4,
+    "force_first_slot": true,
+    "force_last_slot": false,
+    "full_ensemble_score_tolerance": 1e-09,
+    "preliminary_times_h": [
+      0.0,
+      2.0,
+      18.0,
+      22.0,
+      26.0,
+      42.0,
+      46.0,
+      50.0,
+      66.0,
+      74.0
+    ],
+    "q10_regression_tolerance": 0.0,
+    "samples_per_process": 10,
+    "search_restarts": 3
+  },
+  "schema_version": 4,
+  "search": {
+    "cache_temperature_decimals": 3,
+    "cache_yan_decimals": 3,
+    "checkpoint_every_iteration": true,
+    "checkpoint_interval_minutes": 30.0,
+    "cognitive": 1.49,
+    "continuation_improvement_tolerance_fraction": 0.001,
+    "frequent_rerank_members": 8,
+    "full_ensemble_members": 64,
+    "improvement_tolerance": 1e-05,
+    "inertia": 0.72,
+    "local_acceptance_ratio": 0.1,
+    "local_expansion_ratio": 0.75,
+    "local_finite_difference_step": 0.03,
+    "local_gradient_tolerance": 0.0001,
+    "local_initial_trust_radius": 0.12,
+    "local_maximum_iterations": 4,
+    "local_maximum_trust_radius": 0.3,
+    "local_minimum_trust_radius": 0.0075,
+    "maximum_iterations": 20,
+    "maximum_wall_clock_h": 8.0,
+    "minimum_finalist_seed_contributors": 2,
+    "minimum_practically_converged_seed_champions": 3,
+    "minimum_ranking_spearman": 0.7,
+    "particles": 24,
+    "policy_family_distance_threshold": 0.35,
+    "practical_score_tolerance_fraction": 0.005,
+    "representative_members": 4,
+    "rerank_interval": 2,
+    "restarts": 2,
+    "seed_profile_fraction": 0.34,
+    "social": 1.49,
+    "stage1_members": 4,
+    "stage2_continuation_iterations": 6,
+    "stage2_members": 8,
+    "stage5_continuation_window": 3,
+    "stagnation_iterations": 5,
+    "top_k_candidates": 5,
+    "top_k_local_refinement": 3
+  },
+  "seed": 20260717,
+  "source_contract": {
+    "aroma_calibration_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/aroma_calibration/20260717T161527Z_e927a5",
+    "engine_qualification_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/hybrid_engine_qualification/20260717T164729Z_c7a6d5",
+    "explicit_cli_source_required": true,
+    "joint_ensemble_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/joint_ensemble/20260717T162323Z_6b9889",
+    "manifest_output_hash_verification_required": true,
+    "temperature_actuator_run": "fermentation_model/pilot_2026/results/adaptive_design_2026/temperature_actuator/20260717T170749Z_95efe0"
+  },
+  "tank_randomization_seed": 20260718
+}

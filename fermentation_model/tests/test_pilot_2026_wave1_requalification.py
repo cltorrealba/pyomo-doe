@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import gzip
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -46,6 +47,8 @@ from pilot_2026.adaptive_design.hybrid_optimizer import (  # noqa: E402
 )
 from pilot_2026.adaptive_design.build_wave1_execution_package import (  # noqa: E402
     _controller_blocks,
+    _files_below,
+    _json_native_checks,
 )
 from pilot_2026.adaptive_design.run_wave1_final_search import (  # noqa: E402
     _common_completed_continuation_windows,
@@ -603,6 +606,26 @@ class Wave1RequalificationTests(unittest.TestCase):
             '"tank_assignments": []',
         ):
             self.assertIn(declaration, source)
+
+    def test_execution_package_audit_checks_are_json_native_booleans(self) -> None:
+        checks = _json_native_checks(
+            {"numpy_true": np.bool_(True), "numpy_false": np.bool_(False)}
+        )
+        self.assertIs(type(checks["numpy_true"]), bool)
+        self.assertIs(type(checks["numpy_false"]), bool)
+        self.assertEqual(json.loads(json.dumps(checks)), checks)
+
+    def test_execution_package_enumerates_windows_long_path_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / ("long_package_root_" + "x" * 80)
+            nested = root / ("nested_" + "y" * 80) / ("leaf_" + "z" * 80)
+            output = nested / "controller_review.json"
+            try:
+                run_artifacts.filesystem_path(nested).mkdir(parents=True)
+                run_artifacts.filesystem_path(output).write_text("{}\n", encoding="utf-8")
+                self.assertEqual(_files_below(root), [output])
+            finally:
+                shutil.rmtree(run_artifacts.filesystem_path(root), ignore_errors=True)
 
     def test_actuator_uncertainty_contains_all_nine_empirical_taus(self) -> None:
         values = self.config["future_process"]["temperature_actuator"]["empirical_tau_h"]

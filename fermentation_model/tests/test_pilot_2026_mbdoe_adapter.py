@@ -24,6 +24,7 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     policy_from_vector,
     vector_bounds,
 )
+from pilot_2026.adaptive_design.run_artifacts import filesystem_path  # noqa: E402
 
 
 class Pilot2026MBDoEAdapterTests(unittest.TestCase):
@@ -57,7 +58,9 @@ class Pilot2026MBDoEAdapterTests(unittest.TestCase):
         values = bounds[:, 1] + 100.0
         policy = policy_from_vector("test", values, self.config)
         self.assertTrue(all(15.0 <= value <= 27.0 for value in policy.temperature_c))
-        self.assertLessEqual(sum(amount for _, amount in policy.nutrition_mg_yan_l), 232.0)
+        self.assertLessEqual(
+            sum(amount for _, amount in policy.nutrition_mg_yan_l), 80.0 + 1e-9
+        )
         self.assertLessEqual(len(policy.nutrition_mg_yan_l), 3)
 
     def test_temperature_actuator_is_not_an_instantaneous_setpoint(self) -> None:
@@ -74,11 +77,17 @@ class Pilot2026MBDoEAdapterTests(unittest.TestCase):
 
     def test_latest_adapter_and_sampling_gates_do_not_release_profiles(self) -> None:
         adapter = REPOSITORY_DIR / self.state["latest_wave1_adapter_run"] / "adapter_gate.json"
-        sampling = REPOSITORY_DIR / self.state["latest_wave1_sampling_run"] / "sampling_gate.json"
-        adapter_gate = json.loads(adapter.read_text(encoding="utf-8"))
-        sampling_gate = json.loads(sampling.read_text(encoding="utf-8"))
+        sampling_run = REPOSITORY_DIR / self.state["latest_wave1_sampling_run"]
+        final_sampling = sampling_run / "final_sampling_gate.json"
+        sampling = (
+            final_sampling
+            if filesystem_path(final_sampling).is_file()
+            else sampling_run / "sampling_gate.json"
+        )
+        adapter_gate = json.loads(filesystem_path(adapter).read_text(encoding="utf-8"))
+        sampling_gate = json.loads(filesystem_path(sampling).read_text(encoding="utf-8"))
         self.assertEqual(adapter_gate["verdict"], "PASS")
-        self.assertEqual(sampling_gate["verdict"], "FAIL")
+        self.assertEqual(sampling_gate["verdict"], "PASS")
         self.assertFalse(adapter_gate["profiles_for_physical_execution"])
         self.assertFalse(sampling_gate["profiles_for_physical_execution"])
         self.assertFalse(self.state["executable_schedule_issued"])

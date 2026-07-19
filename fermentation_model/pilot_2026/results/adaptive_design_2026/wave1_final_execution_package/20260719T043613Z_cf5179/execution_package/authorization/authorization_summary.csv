@@ -1,0 +1,10 @@
+status,value
+notice,COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION
+computationally_qualified,True
+operationally_translated,True
+owner_review_pending,True
+physically_authorized,False
+profiles_for_physical_execution,False
+physical_execution_authorized,False
+executable_schedule_issued,False
+physical_authorization_gate,FAIL / PENDING OWNER APPROVAL

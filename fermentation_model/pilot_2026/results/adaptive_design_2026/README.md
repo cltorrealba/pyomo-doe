@@ -48,10 +48,15 @@ directory here contains an executable fermentation schedule.
 | `wave1_sampling_v2/20260718T075319Z_b41bbd` | FAIL, retained | Complete candidate; visual QA found title/subtitle overlap in three multipanel figures. |
 | `wave1_sampling_v2/20260718T075725Z_b41bbd` | FAIL, retained | Title overlap fixed; visual QA found top sample labels entering the agenda title area. |
 | `wave1_sampling_v2/20260718T080054Z_b41bbd` | FAIL, current | Operational sampling/capture/randomization checks pass and all ten figures pass visual QA; source search and missing nutrition product compositions remain fail-closed. |
+| `wave1_final_search/20260718T211306Z_cf5179` | PASS, current | Resumable five-seed multifidelity search; 155 checkpoints, real 64-member local acceptance, corrected eligible-set selection, practical convergence, full actuator envelope and exact post-search FIM pass. |
+| `wave1_final_sampling/20260719T042832Z_cf5179` | PASS, current | Optimized ten-sample schedules and nine capture intervals pass the full 64-member tail guardrails; all ten watermarked figures pass automated and manual visual QA. |
+| `wave1_final_execution_package/20260719T043206Z_cf5179` | FAIL, retained | Package files were created, but strict JSON serialization rejected NumPy boolean audit values before a gate or manifest was emitted. |
+| `wave1_final_execution_package/20260719T043339Z_cf5179` | PASS, superseded | Operational checks passed, but independent review found that Windows `MAX_PATH` enumeration omitted package files from the run manifest. |
+| `wave1_final_execution_package/20260719T043613Z_cf5179` | PASS, current | Operational translation and automated audit pass; all 23 package files and 26 declared run outputs are hashed. Physical authorization remains pending owner approval. |
 
 The immutable historical regression references are
 `wave1_hybrid_search/20260717T225010Z_9d52be` and
 `wave1_sampling/20260717T231040Z_9d52be`. The corrected runs do not overwrite
 them. The campaign state has no tank assignments, no executable profile and no
-physical release. The tank CSV is a frozen uniform proposal only and is never
-copied into `tank_assignments`.
+physical release. The tank CSV freezes the owner-approved logical mapping for
+review only and is never copied into `tank_assignments`.

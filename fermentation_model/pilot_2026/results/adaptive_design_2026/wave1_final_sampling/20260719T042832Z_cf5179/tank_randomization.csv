@@ -1,0 +1,4 @@
+profile,logical_profile,tank,seed,algorithm,frozen_utc,policy_hash,owner_policy_approved,authorized_for_physical_execution,status
+anchor_18C,anchor,TK33,20260718,numpy.random.Generator(PCG64).permutation,2026-07-19T04:28:32.312426+00:00,dda5a2fc4fd7033b2f7749f25df7e93ed9e380e662fbde50e42cfa59817ba944,True,False,frozen_computational_proposal_not_authorized
+candidate_A,A,TK31,20260718,numpy.random.Generator(PCG64).permutation,2026-07-19T04:28:32.312426+00:00,874bfa3f7706f1466765d1f6c2f60ed8b1f32a2b6822f1ba8c1e5fbec1a68acb,True,False,frozen_computational_proposal_not_authorized
+candidate_B,B,TK32,20260718,numpy.random.Generator(PCG64).permutation,2026-07-19T04:28:32.312426+00:00,cd75cac8fe802108e749d22daf54b80e03650907ecc6c811509d46bcff93774c,True,False,frozen_computational_proposal_not_authorized

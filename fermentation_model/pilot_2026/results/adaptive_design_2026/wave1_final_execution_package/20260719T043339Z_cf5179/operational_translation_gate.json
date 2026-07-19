@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "automated_final_audit_pass": true,
+    "event_and_total_product_limits_respected": true,
+    "grams_for_both_products_available": true,
+    "hashes_and_manifests_complete": true,
+    "ics_generated": true,
+    "per_tank_tables_generated": true,
+    "thermal_gui_generated": true
+  },
+  "executable_schedule_issued": false,
+  "gate": "wave1_operational_translation",
+  "notice": "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "physical_authorization_gate": "FAIL / PENDING OWNER APPROVAL",
+  "physical_execution_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": [],
+  "verdict": "PASS"
+}

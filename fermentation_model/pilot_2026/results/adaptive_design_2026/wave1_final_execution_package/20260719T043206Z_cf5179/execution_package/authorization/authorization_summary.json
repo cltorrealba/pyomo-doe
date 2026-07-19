@@ -1,0 +1,12 @@
+{
+  "computationally_qualified": true,
+  "executable_schedule_issued": false,
+  "notice": "COMPUTATIONAL CANDIDATE — NOT AUTHORIZED FOR PHYSICAL EXECUTION",
+  "operationally_translated": true,
+  "owner_review_pending": true,
+  "physical_authorization_gate": "FAIL / PENDING OWNER APPROVAL",
+  "physical_execution_authorized": false,
+  "physically_authorized": false,
+  "profiles_for_physical_execution": false,
+  "tank_assignments": []
+}

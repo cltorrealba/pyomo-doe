@@ -1,0 +1,26 @@
+{
+  "best_full_ensemble_robust_score": 20.436639331453637,
+  "checks": {
+    "all_near_best_champions_feasible": true,
+    "at_least_three_seed_champions_within_0_5pct": true,
+    "champions_available": true,
+    "continuation_improvement_at_most_0_1pct": true,
+    "operationally_equivalent_policy_family": true
+  },
+  "continuation_improvement_fraction": 0.0,
+  "near_best_seeds": [
+    20260717,
+    20260731,
+    20260761
+  ],
+  "passed": true,
+  "policy_families": [
+    [
+      20260717,
+      20260731,
+      20260761
+    ]
+  ],
+  "policy_family_distance_threshold": 0.35,
+  "score_tolerance_fraction": 0.005
+}
