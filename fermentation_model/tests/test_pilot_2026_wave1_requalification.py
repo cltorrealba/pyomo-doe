@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import gzip
 import json
 import sys
 import tempfile
@@ -45,6 +46,10 @@ from pilot_2026.adaptive_design.hybrid_optimizer import (  # noqa: E402
 )
 from pilot_2026.adaptive_design.build_wave1_execution_package import (  # noqa: E402
     _controller_blocks,
+)
+from pilot_2026.adaptive_design.run_wave1_final_search import (  # noqa: E402
+    _common_completed_continuation_windows,
+    _history_from_checkpoints,
 )
 from pilot_2026.adaptive_design.optimize_wave1_sampling_and_plots import (  # noqa: E402
     FIGURE_NAMES,
@@ -654,6 +659,54 @@ class Wave1RequalificationTests(unittest.TestCase):
         )
         self.assertIn("filesystem_path(path).stat().st_size", source)
         self.assertNotIn('"bytes": path.stat().st_size', source)
+
+    def test_resume_recognizes_only_common_completed_continuation_windows(self) -> None:
+        complete = {
+            seed: SimpleNamespace(iteration=29) for seed in (1, 2, 3, 4, 5)
+        }
+        partial = {**complete, 5: SimpleNamespace(iteration=28)}
+        self.assertEqual(
+            _common_completed_continuation_windows(complete, 26, 3), 1
+        )
+        self.assertEqual(_common_completed_continuation_windows(partial, 26, 3), 0)
+
+    def test_resume_reconstructs_complete_multifidelity_history(self) -> None:
+        checkpoints = (
+            (1, "four_member", 0, -1.0),
+            (2, "eight_member", 20, -2.0),
+            (3, "eight_member", 26, -3.0),
+            (4, "eight_member", 29, -3.1),
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            for sequence, fidelity, iteration, value in checkpoints:
+                path = root / (
+                    f"seed_7_{sequence:04d}_{fidelity}_iteration_{iteration:04d}.json.gz"
+                )
+                with gzip.open(path, "wt", encoding="utf-8") as stream:
+                    json.dump(
+                        {
+                            "checkpoint_sequence": sequence,
+                            "swarm": {
+                                "seed": 7,
+                                "fidelity": fidelity,
+                                "iteration": iteration,
+                                "global_best_value": value,
+                            },
+                        },
+                        stream,
+                    )
+            rows = _history_from_checkpoints(root, 20, 6)
+        self.assertEqual(len(rows), 4)
+        self.assertEqual(
+            [row["stage"] for row in rows],
+            [
+                "stage1_four_member_exploration",
+                "stage2_eight_member_rescore",
+                "stage2_eight_member_continuation",
+                "stage5_eight_member_extension",
+            ],
+        )
 
     def test_practical_convergence_uses_seed_champions_and_policy_family(self) -> None:
         champions = [

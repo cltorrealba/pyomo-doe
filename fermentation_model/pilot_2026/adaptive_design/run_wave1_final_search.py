@@ -106,6 +106,66 @@ def _candidate_id(canonical: np.ndarray) -> str:
     return sha256_payload(np.asarray(canonical, dtype=float).tolist())[:16]
 
 
+def _common_completed_continuation_windows(
+    states: dict[int, CheckpointedSwarmState], base_iteration: int, window: int
+) -> int:
+    """Return only extension windows completed by every independent seed."""
+
+    if window <= 0:
+        raise ValueError("Continuation window must be positive")
+    return min(
+        max((state.iteration - base_iteration) // window, 0)
+        for state in states.values()
+    )
+
+
+def _history_from_checkpoints(
+    checkpoint_dir: Path, maximum_iterations: int, stage2_iterations: int
+) -> list[dict[str, Any]]:
+    """Reconstruct the complete multifidelity trajectory for resumed runs."""
+
+    rows: list[dict[str, Any]] = []
+    by_seed: dict[int, list[dict[str, Any]]] = {}
+    for path in checkpoint_dir.glob("*.json.gz"):
+        payload = _read_gzip_json(path)
+        swarm = payload["swarm"]
+        seed = int(swarm["seed"])
+        by_seed.setdefault(seed, []).append(
+            {
+                "checkpoint_sequence": int(payload["checkpoint_sequence"]),
+                "iteration": int(swarm["iteration"]),
+                "fidelity": str(swarm["fidelity"]),
+                "global_best_value": float(swarm["global_best_value"]),
+            }
+        )
+    for seed, checkpoints in sorted(by_seed.items()):
+        previous_by_fidelity: dict[str, float] = {}
+        for item in sorted(checkpoints, key=lambda row: row["checkpoint_sequence"]):
+            fidelity = str(item["fidelity"])
+            objective = float(item["global_best_value"])
+            previous = previous_by_fidelity.get(fidelity, objective)
+            iteration = int(item["iteration"])
+            if fidelity == "four_member":
+                stage = "stage1_four_member_exploration"
+            elif iteration <= maximum_iterations:
+                stage = "stage2_eight_member_rescore"
+            elif iteration <= maximum_iterations + stage2_iterations:
+                stage = "stage2_eight_member_continuation"
+            else:
+                stage = "stage5_eight_member_extension"
+            rows.append(
+                {
+                    "independent_seed": seed,
+                    "stage": stage,
+                    "iteration": iteration,
+                    "robust_score": -objective,
+                    "improvement": max(previous - objective, 0.0),
+                }
+            )
+            previous_by_fidelity[fidelity] = objective
+    return rows
+
+
 def _full_candidate(
     candidate: dict[str, Any],
     *,
@@ -549,7 +609,15 @@ def main() -> None:
     seed_profiles = seed_profiles[:allowed_seed_count]
     states: dict[int, CheckpointedSwarmState] = {}
     checkpoint_paths: list[Path] = []
-    history_rows: list[dict[str, Any]] = []
+    history_rows: list[dict[str, Any]] = (
+        _history_from_checkpoints(
+            checkpoint_dir,
+            int(config["search"]["maximum_iterations"]),
+            int(config["search"]["stage2_continuation_iterations"]),
+        )
+        if args.resume_run
+        else []
+    )
     sequence_by_seed: dict[int, int] = {}
 
     def save_checkpoint(state: CheckpointedSwarmState, candidates: list[str]) -> None:
@@ -596,6 +664,7 @@ def main() -> None:
             if payload["config_hashes"] != config_hashes:
                 raise RuntimeError("Checkpoint configuration/source hashes do not match")
             state = CheckpointedSwarmState.from_payload(payload["swarm"])
+            sequence_by_seed[seed] = int(payload["checkpoint_sequence"])
             objective_cache.update(
                 {str(key): float(value) for key, value in payload["evaluation_cache"].items()}
             )
@@ -699,10 +768,51 @@ def main() -> None:
     continuation_window = int(config["search"]["stage5_continuation_window"])
     continuation_improvement_fraction = math.inf
     if completed_seed_count == len(config["independent_seeds"]) and not search_timed_out:
-        while time.perf_counter() < deadline:
-            before = min(state.global_best_value for state in states.values())
+        base_iteration = int(config["search"]["maximum_iterations"]) + int(
+            config["search"]["stage2_continuation_iterations"]
+        )
+
+        def checkpoint_global_best(seed: int, iteration: int) -> float:
+            state = states[seed]
+            if state.iteration == iteration:
+                return float(state.global_best_value)
+            candidates = sorted(
+                checkpoint_dir.glob(
+                    f"seed_{seed}_*_{state.fidelity}_iteration_{iteration:04d}.json.gz"
+                )
+            )
+            if not candidates:
+                raise RuntimeError(
+                    f"Missing checkpoint for seed {seed}, iteration {iteration}"
+                )
+            payload = _read_gzip_json(candidates[-1])
+            return float(payload["swarm"]["global_best_value"])
+
+        completed_windows = _common_completed_continuation_windows(
+            states, base_iteration, continuation_window
+        )
+        if completed_windows:
+            window_end = base_iteration + completed_windows * continuation_window
+            before = min(
+                checkpoint_global_best(seed, window_end - continuation_window)
+                for seed in states
+            )
+            after = min(
+                checkpoint_global_best(seed, window_end) for seed in states
+            )
+            continuation_improvement_fraction = max(before - after, 0.0) / max(
+                abs(after), 1e-12
+            )
+        tolerance = float(
+            config["search"]["continuation_improvement_tolerance_fraction"]
+        )
+        while (
+            time.perf_counter() < deadline
+            and continuation_improvement_fraction > tolerance
+        ):
+            target_iteration = base_iteration + (completed_windows + 1) * continuation_window
             for seed, state in list(states.items()):
-                for _ in range(continuation_window):
+                while state.iteration < target_iteration:
                     if time.perf_counter() >= deadline:
                         search_timed_out = True
                         break
@@ -724,18 +834,32 @@ def main() -> None:
                             "improvement": max(previous - state.global_best_value, 0.0),
                         }
                     )
-                    save_checkpoint(state, [_candidate_id(_decode_pair(state.global_best_position, config, "checkpoint")[1])])
+                    save_checkpoint(
+                        state,
+                        [
+                            _candidate_id(
+                                _decode_pair(
+                                    state.global_best_position, config, "checkpoint"
+                                )[1]
+                            )
+                        ],
+                    )
                 states[seed] = state
                 if search_timed_out:
                     break
-            after = min(state.global_best_value for state in states.values())
-            continuation_improvement_fraction = max(before - after, 0.0) / max(abs(after), 1e-12)
-            if (
-                continuation_improvement_fraction
-                <= float(config["search"]["continuation_improvement_tolerance_fraction"])
-                or search_timed_out
-            ):
+            if search_timed_out:
                 break
+            before = min(
+                checkpoint_global_best(seed, target_iteration - continuation_window)
+                for seed in states
+            )
+            after = min(
+                checkpoint_global_best(seed, target_iteration) for seed in states
+            )
+            continuation_improvement_fraction = max(before - after, 0.0) / max(
+                abs(after), 1e-12
+            )
+            completed_windows += 1
 
     # Preserve at least one canonical champion from every seed before global ranking.
     candidate_pool: dict[str, dict[str, Any]] = {}
