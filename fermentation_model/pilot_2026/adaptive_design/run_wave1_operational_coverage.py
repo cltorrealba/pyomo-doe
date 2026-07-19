@@ -460,6 +460,7 @@ def _full_candidate_record(
         information["completion_probability"]
         >= float(model_config["completion"]["minimum_probability"]) - 1e-12
     )
+    drying_margin_pass = bool(information["minimum_drying_margin_h"] >= -1e-12)
     minimum_nutrition_margin = min(
         float(row["organic_margin_fraction"]) for row in nutrition_rows
     )
@@ -513,11 +514,16 @@ def _full_candidate_record(
         "thermal_pass": thermal_pass,
         "nutrition_pass": nutrition_pass,
         "completion_pass": completion_pass,
+        "drying_margin_pass": drying_margin_pass,
         "controller_explicit_to_504h": controller_pass,
         "first_24h_mean_contrast_c": float(contrast["first_24h_mean_contrast_c"]),
         "nutrition_time_contrast_h": float(contrast["nutrition_time_contrast_h"]),
         "feasible": bool(
-            coverage_pass and thermal_pass and nutrition_pass and completion_pass
+            coverage_pass
+            and thermal_pass
+            and nutrition_pass
+            and completion_pass
+            and drying_margin_pass
         ),
         "vector": np.asarray(vector, dtype=float),
         "policies": policies,
@@ -1132,6 +1138,9 @@ def _sampling_mode_result(
         "sample_before_action": model_config["operations"]["sample_event_order"]
         == "sample_before_action",
         "harmonization_guardrail": harmonized_pass,
+        "nonnegative_minimum_drying_margin": bool(
+            search_record["minimum_drying_margin_h"] >= -1e-12
+        ),
     }
     row = {
         "strategy": strategy,
@@ -2445,6 +2454,8 @@ def _build_review_package(
             "wave3_adaptive_decision_rule.json",
         ],
     }
+    if "drying_margin_qualification.json" in outputs_by_name:
+        routing["strategy_summary"].append("drying_margin_qualification.json")
     copied = []
     for folder, names in routing.items():
         destination = package / folder
@@ -2650,6 +2661,118 @@ def _repair_physical_candidate_labels(run_dir: Path) -> dict[str, Any]:
     }
 
 
+def _rewrite_drying_gate_csv(path: Path, table: str) -> dict[str, Any]:
+    with filesystem_path(path).open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.reader(handle)
+        header = next(reader)
+        original_rows = list(reader)
+    column = {name: index for index, name in enumerate(header)}
+    required = {"minimum_drying_margin_h", "sampling_gate"}
+    mutable = {"sampling_gate"}
+    if table == "coverage_strategy_comparison":
+        required.update({"information_gate", "all_operational_gates_pass"})
+        mutable.update({"information_gate", "all_operational_gates_pass"})
+    if missing_columns := sorted(required - set(column)):
+        raise RuntimeError(f"Missing {table} columns: {missing_columns}")
+    mutable_indices = {column[name] for name in mutable}
+    immutable_indices = [
+        index for index in range(len(header)) if index not in mutable_indices
+    ]
+    repaired_rows: list[list[str]] = []
+    affected_rows = 0
+    for original in original_rows:
+        repaired = list(original)
+        if float(original[column["minimum_drying_margin_h"]]) < -1e-12:
+            repaired[column["sampling_gate"]] = "FAIL"
+            if table == "coverage_strategy_comparison":
+                repaired[column["information_gate"]] = "FAIL"
+                repaired[column["all_operational_gates_pass"]] = "False"
+            affected_rows += 1
+        repaired_rows.append(repaired)
+    original_immutable = [
+        tuple(row[index] for index in immutable_indices) for row in original_rows
+    ]
+    repaired_immutable = [
+        tuple(row[index] for index in immutable_indices) for row in repaired_rows
+    ]
+    if original_immutable != repaired_immutable:
+        raise RuntimeError(f"A non-gate CSV token changed in {table}")
+    with filesystem_path(path).open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(header)
+        writer.writerows(repaired_rows)
+    return {
+        "table": table,
+        "rows": len(repaired_rows),
+        "affected_negative_margin_rows": affected_rows,
+        "mutable_gate_columns": sorted(mutable),
+        "all_non_gate_csv_tokens_identical": True,
+        "non_gate_csv_token_sha256_before_and_after": sha256_payload(
+            original_immutable
+        ),
+    }
+
+
+def _fail_close_negative_drying_margin_gates(
+    run_dir: Path,
+) -> tuple[dict[str, Any], Path]:
+    sampling_path = run_dir / "sampling_strategy_comparison.csv"
+    comparison_path = run_dir / "coverage_strategy_comparison.csv"
+    sampling_repair = _rewrite_drying_gate_csv(
+        sampling_path, "sampling_strategy_comparison"
+    )
+    comparison_repair = _rewrite_drying_gate_csv(
+        comparison_path, "coverage_strategy_comparison"
+    )
+    sampling = pd.read_csv(filesystem_path(sampling_path))
+    variant_rows = []
+    gate_path = run_dir / "coverage_archetype_gate.json"
+    archetype_gate = _read_json(gate_path)
+    for key, gate in archetype_gate["coverage_variants"].items():
+        strategy, dose_design = key.split("__", 1)
+        rows = sampling[
+            sampling.strategy.eq(strategy) & sampling.dose_design.eq(dose_design)
+        ]
+        if rows.empty:
+            raise RuntimeError(f"Missing sampling rows for coverage gate {key}")
+        minimum_margin = float(rows["minimum_drying_margin_h"].min())
+        drying_pass = minimum_margin >= -1e-12
+        gate["checks"]["drying_margin_nonnegative"] = drying_pass
+        gate["checks"]["sampling_and_capture"] = bool(
+            gate["checks"]["sampling_and_capture"] and drying_pass
+        )
+        gate["verdict"] = gate_verdict(gate["checks"], tuple(gate["checks"]))
+        variant_rows.append(
+            {
+                "strategy": strategy,
+                "dose_design": dose_design,
+                "minimum_drying_margin_h": minimum_margin,
+                "drying_margin_gate": "PASS" if drying_pass else "FAIL",
+            }
+        )
+    write_json(gate_path, archetype_gate)
+    qualification = {
+        "verdict": "PASS",
+        "rule": "minimum_drying_margin_h >= 0",
+        "variants": variant_rows,
+        "failed_variants": [
+            row for row in variant_rows if row["drying_margin_gate"] == "FAIL"
+        ],
+        "csv_repairs": [sampling_repair, comparison_repair],
+        "all_negative_margin_rows_fail_closed": bool(
+            sampling.loc[sampling.minimum_drying_margin_h.lt(-1e-12), "sampling_gate"]
+            .eq("FAIL")
+            .all()
+        ),
+        "numerical_and_non_gate_csv_tokens_reused_exactly": True,
+        "watermark": WATERMARK,
+        **closed_authorization(),
+    }
+    qualification_path = run_dir / "drying_margin_qualification.json"
+    write_json(qualification_path, qualification)
+    return qualification, qualification_path
+
+
 def _repackage_completed_run(
     source_run: Path,
     result_root: Path,
@@ -2667,6 +2790,7 @@ def _repackage_completed_run(
         "coverage": coverage_config,
         "qualification_actions": [
             "restore_cached_physical_candidate_labels",
+            "fail_close_negative_drying_margin_gates",
             "regenerate_nonoverlapping_information_tradeoff_figure",
             "refresh_structural_figure_qa",
             "rebuild_review_only_package",
@@ -2679,6 +2803,11 @@ def _repackage_completed_run(
     )
     outputs, outputs_by_name = _copy_completed_run_payload(source_run, run_dir)
     repair = _repair_physical_candidate_labels(run_dir)
+    drying_qualification, drying_qualification_path = (
+        _fail_close_negative_drying_margin_gates(run_dir)
+    )
+    outputs.append(drying_qualification_path)
+    outputs_by_name[drying_qualification_path.name] = drying_qualification_path
     recommendation = _read_json(run_dir / "wave1_recommended_coverage_candidate.json")
     comparison = pd.read_csv(
         filesystem_path(run_dir / "coverage_strategy_comparison.csv")
@@ -2707,6 +2836,7 @@ def _repackage_completed_run(
             "source_run_manifest_sha256": source_audit["source_manifest_sha256"],
             "numeric_search_sampling_and_prediction_results_reused": True,
             "physical_candidate_label_integrity_repair": repair,
+            "drying_margin_qualification": drying_qualification,
             "tradeoff_figure_regenerated_for_label_legibility": True,
             "structural_figure_qa": figure_qa["verdict"],
             "watermark": WATERMARK,
@@ -2722,7 +2852,18 @@ def _repackage_completed_run(
     runs = {
         name: _run_path(value) for name, value in coverage_config["source_runs"].items()
     }
-    closed_payloads = (source_manifest, runtime, recommendation, figure_qa)
+    closed_payloads = (
+        source_manifest,
+        runtime,
+        recommendation,
+        figure_qa,
+        drying_qualification,
+    )
+    recommended_rows = comparison[
+        comparison.strategy.eq(recommendation.get("strategy"))
+        & comparison.dose_design.eq(recommendation.get("dose_design"))
+        & comparison.sampling_mode.eq(recommendation.get("sampling_mode"))
+    ]
     gate_checks = {
         "source_completed_run_hashes_verified": source_audit["verdict"] == "PASS",
         "source_numerical_gate_pass": source_manifest["gate"]["verdict"] == "PASS",
@@ -2732,6 +2873,14 @@ def _repackage_completed_run(
         "only_label_column_changed_in_physical_table": repair[
             "all_non_label_csv_tokens_identical"
         ],
+        "negative_drying_margin_variants_fail_closed": drying_qualification[
+            "all_negative_margin_rows_fail_closed"
+        ],
+        "recommended_variant_has_nonnegative_drying_margin": bool(
+            len(recommended_rows) == 1
+            and float(recommended_rows.iloc[0]["minimum_drying_margin_h"]) >= -1e-12
+            and bool(recommended_rows.iloc[0]["all_operational_gates_pass"])
+        ),
         "tradeoff_figure_rebuilt_with_nonoverlapping_encoding": bool(
             figure_qa["tradeoff_label_overlap_from_source_run_addressed"]
         ),
@@ -2789,6 +2938,7 @@ def _repackage_completed_run(
             "qualification_type": "immutable_label_and_figure_qualification_repackage",
             "source_run_output_audit": source_audit,
             "physical_candidate_label_integrity_repair": repair,
+            "drying_margin_qualification": drying_qualification,
             "figure_layout_qualification": {
                 "tradeoff_figure_regenerated": True,
                 "structural_qa_verdict": figure_qa["verdict"],

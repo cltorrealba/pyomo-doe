@@ -40,6 +40,7 @@ from pilot_2026.adaptive_design.pilot_mbdoe_adapter import (  # noqa: E402
     load_wave1_config,
 )
 from pilot_2026.adaptive_design.run_wave1_operational_coverage import (  # noqa: E402
+    _fail_close_negative_drying_margin_gates,
     _repair_physical_candidate_labels,
 )
 
@@ -373,6 +374,72 @@ class OperationalCoverageTests(unittest.TestCase):
                 physical.drop(columns="candidate"),
                 repaired.drop(columns="candidate"),
                 check_exact=True,
+            )
+
+    def test_negative_drying_margin_fails_closed_without_changing_metrics(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            run_dir = Path(temporary)
+            sampling = pd.DataFrame(
+                [
+                    {
+                        "strategy": "II_diagonal_1",
+                        "dose_design": "N80",
+                        "sampling_mode": "independent",
+                        "robust_score": 21.5,
+                        "minimum_drying_margin_h": 12.0,
+                        "sampling_gate": "PASS",
+                    },
+                    {
+                        "strategy": "III_diagonal_2",
+                        "dose_design": "N80",
+                        "sampling_mode": "independent",
+                        "robust_score": 21.3,
+                        "minimum_drying_margin_h": -2.0,
+                        "sampling_gate": "PASS",
+                    },
+                ]
+            )
+            comparison = sampling.assign(
+                information_gate="PASS", all_operational_gates_pass=True
+            )
+            sampling.to_csv(run_dir / "sampling_strategy_comparison.csv", index=False)
+            comparison.to_csv(run_dir / "coverage_strategy_comparison.csv", index=False)
+            gate = {
+                "coverage_variants": {
+                    "II_diagonal_1__N80": {
+                        "checks": {"sampling_and_capture": True},
+                        "verdict": "PASS",
+                    },
+                    "III_diagonal_2__N80": {
+                        "checks": {"sampling_and_capture": True},
+                        "verdict": "PASS",
+                    },
+                }
+            }
+            (run_dir / "coverage_archetype_gate.json").write_text(
+                json.dumps(gate), encoding="utf-8"
+            )
+            qualification, _ = _fail_close_negative_drying_margin_gates(run_dir)
+            repaired_sampling = pd.read_csv(
+                run_dir / "sampling_strategy_comparison.csv"
+            )
+            repaired_comparison = pd.read_csv(
+                run_dir / "coverage_strategy_comparison.csv"
+            )
+            repaired_gate = json.loads(
+                (run_dir / "coverage_archetype_gate.json").read_text(encoding="utf-8")
+            )
+            self.assertTrue(qualification["all_negative_margin_rows_fail_closed"])
+            self.assertEqual(repaired_sampling.sampling_gate.tolist(), ["PASS", "FAIL"])
+            self.assertEqual(
+                repaired_comparison.information_gate.tolist(), ["PASS", "FAIL"]
+            )
+            self.assertEqual(repaired_comparison.robust_score.tolist(), [21.5, 21.3])
+            self.assertEqual(
+                repaired_gate["coverage_variants"]["III_diagonal_2__N80"]["verdict"],
+                "FAIL",
             )
 
 
