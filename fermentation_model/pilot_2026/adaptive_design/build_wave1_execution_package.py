@@ -467,7 +467,7 @@ def main() -> None:
     )
 
     package_files_before_audit = sorted(
-        path for path in package.rglob("*") if path.is_file()
+        path for path in package.rglob("*") if filesystem_path(path).is_file()
     )
     maximum_jump = float(controller["jump_from_previous_c"].abs().max())
     nutrition_totals = operational_nutrition.groupby("policy").agg(
@@ -482,9 +482,11 @@ def main() -> None:
         "source_hashes_verified": len(search_sources) == 4 and len(sampling_sources) == 6,
         "search_gate_pass": search_gate["verdict"] == "PASS",
         "sampling_gate_pass": sampling_gate["verdict"] == "PASS",
-        "all_package_folders_present": all(folder.is_dir() for folder in folders.values()),
-        "controller_gui_and_human_files_generated": controller_csv.is_file()
-        and controller_json.is_file(),
+        "all_package_folders_present": all(
+            filesystem_path(folder).is_dir() for folder in folders.values()
+        ),
+        "controller_gui_and_human_files_generated": filesystem_path(controller_csv).is_file()
+        and filesystem_path(controller_json).is_file(),
         "controller_checksum_matches": sha256_file(controller_json) == controller_checksum,
         "temperature_blocks_are_12h": controller["end_h"].sub(controller["start_h"]).eq(12.0).all(),
         "temperature_jumps_at_most_5c": maximum_jump <= 5.0 + 1e-9,
@@ -504,7 +506,7 @@ def main() -> None:
         and operational_sampling.groupby("tank")["time_h"].min().eq(0.0).all(),
         "nine_capture_intervals_per_policy_species": capture_counts.eq(9).all(),
         "three_candidate_ics_files_generated": len(calendar_paths) == 3
-        and all(path.is_file() for path in calendar_paths),
+        and all(filesystem_path(path).is_file() for path in calendar_paths),
         "frozen_tank_mapping_exact": mapping == required_mapping,
         "no_unresolved_operational_conflicts": conflicts.empty
         or not conflicts["status"].eq("unresolved").any(),
@@ -542,7 +544,9 @@ def main() -> None:
         "thermal_gui_generated": audit_checks["controller_gui_and_human_files_generated"],
         "ics_generated": audit_checks["three_candidate_ics_files_generated"],
         "per_tank_tables_generated": all(
-            (folders["sampling"] / f"{tank}_sampling_review_sheet.csv").is_file()
+            filesystem_path(
+                folders["sampling"] / f"{tank}_sampling_review_sheet.csv"
+            ).is_file()
             for tank in required_mapping.values()
         ),
         "hashes_and_manifests_complete": audit_checks["controller_checksum_matches"],
@@ -566,7 +570,9 @@ def main() -> None:
         runtime_path,
         {"total_runtime_seconds": float(time.perf_counter() - started)},
     )
-    outputs = sorted(path for path in package.rglob("*") if path.is_file()) + [
+    outputs = sorted(
+        path for path in package.rglob("*") if filesystem_path(path).is_file()
+    ) + [
         audit_path,
         gate_path,
         runtime_path,

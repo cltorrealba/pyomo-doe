@@ -648,6 +648,13 @@ class Wave1RequalificationTests(unittest.TestCase):
         )
         self.assertEqual(resumed.rng_state, uninterrupted.rng_state)
 
+    def test_final_checkpoint_manifest_uses_windows_extended_paths(self) -> None:
+        source = (ADAPTIVE_DIR / "run_wave1_final_search.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("filesystem_path(path).stat().st_size", source)
+        self.assertNotIn('"bytes": path.stat().st_size', source)
+
     def test_practical_convergence_uses_seed_champions_and_policy_family(self) -> None:
         champions = [
             {"independent_seed": seed, "full_ensemble_robust_score": score, "feasible": True}

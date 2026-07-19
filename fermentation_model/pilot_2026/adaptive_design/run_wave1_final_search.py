@@ -504,7 +504,7 @@ def main() -> None:
     full_objective = lambda values: objective(values, full_members)
     if args.resume_run:
         run_dir = _run_path(args.resume_run)
-        if not run_dir.is_dir():
+        if not filesystem_path(run_dir).is_dir():
             raise FileNotFoundError(run_dir)
     else:
         run_dir = create_immutable_run_directory(RESULT_ROOT, "wave1_final_search", config)
@@ -1054,7 +1054,7 @@ def main() -> None:
         {
             "path": path.relative_to(run_dir).as_posix(),
             "sha256": sha256_file(path),
-            "bytes": path.stat().st_size,
+            "bytes": filesystem_path(path).stat().st_size,
         }
         for path in sorted(checkpoint_dir.glob("*.json.gz"))
     ]
