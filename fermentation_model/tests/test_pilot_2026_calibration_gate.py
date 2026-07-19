@@ -111,18 +111,19 @@ class Pilot2026CalibrationGateTests(unittest.TestCase):
         )
         self.assertEqual(
             constraints["review_status"],
-            "owner_operational_decisions_encoded_physical_release_blocked_2026-07-18",
+            "owner_final_wave1_operational_decisions_encoded_physical_release_pending_2026-07-18",
         )
         self.assertFalse(constraints["approval"]["physical_execution_authorized"])
         self.assertEqual(
             constraints["temperature"]["maximum_temperature_jump_policy"],
-            "bounded_only_by_allowed_temperature_range",
+            "hard_limit_between_consecutive_12h_blocks",
         )
+        self.assertEqual(constraints["temperature"]["maximum_temperature_jump_c"], 5.0)
         self.assertEqual(
             constraints["sampling_and_capture"]["sample_event_order"],
             "sample_before_action",
         )
-        self.assertIn(
+        self.assertNotIn(
             "nutrition.organic_product_yan_mass_fraction",
             constraints["fail_closed_fields"],
         )
@@ -132,7 +133,9 @@ class Pilot2026CalibrationGateTests(unittest.TestCase):
             constraints["temperature"]["minimum_effective_temperature_change_c"], 1.0
         )
         self.assertEqual(constraints["nutrition"]["maximum_pulses"], 3)
-        self.assertEqual(constraints["nutrition"]["maximum_total_yan_mg_l"], 232.0)
+        self.assertIsNone(constraints["nutrition"]["maximum_total_yan_mg_l"])
+        self.assertEqual(constraints["nutrition"]["organic_product_yan_mass_fraction"], 0.10)
+        self.assertEqual(constraints["nutrition"]["dap_yan_mass_fraction"], 0.20)
         self.assertEqual(
             constraints["sampling_and_capture"]["capture_stages_c"], [0.0, -40.0]
         )

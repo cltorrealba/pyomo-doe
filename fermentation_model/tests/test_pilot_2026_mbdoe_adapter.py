@@ -35,11 +35,21 @@ class Pilot2026MBDoEAdapterTests(unittest.TestCase):
         )
 
     def test_owner_windows_are_encoded_for_nutrition_and_sampling(self) -> None:
-        for times in (allowed_nutrition_times(self.config), allowed_sampling_times(self.config)):
+        for times in (allowed_nutrition_times(self.config),):
             for time in times:
                 stamp = datetime.fromisoformat(self.config["future_process"]["start_local"])
                 stamp = stamp + __import__("datetime").timedelta(hours=float(time))
                 self.assertLess(stamp.weekday(), 5)
+                self.assertIn(stamp.hour, {9, 13, 17})
+        sampling_times = allowed_sampling_times(self.config)
+        self.assertIn(0.0, sampling_times)
+        for time in sampling_times:
+            stamp = datetime.fromisoformat(self.config["future_process"]["start_local"])
+            stamp = stamp + __import__("datetime").timedelta(hours=float(time))
+            self.assertLess(stamp.weekday(), 5)
+            if float(time) == 0.0:
+                self.assertEqual(stamp.hour, 15)
+            else:
                 self.assertIn(stamp.hour, {9, 13, 17})
 
     def test_design_vector_decodes_inside_temperature_and_yan_limits(self) -> None:
