@@ -1,0 +1,19 @@
+{
+  "medium": "synthetic",
+  "case": "historical_synthetic_only",
+  "n_batches": 10,
+  "n_source_rows": 96,
+  "profile_parameters": [
+    "Kd0",
+    "qN"
+  ],
+  "grid_points": 3,
+  "fit_nfev": 300,
+  "profile_nfev": 45,
+  "finite_difference_log_step": 0.04,
+  "uses_actual_process_temperature": false,
+  "n_co2_information_times": 0,
+  "co2_values_used_in_parameter_fit": false,
+  "external_process_root": null,
+  "local_process_fallback": null
+}

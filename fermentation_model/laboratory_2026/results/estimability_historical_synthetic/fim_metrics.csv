@@ -1,0 +1,4 @@
+logdet,min_eigenvalue,max_eigenvalue,min_relative_eigenvalue,condition_number,trace_inv,rank_1e-8,case,block,n_parameters
+68.01076875542891,4.271650413952629e-05,93217.58325770887,4.582451362360731e-10,2182238109.9639916,17340.868865362812,10,historical_synthetic_only,core_observed,11
+39.98151041838291,0.0,95666.97840827447,0.0,1000000000000.0,302667.9209153011,13,historical_synthetic_only,core_secondary_observed,17
+-105.48002344275126,0.0,95666.97840827447,0.0,1000000000000.0,1757316.5482322667,13,historical_synthetic_only,full_26_candidate,26

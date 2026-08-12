@@ -1,0 +1,21 @@
+{
+  "n_historical_synthetic_batches": 10,
+  "n_lot2_batches": 3,
+  "n_combined_batches": 13,
+  "n_core_parameters_reestimated": 11,
+  "n_secondary_parameters_reestimated": 6,
+  "n_extended_parameters_screened": 26,
+  "n_lot2_co2_information_times": 48,
+  "co2_values_used_in_fit": false,
+  "fim_decomposition_relative_error": 0.0,
+  "profile_parameters": [
+    "Kd0",
+    "qN"
+  ],
+  "fit_nfev": 450,
+  "secondary_nfev": 300,
+  "profile_nfev": 50,
+  "grid_points": 3,
+  "finite_difference_log_step": 0.04,
+  "source_fingerprint": "ccc275e37d8d16e41373f0f67e8c3c731727b74ba7f223b5ef71c9f7c9dadb49"
+}

@@ -1,0 +1,9 @@
+case,weak_direction,eigenvalue,dominant_parameters,dominant_abs_loadings
+historical_synthetic_plus_lot2,1,0.0,"k_EA_growth, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,2,0.0,"k_EA_stationary, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,3,0.0,"k_IAA_growth, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,4,0.0,"k_IAA_stationary, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,5,0.0,"k_EO_growth, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,6,0.0,"k_EO_stationary, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,7,0.0,"alpha_EA_loss, alpha_EO_loss, kPyrS_N, qN, betaG0, betaF0, qEG","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"
+historical_synthetic_plus_lot2,8,0.0,"alpha_IAA_loss, alpha_EO_loss, qN, betaG0, betaF0, qEG, qEF","1.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000"

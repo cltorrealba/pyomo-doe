@@ -1,0 +1,19 @@
+{
+  "medium": "natural",
+  "case": "historical_natural_only",
+  "n_batches": 9,
+  "n_source_rows": 112,
+  "profile_parameters": [
+    "Kd0",
+    "qN"
+  ],
+  "grid_points": 3,
+  "fit_nfev": 300,
+  "profile_nfev": 45,
+  "finite_difference_log_step": 0.04,
+  "uses_actual_process_temperature": true,
+  "n_co2_information_times": 255,
+  "co2_values_used_in_parameter_fit": false,
+  "external_process_root": "C:\\Users\\ctorrealba\\OneDrive - Vi\u00f1a Concha y Toro S.A\\Documentos\\Proyectos I+D\\PI-4497\\Resultados\\2026\\Lecturas Tablero Laboratorio 2026",
+  "local_process_fallback": "C:\\Users\\ctorrealba\\OneDrive - Vi\u00f1a Concha y Toro S.A\\Documentos\\Doctorado\\Art\u00edculos\\Art\u00edculo - Estimaci\u00f3n_dFBA\\pyomo-doe\\fermentation_model\\data\\Laboratorio 2026\\raw_data"
+}

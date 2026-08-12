@@ -1,0 +1,5 @@
+process,candidate,channel,amount,volume_ml,nominal_relative_time_h,actual_or_model_time_h,datetime_reanchored,evidence,details
+F1,synthetic_glucose_rich_fructose_pulse,N,0.05,4.585,26.0,26.0,2026-07-07 14:00:00.000000000,protocol_nominal_unverified,manual N addition from stock
+F1,synthetic_glucose_rich_fructose_pulse,F,35.0,81.12925,74.0,71.83333333333333,2026-07-09 11:49:59.999999998,controller_flag_plus_observed_fructose_jump,manual F addition from stock
+F3,synthetic_viable_biomass_step,N,0.05,4.585,26.0,26.0,2026-07-07 14:00:00.000000000,protocol_nominal_unverified,manual N addition from stock
+F3,synthetic_viable_biomass_step,X,1.0,17.22585,50.0,50.0,2026-07-08 14:00:00.000000000,protocol_time_plus_observed_biomass_step,manual X addition from stock

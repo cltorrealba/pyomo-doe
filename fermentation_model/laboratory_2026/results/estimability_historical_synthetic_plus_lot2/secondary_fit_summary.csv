@@ -1,0 +1,3 @@
+case,model,success,status,message,nfev,initial_wsse,final_wsse,n_residuals,wsse_per_residual
+historical_synthetic,historical_synthetic,True,2,`ftol` termination condition is satisfied.,18,914.8707858570283,596.6543686074788,86,6.9378414954358
+historical_synthetic_plus_lot2,historical_synthetic_plus_lot2,True,2,`ftol` termination condition is satisfied.,14,7237.919865775142,3996.7004929368786,215,18.589304618311065

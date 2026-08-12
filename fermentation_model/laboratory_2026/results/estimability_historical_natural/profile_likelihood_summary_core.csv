@@ -1,0 +1,3 @@
+case,parameter,n_success,max_lr_stat,crosses_left_95,crosses_right_95,profile_identifiable_95,chi2_95_threshold
+historical_natural_only,Kd0,4,6.693009148171768,False,True,False,3.841458820694124
+historical_natural_only,qN,4,2195.5360265707695,True,True,True,3.841458820694124

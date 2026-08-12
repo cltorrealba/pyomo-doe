@@ -1,0 +1,15 @@
+state,n_observations,n_batches_with_observations,used_in_core_fit,used_in_extended_fim
+X,76,10,True,True
+Xd,86,10,True,True
+N,83,10,True,True
+G,86,10,True,True
+F,86,10,True,True
+E,40,10,True,True
+Gly,85,10,True,True
+Pyr,86,10,False,True
+AcAld,0,0,False,True
+Acetate,0,0,False,True
+O2,0,0,False,True
+ethyl_acetate_total,0,0,False,False
+isoamyl_acetate_total,0,0,False,False
+ethyl_octanoate_total,0,0,False,False

@@ -1,0 +1,4 @@
+process,n_sample_rows,n_samples_with_observation_evidence,n_y15_samples,n_ethanol,n_ethanol_used_after_qc,n_biomass,n_time_inferred,n_negative_censored,final_sampling_only_volume_ml,temperature_first_h,temperature_last_h,co2_first_h,co2_last_h,chemistry_last_h
+F1,18,18,15,13,13,17,2,4,1325.0,0.6666666666666666,99.83333333333333,0.6666666666666666,99.83333333333333,190.0
+F2,18,18,15,13,12,17,2,4,1325.0,0.6666666666666666,99.83333333333333,0.8333333333333334,99.83333333333333,190.0
+F3,18,16,14,11,11,15,1,5,1425.0,0.8333333333333334,99.83333333333333,0.8333333333333334,99.83333333333333,168.0

@@ -1,0 +1,15 @@
+{
+  "n_processes": 3,
+  "n_sample_rows": 54,
+  "n_samples_with_observation_evidence": 52,
+  "n_y15_samples": 44,
+  "n_ethanol_measured": 37,
+  "n_ethanol_used_after_qc": 36,
+  "n_biomass_observations": 49,
+  "n_oculyze_id_or_time_repairs": 4,
+  "n_oculyze_duplicate_context_rows": 6,
+  "n_y15_conflicts": 0,
+  "time_zero_definition": "first Oculyze sample per process",
+  "biomass_conversion_g_per_cell": 3e-11,
+  "ethanol_conversion_g_l_per_percent_vv": 7.89
+}

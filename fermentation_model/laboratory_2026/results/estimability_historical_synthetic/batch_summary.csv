@@ -1,0 +1,11 @@
+case,medium,batch,n_time,t_min_h,t_max_h,X0,Xd0,N0,G0,F0,E0,Gly0,n_core_obs,n_secondary_obs,pulses
+historical_synthetic_only,synthetic,MS007,10,0.0,213.0,0.3329999999999999,0.117,0.224,125.34,120.52,0.0,0.34,57,9,N:24@0.1
+historical_synthetic_only,synthetic,MS008,10,0.0,213.0,0.32835,0.1216499999999999,0.218,124.28,119.63,0.0,0.38,56,9,N:96@0.1
+historical_synthetic_only,synthetic,MS009,10,0.0,213.0,0.3374999999999999,0.1124999999999999,0.236,120.89,114.19,0.0,0.38,57,9,N:24@0.1
+historical_synthetic_only,synthetic,MS010,10,0.0,213.5,0.5609999999999999,0.0,0.221,124.65,113.21,0.0,0.43,56,9,N:24@0.1
+historical_synthetic_only,synthetic,MS011,10,0.0,213.5,0.3697499999999999,0.23025,0.218,123.57,119.77,0.0,0.8,56,9,N:96@0.1
+historical_synthetic_only,synthetic,MS012,10,0.0,213.5,0.4757999999999999,0.0,0.223,122.56,114.23,0.0,0.66,56,9,N:96@0.1
+historical_synthetic_only,synthetic,MS013,9,0.0,213.0,0.4597499999999999,0.0,0.218,125.07,116.20000000000002,0.0,0.27,51,8,N:72@0.1
+historical_synthetic_only,synthetic,MS014,9,0.0,213.0,0.4849499999999999,0.0,0.226,127.15,126.5,0.0,0.21,51,8,N:72@0.1
+historical_synthetic_only,synthetic,MS015,9,0.0,213.0,0.3813,0.0686999999999999,0.22,121.91,118.49,0.0,0.22,51,8,N:72@0.1
+historical_synthetic_only,synthetic,MS016,9,0.0,208.0,0.4907999999999999,0.0,0.214,125.22,116.88,0.0,0.08,51,8,N:72@0.1

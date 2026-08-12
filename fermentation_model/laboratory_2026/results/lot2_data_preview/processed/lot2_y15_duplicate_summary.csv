@@ -1,0 +1,5 @@
+metric,value
+raw_rows,710
+exact_duplicate_rows,579
+canonical_sample_analyte_rows,346
+conflicting_sample_analytes,0

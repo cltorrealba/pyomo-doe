@@ -1,0 +1,2 @@
+fit,n_batches,mediums,parameters,n_parameters,success,status,message,nfev,initial_wsse,final_wsse,n_residuals,dof,wsse_per_residual,wsse_per_dof,l2_lambda,l2_parameters,best_seed
+historical_natural_only,9,natural,"mu0,qN,betaG0,betaF0,qEG,qEF,iG,iE,Kd0,gammaG0,gammaF0",11,True,3,`xtol` termination condition is satisfied.,8,11672.084819320407,11672.084819320407,608,597,19.19750792651383,19.55123085313301,0.0,,profile_center_Kd0_release
