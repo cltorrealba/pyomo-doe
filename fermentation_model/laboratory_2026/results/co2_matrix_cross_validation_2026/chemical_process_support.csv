@@ -1,0 +1,16 @@
+batch,matrix,chemistry_first_h,chemistry_last_h,n_chemical_timepoints
+LAB004,natural,0.0,163.0,13
+LAB005,natural,0.0,163.0,13
+LAB006,natural,0.0,211.0,15
+LAB007,natural,0.0,160.0,13
+LAB008,natural,0.0,160.0,13
+LAB009,natural,0.0,160.0,12
+LAB010,natural,0.0,186.9999999999418,9
+LAB011,natural,0.0,162.9999999999418,7
+LAB012,natural,0.0,162.9999999999418,8
+lot1_F1,synthetic,0.0,211.5,19
+lot1_F2,synthetic,0.0,383.8,22
+lot1_F3,synthetic,0.0,211.5,19
+lot2_F1,synthetic,0.0,190.0,18
+lot2_F2,synthetic,0.0,190.0,18
+lot2_F3,synthetic,0.0,168.0,16

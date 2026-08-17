@@ -1,0 +1,6 @@
+matrix,batch,experiment_code,reason,used_for_calibration,used_for_validation,shown_in_profile_figures
+natural,LAB001,LAB001,discarded: unreliable CO2 implementation/profile,False,False,False
+natural,LAB002,LAB002,discarded: unreliable CO2 implementation/profile,False,False,False
+natural,LAB003,LAB003,discarded: unreliable CO2 implementation/profile,False,False,False
+natural,LAB009,LAB009,discarded: unreliable CO2 implementation/profile,False,False,False
+synthetic,lot1_F2,DOE-F02,discarded: unreliable CO2 implementation/profile (DOE-F02),False,False,False

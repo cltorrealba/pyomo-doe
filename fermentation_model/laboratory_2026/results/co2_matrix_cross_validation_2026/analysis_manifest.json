@@ -1,0 +1,161 @@
+{
+  "model": "solubility_o2_nitrogen_boost_continuous_release",
+  "scope": "CO2 observation/transfer layer conditional on fixed medium-specific upstream fermentation drivers",
+  "holdouts": {
+    "synthetic": "lot2_F3",
+    "natural": "LAB012"
+  },
+  "observation_bin_h": 1.0,
+  "driver_grid_h": 0.25,
+  "sensor_preprocessing": {
+    "sensor_zero_correction": {
+      "native_unit": "sccm",
+      "scope": "estimated independently for every experimental run before clipping, artifact filtering and volume conversion",
+      "window_h": 12.0,
+      "quantile": 0.1,
+      "nonnegative_offset": true,
+      "assignment": "physical F1/F2/F3 acquisition channels; explicit DOE-F06 user label sensor 6 retained on channel F3",
+      "caveat": "the initial low quantile is assumed to represent instrumental zero; true biological flow already present in the first 12 h may be partially removed"
+    },
+    "sample_artifact_window_h": 3.0,
+    "sample_event_half_width_h": 1.25,
+    "sample_drop_ratio": 0.65,
+    "transient_context_h": 1.0,
+    "transient_low_ratio": 0.55,
+    "transient_high_ratio": 1.8,
+    "co2_detection_limit_standard_g_l_h": 0.05,
+    "co2_detection_limit_cold_g_l_h": 0.1,
+    "cold_setpoint_threshold_c": 15.5,
+    "hourly_robust_median_window_points": 3,
+    "hourly_savgol_window_points": 5,
+    "hourly_savgol_polyorder": 2,
+    "censored_residual": "one-sided hinge above the detection limit; excluded from profiled gain and point metrics"
+  },
+  "excluded_batches": {
+    "LAB001": "discarded: unreliable CO2 implementation/profile",
+    "LAB002": "discarded: unreliable CO2 implementation/profile",
+    "LAB003": "discarded: unreliable CO2 implementation/profile",
+    "LAB009": "discarded: unreliable CO2 implementation/profile",
+    "lot1_F2": "discarded: unreliable CO2 implementation/profile (DOE-F02)"
+  },
+  "temperature_use": {
+    "core_dynamics": "BatchData.temperature_c via temperature_at(batch, t)",
+    "co2_solubility": "Cstar base includes exp[-0.032*(temperature_c-20)]",
+    "setpoint": "context/QC only; measured/reconstructed temperature is the model input",
+    "lot1_correction": "full native sensor temperature grid merged into BatchData; not sparse chemistry-time interpolation"
+  },
+  "time_alignment": {
+    "origin": "first chemical sample (t=0)",
+    "end": "last chemical sample",
+    "co2_policy": "CO2 rows outside the chemical interval are excluded; absent late CO2 is not imputed",
+    "temperature_policy": "temperature is interpolated on the dynamic grid through the last chemical sample"
+  },
+  "natural_nutrient_protocol": {
+    "calendar_source": "C:\\Users\\ctorrealba\\Downloads\\Fernanda Folch.ics",
+    "initial_pulse": "ignored because initial YAN is already represented at t=0",
+    "in_process_springferm_xtrem_g": 1.0,
+    "in_process_fda_g": 0.4,
+    "yan_mg_per_mg_product": 0.2,
+    "total_yan_mg_per_2L_reactor": 280.0,
+    "modeled_N_increment_kg_m3": 0.14,
+    "density_target_g_l": 1040.0,
+    "timing_rule": "linear chemical-density crossing at 1040 g/L whenever a crossing is available",
+    "timing_uncertainty": "crossings bracketed by more than 24 h are retained and labeled sparse_bracket; calendar is audit/fallback only"
+  },
+  "synthetic_nutrient_protocol": {
+    "timing_rule": "existing DOE batch schedule expressed as process time from the first chemical sample",
+    "calendar_or_density_retiming": false
+  },
+  "n_starts": 5,
+  "max_nfev": 300,
+  "random_seed": 20260812,
+  "chemistry_aligned_transition": {
+    "activation_evidence": "first chemical sample with glucose+fructose loss >=5 g/L or ethanol increase >=2 g/L",
+    "activation_shape": "smoothstep; exactly zero before a fitted fractional start inside the chemistry bracket and gradual over a fitted multiple of bracket width",
+    "estimated_by_matrix": [
+      "chem_activation_start_fraction",
+      "chem_activation_duration_fraction"
+    ],
+    "co2_used_to_locate_activation": "only within the chemistry-defined bracket through shared matrix parameters; no batch-specific lag",
+    "onset_definition": "first three consecutive hourly values above early baseline plus 10% dynamic range, never below the row-specific detection limit",
+    "onset_residual_scale_h": 12.0,
+    "direct_comparator": "solubility_o2_nitrogen_boost_threshold_release",
+    "legacy_comparator": "solubility_o2_slow_transition"
+  },
+  "nitrogen_boost_transition": {
+    "counterfactual": "simulate each batch with and without its in-process N pulse",
+    "availability_shape": "causal linear ramp from pulse time to pulse time + fitted pulse_t_rise_h",
+    "biomass_effect": "unscaled ramped difference between with-pulse and no-pulse upstream trajectories",
+    "activity_effect": "pulse_activity_gain is the final multiplier on no-pulse metabolic activity; the term is independent of pulse-induced biomass growth",
+    "estimated_by_matrix": [
+      "pulse_t_rise_h",
+      "pulse_activity_gain"
+    ],
+    "postpulse_peak_window_h": 72.0,
+    "postpulse_peak_residual_scale_h": 12.0,
+    "literature_basis": [
+      "David et al.: finite nitrogen uptake interval and transporter/activity state after addition",
+      "Seguinot et al.: immediate activity boost after stationary-phase nitrogen addition without requiring biomass growth"
+    ]
+  },
+  "continuous_co2_release": {
+    "previous_problem": "qgas was driven only by dissolved CO2 above the full pure-CO2 saturation scale, producing a zero plateau and abrupt release",
+    "new_flux": "k_release * C_dissolved * [floor + (1-floor)*C_dissolved/(C_dissolved+Cstar)]",
+    "fixed_early_release_floor": 0.05,
+    "first_emission_diagnostic_g_l_h": 0.005,
+    "direct_comparator": "solubility_o2_nitrogen_boost_threshold_release"
+  },
+  "practical_identifiability": {
+    "local_test": "SVD and covariance of the equal-batch residual Jacobian with respect to log shape parameters",
+    "global_direction_test": "one-dimensional objective profiles with all other shape parameters reoptimized",
+    "stability_test": "leave-one-calibration-batch-out refits initialized from the full-data optimum",
+    "profile_points_per_parameter_plus_optimum": 7,
+    "profile_relative_wsse_heuristic": 0.05,
+    "warning": "the 5% objective line is a sensitivity heuristic, not a likelihood confidence interval"
+  },
+  "natural_requested": [
+    "LAB001",
+    "LAB002",
+    "LAB003",
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB009",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "natural_model_ready": [
+    "LAB004",
+    "LAB005",
+    "LAB006",
+    "LAB007",
+    "LAB008",
+    "LAB010",
+    "LAB011",
+    "LAB012"
+  ],
+  "natural_descriptive_only": [],
+  "source_files": {
+    "synthetic_lot1_co2": "fermentation_model\\laboratory_2026\\results\\lot1_data_preview\\processed\\lot1_co2_filt_volume_corrected_10min.csv",
+    "synthetic_lot2_co2": "fermentation_model\\laboratory_2026\\results\\lot2_data_preview\\processed\\lot2_co2_volume_corrected_10min.csv",
+    "natural_workbook": "fermentation_model\\data\\Laboratorio 2026\\Vendimia_2026\\mosto_natural_xthiol.xlsx",
+    "natural_process_dir": "fermentation_model\\data\\Laboratorio 2026\\raw_data",
+    "natural_theta": "fermentation_model\\laboratory_2026\\results\\estimability_historical_natural\\theta.csv",
+    "synthetic_theta": "fermentation_model\\laboratory_2026\\results\\estimability_historical_synthetic_plus_lot2\\theta_by_case.csv",
+    "natural_nutrient_calendar": "C:\\Users\\ctorrealba\\Downloads\\Fernanda Folch.ics"
+  },
+  "oxygen_transition": {
+    "estimated_by_matrix": [
+      "O2_qmax_mg_gdw_h",
+      "O2_initial_scale"
+    ],
+    "fixed_O2_K_mg_l": 0.25,
+    "fixed_O2_ana_K_mg_l": 0.75,
+    "fixed_O2_ana_hill": 2.0,
+    "fixed_O2_crabtree_floor": 0.08,
+    "O2_kLa_h": 0.0
+  }
+}

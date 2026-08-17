@@ -1,0 +1,14 @@
+matrix,batch,experiment_code,pulse_time_h,amount_N_kg_m3,timing_source,density_target_g_l,density_bracket_width_h,calendar_t_h,excluded_from_co2_analysis
+natural,LAB004,LAB004,56.091666666666605,0.14,chemical_density_linear_interpolation,1040.0,17.0,51.5,False
+natural,LAB005,LAB005,55.08661417322827,0.14,chemical_density_linear_interpolation,1040.0,17.0,51.5,False
+natural,LAB006,LAB006,74.0,0.14,chemical_density_linear_interpolation,1040.0,0.0,75.5,False
+natural,LAB007,LAB007,56.2461538461539,0.14,chemical_density_linear_interpolation,1040.0,16.0,44.75,False
+natural,LAB008,LAB008,56.75000000000003,0.14,chemical_density_linear_interpolation,1040.0,16.0,44.75,False
+natural,LAB009,LAB009,41.846153846153896,0.14,chemical_density_linear_interpolation,1040.0,8.0,44.75,True
+natural,LAB010,LAB010,102.49452954045489,0.14,chemical_density_linear_interpolation_sparse_bracket,1040.0,66.99999999994179,79.0,False
+natural,LAB011,LAB011,86.83673469381938,0.14,chemical_density_linear_interpolation_sparse_bracket,1040.0,72.0,71.75,False
+natural,LAB012,LAB012,91.04173913037664,0.14,chemical_density_linear_interpolation_sparse_bracket,1040.0,72.0,71.75,False
+synthetic,lot1_F2,DOE-F02,72.5,0.015,process_time_existing_batch_schedule,,,,True
+synthetic,lot1_F3,DOE-F03,24.5,0.015,process_time_existing_batch_schedule,,,,False
+synthetic,lot2_F1,DOE-F04,26.0,0.05,process_time_existing_batch_schedule,,,,False
+synthetic,lot2_F3,DOE-F06,26.0,0.05,process_time_existing_batch_schedule,,,,False
