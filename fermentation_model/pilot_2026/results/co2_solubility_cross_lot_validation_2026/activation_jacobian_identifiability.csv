@@ -1,0 +1,3 @@
+matrix,n_residuals,n_shape_parameters,effective_rank,condition_number_log_parameter_jacobian,smallest_singular_value,largest_singular_value,residual_variance_scale,interpretation
+pilot_lot2,367,8,8,3383.529591001045,0.0008401537398163159,2.8426850396586976,0.007212782731272389,moderate_or_better
+pilot_lot3,321,8,8,391998899980.01855,5.18305396031833e-12,2.031751450981864,0.026237544889798636,ill_conditioned

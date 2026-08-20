@@ -1,0 +1,13 @@
+parameter,estimate
+kCO2_release_h,19.855565791273985
+CO2sat_scale,0.3960643408651626
+O2_qmax_mg_gdw_h,4.896662403646974
+O2_initial_scale,0.05100602997813746
+pulse_t_rise_h,11.914040656652684
+pulse_activity_gain,0.9621992690002021
+chem_activation_start_fraction,0.028655936299504463
+chem_activation_duration_fraction,1.9860536179751658
+matrix_gain,2.0594491321469235
+wsse_equal_batch,16.95562630545706
+n_calibration_batches,4.0
+n_calibration_points,680.0

@@ -1,0 +1,69 @@
+{
+  "model": "solubility_o2_nitrogen_boost_continuous_release",
+  "scope": "Pilot-2026 CO2 observation layer conditional on fixed Pilot-2026 upstream kinetics",
+  "valid_co2_runs": [
+    "26157",
+    "26158",
+    "26159",
+    "26210",
+    "26211",
+    "26212"
+  ],
+  "excluded_co2_runs": [
+    "26134",
+    "26135",
+    "26136"
+  ],
+  "holdouts": {
+    "pilot_lot2": "26158",
+    "pilot_lot3": "26211"
+  },
+  "conversion_ln_min_to_g_l_h": 0.5122186831987772,
+  "reactor_volume_l": 230.0,
+  "co2_preprocessing": {
+    "artificial_leading_zeros": "excluded",
+    "observed_first_acquisition_delay_h": {
+      "26157": 2.45,
+      "26158": 2.5,
+      "26159": 2.45,
+      "26210": 2.7333333333333334,
+      "26211": 2.7333333333333334,
+      "26212": 2.7333333333333334
+    },
+    "sensor_normalization": "fixed prior background and reactor gains from baseline calibration",
+    "sensor_normalization_caveat": "same-campaign prior; no pre-inoculation zero available",
+    "sampling_artifact_filter": "local MAD plus sample-window excursion; first 4 h after nutrient pulse protected",
+    "hourly_smoother": "3-point median followed by 5-point quadratic Savitzky-Golay within pulse segments"
+  },
+  "time_alignment": {
+    "origin": "first primary chemical sample",
+    "end": "active_end from first cooling event or last primary sample",
+    "temperature": "Sonda1 full active-process grid"
+  },
+  "nutrient_pulse": {
+    "timing": "linear density crossing at 1040 kg/m3",
+    "model_amount_N_kg_m3": 0.08,
+    "mass_audit_amount_N_kg_m3": 0.090434783,
+    "lot3_events": "owner-confirmed reconstruction from matching Lot-1 schedule"
+  },
+  "identifiability_limitations": [
+    "no pre-inoculation CO2 baseline",
+    "no manual dissolved CO2",
+    "pH and dissolved O2 only in Lot 3 at sparse times starting at 16 h",
+    "one invalid pH=30.3 row excluded visually",
+    "only two calibration fermentations per lot after the holdout"
+  ],
+  "cross_scale_status": "both_directions_completed",
+  "cross_scale_interpretation": {
+    "laboratory_natural_to_pilot": "primarily a scale-transfer test",
+    "laboratory_synthetic_to_pilot": "matrix and scale change together; effects are confounded",
+    "pilot_to_laboratory_natural": "reverse scale-transfer test",
+    "pilot_to_laboratory_synthetic": "matrix and scale change together; effects are confounded"
+  },
+  "source_files": {
+    "model_dataset": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\model_dataset\\20260717T125004Z_b03413",
+    "pilot_upstream_calibration": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\baseline_calibration\\20260717T153612Z_b5b67b",
+    "co2_minute_qc": "fermentation_model\\pilot_2026\\results\\data_integration_2026\\co2_minute_qc.csv",
+    "laboratory_co2_fit": "fermentation_model\\laboratory_2026\\results\\co2_matrix_cross_validation_2026\\fit_parameters.csv"
+  }
+}

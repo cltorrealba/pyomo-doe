@@ -1,0 +1,4 @@
+reactor,sensor_gain,shared_background_ln_min,normalization,source,caveat
+TK-31,1.1273020733863768,0.1537736384186198,"max((MassView-background)/sensor_gain, 0)",fermentation_model\pilot_2026\results\adaptive_design_2026\baseline_calibration\20260717T153612Z_b5b67b\co2_parameter_estimates.csv,estimated previously from the same campaign; no pre-inoculation baseline
+TK-32,1.0469979237573783,0.1537736384186198,"max((MassView-background)/sensor_gain, 0)",fermentation_model\pilot_2026\results\adaptive_design_2026\baseline_calibration\20260717T153612Z_b5b67b\co2_parameter_estimates.csv,estimated previously from the same campaign; no pre-inoculation baseline
+TK-33,0.8423607999968238,0.1537736384186198,"max((MassView-background)/sensor_gain, 0)",fermentation_model\pilot_2026\results\adaptive_design_2026\baseline_calibration\20260717T153612Z_b5b67b\co2_parameter_estimates.csv,estimated previously from the same campaign; no pre-inoculation baseline

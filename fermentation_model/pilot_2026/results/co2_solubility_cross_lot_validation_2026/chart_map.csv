@@ -1,0 +1,13 @@
+figure,analytical_question,chart_variant
+co2_data_overview.png,Forma y cobertura de los seis perfiles utilizables,line_small_multiples
+sensor_normalization_and_filter.png,Efecto de normalización y filtro,multi_series_line
+temperature_profiles_model_input.png,Temperatura realmente ejecutada,line_small_multiples
+chemistry_and_pulse_timeline.png,Soporte químico del pulso,dual_axis_small_multiples
+calibration_overlays_pilot_lot2.png,Ajuste lote 2,observed_vs_predicted_line
+calibration_overlays_pilot_lot3.png,Ajuste lote 3,observed_vs_predicted_line
+heldout_cross_lot_validation.png,Transferencia lote 2 y lote 3,observed_vs_predicted_line
+heldout_model_comparison.png,Comparación de modelos,bar
+parameter_comparison.png,Parámetros por lote,grouped_log_bar
+activation_identifiability_profiles.png,Identificabilidad práctica,profile_line
+cross_scale_transfer.png,Transferencia laboratorio-piloto,observed_vs_predicted_line
+ph_do_availability.png,Cobertura pH y O2,line_with_markers
