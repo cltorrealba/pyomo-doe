@@ -20,10 +20,18 @@ ROOT_DIR = FERMENTATION_DIR.parent
 DEFAULT_CONTRACT = (
     SCRIPT_DIR / "adaptive_design" / "aroma_prospective_validation_contract.json"
 )
+TEXT_HASH_SUFFIXES = {".csv", ".json", ".md", ".py", ".txt", ".yaml", ".yml"}
 
 
 def _sha256(path: Path) -> str:
+    """Hash text artifacts independently of the checkout line-ending policy."""
+
     digest = hashlib.sha256()
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        content = path.read_text(encoding="utf-8")
+        canonical = content.replace("\r\n", "\n").replace("\r", "\n")
+        digest.update(canonical.encode("utf-8"))
+        return digest.hexdigest()
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)

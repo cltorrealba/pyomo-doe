@@ -5,7 +5,7 @@
   "locked_model": {
     "model_variant": "ethanol_capture_plus_line_reservoir",
     "parameter_file": "fermentation_model/pilot_2026/results/aroma_final_nested_validation_2026/all_data_parameter_estimates.csv",
-    "parameter_file_sha256": "49b326283e785e3e0777f0d18fef7e37895903efd075eb27fe2f586fb7a3a9be",
+    "parameter_file_sha256": "1d96b7abc61cf673320ce45f35aea58fa96bb5751e6ac7d6980fc41dd99b754d",
     "fit_config": "fermentation_model/pilot_2026/adaptive_design/aroma_final_nested_validation_config.json",
     "fit_config_sha256": "f49b487974043918f573a93436a7079c8ef21af153e77f06b95d3b878527adee",
     "refitting_permitted": false,

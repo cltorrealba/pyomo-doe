@@ -16,6 +16,7 @@ if str(FERMENTATION_DIR) not in sys.path:
 from pilot_2026.validate_aroma_prospective_package import (  # noqa: E402
     DEFAULT_CONTRACT,
     ROOT_DIR,
+    _sha256,
     validate_contract,
     validate_package,
 )
@@ -148,6 +149,15 @@ class ProspectiveAromaPackageTests(unittest.TestCase):
     def test_locked_contract_matches_current_model_artifacts(self) -> None:
         self.assertEqual(validate_contract(self.contract, ROOT_DIR), [])
         self.assertFalse(self.contract["locked_model"]["refitting_permitted"])
+
+    def test_locked_text_hash_is_independent_of_line_endings(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lf = root / "lf.csv"
+            crlf = root / "crlf.csv"
+            lf.write_bytes(b"a,b\n1,2\n")
+            crlf.write_bytes(b"a,b\r\n1,2\r\n")
+            self.assertEqual(_sha256(lf), _sha256(crlf))
 
     def test_missing_tables_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
