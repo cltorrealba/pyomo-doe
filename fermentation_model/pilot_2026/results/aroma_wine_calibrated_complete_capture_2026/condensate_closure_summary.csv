@@ -1,0 +1,5 @@
+model_variant,species,n_intervals,observed_total_ug,predicted_total_ug,predicted_to_observed_ratio,closure_difference_ug,intervals_overpredicted_fraction
+assumed_complete_capture_delayed_response,ethyl_octanoate,19,7519.175524915677,32673.611332857767,4.345371540349057,25154.43580794209,0.9473684210526315
+assumed_complete_capture_delayed_response,isoamyl_acetate,13,22070.90263009742,146846.14363335958,6.653381879955828,124775.24100326216,1.0
+assumed_complete_capture_equilibrium,ethyl_octanoate,19,7519.175524915677,32243.176853859168,4.288126636626262,24724.00132894349,0.9473684210526315
+assumed_complete_capture_equilibrium,isoamyl_acetate,13,22070.90263009742,145006.98894017946,6.570052497193198,122936.08631008204,1.0

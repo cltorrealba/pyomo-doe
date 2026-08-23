@@ -1,0 +1,2 @@
+contract,fixed_total_capture_fraction,minimum_simulated_capture_fraction,maximum_simulated_capture_fraction,maximum_absolute_unrecovered_ug,maximum_absolute_mass_closure_error_ug,physical_efficiency_identified,interpretation
+combined_A_plus_B_complete_capture,1.0,1.0,1.0,0.0,1.127773430198431e-10,False,eta_AB=1 is imposed by design assumption; it is not estimated from the combined condensate observations.

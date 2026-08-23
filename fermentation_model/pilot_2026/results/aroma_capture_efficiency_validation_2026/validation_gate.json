@@ -1,0 +1,43 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "equilibrium_baseline",
+  "selection_rule": "simplest model passing all species/domain guardrails; otherwise no validated model",
+  "candidate_checks": {
+    "fitted_capture_efficiency": {
+      "species": {
+        "ethyl_octanoate": {
+          "baseline_condensate_nrmse": 1.573950453812406,
+          "candidate_condensate_nrmse": 1.6145661089351881,
+          "condensate_nrmse_reduction_fraction": -0.025804913378564942,
+          "condensate_reduction_pass": false,
+          "baseline_wine_nrmse": 1.0789410492494402,
+          "candidate_wine_nrmse": 0.43396426108128233,
+          "wine_nrmse_degradation_fraction": -0.59778686575771,
+          "wine_guardrail_pass": true,
+          "fraction_runs_lower_condensate_squared_error": 0.0,
+          "run_consistency_pass": false
+        },
+        "isoamyl_acetate": {
+          "baseline_condensate_nrmse": 1.365659223676868,
+          "candidate_condensate_nrmse": 1.36189911461271,
+          "condensate_nrmse_reduction_fraction": 0.002753328941047628,
+          "condensate_reduction_pass": false,
+          "baseline_wine_nrmse": 1.130804163365065,
+          "candidate_wine_nrmse": 0.5156622140728206,
+          "wine_nrmse_degradation_fraction": -0.5439862791641084,
+          "wine_guardrail_pass": true,
+          "fraction_runs_lower_condensate_squared_error": 1.0,
+          "run_consistency_pass": true
+        }
+      },
+      "all_fits_converged": true,
+      "active_bound_fraction": 0.0,
+      "active_bound_pass": true,
+      "maximum_relative_mass_balance_error": 4.212045857066836e-09,
+      "mass_balance_pass": true,
+      "passes_all_gates": false
+    }
+  },
+  "external_validation_status": "retrospective_internal_only"
+}

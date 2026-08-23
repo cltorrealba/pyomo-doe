@@ -1,0 +1,27 @@
+{
+  "holdout_wine_rmse_comparison": {
+    "ethyl_acetate": {
+      "released_rmse_ug_l": 5547.466871940997,
+      "legacy_rmse_ug_l": 5546.25486737408,
+      "relative_change": 0.00021852666274800386
+    },
+    "ethyl_octanoate": {
+      "released_rmse_ug_l": 48.41261647600324,
+      "legacy_rmse_ug_l": 48.345092115226365,
+      "relative_change": 0.0013967159399744977
+    },
+    "isoamyl_acetate": {
+      "released_rmse_ug_l": 723.3509589325366,
+      "legacy_rmse_ug_l": 723.4027276972986,
+      "relative_change": -7.156285534994796e-05
+    }
+  },
+  "median_released_over_stoichiometric_integral": 1.8158721285702148,
+  "loss_identified_with_released_co2": {
+    "ethyl_acetate": false,
+    "ethyl_octanoate": true,
+    "isoamyl_acetate": true
+  },
+  "holdout_initialization_policy": "The first wine observation initializes each trajectory and is excluded from RMSE.",
+  "interpretation": "The rCO2 source is fixed during aroma fitting; effective_loss_scale is re-estimated. Its absolute value is conditional on the selected rCO2 scale."
+}

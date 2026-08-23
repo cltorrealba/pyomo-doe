@@ -1,0 +1,97 @@
+{
+  "analysis_id": "pilot_2026_aroma_wine_calibrated_complete_capture",
+  "schema_version": 1,
+  "primary_species": {
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "calibration_contract": {
+    "calibration_domains": ["wine"],
+    "held_out_diagnostic_domains": ["condensate"],
+    "statement": "Biological production parameters are estimated only from liquid-wine chemistry. Combined condensate never contributes to the objective function."
+  },
+  "capture_contract": {
+    "fixed_total_capture_fraction": 1.0,
+    "status": "engineering_design_assumption_not_independently_measured",
+    "observation": "All predicted gas loss is compared with the combined A+B MIX as an external closure diagnostic."
+  },
+  "candidate_models": [
+    "assumed_complete_capture_equilibrium",
+    "assumed_complete_capture_delayed_response"
+  ],
+  "model_contract": {
+    "assumed_complete_capture_equilibrium": "Two sugar-linked formation yields fitted only to wine; fixed Morakul/Mouret partition; eta_AB=1.",
+    "assumed_complete_capture_delayed_response": "Wine-only baseline plus a smooth nutrient-pulse response; fixed Morakul/Mouret partition; eta_AB=1."
+  },
+  "parameter_bounds": {
+    "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
+    "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
+    "pulse_formation_ug_per_g_sugar": [0.0001, 10000.0],
+    "activation_peak_h": [1.0, 120.0]
+  },
+  "parameter_defaults": {
+    "ethyl_octanoate": {
+      "formation_growth_ug_per_g_sugar": 0.99,
+      "formation_stationary_ug_per_g_sugar": 0.76,
+      "pulse_formation_ug_per_g_sugar": 1.0,
+      "activation_peak_h": 24.0
+    },
+    "isoamyl_acetate": {
+      "formation_growth_ug_per_g_sugar": 6.6,
+      "formation_stationary_ug_per_g_sugar": 9.9,
+      "pulse_formation_ug_per_g_sugar": 10.0,
+      "activation_peak_h": 12.0
+    }
+  },
+  "optimization": {
+    "sobol_multistarts": 6,
+    "seed": 20260828,
+    "max_nfev": 180,
+    "loss": "soft_l1",
+    "f_scale": 1.0,
+    "weak_log_prior_sigma": 3.0
+  },
+  "error_model": {
+    "calibration_domains": ["wine"],
+    "calibration_weighting": "domain_mean",
+    "wine_relative_sigma": 0.2,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "condensate_relative_sigma": 0.25,
+    "condensate_minimum_sigma_ug": 1.0
+  },
+  "validation_policy": {
+    "leave_out_grain": "complete reactor run",
+    "runs": ["26157", "26158", "26159", "26210", "26211", "26212"],
+    "maximum_wine_nrmse_over_mean": {
+      "ethyl_octanoate": 0.60,
+      "isoamyl_acetate": 0.60
+    },
+    "maximum_condensate_nrmse_over_mean": {
+      "ethyl_octanoate": 1.0550899046355098,
+      "isoamyl_acetate": 0.969331121297589
+    },
+    "minimum_delayed_wine_nrmse_reduction_fraction": 0.10,
+    "maximum_active_bound_fraction": 0.25,
+    "maximum_relative_mass_balance_error": 0.00000001,
+    "selection_rule": "Select the simplest wine-calibrated production model satisfying both-compound wine and independent-condensate thresholds, convergence, parameter-bound and mass-balance gates."
+  },
+  "data_quality_policy": {
+    "primary": "retain_all_quantified_samples",
+    "sensitivity": "exclude_flagged_26211_P12_wine_only",
+    "flagged_wine_sample_ids": ["26211-P-12"],
+    "reason": "Common six-analyte spike at 144 h; raw chromatogram and independent duplicate unavailable.",
+    "do_not_exclude_condensate": true
+  },
+  "interpretation_limits": {
+    "production": "Wine-only calibration prevents condensate recovery assumptions from changing biological yields.",
+    "condensate": "Condensate is a closure prediction under eta_AB=1, not a calibration target.",
+    "capture": "Failure of condensate closure rejects the joint partition-plus-complete-capture contract but does not identify physical condenser efficiency.",
+    "pulse": "Pulse timing and protocol temperature transitions remain partially confounded.",
+    "external_validation": "Leave-one-run-out is retrospective internal validation; prospective confirmation remains required."
+  },
+  "literature_basis": {
+    "gas_liquid_balance": "Mouret et al. 2014, DOI 10.1016/j.foodres.2014.02.044",
+    "partition_model": "Morakul et al. 2011, DOI 10.1016/j.procbio.2011.01.034",
+    "dynamic_losses": "Mouret et al. 2012, DOI 10.1016/j.lwt.2012.04.031"
+  }
+}

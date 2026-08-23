@@ -1,0 +1,144 @@
+{
+  "analysis_id": "pilot_2026_aroma_final_nested_validation",
+  "runs": [
+    "26157",
+    "26158",
+    "26159",
+    "26210",
+    "26211",
+    "26212"
+  ],
+  "species": [
+    "ethyl_octanoate",
+    "isoamyl_acetate"
+  ],
+  "candidate_models": [
+    "fitted_capture_efficiency",
+    "ethanol_dependent_capture_efficiency",
+    "ethanol_capture_plus_line_reservoir"
+  ],
+  "post_hoc_status": "Final exploratory nested test after correcting the capture scale and decision weighting; prospective confirmation is mandatory.",
+  "sources": {
+    "config": {
+      "path": "fermentation_model\\pilot_2026\\adaptive_design\\aroma_final_nested_validation_config.json",
+      "sha256": "f49b487974043918f573a93436a7079c8ef21af153e77f06b95d3b878527adee"
+    },
+    "model_dataset": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\model_dataset\\20260717T125004Z_b03413"
+  },
+  "outputs": [
+    "all_data_condensate_predictions.csv",
+    "all_data_fit_validation.csv",
+    "all_data_mass_balance_summary.csv",
+    "all_data_parameter_estimates.csv",
+    "all_data_state_trajectories.csv",
+    "all_data_wine_predictions.csv",
+    "analysis_summary.json",
+    "data_quality_anomaly_detail.csv",
+    "data_quality_sample_summary.csv",
+    "figures\\01_sample_anomaly_audit.png",
+    "figures\\02_capture_efficiency_loro_nrmse.png",
+    "figures\\03_rco2_temperature_pulse_drivers.png",
+    "figures\\04_liquid_ethyl_octanoate.png",
+    "figures\\04_liquid_isoamyl_acetate.png",
+    "figures\\05_condensate_ethyl_octanoate.png",
+    "figures\\05_condensate_isoamyl_acetate.png",
+    "figures\\07_capture_efficiency_by_fold.png",
+    "loro_condensate_predictions.csv",
+    "loro_fit_validation.csv",
+    "loro_metrics.csv",
+    "loro_parameter_estimates.csv",
+    "loro_runwise_condensate_sse.csv",
+    "loro_simulation_diagnostics.csv",
+    "loro_wine_predictions.csv",
+    "matched_replicate_benchmark_detail.csv",
+    "matched_replicate_benchmark_summary.csv",
+    "nutrient_pulse_schedule.csv",
+    "parameter_stability.csv",
+    "reactor_volume_and_nominal_capture_context.csv",
+    "validated_rco2_grid.csv",
+    "validation_gate.json",
+    "validation_gate_comparison.csv"
+  ],
+  "gate": {
+    "verdict": "NO_VALID_MODEL",
+    "selected_model": null,
+    "diagnostic_best_model": "ethanol_capture_plus_line_reservoir",
+    "selection_rule": "select the simplest model passing both-compound NRMSE, wine, run-consistency, bound, convergence and mass-balance gates",
+    "comparison_baseline_model": "fitted_capture_efficiency",
+    "candidate_checks": {
+      "ethanol_dependent_capture_efficiency": {
+        "species": {
+          "ethyl_octanoate": {
+            "baseline_condensate_nrmse": 1.5507077208118003,
+            "candidate_condensate_nrmse": 1.193974265877097,
+            "condensate_nrmse_reduction_fraction": 0.23004557863937902,
+            "condensate_reduction_pass": false,
+            "baseline_wine_nrmse": 0.4163748512821525,
+            "candidate_wine_nrmse": 0.42062289999331903,
+            "wine_nrmse_degradation_fraction": 0.010202462271881707,
+            "wine_guardrail_pass": true,
+            "fraction_runs_lower_condensate_squared_error": 0.8,
+            "run_consistency_pass": true
+          },
+          "isoamyl_acetate": {
+            "baseline_condensate_nrmse": 1.322772889755848,
+            "candidate_condensate_nrmse": 0.9970999250213004,
+            "condensate_nrmse_reduction_fraction": 0.24620474705575413,
+            "condensate_reduction_pass": false,
+            "baseline_wine_nrmse": 0.4720946874809701,
+            "candidate_wine_nrmse": 0.4753649420941655,
+            "wine_nrmse_degradation_fraction": 0.006927115894154623,
+            "wine_guardrail_pass": true,
+            "fraction_runs_lower_condensate_squared_error": 1.0,
+            "run_consistency_pass": true
+          }
+        },
+        "all_fits_converged": true,
+        "active_bound_fraction": 0.0,
+        "active_bound_pass": true,
+        "maximum_relative_mass_balance_error": 1.7580741234539575e-15,
+        "mass_balance_pass": true,
+        "passes_all_gates": false
+      },
+      "ethanol_capture_plus_line_reservoir": {
+        "species": {
+          "ethyl_octanoate": {
+            "baseline_condensate_nrmse": 1.5507077208118003,
+            "candidate_condensate_nrmse": 1.1876170574749114,
+            "condensate_nrmse_reduction_fraction": 0.2341451315834101,
+            "condensate_reduction_pass": false,
+            "baseline_wine_nrmse": 0.4163748512821525,
+            "candidate_wine_nrmse": 0.42076737876050296,
+            "wine_nrmse_degradation_fraction": 0.010549454331414188,
+            "wine_guardrail_pass": true,
+            "fraction_runs_lower_condensate_squared_error": 0.8,
+            "run_consistency_pass": true
+          },
+          "isoamyl_acetate": {
+            "baseline_condensate_nrmse": 1.322772889755848,
+            "candidate_condensate_nrmse": 0.9853030284164024,
+            "condensate_nrmse_reduction_fraction": 0.2551230554791113,
+            "condensate_reduction_pass": false,
+            "baseline_wine_nrmse": 0.4720946874809701,
+            "candidate_wine_nrmse": 0.47531052088713344,
+            "wine_nrmse_degradation_fraction": 0.006811839852133295,
+            "wine_guardrail_pass": true,
+            "fraction_runs_lower_condensate_squared_error": 1.0,
+            "run_consistency_pass": true
+          }
+        },
+        "all_fits_converged": true,
+        "active_bound_fraction": 0.0,
+        "active_bound_pass": true,
+        "maximum_relative_mass_balance_error": 1.4302509447924205e-15,
+        "mass_balance_pass": true,
+        "passes_all_gates": false
+      }
+    },
+    "external_validation_status": "retrospective_internal_only"
+  },
+  "matched_replicate_benchmark": {
+    "ethyl_octanoate": 1.0550899046355098,
+    "isoamyl_acetate": 0.969331121297589
+  }
+}

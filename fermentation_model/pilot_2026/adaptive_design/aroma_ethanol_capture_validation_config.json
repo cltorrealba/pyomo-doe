@@ -1,0 +1,73 @@
+{
+  "analysis_id": "pilot_2026_aroma_ethanol_dependent_capture_validation",
+  "schema_version": 1,
+  "primary_species": {
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "candidate_models": [
+    "fitted_capture_efficiency",
+    "ethanol_dependent_capture_efficiency"
+  ],
+  "model_contract": {
+    "fitted_capture_efficiency": "Two formation yields and one constant compound-specific effective condensate recovery fraction.",
+    "ethanol_dependent_capture_efficiency": "The same production and gas-liquid loss model, with recovery eta(E)=eta50*multipler^((E-50)/10), bounded to (0,1]."
+  },
+  "parameter_bounds": {
+    "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
+    "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
+    "capture_efficiency_fraction": [0.00001, 1.0],
+    "ethanol_capture_multiplier_per_10_g_l": [0.2, 5.0]
+  },
+  "parameter_defaults": {
+    "ethyl_octanoate": {
+      "formation_growth_ug_per_g_sugar": 0.4,
+      "formation_stationary_ug_per_g_sugar": 0.77,
+      "capture_efficiency_fraction": 0.0026,
+      "ethanol_capture_multiplier_per_10_g_l": 1.5
+    },
+    "isoamyl_acetate": {
+      "formation_growth_ug_per_g_sugar": 0.95,
+      "formation_stationary_ug_per_g_sugar": 8.66,
+      "capture_efficiency_fraction": 0.0037,
+      "ethanol_capture_multiplier_per_10_g_l": 1.5
+    }
+  },
+  "optimization": {
+    "sobol_multistarts": 6,
+    "seed": 20260824,
+    "max_nfev": 180,
+    "loss": "soft_l1",
+    "f_scale": 1.0,
+    "weak_log_prior_sigma": 3.0
+  },
+  "error_model": {
+    "wine_relative_sigma": 0.2,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "condensate_relative_sigma": 0.25,
+    "condensate_minimum_sigma_ug": 1.0
+  },
+  "validation_policy": {
+    "comparison_baseline_model": "fitted_capture_efficiency",
+    "leave_out_grain": "complete reactor run",
+    "runs": ["26157", "26158", "26159", "26210", "26211", "26212"],
+    "minimum_condensate_nrmse_reduction_fraction": 0.3,
+    "maximum_wine_nrmse_degradation_fraction": 0.1,
+    "minimum_fraction_runs_with_lower_condensate_squared_error": 0.5,
+    "maximum_active_bound_fraction": 0.25,
+    "maximum_relative_mass_balance_error": 1e-8,
+    "selection_rule": "ethanol-dependent observation passes only if it improves both compounds relative to constant effective capture while retaining wine and stability guardrails"
+  },
+  "data_quality_policy": {
+    "primary": "retain_all_quantified_samples",
+    "sensitivity": "exclude_flagged_26211_P12_wine_only",
+    "flagged_wine_sample_ids": ["26211-P-12"],
+    "reason": "Common six-analyte spike at 144 h; raw chromatogram and independent duplicate unavailable.",
+    "do_not_exclude_condensate": true
+  },
+  "interpretation_limits": {
+    "capture_efficiency": "eta(E) is an effective recovery operator, not a uniquely identified condenser efficiency. Ethanol in wine is only a proxy for vapor/condensate composition.",
+    "post_hoc_status": "Introduced after the constant recovery model improved wine but failed condensate timing. It is exploratory and requires prospective confirmation with condensate ethanol and outlet-gas measurements.",
+    "external_validation": "All six runs have informed model development; leave-one-run-out is retrospective internal validation, not prospective confirmation."
+  }
+}

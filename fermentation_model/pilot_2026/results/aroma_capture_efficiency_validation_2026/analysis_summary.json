@@ -1,0 +1,27 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "equilibrium_baseline",
+  "display_model": "equilibrium_baseline",
+  "reactor_volume_l": [
+    230.0
+  ],
+  "nominal_capture_efficiency": {
+    "ethyl_octanoate": 0.85,
+    "isoamyl_acetate": 0.88
+  },
+  "fitted_capture_efficiency_all_data": {
+    "ethyl_octanoate": 0.002561355601630304,
+    "isoamyl_acetate": 0.003725710366805483
+  },
+  "interpretation_limits": {
+    "capture_efficiency": "This is an effective observation fraction from emitted aroma to recovered condensate. Without direct outlet-gas and trap-recovery measurements it cannot be assigned uniquely to condenser thermodynamics.",
+    "post_hoc_status": "Introduced after the nested timing models failed and after auditing the 230 L reactor-volume scaling. It is exploratory and requires prospective confirmation.",
+    "external_validation": "All six runs have informed model development; leave-one-run-out is retrospective internal validation, not prospective confirmation."
+  },
+  "literature_basis": {
+    "production_loss_separation": "Seguinot et al. 2018, DOI 10.1016/j.fm.2018.04.005",
+    "gas_liquid_partition": "Morakul et al. 2011, DOI 10.1016/j.procbio.2011.01.034; Mouret et al. 2014, DOI 10.1016/j.foodres.2014.02.044",
+    "condensate_is_time_varying_matrix": "Humaj et al. 2024, DOI 10.3390/fermentation10040206"
+  }
+}

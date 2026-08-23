@@ -1,0 +1,9 @@
+fit_scope,model_variant,species,success,converged_multistarts,robust_cost,weighted_sse,n_residuals_including_prior,active_bound_fraction,covariance_finite,covariance_condition,maximum_relative_mass_balance_error
+all_data,assumed_complete_capture_equilibrium,ethyl_octanoate,True,6,453.61109929151417,1887.7997491622032,68,0.0,True,607.7843251343656,1.199221985986246e-15
+all_data,assumed_complete_capture_equilibrium,isoamyl_acetate,True,6,368.1031313606562,1352.5792951651797,68,0.0,True,529.7865477393811,9.286609475109999e-16
+all_data,assumed_complete_capture_line_reservoir,ethyl_octanoate,True,6,357.5866423914185,1339.989984183161,69,0.3333333333333333,True,10378.88772657641,1.0459658272726265e-15
+all_data,assumed_complete_capture_line_reservoir,isoamyl_acetate,True,6,340.6067034455672,1146.044626967786,69,0.3333333333333333,True,1880.230673018652,1.0517723611616e-15
+all_data,assumed_complete_capture_delayed_response,ethyl_octanoate,True,6,339.18373673048825,1253.6509274086425,70,0.25,True,26624.434469040232,1.1946987424383816e-15
+all_data,assumed_complete_capture_delayed_response,isoamyl_acetate,True,6,335.2990808486476,1118.0335209476393,70,0.25,True,3442.885561032172,1.4636407321264398e-15
+all_data,assumed_complete_capture_delayed_response_plus_line_reservoir,ethyl_octanoate,True,6,298.3644636081735,1104.345746299672,71,0.2,True,10463.281896356497,8.118540581807508e-16
+all_data,assumed_complete_capture_delayed_response_plus_line_reservoir,isoamyl_acetate,True,6,314.5861277495983,1062.1235845020274,71,0.4,True,3378.2807892914607,9.12945369136377e-16

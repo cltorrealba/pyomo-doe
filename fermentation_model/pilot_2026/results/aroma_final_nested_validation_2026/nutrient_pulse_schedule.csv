@@ -1,0 +1,10 @@
+matrix,batch,pulse_time_h,schedule_proxy_time_h,bracket_start_h,bracket_end_h,bracket_width_h,density_target_kg_m3,amount_N_kg_m3,mass_audit_N_kg_m3,timing_source,lot3_event_reconstructed
+pilot_lot1_qc,26134,58.421052631579016,48.0,48.0,64.0,16.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,False
+pilot_lot1_qc,26135,60.248275862068866,48.0,48.0,64.0,16.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,False
+pilot_lot1_qc,26136,45.58730158730154,48.0,40.0,48.0,8.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,False
+pilot_lot2,26157,63.11811023622036,51.0,50.0,67.0,17.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,False
+pilot_lot2,26158,61.01599999999988,51.0,50.0,67.0,17.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,False
+pilot_lot2,26159,79.46206896551716,75.0,74.0,98.0,24.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,False
+pilot_lot3,26210,62.77966101694905,48.0,48.0,64.0,16.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,True
+pilot_lot3,26211,63.55140186915895,48.0,48.0,64.0,16.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,True
+pilot_lot3,26212,42.08695652173915,48.0,40.0,48.0,8.0,1040.0,0.08,0.090434783,chemical_density_linear_interpolation_1040,True

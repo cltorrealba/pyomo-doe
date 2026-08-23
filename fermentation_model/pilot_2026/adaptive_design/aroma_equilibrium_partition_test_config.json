@@ -1,0 +1,58 @@
+{
+  "analysis_id": "pilot_2026_aroma_equilibrium_partition_test",
+  "schema_version": 1,
+  "reference_temperature_k": 293.15,
+  "equation": "ln(k_i)=F1+F2*E-((F3+F4*E)/R_kJ)*(1000/T-1000/Tref)",
+  "partition_definition": "k_i = C_gas_mg_per_l_co2 / C_liquid_mg_per_l_must",
+  "published_partition_models": {
+    "ethyl_acetate": {
+      "model_kind": "morakul_ethanol_temperature",
+      "F1": -6.11,
+      "F2_l_g": -0.0029,
+      "F3_kj_mol": 71.0,
+      "F4_kj_l_mol_g": -0.44,
+      "reference_temperature_k": 293.15,
+      "parameter_source": "Morakul et al. 2011, Process Biochemistry 46, Table 2",
+      "doi": "10.1016/j.procbio.2011.01.034",
+      "source_matrix": "natural grape must",
+      "published_validation_mean_relative_error_percent": 24.7
+    },
+    "isoamyl_acetate": {
+      "model_kind": "morakul_ethanol_temperature",
+      "F1": -3.98,
+      "F2_l_g": -0.0096,
+      "F3_kj_mol": 49.0,
+      "F4_kj_l_mol_g": -0.0017,
+      "reference_temperature_k": 293.15,
+      "parameter_source": "Morakul et al. 2011, Process Biochemistry 46, Table 2",
+      "doi": "10.1016/j.procbio.2011.01.034",
+      "source_matrix": "natural grape must",
+      "published_validation_mean_relative_error_percent": 7.42
+    },
+    "ethyl_octanoate": {
+      "model_kind": "morakul_ethanol_temperature",
+      "F1": -3.13,
+      "F2_l_g": -0.0135,
+      "F3_kj_mol": 52.0,
+      "F4_kj_l_mol_g": -0.0036,
+      "reference_temperature_k": 293.15,
+      "parameter_source": "Mouret et al. 2014, Food Research International 62, Section 2.3.1",
+      "doi": "10.1016/j.foodres.2014.02.044",
+      "source_matrix": "synthetic grape must; coefficients identified from nine pilot fermentations",
+      "published_validation_mean_relative_error_percent": null
+    }
+  },
+  "model_variants": {
+    "equilibrium_unifac": "K_UNIFAC(T,E,S) * Qgas/VL; no fitted transfer parameter",
+    "equilibrium_morakul": "K_Morakul(T,E) * Qgas/VL; no fitted transfer parameter",
+    "liquid_kla_unifac": "K_UNIFAC(T,E,S) * Qgas/VL * (1-exp(-kLa/(K_UNIFAC*Qgas/VL)))"
+  },
+  "validation_policy": {
+    "holdout_runs": ["26158", "26211"],
+    "minimum_condensate_nrmse_reduction_fraction": 0.3,
+    "maximum_wine_rmse_degradation_fraction": 0.1,
+    "primary_condensate_species": ["ethyl_octanoate", "isoamyl_acetate"],
+    "leave_out_grain": "complete reactor run",
+    "ethyl_acetate_condensate_use": "censoring_only"
+  }
+}

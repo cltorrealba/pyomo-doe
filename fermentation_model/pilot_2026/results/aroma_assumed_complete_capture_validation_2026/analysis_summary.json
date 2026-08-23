@@ -1,0 +1,39 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "assumed_complete_capture_line_reservoir",
+  "display_model": "assumed_complete_capture_line_reservoir",
+  "capture_contract": {
+    "assumption": "All aroma mass drained from the gas-line state is recovered in the combined A+B condensate.",
+    "fixed_total_capture_fraction": 1.0,
+    "evidence_status": "engineering_design_assumption_not_independently_measured",
+    "measurement": "The chemistry is measured on the combined MIX; only water/condensate volumes are recorded separately for A and B.",
+    "forbidden_interpretation": "No parameter or result from this analysis estimates the physical condenser efficiency."
+  },
+  "capture_contract_audit": {
+    "contract": "combined_A_plus_B_complete_capture",
+    "fixed_total_capture_fraction": 1.0,
+    "minimum_simulated_capture_fraction": 1.0,
+    "maximum_simulated_capture_fraction": 1.0,
+    "maximum_absolute_unrecovered_ug": 0.0,
+    "maximum_absolute_mass_closure_error_ug": 1.1277734301984309e-10,
+    "physical_efficiency_identified": false,
+    "interpretation": "eta_AB=1 is imposed by design assumption; it is not estimated from the combined condensate observations."
+  },
+  "data_quality": {
+    "primary_policy": "retain_all_quantified_samples",
+    "sensitivity_policy": "exclude_flagged_26211_P12_wine_only"
+  },
+  "interpretation_limits": {
+    "complete_capture": "eta_AB=1 is imposed from the equipment design and is not measured by the available data.",
+    "condensate_closure": "A condensate mismatch tests the joint production/partition/complete-capture contract but cannot identify which component is wrong.",
+    "activation_peak": "Pulse time and temperature transition are confounded in protocol A; activation_peak_h is phenomenological.",
+    "line_reservoir": "tau is physical line holdup only if independently compatible with residence-time engineering information.",
+    "external_validation": "Leave-one-run-out is retrospective internal validation; all six runs informed model development."
+  },
+  "literature_basis": {
+    "gas_liquid_balance": "Mouret et al. 2014, DOI 10.1016/j.foodres.2014.02.044",
+    "partition_model": "Morakul et al. 2011, DOI 10.1016/j.procbio.2011.01.034",
+    "dynamic_losses": "Mouret et al. 2012, DOI 10.1016/j.lwt.2012.04.031"
+  }
+}

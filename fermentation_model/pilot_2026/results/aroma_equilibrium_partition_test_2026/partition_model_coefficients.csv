@@ -1,0 +1,4 @@
+species,F1,F2_l_g,F3_kj_mol,F4_kj_l_mol_g,reference_temperature_k,source_matrix,parameter_source,doi,trap_efficiency
+ethyl_acetate,-6.11,-0.0029,71.0,-0.44,293.15,natural grape must,"Morakul et al. 2011, Process Biochemistry 46, Table 2",10.1016/j.procbio.2011.01.034,0.9
+isoamyl_acetate,-3.98,-0.0096,49.0,-0.0017,293.15,natural grape must,"Morakul et al. 2011, Process Biochemistry 46, Table 2",10.1016/j.procbio.2011.01.034,0.88
+ethyl_octanoate,-3.13,-0.0135,52.0,-0.0036,293.15,synthetic grape must; coefficients identified from nine pilot fermentations,"Mouret et al. 2014, Food Research International 62, Section 2.3.1",10.1016/j.foodres.2014.02.044,0.85

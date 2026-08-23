@@ -1,0 +1,436 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Diagnóstico del ajuste de pérdida aromática — piloto 2026",
+    "description": "Explicaciones físicas y estadísticas del mal ajuste de condensados, con una secuencia de modelos y pruebas discriminantes.",
+    "generatedAt": "2026-08-21T19:40:15Z",
+    "cards": [
+      {
+        "id": "mix03_observed_card",
+        "description": "Octanoato de etilo observado en 26157-MIX-03.",
+        "dataset": "mix03_observed_metric",
+        "sourceId": "condensate_predictions",
+        "metrics": [
+          {"label": "Observado MIX-03 (ug)", "field": "value", "format": "number"}
+        ]
+      },
+      {
+        "id": "mix03_predicted_card",
+        "description": "Predicción del modelo dinámico con kLa(E).",
+        "dataset": "mix03_predicted_metric",
+        "sourceId": "condensate_predictions",
+        "metrics": [
+          {"label": "Predicho MIX-03 (ug)", "field": "value", "format": "number"}
+        ]
+      },
+      {
+        "id": "transfer_efficiency_card",
+        "description": "Eficiencia de transferencia media impuesta por el ajuste entre 91 y 115 h.",
+        "dataset": "transfer_efficiency_metric",
+        "sourceId": "transfer_diagnostics",
+        "metrics": [
+          {"label": "Transferencia ajustada", "field": "value", "format": "percent"}
+        ]
+      },
+      {
+        "id": "ceiling_failures_card",
+        "description": "Intervalos observados de octanoato que superan el techo calculado con equilibrio y química interpolada.",
+        "dataset": "ceiling_failures_metric",
+        "sourceId": "diagnostic_notes",
+        "metrics": [
+          {"label": "Sobre techo (de 19)", "field": "value", "format": "number"}
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "holdout_nrmse_chart",
+        "title": "Agregar kLa(E) no mejora la validación de condensado",
+        "subtitle": "NRMSE sobre la media; menor es mejor. Ajuste calibration_only, holdout por corrida.",
+        "headerMarkdown": "La diferencia entre modelos es menor a 0.3 %, muy inferior al error remanente.",
+        "intent": "comparison",
+        "question": "¿La corrección dinámica de transferencia mejoró la predicción fuera de muestra?",
+        "rationale": "Una barra agrupada permite comparar directamente el modelo previo y el modelo dinámico por especie.",
+        "type": "bar",
+        "dataset": "holdout_nrmse",
+        "sourceId": "prediction_metrics",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {"field": "species", "type": "nominal", "label": "Especie"},
+          "y": {"field": "nrmse", "type": "quantitative", "label": "NRMSE / media"},
+          "color": {"field": "model", "type": "nominal", "label": "Modelo"},
+          "tooltip": [
+            {"field": "rmse_ug", "type": "quantitative", "label": "RMSE (ug)", "format": "number"}
+          ]
+        }
+      },
+      {
+        "id": "ceiling_comparison_chart",
+        "title": "Dos intervalos muestran problemas distintos",
+        "subtitle": "Octanoato de etilo: observación, techo de stripping y predicción dinámica.",
+        "headerMarkdown": "En 26157-MIX-03 el equilibrio casi explica la masa; en 26211-MIX-04 ni el techo con química interpolada alcanza el dato.",
+        "intent": "comparison",
+        "question": "¿Corregir sólo la transferencia gas-líquido basta para explicar los condensados?",
+        "rationale": "La comparación contra el techo físico separa un error del operador NTU de una inconsistencia adicional de producción, muestreo o captura.",
+        "type": "bar",
+        "dataset": "ceiling_examples",
+        "sourceId": "diagnostic_notes",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {"field": "mix", "type": "nominal", "label": "Intervalo"},
+          "y": {"field": "mass_ug", "type": "quantitative", "label": "Masa de octanoato (ug)"},
+          "color": {"field": "series", "type": "nominal", "label": "Serie"}
+        }
+      },
+      {
+        "id": "mix_ratio_chart",
+        "title": "El error de 26157 es tardío y persistente",
+        "subtitle": "Razón masa observada / masa predicha para octanoato de etilo; modelo dinámico all_data.",
+        "headerMarkdown": "El modelo subestima entre 10.9 y 122 veces después de MIX-01.",
+        "intent": "trend",
+        "question": "¿El error es un único factor de escala o cambia con el avance?",
+        "rationale": "La razón por MIX revela el patrón temporal sin ocultar las predicciones pequeñas por la escala de las observaciones.",
+        "type": "line",
+        "dataset": "mix_ratios_26157",
+        "sourceId": "condensate_predictions",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {"field": "mix", "type": "ordinal", "label": "MIX"},
+          "y": {"field": "observed_over_predicted", "type": "quantitative", "label": "Observado / predicho"},
+          "tooltip": [
+            {"field": "observed_ug", "type": "quantitative", "label": "Observado (ug)", "format": "number"},
+            {"field": "predicted_ug", "type": "quantitative", "label": "Predicho (ug)", "format": "number"}
+          ]
+        },
+        "referenceLines": [
+          {"value": 1, "label": "Ajuste perfecto", "color": "neutral", "lineStyle": "dashed"}
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "id": "fitted_transfer_parameters_table",
+        "title": "Parámetros ajustados en todos los datos",
+        "subtitle": "No deben interpretarse físicamente antes de corregir la formulación NTU.",
+        "dataset": "fitted_transfer_parameters",
+        "sourceId": "parameter_estimates",
+        "density": "dense",
+        "columns": [
+          {"field": "species", "label": "Especie", "type": "text"},
+          {"field": "kla_ref_h_inv", "label": "kLa_ref (h-1)", "format": "number"},
+          {"field": "ethanol_multiplier", "label": "Multiplicador / +10 g/L EtOH", "format": "number"}
+        ]
+      },
+      {
+        "id": "hypotheses_table",
+        "title": "Hipótesis jerarquizadas y prueba discriminante",
+        "subtitle": "Prioridad basada en residuos locales, balance físico y evidencia primaria.",
+        "dataset": "hypotheses",
+        "sourceId": "diagnostic_notes",
+        "density": "spacious",
+        "columns": [
+          {"field": "priority", "label": "Prioridad", "type": "text"},
+          {"field": "hypothesis", "label": "Hipótesis", "type": "text"},
+          {"field": "evidence", "label": "Evidencia", "type": "text"},
+          {"field": "test", "label": "Prueba", "type": "text"}
+        ]
+      },
+      {
+        "id": "model_sequence_table",
+        "title": "Secuencia propuesta de modelos anidados",
+        "subtitle": "Cada complejidad se agrega sólo si el residual correspondiente persiste.",
+        "dataset": "model_sequence",
+        "sourceId": "diagnostic_notes",
+        "density": "spacious",
+        "columns": [
+          {"field": "stage", "label": "Etapa", "type": "text"},
+          {"field": "change", "label": "Cambio", "type": "text"},
+          {"field": "decision_gate", "label": "Criterio para avanzar", "type": "text"}
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "prediction_metrics",
+        "label": "Métricas locales de calibración y validación",
+        "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_prediction_metrics.csv"
+      },
+      {
+        "id": "condensate_predictions",
+        "label": "Predicciones locales por intervalo de condensado",
+        "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_condensate_predictions.csv"
+      },
+      {
+        "id": "transfer_diagnostics",
+        "label": "Diagnóstico local de K, qgas, kLa y eficiencia",
+        "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_transfer_diagnostics.csv"
+      },
+      {
+        "id": "parameter_estimates",
+        "label": "Estimaciones locales de parámetros",
+        "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_parameter_estimates.csv"
+      },
+      {
+        "id": "diagnostic_notes",
+        "label": "Notas y cálculos auditados del diagnóstico",
+        "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/diagnostic_report/diagnostic_notes.md"
+      },
+      {
+        "id": "morakul_2010",
+        "label": "Morakul et al. 2010 — partición gas-líquido durante fermentación",
+        "href": "https://pubmed.ncbi.nlm.nih.gov/20735035/"
+      },
+      {
+        "id": "mouret_2012",
+        "label": "Mouret et al. 2012 — transferencia y balances de aromas",
+        "href": "https://doi.org/10.1016/j.lwt.2012.04.031"
+      },
+      {
+        "id": "seguinot_2018",
+        "label": "Seguinot et al. 2018 — momento y naturaleza de adiciones de N",
+        "href": "https://pubmed.ncbi.nlm.nih.gov/30166153/"
+      },
+      {
+        "id": "carneiro_2022",
+        "label": "Carneiro et al. 2022 — condensación fraccionada de headspace vínico",
+        "href": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9505680/"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "technical_summary",
+        "type": "markdown",
+        "sourceId": "diagnostic_notes",
+        "body": "## Resumen técnico\n\nLa corrección con etanol en `kLa(E)` **no resolvió el ajuste**. En holdout, el NRMSE del condensado quedó en 1.62 para octanoato y 1.30 para acetato de isoamilo, prácticamente igual al modelo anterior. En 26157-MIX-03 se observaron 614.56 ug de octanoato y el modelo predijo 5.05 ug.\n\nLa explicación mejor respaldada es una combinación de cuatro problemas: (1) la fórmula NTU usa una base inconsistente con un `kLa` líquido; (2) producción y pérdida siguen confundidas; (3) el headspace, la línea y el tren A/B no están modelados como estados; y (4) la eficiencia fija de captura no representa su dependencia con temperatura, caudal, etanol/agua y posible espuma.\n\n**Decisión:** no conviene agregar otro factor libre de etanol ni un alfa por MIX. Primero hay que corregir el operador físico y comparar un baseline de equilibrio; después, incorporar estados de headspace/trampa y una producción transitoria específica por aroma."
+      },
+      {
+        "id": "headline_metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "mix03_observed_card",
+          "mix03_predicted_card",
+          "transfer_efficiency_card",
+          "ceiling_failures_card"
+        ]
+      },
+      {
+        "id": "holdout_chart_block",
+        "type": "chart",
+        "chartId": "holdout_nrmse_chart"
+      },
+      {
+        "id": "holdout_interpretation",
+        "type": "markdown",
+        "sourceId": "prediction_metrics",
+        "body": "La mejora nula en holdout descarta que el problema principal fuera simplemente omitir la dependencia de transferencia con etanol. El estado `PASS_CONDITIONAL` del notebook sólo certifica que el cálculo convergió y que las direcciones débiles se propagaron; **no certifica capacidad predictiva ni validez física**."
+      },
+      {
+        "id": "ceiling_chart_block",
+        "type": "chart",
+        "chartId": "ceiling_comparison_chart"
+      },
+      {
+        "id": "ceiling_interpretation",
+        "type": "markdown",
+        "sourceId": "diagnostic_notes",
+        "body": "El primer caso muestra por qué la penalización de transferencia del 1.08 % es excesiva: al quitarla, el orden de magnitud se acerca al dato. El segundo demuestra que equilibrio por sí solo tampoco resuelve todo: la observación supera 3.28 veces el techo construido con la concentración líquida interpolada. Eso exige revisar máximos líquidos no muestreados, recuperación del condensador, sincronización/volúmenes y mecanismos de arrastre o reservorio."
+      },
+      {
+        "id": "mix_ratio_chart_block",
+        "type": "chart",
+        "chartId": "mix_ratio_chart"
+      },
+      {
+        "id": "root_causes",
+        "type": "markdown",
+        "sourceId": "diagnostic_notes",
+        "body": "## Explicaciones respaldadas\n\n### 1. La fórmula de transferencia penaliza artificialmente la salida\n\nLa implementación usa `epsilon = 1-exp(-kLa/qgas)`. Si `kLa` es el coeficiente volumétrico convencional basado en líquido y `K = Cgas/CL`, el balance conduce a `epsilon = 1-exp(-kLa/(K*qgas))`. Con los valores de MIX-03, la fórmula actual produce 1.08 % de eficiencia. La opción más segura es eliminar la ambigüedad y resolver explícitamente los balances líquido-headspace.\n\n### 2. El surrogate de K necesita contraste experimental\n\nEl surrogate UNIFAC actual tiene pendiente de azúcar negativa; por lo tanto, predice que consumir azúcar aumenta `K`. En los ésteres medidos por [Morakul et al. 2010](https://pubmed.ncbi.nlm.nih.gov/20735035/), el azúcar produjo salting-out y la combinación de consumo de azúcar y aumento de etanol redujo la partición hacia gas. La dirección y magnitud de `K(T,E,S)` deben compararse contra esa parametrización empírica; para octanoato, la extrapolación debe declararse y verificarse.\n\n### 3. El bloque de síntesis es demasiado rígido\n\nLa producción actual usa sólo dos rendimientos ligados al consumo de azúcar. Sin embargo, 26211 muestra un pulso simultáneo en vino y condensado entre 112 y 144 h. [Seguinot et al. 2018](https://pubmed.ncbi.nlm.nih.gov/30166153/) demuestra que la respuesta al nitrógeno depende de la clase: los acetatos responden fuertemente vía ATF1/ATF2, mientras el octanoato no sigue el mismo patrón. Un único multiplicador nutricional compartido sería estructuralmente incorrecto.\n\n### 4. El condensador no es un multiplicador constante\n\nLa relación observado/predicho aumenta con el volumen condensado total y con la fracción B. La condensación fraccionada depende de temperatura, CO2 no condensable y co-condensación de agua/etanol; recuperaciones altas sólo se obtienen bajo condiciones específicas del tren ([Carneiro et al. 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9505680/)). Deben modelarse A y B por separado o calibrarse con ensayos de recuperación.\n\n### 5. Faltan reservorios y sumideros\n\nLa máxima pérdida aparece en MIX-04 cuando el `rCO2` mediano ya cayó 64 %. Esto es compatible con liberación retardada desde headspace, espuma, tubería o trampa. Además, 8/19 intervalos de octanoato y 7/13 de isoamilo implican producción neta negativa bajo el balance actual, señal de hidrólisis/degradación, adsorción a levadura/borras, pérdida no capturada o error analítico."
+      },
+      {
+        "id": "parameter_table_block",
+        "type": "table",
+        "tableId": "fitted_transfer_parameters_table"
+      },
+      {
+        "id": "parameter_interpretation",
+        "type": "markdown",
+        "sourceId": "parameter_estimates",
+        "body": "Los multiplicadores menores que uno parecen indicar que `kLa` cae al aumentar etanol, pero esa lectura **no es identificable**: el parámetro está compensando la base NTU, el surrogate de partición, la producción y la captura. No debe usarse todavía para extrapolar a otra matriz o escala."
+      },
+      {
+        "id": "hypotheses_table_block",
+        "type": "table",
+        "tableId": "hypotheses_table"
+      },
+      {
+        "id": "model_proposal",
+        "type": "markdown",
+        "sourceId": "diagnostic_notes",
+        "body": "## Propuesta de modelo mínimo\n\nSeparar tres capas observables:\n\n1. **Líquido:** `VL*dCL/dt = P(t)*VL - kLa*VL*(CL-CG/K) - ksink*VL*CL`.\n2. **Headspace/línea:** `VG*dCG/dt = kLa*VL*(CL-CG/K) - Qg*CG - kline*VG*CG`.\n3. **Trampa:** `dMtrap/dt = etaA/B(Tcond,Qg,yEtOH,yH2O)*Qg*CG + beta_aerosol*Qcond*CL - kwash*Mtrap`.\n\nEl término de aerosol es una hipótesis opcional, no un hecho. Se activa sólo si aparecen trazadores no volátiles en el condensado o si un demister cambia la recuperación. La producción `P(t)` debe expresarse primero contra azúcar consumida o CO2 acumulado, y añadir una respuesta retardada específica por especie al pulso de N/cambio térmico únicamente si el residual de vino lo exige."
+      },
+      {
+        "id": "model_sequence_table_block",
+        "type": "table",
+        "tableId": "model_sequence_table"
+      },
+      {
+        "id": "experimental_plan",
+        "type": "markdown",
+        "sourceId": "diagnostic_notes",
+        "body": "## Pruebas de mayor valor informativo\n\n1. Medir simultáneamente aroma en vino y gas **antes y después** de la trampa durante 90–160 h, cada 8–12 h y cada 1–2 h alrededor del pulso.\n2. Analizar condensadores A y B por separado; registrar volumen, temperatura real, inicio/fin de cada MIX, lavados y eventos de espuma.\n3. Ejecutar spike-recovery del tren con octanoato e isoamilo conocidos, a varios niveles de etanol, temperatura y caudal de CO2.\n4. Medir glucosa/fructosa, glicerol, ácido tartárico, potasio o células en condensado y repetir con/sin demister para contrastar microgotas.\n5. Intercambiar líneas/trampas entre TK31–TK33 o balancear programas térmicos, porque reactor, línea y temperatura están confundidos.\n6. Para acetato de etilo, reducir LOQ; los 33 intervalos censurados no permiten calibrar su pérdida."
+      },
+      {
+        "id": "scope_method_limits",
+        "type": "markdown",
+        "sourceId": "diagnostic_notes",
+        "body": "## Alcance, método y limitaciones\n\nEl diagnóstico usa las predicciones y forzantes ejecutadas del modelo piloto 2026. El techo de equilibrio interpola linealmente la química líquida entre muestras; un máximo no medido dentro de un MIX podría elevarlo. Las correlaciones con temperatura, etanol y volumen condensado son exploratorias porque tiempo, reactor y programa están colineados. La evidencia de literatura respalda separar producción, partición y recuperación, pero no demuestra que aerosol, hidrólisis o memoria de línea sean la causa en estos equipos.\n\nLa próxima comparación debe dejar fuera un reactor o lote completo, reducir al menos 30 % el NRMSE de condensado sin empeorar el RMSE de vino más de 10 %, y mostrar parámetros estables sin factores libres por MIX."
+      },
+      {
+        "id": "sources_section",
+        "type": "markdown",
+        "body": "## Fuentes\n\n- Resultados locales: métricas, predicciones de vino/condensado, parámetros y diagnóstico de transferencia de la ejecución piloto 2026.\n- [Morakul et al. 2010](https://pubmed.ncbi.nlm.nih.gov/20735035/): evolución de la partición gas-líquido con composición y temperatura.\n- [Mouret et al. 2012](https://doi.org/10.1016/j.lwt.2012.04.031): balances gas-líquido y pérdidas de aromas durante fermentación.\n- [Seguinot et al. 2018](https://pubmed.ncbi.nlm.nih.gov/30166153/): respuesta aromática específica al momento y naturaleza del nitrógeno.\n- [Carneiro et al. 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9505680/): recuperación de aromas mediante condensación fraccionada."
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-21T19:40:15Z",
+    "status": "ready",
+    "datasets": {
+      "mix03_observed_metric": [
+        {"value": 614.557866106016}
+      ],
+      "mix03_predicted_metric": [
+        {"value": 5.053205117794947}
+      ],
+      "transfer_efficiency_metric": [
+        {"value": 0.0108243577442002}
+      ],
+      "ceiling_failures_metric": [
+        {"value": 8}
+      ],
+      "holdout_nrmse": [
+        {"species": "Octanoato de etilo", "model": "Previo: escala CO2", "nrmse": 1.61925951, "rmse_ug": 846.1259014468591},
+        {"species": "Octanoato de etilo", "model": "Dinámico: kLa(E)", "nrmse": 1.61967179, "rmse_ug": 846.341337324888},
+        {"species": "Acetato de isoamilo", "model": "Previo: escala CO2", "nrmse": 1.30180781, "rmse_ug": 3078.0869233679455},
+        {"species": "Acetato de isoamilo", "model": "Dinámico: kLa(E)", "nrmse": 1.29937377, "rmse_ug": 3072.3317169672905}
+      ],
+      "ceiling_examples": [
+        {"mix": "26157-MIX-03", "series": "Observado", "mass_ug": 614.557866106016},
+        {"mix": "26157-MIX-03", "series": "Techo equilibrio", "mass_ug": 611.2},
+        {"mix": "26157-MIX-03", "series": "Modelo kLa(E)", "mass_ug": 5.053205117794947},
+        {"mix": "26211-MIX-04", "series": "Observado", "mass_ug": 2146.449500303528},
+        {"mix": "26211-MIX-04", "series": "Techo equilibrio", "mass_ug": 654.0},
+        {"mix": "26211-MIX-04", "series": "Modelo kLa(E)", "mass_ug": 7.007577274939095}
+      ],
+      "mix_ratios_26157": [
+        {"mix": "MIX-02", "observed_over_predicted": 10.867, "observed_ug": 86.9711738532182, "predicted_ug": 8.003268763588629},
+        {"mix": "MIX-03", "observed_over_predicted": 121.62, "observed_ug": 614.557866106016, "predicted_ug": 5.053205117794947},
+        {"mix": "MIX-04", "observed_over_predicted": 122.323, "observed_ug": 869.1047452027091, "predicted_ug": 7.105014486030896},
+        {"mix": "MIX-05", "observed_over_predicted": 63.802, "observed_ug": 234.9454399585515, "predicted_ug": 3.682388797204837}
+      ],
+      "fitted_transfer_parameters": [
+        {"species": "Acetato de etilo", "kla_ref_h_inv": 0.004263532855528216, "ethanol_multiplier": 0.8990997257192225},
+        {"species": "Octanoato de etilo", "kla_ref_h_inv": 0.004038072810449231, "ethanol_multiplier": 0.8730100777984203},
+        {"species": "Acetato de isoamilo", "kla_ref_h_inv": 0.0031322268902294744, "ethanol_multiplier": 0.8580300603489883}
+      ],
+      "hypotheses": [
+        {"priority": "1 — muy alta", "hypothesis": "Base NTU incompatible con kLa líquido", "evidence": "La fórmula ajustada impone 1.08 % de transferencia en MIX-03; el equilibrio aproxima el orden de magnitud.", "test": "Corregir NTU y comparar con balance líquido-headspace explícito."},
+        {"priority": "2 — alta", "hypothesis": "Producción y pérdida confundidas", "evidence": "Pulsos simultáneos en vino y condensado; respuestas a N son específicas por clase.", "test": "Ajustar producción total contra azúcar consumida/CO2 acumulado con muestreo químico denso."},
+        {"priority": "3 — alta", "hypothesis": "Recuperación A/B variable y/o memoria de línea", "evidence": "Obs./pred. correlaciona con volumen condensado y fracción B; máximo tardío con rCO2 menor.", "test": "GC antes/después de trampa, A/B separados y spike-recovery multicaudal."},
+        {"priority": "4 — media", "hypothesis": "K(T,E,S) mal orientado o extrapolado", "evidence": "La pendiente de azúcar del surrogate contradice el salting-out medido para otros ésteres.", "test": "Comparar UNIFAC con Morakul y medir pares líquido-gas en matriz piloto."},
+        {"priority": "5 — por probar", "hypothesis": "Espuma/microgotas o sumidero líquido", "evidence": "Algunos MIX superan el techo interpolado y varios balances exigen producción neta negativa.", "test": "Trazadores no volátiles, demister, turbidez/células y seguimiento de degradación/adsorción."}
+      ],
+      "model_sequence": [
+        {"stage": "M0", "change": "Equilibrio: lambda = K*qgas, sin kLa libre", "decision_gate": "Si mejora MIX-03 pero persisten techos imposibles, revisar observación/captura."},
+        {"stage": "M1", "change": "Balances explícitos de líquido y headspace/línea", "decision_gate": "Mantener sólo si elimina el desfase MIX-03→MIX-04 en holdout."},
+        {"stage": "M2", "change": "Trampas A/B con eficiencia dependiente de T, caudal y composición", "decision_gate": "Mantener si explica volúmenes A/B y mejora recuperación antes/después de trampa."},
+        {"stage": "M3", "change": "Respuesta transitoria de producción específica por aroma", "decision_gate": "Agregar sólo si queda pulso en vino alrededor de N/temperatura."},
+        {"stage": "M4", "change": "Sumidero de primer orden o aerosol medido", "decision_gate": "Activar únicamente con trazador, demister o balance químico independiente."}
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "prediction_metrics",
+      "label": "Métricas locales de calibración y validación",
+      "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_prediction_metrics.csv",
+      "query": {
+        "engine": "duckdb",
+        "sql": "SELECT forcing_source, species, nrmse_over_mean AS nrmse, rmse AS rmse_ug FROM read_csv_auto('fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_prediction_metrics.csv') WHERE fit_scope = 'calibration_only' AND role = 'holdout' AND domain = 'condensate' AND species IN ('ethyl_octanoate', 'isoamyl_acetate')",
+        "description": "Selecciona las métricas de condensado fuera de muestra usadas en la comparación.",
+        "executed_at": "2026-08-21T19:40:15Z"
+      }
+    },
+    {
+      "id": "condensate_predictions",
+      "label": "Predicciones locales por intervalo de condensado",
+      "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_condensate_predictions.csv",
+      "query": {
+        "engine": "duckdb",
+        "sql": "SELECT mix_id, observed_or_upper_bound AS observed_ug, predicted_captured_ug AS predicted_ug FROM read_csv_auto('fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_condensate_predictions.csv') WHERE forcing_source = 'dynamic_transfer_model' AND fit_scope = 'all_data' AND species = 'ethyl_octanoate' AND status = 'observed'",
+        "description": "Selecciona observaciones y predicciones de octanoato por MIX.",
+        "executed_at": "2026-08-21T19:40:15Z"
+      }
+    },
+    {
+      "id": "transfer_diagnostics",
+      "label": "Diagnóstico local de K, qgas, kLa y eficiencia",
+      "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_transfer_diagnostics.csv",
+      "query": {
+        "engine": "duckdb",
+        "sql": "SELECT AVG(transfer_efficiency) AS value FROM read_csv_auto('fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_transfer_diagnostics.csv') WHERE forcing_source = 'dynamic_transfer_model' AND species = 'ethyl_octanoate' AND experiment_id = 26157 AND time_h BETWEEN 91 AND 115",
+        "description": "Calcula la eficiencia de transferencia media en 26157-MIX-03.",
+        "executed_at": "2026-08-21T19:40:15Z"
+      }
+    },
+    {
+      "id": "parameter_estimates",
+      "label": "Estimaciones locales de parámetros",
+      "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_parameter_estimates.csv",
+      "query": {
+        "engine": "duckdb",
+        "sql": "SELECT species, parameter, estimate FROM read_csv_auto('fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/aroma_parameter_estimates.csv') WHERE forcing_source = 'dynamic_transfer_model' AND fit_scope = 'all_data' AND parameter IN ('mass_transfer_kla_ref_h_inv', 'ethanol_kla_multiplier_per_10_g_l')",
+        "description": "Selecciona los parámetros dinámicos ajustados para la tabla.",
+        "executed_at": "2026-08-21T19:40:15Z"
+      }
+    },
+    {
+      "id": "diagnostic_notes",
+      "label": "Notas y cálculos auditados del diagnóstico",
+      "path": "fermentation_model/pilot_2026/results/aroma_dynamic_transfer_recalibration_2026/diagnostic_report/diagnostic_notes.md",
+      "query": {
+        "engine": "duckdb",
+        "sql": "SELECT * FROM (VALUES ('26157-MIX-03', 614.557866106016, 611.2, 5.053205117794947), ('26211-MIX-04', 2146.449500303528, 654.0, 7.007577274939095)) AS t(mix, observed_ug, equilibrium_ceiling_ug, dynamic_model_ug)",
+        "description": "Materializa los ejemplos de techo físico documentados en las notas auditadas.",
+        "executed_at": "2026-08-21T19:40:15Z"
+      }
+    },
+    {
+      "id": "morakul_2010",
+      "label": "Morakul et al. 2010 — partición gas-líquido durante fermentación",
+      "href": "https://pubmed.ncbi.nlm.nih.gov/20735035/"
+    },
+    {
+      "id": "mouret_2012",
+      "label": "Mouret et al. 2012 — transferencia y balances de aromas",
+      "href": "https://doi.org/10.1016/j.lwt.2012.04.031"
+    },
+    {
+      "id": "seguinot_2018",
+      "label": "Seguinot et al. 2018 — momento y naturaleza de adiciones de N",
+      "href": "https://pubmed.ncbi.nlm.nih.gov/30166153/"
+    },
+    {
+      "id": "carneiro_2022",
+      "label": "Carneiro et al. 2022 — condensación fraccionada de headspace vínico",
+      "href": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9505680/"
+    }
+  ],
+  "package_info": {
+    "originUrl": "artifact://pilot-2026-aroma-loss-diagnostic",
+    "controls": {"edit": false, "refresh": false}
+  }
+}

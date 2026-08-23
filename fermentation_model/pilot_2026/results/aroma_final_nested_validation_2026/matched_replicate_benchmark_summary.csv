@@ -1,0 +1,3 @@
+species,n_directional_pairs,rmse_ug,observed_mean_ug,replicate_as_predictor_nrmse,median_absolute_fold_difference
+ethyl_octanoate,16,487.80583713360664,462.3358018974919,1.0550899046355098,3.095260705654783
+isoamyl_acetate,10,1942.9875929364032,2004.4622010437827,0.969331121297589,1.6795230100123113

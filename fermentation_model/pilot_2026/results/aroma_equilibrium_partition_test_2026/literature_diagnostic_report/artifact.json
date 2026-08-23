@@ -1,0 +1,401 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Diagnóstico del modelo de pérdida aromática",
+    "description": "Evaluación del ensayo de partición en equilibrio, explicación mecanística y plan experimental/modelístico basado en literatura primaria.",
+    "generatedAt": "2026-08-21T17:30:00-04:00",
+    "sources": [
+      {
+        "id": "local_results",
+        "label": "Ensayo de partición aromática piloto 2026",
+        "path": "fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/aroma_prediction_metrics.csv",
+        "query": {
+          "engine": "sqlite",
+          "language": "sql",
+          "sql": "CREATE TEMP VIEW holdout_metrics AS SELECT * FROM metrics WHERE fit_scope = 'calibration_only' AND role = 'holdout' AND species IN ('ethyl_octanoate', 'isoamyl_acetate');\nCREATE TEMP VIEW candidate_comparison AS SELECT * FROM comparison WHERE species IN ('ethyl_octanoate', 'isoamyl_acetate');\nCREATE TEMP VIEW observed_temporal AS SELECT p.*, s.pulse_time_h, ((p.interval_start_h + p.interval_end_h) / 2.0 - s.pulse_time_h) AS h_postpulse, (p.observed_or_upper_bound / NULLIF(p.predicted_captured_ug, 0)) AS obs_pred_ratio FROM predictions p JOIN pulse_schedule s ON p.experiment_id = s.batch WHERE p.fit_scope = 'calibration_only' AND p.model_variant = 'equilibrium_morakul' AND p.status = 'observed' AND p.species IN ('ethyl_octanoate', 'isoamyl_acetate');\nSELECT * FROM holdout_metrics;\nSELECT * FROM candidate_comparison;\nSELECT * FROM observed_temporal;",
+          "description": "Los cuatro CSV se cargaron sin modificación en tablas SQLite metrics, comparison, predictions y pulse_schedule. Estas vistas produjeron las métricas holdout y las razones temporales revisadas del informe.",
+          "executed_at": "2026-08-21T16:24:01-04:00",
+          "filters": [
+            "fit_scope = calibration_only",
+            "role = holdout para métricas de validación",
+            "ethyl_acetate en condensado se usa sólo como censura",
+            "holdout runs = 26158, 26211"
+          ],
+          "metric_definitions": [
+            "NRMSE = RMSE dividido por la media observada dentro de especie, dominio y split.",
+            "Mejora relativa = 1 - error_candidato/error_histórico; un valor negativo es degradación.",
+            "Razón observado/predicho mayor que 1 indica subpredicción del condensado.",
+            "El gate exige al menos 30% de mejora de NRMSE de condensado en ambas especies y no más de 10% de degradación del vino."
+          ],
+          "tables_used": [
+            "fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/aroma_prediction_metrics.csv",
+            "fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/model_vs_historical_comparison.csv",
+            "fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/aroma_condensate_predictions.csv",
+            "fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/validation_gate.json"
+          ]
+        }
+      },
+      {
+        "id": "literature_bundle",
+        "label": "Literatura primaria sobre producción, partición y captura de aromas",
+        "href": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10027746/",
+        "query": {
+          "engine": "sqlite",
+          "language": "sql",
+          "sql": "SELECT * FROM (VALUES ('10.1021/jf101890y', 'partición'), ('10.1016/j.lwt.2012.04.031', 'transferencia'), ('10.1016/j.foodres.2014.02.044', 'balance producción-pérdida'), ('10.1016/j.fm.2018.04.005', 'pulso de nitrógeno'), ('10.3389/fmicb.2023.1124970', 'cinética de producción'), ('10.1016/j.bej.2015.07.017', 'modelo de síntesis'), ('10.1128/AEM.01616-07', 'ésteres etílicos'), ('10.1074/jbc.M512028200', 'Eeb1/Eht1'), ('10.1007/s11947-018-2099-0', 'condensador'), ('10.1016/j.cep.2024.110011', 'arrastre mecánico')) AS reviewed_primary_sources(doi, purpose);",
+          "description": "Síntesis de estudios primarios de Morakul, Mouret, Seguinot, Godillot, Saerens, Guerrini y Pereira; cada afirmación principal se enlaza en el cuerpo del informe.",
+          "executed_at": "2026-08-21T17:20:00-04:00",
+          "tables_used": [
+            "https://pubmed.ncbi.nlm.nih.gov/20735035/",
+            "https://www.sciencedirect.com/science/article/pii/S0023643812002083",
+            "https://www.sciencedirect.com/science/article/pii/S0963996914001549",
+            "https://pubmed.ncbi.nlm.nih.gov/30166153/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10027746/",
+            "https://www.sciencedirect.com/science/article/pii/S1369703X15300243",
+            "https://pubmed.ncbi.nlm.nih.gov/17993562/",
+            "https://www.research.unipd.it/handle/11577/3407670",
+            "https://www.sciencedirect.com/science/article/pii/S0255270124003490"
+          ]
+        }
+      }
+    ],
+    "cards": [
+      {
+        "id": "card_selected_models",
+        "description": "Número de candidatos que superaron simultáneamente el gate de condensado y el guardrail de vino.",
+        "dataset": "gate_summary",
+        "sourceId": "local_results",
+        "metrics": [
+          {"label": "Modelos aprobados", "field": "selected_models", "format": "number"}
+        ]
+      },
+      {
+        "id": "card_eo_condensate",
+        "description": "Mejora del RMSE holdout del octanoato de etilo con equilibrio Morakul frente al modelo histórico.",
+        "dataset": "gate_summary",
+        "sourceId": "local_results",
+        "metrics": [
+          {"label": "Mejora EO condensado", "field": "eo_condensate_improvement", "format": "percent"}
+        ]
+      },
+      {
+        "id": "card_eo_wine",
+        "description": "Aumento del RMSE holdout en vino para octanoato de etilo con equilibrio Morakul.",
+        "dataset": "gate_summary",
+        "sourceId": "local_results",
+        "metrics": [
+          {"label": "Degradación EO vino", "field": "eo_wine_degradation", "format": "percent"}
+        ]
+      },
+      {
+        "id": "card_iaa_wine",
+        "description": "Aumento del RMSE holdout en vino para acetato de isoamilo con equilibrio Morakul.",
+        "dataset": "gate_summary",
+        "sourceId": "local_results",
+        "metrics": [
+          {"label": "Degradación IAA vino", "field": "iaa_wine_degradation", "format": "percent"}
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "chart_condensate_nrmse",
+        "title": "NRMSE holdout en condensado",
+        "subtitle": "Ocho observaciones de EO y seis de IAA en los runs holdout 26158 y 26211; menor es mejor.",
+        "intent": "comparison",
+        "question": "¿La nueva física de partición reduce materialmente el error del condensado?",
+        "rationale": "Barras agrupadas permiten comparar cuatro formulaciones para las dos especies en la misma escala adimensional.",
+        "comparisonContext": {
+          "baseline": "Modelo histórico gas-NTU",
+          "grain": "modelo por especie",
+          "normalization": "RMSE dividido por media observada",
+          "unit": "NRMSE"
+        },
+        "type": "bar",
+        "dataset": "condensate_nrmse",
+        "sourceId": "local_results",
+        "encodings": {
+          "x": {"field": "model", "type": "nominal", "label": "Modelo"},
+          "y": {"field": "nrmse", "type": "quantitative", "format": "number", "label": "NRMSE"},
+          "color": {"field": "species", "type": "nominal", "label": "Especie"},
+          "tooltip": [
+            {"field": "species", "type": "nominal", "label": "Especie"},
+            {"field": "nrmse", "type": "quantitative", "format": "number", "label": "NRMSE"},
+            {"field": "n_observed", "type": "quantitative", "format": "number", "label": "n observado"},
+            {"field": "rmse_ug", "type": "quantitative", "format": "number", "label": "RMSE (µg)"}
+          ]
+        },
+        "xAxisTitle": "Modelo",
+        "yAxisTitle": "NRMSE",
+        "layout": "full",
+        "legend": {"position": "bottom", "title": "Especie"},
+        "palette": {"kind": "categorical", "name": "blue-orange"},
+        "settings": {"groupMode": "grouped", "categoryLabelPolicy": "wrap", "showValues": true, "sort": "custom"},
+        "surface": {"surface": "card", "viewMode": "both"}
+      },
+      {
+        "id": "chart_wine_nrmse",
+        "title": "NRMSE holdout en vino",
+        "subtitle": "Once muestras observadas por especie en los runs holdout; menor es mejor.",
+        "intent": "comparison",
+        "question": "¿La mayor pérdida física conserva el ajuste de concentraciones líquidas?",
+        "rationale": "La comparación agrupada muestra el costo de imponer equilibrio en la fase líquida.",
+        "comparisonContext": {
+          "baseline": "Modelo histórico gas-NTU",
+          "grain": "modelo por especie",
+          "normalization": "RMSE dividido por media observada",
+          "unit": "NRMSE"
+        },
+        "type": "bar",
+        "dataset": "wine_nrmse",
+        "sourceId": "local_results",
+        "encodings": {
+          "x": {"field": "model", "type": "nominal", "label": "Modelo"},
+          "y": {"field": "nrmse", "type": "quantitative", "format": "number", "label": "NRMSE"},
+          "color": {"field": "species", "type": "nominal", "label": "Especie"},
+          "tooltip": [
+            {"field": "species", "type": "nominal", "label": "Especie"},
+            {"field": "nrmse", "type": "quantitative", "format": "number", "label": "NRMSE"},
+            {"field": "n_observed", "type": "quantitative", "format": "number", "label": "n observado"},
+            {"field": "rmse_liquid", "type": "quantitative", "format": "number", "label": "RMSE líquido (µg/L)"}
+          ]
+        },
+        "xAxisTitle": "Modelo",
+        "yAxisTitle": "NRMSE",
+        "layout": "full",
+        "legend": {"position": "bottom", "title": "Especie"},
+        "palette": {"kind": "categorical", "name": "blue-orange"},
+        "settings": {"groupMode": "grouped", "categoryLabelPolicy": "wrap", "showValues": true, "sort": "custom"},
+        "surface": {"surface": "card", "viewMode": "both"}
+      },
+      {
+        "id": "chart_temporal_bias",
+        "title": "Sesgo del equilibrio Morakul según tiempo postpulso",
+        "subtitle": "Log10 de la mediana observado/predicho; cero indica ajuste, valores positivos indican subpredicción.",
+        "intent": "comparison",
+        "question": "¿El déficit es una constante global o cambia con el avance posterior al pulso?",
+        "rationale": "La transformación logarítmica mantiene legibles razones desde 0.38 hasta 97.7 y una línea de referencia identifica ajuste perfecto.",
+        "comparisonContext": {
+          "baseline": "log10(observado/predicho) = 0",
+          "grain": "ventana postpulso por especie",
+          "normalization": "logaritmo base 10 de razón de masa",
+          "unit": "log10(obs/pred)"
+        },
+        "type": "bar",
+        "dataset": "temporal_bias",
+        "sourceId": "local_results",
+        "encodings": {
+          "x": {"field": "time_window", "type": "ordinal", "label": "Tiempo postpulso"},
+          "y": {"field": "log10_obs_pred", "type": "quantitative", "format": "number", "label": "log10(obs/pred)"},
+          "color": {"field": "species", "type": "nominal", "label": "Especie"},
+          "tooltip": [
+            {"field": "species", "type": "nominal", "label": "Especie"},
+            {"field": "obs_pred_ratio", "type": "quantitative", "format": "number", "label": "Observado/predicho"},
+            {"field": "time_mid_h", "type": "quantitative", "format": "number", "label": "Centro de ventana (h)"}
+          ]
+        },
+        "xAxisTitle": "Ventana desde el pulso de N",
+        "yAxisTitle": "log10(observado/predicho)",
+        "layout": "full",
+        "legend": {"position": "bottom", "title": "Especie"},
+        "palette": {"kind": "categorical", "name": "blue-orange"},
+        "referenceLines": [
+          {"axis": "y", "value": 0, "label": "Ajuste perfecto", "color": "neutral", "lineStyle": "dashed"}
+        ],
+        "settings": {"groupMode": "grouped", "categoryLabelPolicy": "wrap", "showValues": true, "sort": "custom"},
+        "surface": {"surface": "card", "viewMode": "both"}
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_mechanisms",
+        "title": "Hipótesis mecanísticas jerarquizadas",
+        "subtitle": "Fuerza actual de evidencia y observación que permitiría refutar cada explicación.",
+        "dataset": "mechanisms",
+        "defaultSort": {"field": "priority", "direction": "asc"},
+        "density": "spacious",
+        "sourceId": "literature_bundle",
+        "layout": "full",
+        "columns": [
+          {"field": "priority", "label": "Prioridad", "format": "number"},
+          {"field": "hypothesis", "label": "Hipótesis", "type": "text"},
+          {"field": "support", "label": "Soporte actual", "type": "text"},
+          {"field": "why", "label": "Qué explica", "type": "text"},
+          {"field": "discriminator", "label": "Prueba discriminante", "type": "text"},
+          {"field": "anchor", "label": "Ancla primaria", "type": "text"}
+        ]
+      },
+      {
+        "id": "table_experiments",
+        "title": "Secuencia experimental recomendada",
+        "subtitle": "Ordenada por información ganada antes de agregar parámetros libres.",
+        "dataset": "experiments",
+        "defaultSort": {"field": "priority", "direction": "asc"},
+        "density": "spacious",
+        "sourceId": "literature_bundle",
+        "layout": "full",
+        "columns": [
+          {"field": "priority", "label": "Orden", "format": "number"},
+          {"field": "action", "label": "Acción", "type": "text"},
+          {"field": "measurements", "label": "Mediciones mínimas", "type": "text"},
+          {"field": "decision", "label": "Decisión que habilita", "type": "text"},
+          {"field": "timing", "label": "Momento", "type": "text"}
+        ]
+      }
+    ],
+    "blocks": [
+      {"id": "title", "type": "markdown", "body": "# Diagnóstico del modelo de pérdida aromática"},
+      {
+        "id": "executive_summary",
+        "type": "markdown",
+        "sourceId": "local_results",
+        "body": "## Resumen técnico\n\nEl ensayo es un **negativo informativo**: imponer partición hasta equilibrio no corrige el condensado y deteriora fuertemente el vino. Morakul mejora el RMSE holdout de octanoato de etilo sólo 2.2%, cambia el acetato de isoamilo menos de 0.4% y, al mismo tiempo, aumenta el RMSE del vino 92.3% y 80.1%, respectivamente. Ningún candidato superó el gate.\n\nLa conclusión útil no es que falte otra constante de volatilidad. El residuo cambia de signo y de magnitud con el tiempo: el modelo puede sobrepredecir EO temprano y quedar 26 veces corto entre 60–90 h postpulso. La forma temporal de producción y el operador de observación condensador/línea están incompletos y permanecen confundidos."
+      },
+      {"id": "gate_metrics", "type": "metric-strip", "cardIds": ["card_selected_models", "card_eo_condensate", "card_eo_wine", "card_iaa_wine"]},
+      {
+        "id": "result_assessment",
+        "type": "markdown",
+        "sourceId": "local_results",
+        "body": "## Qué demostró la calibración\n\nLa física corregida sí fue evaluada: el modelo `liquid_kla_unifac` usa la eficiencia `1-exp[-kLa/(K·qgas)]`, y las variantes de equilibrio fijan la eficiencia en uno. Por tanto, el resultado actual no proviene del antiguo error algebraico `kLa/qgas`. Al recalibrar conjuntamente vino y condensado, el ajuste con kLa reduce ese parámetro hasta aproximadamente 10⁻⁵ h⁻¹ y vuelve casi al resultado histórico para proteger las concentraciones líquidas.\n\nEsto revela una compensación estructural: aumentar la salida para explicar el condensado vacía un pool líquido que el bloque de producción no repone en el momento correcto. El modelo intenta resolver con un único balance dos observaciones incompatibles bajo su estructura actual."
+      },
+      {"id": "condensate_chart", "type": "chart", "chartId": "chart_condensate_nrmse"},
+      {"id": "wine_chart", "type": "chart", "chartId": "chart_wine_nrmse"},
+      {
+        "id": "temporal_shape",
+        "type": "markdown",
+        "sourceId": "local_results",
+        "body": "## El defecto dominante es temporal\n\nEn equilibrio Morakul, la mediana observado/predicho de EO es 0.38× a 0–30 h, 8.35× a 30–60 h y 26.3× a 60–90 h. Para IAA aumenta de 11.0× a 97.7×. Un multiplicador global de K, kLa o eficiencia no puede corregir simultáneamente una sobrepredicción temprana y una subpredicción tardía.\n\nAdemás, el máximo del condensado aparece en MIX-04 cuando rCO2 ya ha caído aproximadamente de 0.74 a 0.27 g/L/h. Eso favorece una combinación de producción/liberación tardía y memoria o captura variable de la línea, no stripping instantáneo por CO2 solamente."
+      },
+      {"id": "temporal_chart", "type": "chart", "chartId": "chart_temporal_bias"},
+      {
+        "id": "literature_interpretation",
+        "type": "markdown",
+        "body": "## Motivos compatibles con la literatura\n\n**1. Producción y pérdida deben separarse.** El grupo de Sablayrolles calcula producción total como concentración líquida más pérdida gaseosa integrada, midiendo el gas antes de la trampa. Ese enfoque distingue biología de transferencia ([Mouret et al., 2012](https://www.sciencedirect.com/science/article/pii/S0023643812002083); [Mouret et al., 2014](https://www.sciencedirect.com/science/article/pii/S0963996914001549); [Godillot et al., 2023](https://pmc.ncbi.nlm.nih.gov/articles/PMC10027746/)). Nuestro condensado es una observación downstream y no equivale automáticamente a `∫Cg·Qg dt`.\n\n**2. El pulso de N no afecta igual a todos los ésteres.** En los datos de Seguinot, la adición de N en fase estacionaria intensifica fuertemente los acetatos y la regulación ATF1/ATF2, mientras el octanoato de etilo responde poco o de manera distinta ([Seguinot et al., 2018](https://pubmed.ncbi.nlm.nih.gov/30166153/)). Los modelos de producción de dos pendientes versus azúcar consumida funcionaron en dominios controlados de N inicial y temperatura ([Mouret et al., 2015](https://www.sciencedirect.com/science/article/pii/S1369703X15300243)), pero no identifican por sí solos un pulso transitorio en mosto natural a escala piloto.\n\n**3. EO e IAA necesitan biología distinta.** La síntesis de ésteres etílicos de ácidos grasos depende de precursores MCFA y de Eeb1/Eht1, enzimas con capacidad tanto de síntesis como de hidrólisis ([Saerens et al., 2006](https://doi.org/10.1074/jbc.M512028200); [Saerens et al., 2008](https://pubmed.ncbi.nlm.nih.gov/17993562/)). Esto hace plausible un pool intracelular o liberación retardada para EO; IAA está más ligado a una respuesta regulatoria rápida al N.\n\n**4. El condensador puede modificar la observación.** En vinificación real, la composición del condensado cambia durante el proceso ([Guerrini et al., 2016](https://www.research.unipd.it/handle/11577/3407721)). En cerveza, un condensador incluso se asoció a síntesis de novo de ésteres desde ácidos y alcoholes ([Guerrini et al., 2018](https://www.research.unipd.it/handle/11577/3407670)). Esto no prueba que ocurra aquí, pero vuelve obligatorio verificar estabilidad postcolección.\n\n**5. El arrastre mecánico es físicamente posible.** Experimentos con CO2 y soluciones hidroalcohólicas separaron stripping termodinámico de microgotas y encontraron enriquecimiento por arrastre mecánico ([Pereira et al., 2024](https://www.sciencedirect.com/science/article/pii/S0255270124003490)). No demuestra su magnitud en estos fermentadores, pero es congruente con intervalos de EO que superan el techo calculado y con la asociación residual-volumen de condensado."
+      },
+      {"id": "mechanism_table", "type": "table", "tableId": "table_mechanisms"},
+      {
+        "id": "model_implications",
+        "type": "markdown",
+        "body": "## Qué no haría todavía\n\nNo agregaría otro factor global de partición, un efecto libre por MIX ni más flexibilidad de kLa. La eficiencia de trampa sólo puede pasar físicamente de 0.85 a 1, una corrección máxima de 17.6%, muy inferior a déficits de 8–70×. Un compartimento de headspace puede redistribuir masa entre intervalos, pero no crear masa total. Y una mayor producción global empeoraría la sobrepredicción temprana de EO.\n\nTampoco tomaría como mecanismo biológico el salto de 26211 alrededor de 144 h antes de auditar cromatograma, dilución, ID, fase muestreada y duplicado: EO e IAA suben simultáneamente y vuelven a bajar 16 h después."
+      },
+      {
+        "id": "next_steps",
+        "type": "markdown",
+        "body": "## Pasos siguientes\n\nLa prioridad es identificar el operador de observación antes de recalibrar más biología. La medición decisiva es `Cg` upstream del condensador junto con `CL`, `Qg`, temperatura, volumen y etanol del condensado. Con eso se reconstruye `Ptotal = VL·CL + ∫Qg·Cg dt` y se verifica si la masa aparece en fermentación, en la línea o después de recolectar."
+      },
+      {"id": "experiment_table", "type": "table", "tableId": "table_experiments"},
+      {
+        "id": "nested_models",
+        "type": "markdown",
+        "body": "## Recalibración que sí discrimina hipótesis\n\nDespués de esas mediciones, comparar tres modelos anidados con leave-one-run-out completo: **M1**, sólo respuesta retardada y específica al N en producción; **M2**, sólo estado dinámico de headspace/línea y eficiencia de captura; **M3**, ambos. El bloque basal de producción debe expresarse contra azúcar consumida o CO2 acumulado, como en la literatura de Mouret, y luego mapearse a tiempo con rCO2.\n\nPara IAA, usar un estado transitorio de activación por N con relajación y un sink de hidrólisis enzimática sólo si mejora validación. Para EO, probar un pool intracelular/exportación con una única constante de tiempo y precursor específico. Sólo conservar esos estados si reducen error en runs no usados y cierran masa simultáneamente en vino, gas y condensado."
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "sourceId": "local_results",
+        "body": "## Limitaciones\n\nLos tiempos de pulso LAB/piloto provienen en parte de interpolación y reconstrucción de eventos; temperatura y tiempo postpulso están confundidos cerca de MIX-04. Las concentraciones líquidas son esporádicas, por lo que los techos entre muestras usan interpolación. Morakul fue identificado en matrices y condiciones distintas, de modo que un techo físicamente suficiente no demuestra transferibilidad. Acetato de etilo en condensado permanece censurado y no identifica pérdida. Las correlaciones usan pocos intervalos repetidos dentro de reactor y son exploratorias."
+      },
+      {
+        "id": "references",
+        "type": "markdown",
+        "body": "## Referencias primarias clave\n\n- [Morakul et al. (2010), partición gas-líquido y efecto de composición/temperatura](https://pubmed.ncbi.nlm.nih.gov/20735035/)\n- [Mouret et al. (2012), transferencia gas-líquido durante fermentación](https://www.sciencedirect.com/science/article/pii/S0023643812002083)\n- [Mouret et al. (2014), balances producción-pérdida, N y temperatura](https://www.sciencedirect.com/science/article/pii/S0963996914001549)\n- [Seguinot et al. (2018), timing y naturaleza del pulso de N](https://pubmed.ncbi.nlm.nih.gov/30166153/)\n- [Godillot et al. (2023), cinéticas de producción total y temperatura](https://pmc.ncbi.nlm.nih.gov/articles/PMC10027746/)\n- [Saerens et al. (2008), determinantes de ésteres etílicos](https://pubmed.ncbi.nlm.nih.gov/17993562/)\n- [Guerrini et al. (2018), efecto del condensador sobre ésteres](https://www.research.unipd.it/handle/11577/3407670)\n- [Pereira et al. (2024), arrastre mecánico versus termodinámico por CO2](https://www.sciencedirect.com/science/article/pii/S0255270124003490)"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-21T17:30:00-04:00",
+    "status": "ready",
+    "datasets": {
+      "gate_summary": [
+        {
+          "selected_models": 0,
+          "eo_condensate_improvement": 0.0221761894,
+          "eo_wine_degradation": 0.9232734129,
+          "iaa_wine_degradation": 0.8011529242
+        }
+      ],
+      "condensate_nrmse": [
+        {"model": "Histórico gas-NTU", "model_order": 1, "species": "Octanoato de etilo", "nrmse": 1.6196717995, "rmse_ug": 846.3413373, "n_observed": 8, "domain": "condensate", "split": "holdout"},
+        {"model": "Equilibrio UNIFAC", "model_order": 2, "species": "Octanoato de etilo", "nrmse": 1.6052811055, "rmse_ug": 838.8216415, "n_observed": 8, "domain": "condensate", "split": "holdout"},
+        {"model": "Equilibrio Morakul", "model_order": 3, "species": "Octanoato de etilo", "nrmse": 1.5837536509, "rmse_ug": 827.5727115, "n_observed": 8, "domain": "condensate", "split": "holdout"},
+        {"model": "kLa líquido UNIFAC", "model_order": 4, "species": "Octanoato de etilo", "nrmse": 1.6208863599, "rmse_ug": 846.9759922, "n_observed": 8, "domain": "condensate", "split": "holdout"},
+        {"model": "Histórico gas-NTU", "model_order": 1, "species": "Acetato de isoamilo", "nrmse": 1.2993737786, "rmse_ug": 3072.331717, "n_observed": 6, "domain": "condensate", "split": "holdout"},
+        {"model": "Equilibrio UNIFAC", "model_order": 2, "species": "Acetato de isoamilo", "nrmse": 1.2981694815, "rmse_ug": 3069.4841912, "n_observed": 6, "domain": "condensate", "split": "holdout"},
+        {"model": "Equilibrio Morakul", "model_order": 3, "species": "Acetato de isoamilo", "nrmse": 1.3035686056, "rmse_ug": 3082.250264, "n_observed": 6, "domain": "condensate", "split": "holdout"},
+        {"model": "kLa líquido UNIFAC", "model_order": 4, "species": "Acetato de isoamilo", "nrmse": 1.3018076598, "rmse_ug": 3078.0865586, "n_observed": 6, "domain": "condensate", "split": "holdout"}
+      ],
+      "wine_nrmse": [
+        {"model": "Histórico gas-NTU", "model_order": 1, "species": "Octanoato de etilo", "nrmse": 0.6066130479, "rmse_liquid": 48.3975626, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "Equilibrio UNIFAC", "model_order": 2, "species": "Octanoato de etilo", "nrmse": 1.1567206819, "rmse_liquid": 92.2869394, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "Equilibrio Morakul", "model_order": 3, "species": "Octanoato de etilo", "nrmse": 1.1666827469, "rmse_liquid": 93.0817454, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "kLa líquido UNIFAC", "model_order": 4, "species": "Octanoato de etilo", "nrmse": 0.6072632417, "rmse_liquid": 48.4494372, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "Histórico gas-NTU", "model_order": 1, "species": "Acetato de isoamilo", "nrmse": 0.6589753649, "rmse_liquid": 724.2754809, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "Equilibrio UNIFAC", "model_order": 2, "species": "Acetato de isoamilo", "nrmse": 1.182131401, "rmse_liquid": 1299.2728326, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "Equilibrio Morakul", "model_order": 3, "species": "Acetato de isoamilo", "nrmse": 1.1869154055, "rmse_liquid": 1304.5309003, "n_observed": 11, "domain": "wine", "split": "holdout"},
+        {"model": "kLa líquido UNIFAC", "model_order": 4, "species": "Acetato de isoamilo", "nrmse": 0.6598232649, "rmse_liquid": 725.2074021, "n_observed": 11, "domain": "wine", "split": "holdout"}
+      ],
+      "temporal_bias": [
+        {"time_window": "0–30 h", "time_order": 1, "time_mid_h": 15, "species": "Octanoato de etilo", "obs_pred_ratio": 0.38, "log10_obs_pred": -0.4202164, "model": "equilibrium_morakul"},
+        {"time_window": "30–60 h", "time_order": 2, "time_mid_h": 45, "species": "Octanoato de etilo", "obs_pred_ratio": 8.35, "log10_obs_pred": 0.9216865, "model": "equilibrium_morakul"},
+        {"time_window": "60–90 h", "time_order": 3, "time_mid_h": 75, "species": "Octanoato de etilo", "obs_pred_ratio": 26.3, "log10_obs_pred": 1.4199557, "model": "equilibrium_morakul"},
+        {"time_window": ">90 h", "time_order": 4, "time_mid_h": 105, "species": "Octanoato de etilo", "obs_pred_ratio": 9.45, "log10_obs_pred": 0.9754318, "model": "equilibrium_morakul"},
+        {"time_window": "0–30 h", "time_order": 1, "time_mid_h": 15, "species": "Acetato de isoamilo", "obs_pred_ratio": 11.0, "log10_obs_pred": 1.0413927, "model": "equilibrium_morakul"},
+        {"time_window": "30–60 h", "time_order": 2, "time_mid_h": 45, "species": "Acetato de isoamilo", "obs_pred_ratio": 22.1, "log10_obs_pred": 1.3443923, "model": "equilibrium_morakul"},
+        {"time_window": "60–90 h", "time_order": 3, "time_mid_h": 75, "species": "Acetato de isoamilo", "obs_pred_ratio": 97.7, "log10_obs_pred": 1.9898946, "model": "equilibrium_morakul"},
+        {"time_window": ">90 h", "time_order": 4, "time_mid_h": 105, "species": "Acetato de isoamilo", "obs_pred_ratio": 69.4, "log10_obs_pred": 1.8413595, "model": "equilibrium_morakul"}
+      ],
+      "mechanisms": [
+        {"priority": 1, "hypothesis": "Producción/liberación tardía mal representada", "support": "Alto", "why": "El sesgo cambia de sobrepredicción temprana a déficit máximo en MIX-04; el equilibrio vacía el vino.", "discriminator": "Reconstruir producción total con CL y Cg upstream; ajustar versus azúcar consumida/CO2 acumulado.", "anchor": "Mouret 2014/2015; Seguinot 2018"},
+        {"priority": 2, "hypothesis": "Headspace/línea/condensador dinámico", "support": "Alto", "why": "Máximo tardío cuando rCO2 cae y simultaneidad entre especies; una eta fija no representa memoria ni solvente cambiante.", "discriminator": "Cg antes de la trampa, dos trampas en serie y gas downstream; estimar RTD y recuperación por intervalo.", "anchor": "Mouret 2012; Guerrini 2016"},
+        {"priority": 3, "hypothesis": "Química postcolección o en el condensador", "support": "Medio-alto, no demostrado aquí", "why": "El condensado hidroalcohólico contiene precursores y podría formar ésteres después de salir del reactor.", "discriminator": "Analizar inmediato, 2, 6 y 24 h; comparar muestra habitual con alícuota quenched/congelada y medir precursores.", "anchor": "Guerrini 2018"},
+        {"priority": 4, "hypothesis": "Aerosol, espuma o microgotas", "support": "Medio-alto, no demostrado", "why": "Dos intervalos EO superan incluso el techo Morakul y el residuo se asocia al volumen condensado.", "discriminator": "Demister/knock-out y trazadores no volátiles: azúcar, tartrato, glicerol, K+, turbidez y células.", "anchor": "Pereira 2024"},
+        {"priority": 5, "hypothesis": "Pool intracelular/exportación específica de EO", "support": "Medio-alto", "why": "EO e IAA divergen; los ésteres etílicos MCFA dependen de precursor, Eeb1/Eht1 y liberación celular.", "discriminator": "Separar caldo, sobrenadante y pellet lavado; seguir EO y precursores tras el pulso.", "anchor": "Saerens 2006/2008"},
+        {"priority": 6, "hypothesis": "Eficiencia de trampa fija", "support": "Bajo como causa única", "why": "Cambiar eta de 0.85 a 1 sólo aporta 17.6%, lejos de déficits de varios órdenes relativos.", "discriminator": "Estándar gaseoso humidificado, dos trampas y gas residual en rangos de Q, T y etanol.", "anchor": "Pereira 2022"},
+        {"priority": 7, "hypothesis": "K de partición incorrecto", "support": "Bajo-medio", "why": "Morakul mejora EO condensado sólo 2.2% y empeora fuertemente el vino; no corrige la forma temporal.", "discriminator": "Medición simultánea Cg/CL en tres estados de etanol y temperatura.", "anchor": "Morakul 2010/2011"},
+        {"priority": 8, "hypothesis": "Hidrólisis química durante fermentación", "support": "Bajo", "why": "Las escalas reportadas son mucho más largas que las decenas de horas del residuo.", "discriminator": "Control de estabilidad con estándar en matriz a pH y temperatura de proceso.", "anchor": "Cinética de estabilidad de ésteres"}
+      ],
+      "experiments": [
+        {"priority": 0, "action": "Auditar 26211 alrededor de 144 h", "measurements": "Raw GC, integración, dilución, ID, duplicado, fase muestreada, densidad y etanol.", "decision": "Determinar si MIX-04 extremo puede entrar a calibración o debe tratarse como incidente analítico.", "timing": "Antes de cualquier nuevo fit"},
+        {"priority": 1, "action": "Balance directo upstream del condensador", "measurements": "Cg de EO/IAA, CL simultáneo, Qg, rCO2, T, etanol y volumen líquido.", "decision": "Separar producción biológica de partición y de captura downstream.", "timing": "Prepulso; 0, 2, 12, 36, 60 y 84 h postpulso"},
+        {"priority": 2, "action": "Estabilidad del condensado recién colectado", "measurements": "EO, IAA, ácidos octanoico/acético, etanol y alcohol isoamílico a 0, 2, 6 y 24 h; control quenched.", "decision": "Confirmar o descartar formación/degradación postcolección.", "timing": "En cada fracción MIX-02 a MIX-05"},
+        {"priority": 3, "action": "Demister y trazadores no volátiles", "measurements": "Masa retenida, azúcar, tartrato, glicerol, K+, turbidez y células en condensado.", "decision": "Cuantificar arrastre de líquido/espuma y decidir si agregar término de aerosol.", "timing": "Ensayo A/B en al menos un reactor"},
+        {"priority": 4, "action": "Calibración de captura y memoria", "measurements": "Dos trampas en serie, gas downstream, estándar gaseoso húmedo y pulso trazador de EO.", "decision": "Identificar eta_cond(Q,T,xEtOH) y tiempo de residencia de headspace/línea.", "timing": "Fuera de fermentación y confirmación durante proceso"},
+        {"priority": 5, "action": "Partición celular de EO/IAA", "measurements": "Caldo completo, sobrenadante clarificado y extracción de pellet lavado; precursores MCFA.", "decision": "Justificar un pool intracelular/exportación para EO y evitar compartir su retardo con IAA.", "timing": "0, 2, 12, 36, 60 y 84 h postpulso"},
+        {"priority": 6, "action": "Comparar modelos anidados", "measurements": "Métricas leave-one-run-out en vino, gas y condensado; cierre de masa por campaña.", "decision": "Elegir entre respuesta N, reservorio de línea o ambos sin sobreparametrizar.", "timing": "Después de completar acciones 0–5"}
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "local_results",
+      "label": "Ensayo de partición aromática piloto 2026",
+      "path": "fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/aroma_prediction_metrics.csv",
+      "query": {
+        "engine": "sqlite",
+        "language": "sql",
+        "sql": "CREATE TEMP VIEW holdout_metrics AS SELECT * FROM metrics WHERE fit_scope = 'calibration_only' AND role = 'holdout' AND species IN ('ethyl_octanoate', 'isoamyl_acetate');\nCREATE TEMP VIEW candidate_comparison AS SELECT * FROM comparison WHERE species IN ('ethyl_octanoate', 'isoamyl_acetate');\nCREATE TEMP VIEW observed_temporal AS SELECT p.*, s.pulse_time_h, ((p.interval_start_h + p.interval_end_h) / 2.0 - s.pulse_time_h) AS h_postpulse, (p.observed_or_upper_bound / NULLIF(p.predicted_captured_ug, 0)) AS obs_pred_ratio FROM predictions p JOIN pulse_schedule s ON p.experiment_id = s.batch WHERE p.fit_scope = 'calibration_only' AND p.model_variant = 'equilibrium_morakul' AND p.status = 'observed' AND p.species IN ('ethyl_octanoate', 'isoamyl_acetate');\nSELECT * FROM holdout_metrics;\nSELECT * FROM candidate_comparison;\nSELECT * FROM observed_temporal;",
+        "description": "Los CSV se cargaron en tablas SQLite homónimas; las vistas reproducen las filas utilizadas en la evaluación.",
+        "executed_at": "2026-08-21T16:24:01-04:00",
+        "filters": ["fit_scope = calibration_only", "role = holdout", "holdout runs = 26158, 26211"],
+        "metric_definitions": ["NRMSE = RMSE/media observada", "Razón observado/predicho mayor que 1 indica subpredicción"],
+        "tables_used": ["fermentation_model/pilot_2026/results/aroma_equilibrium_partition_test_2026/aroma_prediction_metrics.csv"]
+      }
+    },
+    {
+      "id": "literature_bundle",
+      "label": "Literatura primaria sobre producción, partición y captura de aromas",
+      "href": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10027746/",
+      "query": {
+        "engine": "sqlite",
+        "language": "sql",
+        "sql": "SELECT * FROM (VALUES ('10.1021/jf101890y'), ('10.1016/j.lwt.2012.04.031'), ('10.1016/j.foodres.2014.02.044'), ('10.1016/j.fm.2018.04.005'), ('10.3389/fmicb.2023.1124970'), ('10.1016/j.bej.2015.07.017'), ('10.1128/AEM.01616-07'), ('10.1074/jbc.M512028200'), ('10.1007/s11947-018-2099-0'), ('10.1016/j.cep.2024.110011')) AS reviewed_primary_sources(doi);",
+        "description": "Síntesis de estudios primarios enlazados en el cuerpo del informe.",
+        "executed_at": "2026-08-21T17:20:00-04:00",
+        "tables_used": ["https://pubmed.ncbi.nlm.nih.gov/20735035/", "https://www.sciencedirect.com/science/article/pii/S0023643812002083", "https://pubmed.ncbi.nlm.nih.gov/30166153/", "https://pubmed.ncbi.nlm.nih.gov/17993562/"]
+      }
+    }
+  ]
+}

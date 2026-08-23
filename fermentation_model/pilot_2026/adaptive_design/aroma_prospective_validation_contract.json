@@ -1,0 +1,168 @@
+{
+  "contract_id": "pilot_2026_aroma_prospective_confirmation_v1",
+  "schema_version": 1,
+  "status": "preregistered_for_future_sealed_campaign",
+  "locked_model": {
+    "model_variant": "ethanol_capture_plus_line_reservoir",
+    "parameter_file": "fermentation_model/pilot_2026/results/aroma_final_nested_validation_2026/all_data_parameter_estimates.csv",
+    "parameter_file_sha256": "49b326283e785e3e0777f0d18fef7e37895903efd075eb27fe2f586fb7a3a9be",
+    "fit_config": "fermentation_model/pilot_2026/adaptive_design/aroma_final_nested_validation_config.json",
+    "fit_config_sha256": "f49b487974043918f573a93436a7079c8ef21af153e77f06b95d3b878527adee",
+    "refitting_permitted": false,
+    "parameters": {
+      "ethyl_octanoate": {
+        "formation_growth_ug_per_g_sugar": 0.9900415134218936,
+        "formation_stationary_ug_per_g_sugar": 0.7555367133423904,
+        "capture_efficiency_fraction_at_50_g_l_ethanol": 0.040028935686615356,
+        "ethanol_capture_multiplier_per_10_g_l": 2.33725540278607,
+        "line_reservoir_tau_h": 4.631248366643013
+      },
+      "isoamyl_acetate": {
+        "formation_growth_ug_per_g_sugar": 6.626704884652596,
+        "formation_stationary_ug_per_g_sugar": 9.907177141630727,
+        "capture_efficiency_fraction_at_50_g_l_ethanol": 0.015937538545781876,
+        "ethanol_capture_multiplier_per_10_g_l": 2.238288263957585,
+        "line_reservoir_tau_h": 5.061768910422555
+      }
+    }
+  },
+  "campaign": {
+    "minimum_independent_reactors": 3,
+    "required_species": ["ethyl_octanoate", "isoamyl_acetate"],
+    "replication": "At least two reactors under the same thermal and nutrient protocol; the third may test the alternate thermal profile. No reactor may be used to refit parameters.",
+    "blinding": "Freeze sample IDs and the analysis script before revealing aroma results."
+  },
+  "sampling": {
+    "paired_liquid_and_outlet_gas_relative_to_pulse_h": [-2, 0, 1, 3, 6, 12, 24],
+    "additional_progress_fractions": [0.1, 0.25, 0.5, 0.75, 0.9],
+    "maximum_condensate_interval_h_near_pulse": 12,
+    "maximum_condensate_interval_h_elsewhere": 24,
+    "minimum_analytical_replicates": 2,
+    "trap_standard_levels": ["low", "medium", "high"],
+    "trap_standard_replicates_per_level_and_species": 3,
+    "trap_standard_sessions": ["before_campaign", "mid_campaign", "after_campaign"]
+  },
+  "tables": {
+    "process.csv": {
+      "primary_key": ["experiment_id", "process_time_h"],
+      "required_columns": {
+        "experiment_id": "string",
+        "timestamp_utc": "ISO-8601 UTC string",
+        "process_time_h": "float h",
+        "temperature_c": "float degC",
+        "setpoint_c": "float degC",
+        "rco2_g_l_h": "float g/L/h",
+        "ethanol_g_l": "float g/L",
+        "total_sugar_g_l": "float g/L",
+        "liquid_volume_l": "float L"
+      }
+    },
+    "events.csv": {
+      "primary_key": ["experiment_id", "event_id"],
+      "required_columns": {
+        "experiment_id": "string",
+        "event_id": "string",
+        "event_type": "nutrient_pulse|temperature_change|sampling|other",
+        "event_time_h": "float h",
+        "nitrogen_product": "string or blank",
+        "product_dose_g_l": "float g/L or blank",
+        "yan_equivalent_mg_l": "float mgYAN/L or blank",
+        "new_setpoint_c": "float degC or blank"
+      }
+    },
+    "liquid_aroma.csv": {
+      "primary_key": ["experiment_id", "sample_id", "species", "replicate_id"],
+      "required_columns": {
+        "experiment_id": "string",
+        "sample_id": "string",
+        "process_time_h": "float h",
+        "species": "ethyl_octanoate|isoamyl_acetate",
+        "replicate_id": "string",
+        "concentration_ug_l": "float ug/L",
+        "lod_ug_l": "float ug/L",
+        "loq_ug_l": "float ug/L",
+        "dilution_factor": "float dimensionless",
+        "qa_status": "quantified|below_loq|below_lod|excluded"
+      }
+    },
+    "outlet_gas.csv": {
+      "primary_key": ["experiment_id", "sample_id", "species", "replicate_id"],
+      "required_columns": {
+        "experiment_id": "string",
+        "sample_id": "string",
+        "interval_start_h": "float h",
+        "interval_end_h": "float h",
+        "species": "ethyl_octanoate|isoamyl_acetate",
+        "replicate_id": "string",
+        "concentration_ug_l_gas": "float ug/L gas",
+        "gas_flow_l_h": "float L gas/h",
+        "gas_temperature_c": "float degC",
+        "lod_ug_l_gas": "float ug/L gas",
+        "loq_ug_l_gas": "float ug/L gas",
+        "qa_status": "quantified|below_loq|below_lod|excluded"
+      }
+    },
+    "condensate.csv": {
+      "primary_key": ["experiment_id", "mix_id", "species", "replicate_id"],
+      "required_columns": {
+        "experiment_id": "string",
+        "mix_id": "string",
+        "interval_start_h": "float h",
+        "interval_end_h": "float h",
+        "species": "ethyl_octanoate|isoamyl_acetate",
+        "replicate_id": "string",
+        "concentration_ug_l": "float ug/L condensate",
+        "condensate_volume_l": "float L",
+        "condensate_ethanol_fraction_v_v": "float 0-1",
+        "dilution_factor": "float dimensionless",
+        "captured_mass_ug": "float ug",
+        "lod_ug_l": "float ug/L",
+        "loq_ug_l": "float ug/L",
+        "qa_status": "quantified|below_loq|below_lod|excluded"
+      }
+    },
+    "trap_standards.csv": {
+      "primary_key": ["session_id", "standard_id", "species", "replicate_id"],
+      "required_columns": {
+        "session_id": "before_campaign|mid_campaign|after_campaign",
+        "standard_id": "string",
+        "species": "ethyl_octanoate|isoamyl_acetate",
+        "replicate_id": "string",
+        "standard_level": "low|medium|high",
+        "input_mass_ug": "float ug",
+        "recovered_mass_ug": "float ug",
+        "gas_flow_l_h": "float L/h",
+        "gas_temperature_c": "float degC",
+        "carrier_ethanol_fraction_v_v": "float 0-1",
+        "recovery_fraction": "float 0-1",
+        "qa_status": "accepted|excluded"
+      }
+    }
+  },
+  "quality_gates": {
+    "captured_mass_recalculation_relative_tolerance": 0.01,
+    "trap_recovery_recalculation_absolute_tolerance": 0.01,
+    "maximum_trap_recovery_cv_within_level": 0.15,
+    "minimum_paired_liquid_gas_schedule_coverage": 0.8,
+    "minimum_quantified_fraction_per_species_and_domain": 0.7,
+    "maximum_mass_balance_relative_error": 0.2
+  },
+  "prospective_acceptance": {
+    "requires_all_three_reactors_without_refit": true,
+    "wine_nrmse_max": {
+      "ethyl_octanoate": 0.55,
+      "isoamyl_acetate": 0.55
+    },
+    "condensate_nrmse_max": {
+      "ethyl_octanoate": 1.15,
+      "isoamyl_acetate": 1.05
+    },
+    "outlet_gas_integrated_mass_nrmse_max": {
+      "ethyl_octanoate": 0.6,
+      "isoamyl_acetate": 0.6
+    },
+    "absolute_bias_over_observed_mean_max": 0.25,
+    "minimum_fraction_reactors_improved_over_constant_capture": 0.67,
+    "decision": "PASS only if every data-quality and predictive gate passes for both species; otherwise FAIL without refitting."
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "analysis_id": "pilot_2026_aroma_nested_model_validation",
+  "schema_version": 1,
+  "primary_species": {
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "candidate_models": [
+    "equilibrium_baseline",
+    "delayed_biological_response",
+    "line_reservoir",
+    "delayed_response_plus_reservoir"
+  ],
+  "model_contract": {
+    "equilibrium_baseline": "Two formation yields against sugar uptake; equilibrium Morakul/Mouret transfer; instantaneous capture.",
+    "delayed_biological_response": "Baseline plus a smooth gamma-shaped post-pulse formation yield with fitted peak time.",
+    "line_reservoir": "Baseline production plus a mass-conserving first-order gas-line reservoir before capture.",
+    "delayed_response_plus_reservoir": "Delayed biological formation and gas-line reservoir jointly."
+  },
+  "parameter_bounds": {
+    "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
+    "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
+    "pulse_formation_ug_per_g_sugar": [0.0001, 10000.0],
+    "activation_peak_h": [1.0, 120.0],
+    "line_reservoir_tau_h": [0.25, 72.0]
+  },
+  "parameter_defaults": {
+    "ethyl_octanoate": {
+      "formation_growth_ug_per_g_sugar": 0.8,
+      "formation_stationary_ug_per_g_sugar": 3.0,
+      "pulse_formation_ug_per_g_sugar": 5.0,
+      "activation_peak_h": 48.0,
+      "line_reservoir_tau_h": 12.0
+    },
+    "isoamyl_acetate": {
+      "formation_growth_ug_per_g_sugar": 3.0,
+      "formation_stationary_ug_per_g_sugar": 12.0,
+      "pulse_formation_ug_per_g_sugar": 30.0,
+      "activation_peak_h": 24.0,
+      "line_reservoir_tau_h": 12.0
+    }
+  },
+  "optimization": {
+    "sobol_multistarts": 6,
+    "seed": 20260822,
+    "max_nfev": 180,
+    "loss": "soft_l1",
+    "f_scale": 1.0,
+    "weak_log_prior_sigma": 3.0
+  },
+  "error_model": {
+    "wine_relative_sigma": 0.2,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "condensate_relative_sigma": 0.25,
+    "condensate_minimum_sigma_ug": 1.0
+  },
+  "validation_policy": {
+    "leave_out_grain": "complete reactor run",
+    "runs": ["26157", "26158", "26159", "26210", "26211", "26212"],
+    "minimum_condensate_nrmse_reduction_fraction": 0.3,
+    "maximum_wine_nrmse_degradation_fraction": 0.1,
+    "minimum_fraction_runs_with_lower_condensate_squared_error": 0.5,
+    "maximum_active_bound_fraction": 0.25,
+    "maximum_relative_mass_balance_error": 1e-8,
+    "selection_rule": "simplest model passing all species/domain guardrails; otherwise no validated model"
+  },
+  "data_quality_policy": {
+    "primary": "retain_all_quantified_samples",
+    "sensitivity": "exclude_flagged_26211_P12_wine_only",
+    "flagged_wine_sample_ids": ["26211-P-12"],
+    "reason": "Common six-analyte spike at 144 h; raw chromatogram and independent duplicate unavailable. Retained because paired condensate also peaks and similar common spikes occur elsewhere.",
+    "do_not_exclude_condensate": true
+  },
+  "interpretation_limits": {
+    "activation_peak": "Pulse time and temperature transition are confounded in protocol A; activation_peak_h is delayed biological activation, not a uniquely identified nitrogen-response time.",
+    "line_reservoir": "A fitted time constant above an engineering residence-time measurement is phenomenological and cannot be labeled physical line holdup.",
+    "external_validation": "All six runs have informed model development; leave-one-run-out is retrospective internal validation, not prospective confirmation."
+  }
+}

@@ -1,0 +1,9 @@
+fit_scope,model_variant,species,success,converged_multistarts,robust_cost,weighted_sse,n_residuals_including_prior,active_bound_fraction,covariance_finite,covariance_condition,maximum_relative_mass_balance_error
+all_data,equilibrium_baseline,ethyl_octanoate,True,6,1547.6477866547227,40916.971080547875,68,0.5,True,1.326146496376444,1.156944483395569e-15
+all_data,equilibrium_baseline,isoamyl_acetate,True,6,363.8431710486795,1042.2573371732744,68,0.0,True,5.828108996568264,1.2725848771042381e-15
+all_data,delayed_biological_response,ethyl_octanoate,True,5,1552.5114512997861,40940.88233919337,70,0.25,True,38.70713613757198,1.071480260962849e-15
+all_data,delayed_biological_response,isoamyl_acetate,True,4,361.61282826499803,1019.5174078699085,70,0.0,True,869.6274228141679,1.7453562246079895e-15
+all_data,line_reservoir,ethyl_octanoate,True,6,785.2052510926267,5354.978024986593,69,0.6666666666666666,True,4323.779994321477,9.635822838681883e-16
+all_data,line_reservoir,isoamyl_acetate,True,6,350.19022082251706,1007.6667359209998,69,0.0,True,73.89021312913574,1.373492338980363e-15
+all_data,delayed_response_plus_reservoir,ethyl_octanoate,True,4,790.4899547946704,5376.147140471625,71,0.4,True,4341.204080187979,1.3362807159632543e-15
+all_data,delayed_response_plus_reservoir,isoamyl_acetate,True,4,352.81579176222755,1009.0044285277165,71,0.0,True,157.47540458673734,1.1801035623524577e-15

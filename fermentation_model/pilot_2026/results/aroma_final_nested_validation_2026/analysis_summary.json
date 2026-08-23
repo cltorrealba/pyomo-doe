@@ -1,0 +1,35 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "ethanol_capture_plus_line_reservoir",
+  "display_model": "ethanol_capture_plus_line_reservoir",
+  "target_model": "ethanol_capture_plus_line_reservoir",
+  "reactor_volume_l": [
+    230.0
+  ],
+  "nominal_capture_efficiency": {
+    "ethyl_octanoate": 0.85,
+    "isoamyl_acetate": 0.88
+  },
+  "fitted_capture_efficiency_all_data": {
+    "ethyl_octanoate": 0.040028935686615356,
+    "isoamyl_acetate": 0.015937538545781876
+  },
+  "interpretation_limits": {
+    "capture_efficiency": "eta(E) is an effective recovery operator; ethanol in wine proxies unmeasured vapor and condensate composition.",
+    "line_reservoir": "tau is physical line holdup only if compatible with an independent residence-time experiment; otherwise it is phenomenological.",
+    "weighting": "Domain-mean sigma aligns calibration with NRMSE but is not an experimentally estimated analytical error model.",
+    "repeatability": "Matched nominal replicates have condensate NRMSE about 1.06 for ethyl octanoate and 0.97 for isoamyl acetate.",
+    "post_hoc_status": "Final exploratory nested test after correcting the capture scale and decision weighting; prospective confirmation is mandatory.",
+    "external_validation": "All six runs informed development; leave-one-run-out is retrospective internal validation."
+  },
+  "literature_basis": {
+    "production_loss_separation": "Seguinot et al. 2018, DOI 10.1016/j.fm.2018.04.005",
+    "gas_liquid_partition": "Morakul et al. 2011, DOI 10.1016/j.procbio.2011.01.034; Mouret et al. 2014, DOI 10.1016/j.foodres.2014.02.044",
+    "condensate_is_time_varying_matrix": "Humaj et al. 2024, DOI 10.3390/fermentation10040206"
+  },
+  "matched_replicate_benchmark": {
+    "ethyl_octanoate": 1.0550899046355098,
+    "isoamyl_acetate": 0.969331121297589
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "ethanol_dependent_capture_efficiency",
+  "selection_rule": "ethanol-dependent observation passes only if it improves both compounds relative to constant effective capture while retaining wine and stability guardrails",
+  "comparison_baseline_model": "fitted_capture_efficiency",
+  "candidate_checks": {
+    "ethanol_dependent_capture_efficiency": {
+      "species": {
+        "ethyl_octanoate": {
+          "baseline_condensate_nrmse": 1.6146986505283976,
+          "candidate_condensate_nrmse": 1.612004228312629,
+          "condensate_nrmse_reduction_fraction": 0.001668684255657693,
+          "condensate_reduction_pass": false,
+          "baseline_wine_nrmse": 0.4342840650783859,
+          "candidate_wine_nrmse": 0.4354075892646919,
+          "wine_nrmse_degradation_fraction": 0.0025870720955492033,
+          "wine_guardrail_pass": true,
+          "fraction_runs_lower_condensate_squared_error": 0.8,
+          "run_consistency_pass": true
+        },
+        "isoamyl_acetate": {
+          "baseline_condensate_nrmse": 1.3623975091860674,
+          "candidate_condensate_nrmse": 1.3539554924729895,
+          "condensate_nrmse_reduction_fraction": 0.006196441681783016,
+          "condensate_reduction_pass": false,
+          "baseline_wine_nrmse": 0.5154579836137473,
+          "candidate_wine_nrmse": 0.5156935740758447,
+          "wine_nrmse_degradation_fraction": 0.00045705075794111316,
+          "wine_guardrail_pass": true,
+          "fraction_runs_lower_condensate_squared_error": 1.0,
+          "run_consistency_pass": true
+        }
+      },
+      "all_fits_converged": true,
+      "active_bound_fraction": 0.020833333333333332,
+      "active_bound_pass": true,
+      "maximum_relative_mass_balance_error": 3.5173218542003117e-09,
+      "mass_balance_pass": true,
+      "passes_all_gates": false
+    }
+  },
+  "external_validation_status": "retrospective_internal_only"
+}

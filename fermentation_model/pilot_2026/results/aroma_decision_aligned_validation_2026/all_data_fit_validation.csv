@@ -1,0 +1,5 @@
+fit_scope,model_variant,species,success,converged_multistarts,robust_cost,weighted_sse,n_residuals_including_prior,active_bound_fraction,covariance_finite,covariance_condition,maximum_relative_mass_balance_error
+all_data,fitted_capture_efficiency,ethyl_octanoate,True,6,193.62793446311508,935.3386415568086,69,0.0,True,683.5979442458674,1.2004734232370828e-15
+all_data,fitted_capture_efficiency,isoamyl_acetate,True,6,168.16782910566482,531.7267192421436,69,0.0,True,1880.279259436497,5.0036446461518e-09
+all_data,ethanol_dependent_capture_efficiency,ethyl_octanoate,True,6,167.11453569301642,655.5282891681521,70,0.0,True,189.1344942798703,1.302900665246908e-15
+all_data,ethanol_dependent_capture_efficiency,isoamyl_acetate,True,6,152.6999665912311,408.1943399856243,70,0.0,True,1125.86461353113,9.621901836528116e-09

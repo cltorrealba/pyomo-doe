@@ -1,0 +1,69 @@
+{
+  "analysis_id": "pilot_2026_aroma_capture_efficiency_validation",
+  "schema_version": 1,
+  "primary_species": {
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "candidate_models": [
+    "equilibrium_baseline",
+    "fitted_capture_efficiency"
+  ],
+  "model_contract": {
+    "equilibrium_baseline": "Two formation yields; equilibrium Morakul/Mouret transfer; nominal capture efficiency fixed at 0.85/0.88.",
+    "fitted_capture_efficiency": "Same biological production and equilibrium loss, with one compound-specific constant fraction mapping emitted aroma mass to recovered condensate mass."
+  },
+  "parameter_bounds": {
+    "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
+    "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
+    "capture_efficiency_fraction": [0.00001, 1.0]
+  },
+  "parameter_defaults": {
+    "ethyl_octanoate": {
+      "formation_growth_ug_per_g_sugar": 0.8,
+      "formation_stationary_ug_per_g_sugar": 3.0,
+      "capture_efficiency_fraction": 0.02
+    },
+    "isoamyl_acetate": {
+      "formation_growth_ug_per_g_sugar": 3.0,
+      "formation_stationary_ug_per_g_sugar": 12.0,
+      "capture_efficiency_fraction": 0.02
+    }
+  },
+  "optimization": {
+    "sobol_multistarts": 6,
+    "seed": 20260823,
+    "max_nfev": 180,
+    "loss": "soft_l1",
+    "f_scale": 1.0,
+    "weak_log_prior_sigma": 3.0
+  },
+  "error_model": {
+    "wine_relative_sigma": 0.2,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "condensate_relative_sigma": 0.25,
+    "condensate_minimum_sigma_ug": 1.0
+  },
+  "validation_policy": {
+    "leave_out_grain": "complete reactor run",
+    "runs": ["26157", "26158", "26159", "26210", "26211", "26212"],
+    "minimum_condensate_nrmse_reduction_fraction": 0.3,
+    "maximum_wine_nrmse_degradation_fraction": 0.1,
+    "minimum_fraction_runs_with_lower_condensate_squared_error": 0.5,
+    "maximum_active_bound_fraction": 0.25,
+    "maximum_relative_mass_balance_error": 1e-8,
+    "selection_rule": "simplest model passing all species/domain guardrails; otherwise no validated model"
+  },
+  "data_quality_policy": {
+    "primary": "retain_all_quantified_samples",
+    "sensitivity": "exclude_flagged_26211_P12_wine_only",
+    "flagged_wine_sample_ids": ["26211-P-12"],
+    "reason": "Common six-analyte spike at 144 h; raw chromatogram and independent duplicate unavailable. Retained because paired condensate also peaks and similar common spikes occur elsewhere.",
+    "do_not_exclude_condensate": true
+  },
+  "interpretation_limits": {
+    "capture_efficiency": "This is an effective observation fraction from emitted aroma to recovered condensate. Without direct outlet-gas and trap-recovery measurements it cannot be assigned uniquely to condenser thermodynamics.",
+    "post_hoc_status": "Introduced after the nested timing models failed and after auditing the 230 L reactor-volume scaling. It is exploratory and requires prospective confirmation.",
+    "external_validation": "All six runs have informed model development; leave-one-run-out is retrospective internal validation, not prospective confirmation."
+  }
+}

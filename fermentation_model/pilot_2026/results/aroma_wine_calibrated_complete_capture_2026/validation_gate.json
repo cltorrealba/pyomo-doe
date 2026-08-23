@@ -1,0 +1,75 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "assumed_complete_capture_equilibrium",
+  "selection_rule": "Select the simplest wine-calibrated production model satisfying both-compound wine and independent-condensate thresholds, convergence, parameter-bound and mass-balance gates.",
+  "candidate_checks": {
+    "assumed_complete_capture_equilibrium": {
+      "species": {
+        "ethyl_octanoate": {
+          "wine_nrmse": 0.4193344303245377,
+          "wine_threshold": 0.6,
+          "wine_pass": true,
+          "independent_condensate_nrmse": 4.744853785899538,
+          "condensate_threshold": 1.0550899046355098,
+          "condensate_closure_pass": false,
+          "wine_nrmse_reduction_vs_baseline": 0.0,
+          "delayed_support_pass": true
+        },
+        "isoamyl_acetate": {
+          "wine_nrmse": 0.4751091180345242,
+          "wine_threshold": 0.6,
+          "wine_pass": true,
+          "independent_condensate_nrmse": 6.822702966969644,
+          "condensate_threshold": 0.969331121297589,
+          "condensate_closure_pass": false,
+          "wine_nrmse_reduction_vs_baseline": 0.0,
+          "delayed_support_pass": true
+        }
+      },
+      "calibration_domains": "wine",
+      "condensate_used_in_calibration": false,
+      "active_bound_fraction": 0.0,
+      "active_bound_pass": true,
+      "all_fits_converged": true,
+      "wine_only_domain_pass": true,
+      "maximum_relative_mass_balance_error": 1.6503550845530633e-15,
+      "mass_balance_pass": true,
+      "passes_all_gates": false
+    },
+    "assumed_complete_capture_delayed_response": {
+      "species": {
+        "ethyl_octanoate": {
+          "wine_nrmse": 0.4248228071860174,
+          "wine_threshold": 0.6,
+          "wine_pass": true,
+          "independent_condensate_nrmse": 4.714450488461665,
+          "condensate_threshold": 1.0550899046355098,
+          "condensate_closure_pass": false,
+          "wine_nrmse_reduction_vs_baseline": -0.013088304857848287,
+          "delayed_support_pass": false
+        },
+        "isoamyl_acetate": {
+          "wine_nrmse": 0.478805338793139,
+          "wine_threshold": 0.6,
+          "wine_pass": true,
+          "independent_condensate_nrmse": 6.907156928832448,
+          "condensate_threshold": 0.969331121297589,
+          "condensate_closure_pass": false,
+          "wine_nrmse_reduction_vs_baseline": -0.007779730209989788,
+          "delayed_support_pass": false
+        }
+      },
+      "calibration_domains": "wine",
+      "condensate_used_in_calibration": false,
+      "active_bound_fraction": 0.0,
+      "active_bound_pass": true,
+      "all_fits_converged": true,
+      "wine_only_domain_pass": true,
+      "maximum_relative_mass_balance_error": 2.1636394994755943e-15,
+      "mass_balance_pass": true,
+      "passes_all_gates": false
+    }
+  },
+  "external_validation_status": "retrospective_internal_only"
+}

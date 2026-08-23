@@ -69,10 +69,17 @@
     "ethyl_octanoate": [0.8, 3.0, 0.02],
     "isoamyl_acetate": [3.0, 12.0, 0.02]
   },
+  "parameter_defaults_dynamic_transfer": {
+    "ethyl_acetate": [100.0, 280.0, 0.3, 1.5],
+    "ethyl_octanoate": [0.8, 3.0, 0.3, 1.5],
+    "isoamyl_acetate": [3.0, 12.0, 0.3, 1.5]
+  },
   "parameter_bounds": {
     "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
     "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
-    "effective_loss_scale": [0.00001, 10.0]
+    "effective_loss_scale": [0.00001, 10.0],
+    "mass_transfer_kla_ref_h_inv": [0.00001, 20.0],
+    "ethanol_kla_multiplier_per_10_g_l": [0.2, 20.0]
   },
   "error_model": {
     "wine_relative_sigma": 0.2,

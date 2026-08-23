@@ -1,0 +1,153 @@
+{
+  "analysis": "pilot_2026_aroma_dynamic_transfer_recalibration",
+  "model": "solubility_o2_nitrogen_boost_continuous_release",
+  "rco2_definition": "predicted emitted CO2 mass rate after matrix_gain",
+  "gas_flow_conversion": "Qgas/VL = rCO2 / ideal-gas CO2 density at reactor temperature and 1 atm",
+  "transfer_model": "kLa(E)=kLa_ref*mE^((E-50)/10); lambda=K(T,E,S)*(Qgas/VL)*(1-exp(-kLa(E)/(Qgas/VL)))",
+  "runs": [
+    "26157",
+    "26158",
+    "26159",
+    "26210",
+    "26211",
+    "26212"
+  ],
+  "calibration_runs": [
+    "26157",
+    "26159",
+    "26210",
+    "26212"
+  ],
+  "holdout_runs": [
+    "26158",
+    "26211"
+  ],
+  "priority_analytes": {
+    "ethyl_acetate": "Etil Acetato",
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "sources": {
+    "aroma_config": {
+      "path": "fermentation_model\\pilot_2026\\adaptive_design\\aroma_calibration_config.json",
+      "sha256": "707a9b89d6186180d57ddabcf73ac749821b071c9c681f53607cb4ba161c14b7"
+    },
+    "co2_fit_parameters": {
+      "path": "fermentation_model\\pilot_2026\\results\\co2_solubility_cross_lot_validation_2026\\fit_parameters.csv",
+      "sha256": "be0bb3c123086c706906ccd623d8630366abb36b5f898bed26fdbbfdc4637823"
+    },
+    "model_dataset": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\model_dataset\\20260717T125004Z_b03413",
+    "primary_calibration": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\baseline_calibration\\20260717T153612Z_b5b67b",
+    "historical_aroma_calibration": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\aroma_calibration\\20260717T161527Z_e927a5",
+    "partition_surrogate": {
+      "path": "fermentation_model\\legacy\\development_2026\\results\\aroma_campaign_doe\\aroma_campaign_metadata.json",
+      "sha256": "c43eb407318799432599db7a5bf6c0955300b5216ca4818e391ae7792c190f99"
+    }
+  },
+  "outputs": [
+    "figures\\gas_flow_conversion.png",
+    "figures\\integrated_rco2_exposure.png",
+    "figures\\holdout_wine_predictions.png",
+    "figures\\holdout_wine_rmse_comparison.png",
+    "figures\\holdout_condensate_predictions.png",
+    "figures\\aroma_parameter_comparison.png",
+    "figures\\release_forcing_profile_likelihood.png",
+    "figures\\ethyl_octanoate_loss_dynamics.png",
+    "figures\\ethyl_octanoate_partition_decomposition.png",
+    "aroma_condensate_predictions.csv",
+    "aroma_covariance_log_space.csv",
+    "aroma_fit_validation.csv",
+    "aroma_forcing_grid.csv",
+    "aroma_multistart_summary.csv",
+    "aroma_parameter_estimates.csv",
+    "aroma_prediction_metrics.csv",
+    "aroma_profile_likelihood.csv",
+    "aroma_transfer_diagnostics.csv",
+    "aroma_wine_predictions.csv",
+    "nutrient_pulse_schedule.csv",
+    "rco2_exposure_summary.csv",
+    "rco2_release_driver_grid.csv"
+  ],
+  "gate": {
+    "gate": "phase_B_aroma_calibration",
+    "verdict": "PASS_CONDITIONAL",
+    "checks": {
+      "all_species_fitted": true,
+      "all_multistarts_converged": true,
+      "all_covariances_finite": true,
+      "no_fit_fully_bound_dominated": true,
+      "no_extreme_structural_objective": true
+    },
+    "loss_identifiability": {
+      "ethyl_acetate": true,
+      "ethyl_octanoate": true,
+      "isoamyl_acetate": true
+    },
+    "all_parameter_directions_identified": false,
+    "weak_parameter_directions": {
+      "ethyl_acetate": [
+        "formation_growth_ug_per_g_sugar",
+        "mass_transfer_kla_ref_h_inv"
+      ],
+      "ethyl_octanoate": [
+        "formation_growth_ug_per_g_sugar"
+      ],
+      "isoamyl_acetate": [
+        "formation_growth_ug_per_g_sugar"
+      ]
+    },
+    "conditions": [
+      "Any non-identified aroma-loss direction must remain broad in the robust MBDoE ensemble.",
+      "Independent Ultra verification remains required before physical profile release.",
+      "No physical profile is authorized by this gate."
+    ],
+    "profiles_for_physical_execution": false
+  },
+  "summary": {
+    "holdout_rmse_comparison": {
+      "condensate__ethyl_acetate": {
+        "dynamic_transfer_rmse": NaN,
+        "empirical_mass_basis_rmse": NaN,
+        "relative_change": NaN
+      },
+      "condensate__ethyl_octanoate": {
+        "dynamic_transfer_rmse": 846.341337324888,
+        "empirical_mass_basis_rmse": 846.1259014468591,
+        "relative_change": 0.00025461444645587505
+      },
+      "condensate__isoamyl_acetate": {
+        "dynamic_transfer_rmse": 3072.3317169672905,
+        "empirical_mass_basis_rmse": 3078.0869233679455,
+        "relative_change": -0.0018697348528279392
+      },
+      "wine__ethyl_acetate": {
+        "dynamic_transfer_rmse": 5550.241726617205,
+        "empirical_mass_basis_rmse": 5547.758704947049,
+        "relative_change": 0.0004475720380451228
+      },
+      "wine__ethyl_octanoate": {
+        "dynamic_transfer_rmse": 48.39756257871254,
+        "empirical_mass_basis_rmse": 48.41606459819133,
+        "relative_change": -0.0003821462903345192
+      },
+      "wine__isoamyl_acetate": {
+        "dynamic_transfer_rmse": 724.2754808790875,
+        "empirical_mass_basis_rmse": 722.5192413946379,
+        "relative_change": 0.0024307165592705824
+      }
+    },
+    "median_integrated_gas_turnover": 34.574886762499915,
+    "loss_identified_with_dynamic_transfer": {
+      "ethyl_acetate": true,
+      "ethyl_octanoate": true,
+      "isoamyl_acetate": true
+    },
+    "ethyl_octanoate_26157_mix03": {
+      "released_co2_model": 7.904288958590115,
+      "dynamic_transfer_model": 5.053205117794947,
+      "observed_captured_ug": 614.557866106016
+    },
+    "holdout_initialization_policy": "The first wine observation initializes each trajectory and is excluded from RMSE.",
+    "interpretation": "Both models use the same fixed released-rCO2 curve. The corrected model converts mass rate to gas turnover and estimates kLa(E); its NTU efficiency remains bounded between zero and one while K(T, ethanol, sugar) supplies thermodynamics."
+  }
+}

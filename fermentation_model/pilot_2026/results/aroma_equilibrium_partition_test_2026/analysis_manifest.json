@@ -1,0 +1,314 @@
+{
+  "analysis": "pilot_2026_aroma_equilibrium_partition_test",
+  "runs": [
+    "26157",
+    "26158",
+    "26159",
+    "26210",
+    "26211",
+    "26212"
+  ],
+  "calibration_runs": [
+    "26157",
+    "26159",
+    "26210",
+    "26212"
+  ],
+  "holdout_runs": [
+    "26158",
+    "26211"
+  ],
+  "models": {
+    "equilibrium_unifac": "K_UNIFAC(T,E,S) * Qgas/VL; no fitted transfer parameter",
+    "equilibrium_morakul": "K_Morakul(T,E) * Qgas/VL; no fitted transfer parameter",
+    "liquid_kla_unifac": "K_UNIFAC(T,E,S) * Qgas/VL * (1-exp(-kLa/(K_UNIFAC*Qgas/VL)))"
+  },
+  "rco2_definition": "validated predicted emitted CO2 mass rate",
+  "sources": {
+    "aroma_config": {
+      "path": "fermentation_model\\pilot_2026\\adaptive_design\\aroma_calibration_config.json",
+      "sha256": "707a9b89d6186180d57ddabcf73ac749821b071c9c681f53607cb4ba161c14b7"
+    },
+    "test_config": {
+      "path": "fermentation_model\\pilot_2026\\adaptive_design\\aroma_equilibrium_partition_test_config.json",
+      "sha256": "9cc4d9a334d103a3b7bdefe5c80022415dc14a85cdbca67c93071e5218e4c74b"
+    },
+    "unifac_surrogate": {
+      "path": "fermentation_model\\legacy\\development_2026\\results\\aroma_campaign_doe\\aroma_campaign_metadata.json",
+      "sha256": "c43eb407318799432599db7a5bf6c0955300b5216ca4818e391ae7792c190f99"
+    },
+    "morakul_2011_doi": "10.1016/j.procbio.2011.01.034",
+    "mouret_2014_doi": "10.1016/j.foodres.2014.02.044",
+    "model_dataset": "fermentation_model\\pilot_2026\\results\\adaptive_design_2026\\model_dataset\\20260717T125004Z_b03413",
+    "previous_benchmark": "fermentation_model\\pilot_2026\\results\\aroma_dynamic_transfer_recalibration_2026"
+  },
+  "outputs": [
+    "aroma_condensate_predictions.csv",
+    "aroma_fit_validation.csv",
+    "aroma_forcing_grid.csv",
+    "aroma_parameter_estimates.csv",
+    "aroma_prediction_metrics.csv",
+    "aroma_transfer_diagnostics.csv",
+    "aroma_wine_predictions.csv",
+    "model_vs_historical_comparison.csv",
+    "nutrient_pulse_schedule.csv",
+    "partition_model_coefficients.csv",
+    "rco2_release_driver_grid.csv",
+    "figures\\partition_trajectories.png",
+    "figures\\holdout_wine_predictions.png",
+    "figures\\holdout_condensate_predictions.png",
+    "figures\\holdout_metric_comparison.png",
+    "figures\\ethyl_octanoate_effective_loss.png"
+  ],
+  "gate": {
+    "verdict": "INFORMATIVE_NEGATIVE",
+    "selected_model": null,
+    "criteria": {
+      "holdout_runs": [
+        "26158",
+        "26211"
+      ],
+      "minimum_condensate_nrmse_reduction_fraction": 0.3,
+      "maximum_wine_rmse_degradation_fraction": 0.1,
+      "primary_condensate_species": [
+        "ethyl_octanoate",
+        "isoamyl_acetate"
+      ],
+      "leave_out_grain": "complete reactor run",
+      "ethyl_acetate_condensate_use": "censoring_only"
+    },
+    "candidate_checks": [
+      {
+        "model_variant": "equilibrium_unifac",
+        "condensate_target_pass": false,
+        "wine_guardrail_pass": false,
+        "computational_pass": true,
+        "mean_condensate_relative_change": -0.004905886675177702,
+        "maximum_wine_relative_change": 1.1951012032446453
+      },
+      {
+        "model_variant": "equilibrium_morakul",
+        "condensate_target_pass": false,
+        "wine_guardrail_pass": false,
+        "computational_pass": true,
+        "mean_condensate_relative_change": -0.009473922160407966,
+        "maximum_wine_relative_change": 1.1622563665174226
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "condensate_target_pass": false,
+        "wine_guardrail_pass": true,
+        "computational_pass": true,
+        "mean_condensate_relative_change": 0.0013114995705328862,
+        "maximum_wine_relative_change": 0.0012866944579001637
+      }
+    ],
+    "interpretation": "PASS requires at least 30% lower holdout condensate error for both observed ester species, no more than 10% wine degradation, and stable optimization. INFORMATIVE_NEGATIVE means the physical hypothesis was tested successfully but did not meet predictive gates."
+  },
+  "summary": {
+    "verdict": "INFORMATIVE_NEGATIVE",
+    "selected_model": null,
+    "holdout_metrics": [
+      {
+        "model_variant": "equilibrium_morakul",
+        "species": "ethyl_acetate",
+        "domain": "wine",
+        "rmse": 12001.045509088704,
+        "nrmse_over_mean": 1.0546743137816987,
+        "bias": -10275.885375105388
+      },
+      {
+        "model_variant": "equilibrium_morakul",
+        "species": "ethyl_octanoate",
+        "domain": "wine",
+        "rmse": 93.08174535776394,
+        "nrmse_over_mean": 1.1666827468737777,
+        "bias": -77.99888709995736
+      },
+      {
+        "model_variant": "equilibrium_morakul",
+        "species": "isoamyl_acetate",
+        "domain": "wine",
+        "rmse": 1304.5309003004654,
+        "nrmse_over_mean": 1.1869154054587603,
+        "bias": -1096.0356456618172
+      },
+      {
+        "model_variant": "equilibrium_unifac",
+        "species": "ethyl_acetate",
+        "domain": "wine",
+        "rmse": 12183.342292396064,
+        "nrmse_over_mean": 1.0706948958796247,
+        "bias": -10461.757656588978
+      },
+      {
+        "model_variant": "equilibrium_unifac",
+        "species": "ethyl_octanoate",
+        "domain": "wine",
+        "rmse": 92.2869394041862,
+        "nrmse_over_mean": 1.1567206819212177,
+        "bias": -77.1333644739052
+      },
+      {
+        "model_variant": "equilibrium_unifac",
+        "species": "isoamyl_acetate",
+        "domain": "wine",
+        "rmse": 1299.2728325597918,
+        "nrmse_over_mean": 1.1821314010301078,
+        "bias": -1090.5153154865257
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "species": "ethyl_acetate",
+        "domain": "wine",
+        "rmse": 5556.165615621108,
+        "nrmse_over_mean": 0.48828622085257267,
+        "bias": -2619.2696043012475
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "species": "ethyl_octanoate",
+        "domain": "wine",
+        "rmse": 48.44943715808394,
+        "nrmse_over_mean": 0.6072632416896026,
+        "bias": -21.03500786495666
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "species": "isoamyl_acetate",
+        "domain": "wine",
+        "rmse": 725.2074021263276,
+        "nrmse_over_mean": 0.6598232648519174,
+        "bias": -426.44058851610737
+      },
+      {
+        "model_variant": "equilibrium_morakul",
+        "species": "ethyl_acetate",
+        "domain": "condensate",
+        "rmse": NaN,
+        "nrmse_over_mean": NaN,
+        "bias": NaN
+      },
+      {
+        "model_variant": "equilibrium_morakul",
+        "species": "ethyl_octanoate",
+        "domain": "condensate",
+        "rmse": 827.5727115154389,
+        "nrmse_over_mean": 1.5837536508632912,
+        "bias": -485.17807041111513
+      },
+      {
+        "model_variant": "equilibrium_morakul",
+        "species": "isoamyl_acetate",
+        "domain": "condensate",
+        "rmse": 3082.2502640050407,
+        "nrmse_over_mean": 1.3035686055912263,
+        "bias": -2321.5391865407373
+      },
+      {
+        "model_variant": "equilibrium_unifac",
+        "species": "ethyl_acetate",
+        "domain": "condensate",
+        "rmse": NaN,
+        "nrmse_over_mean": NaN,
+        "bias": NaN
+      },
+      {
+        "model_variant": "equilibrium_unifac",
+        "species": "ethyl_octanoate",
+        "domain": "condensate",
+        "rmse": 838.8216415362748,
+        "nrmse_over_mean": 1.6052811054795522,
+        "bias": -506.2795493441006
+      },
+      {
+        "model_variant": "equilibrium_unifac",
+        "species": "isoamyl_acetate",
+        "domain": "condensate",
+        "rmse": 3069.484191215826,
+        "nrmse_over_mean": 1.2981694814840588,
+        "bias": -2307.0371356587307
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "species": "ethyl_acetate",
+        "domain": "condensate",
+        "rmse": NaN,
+        "nrmse_over_mean": NaN,
+        "bias": NaN
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "species": "ethyl_octanoate",
+        "domain": "condensate",
+        "rmse": 846.9759922478775,
+        "nrmse_over_mean": 1.6208863598943233,
+        "bias": -518.5398246256088
+      },
+      {
+        "model_variant": "liquid_kla_unifac",
+        "species": "isoamyl_acetate",
+        "domain": "condensate",
+        "rmse": 3078.08655856811,
+        "nrmse_over_mean": 1.301807659780337,
+        "bias": -2325.409838676363
+      },
+      {
+        "model_variant": "historical_gas_ntu",
+        "species": "ethyl_acetate",
+        "domain": "wine",
+        "rmse": 5550.241726617205,
+        "nrmse_over_mean": 0.4877656184129453,
+        "bias": -2607.095048638698
+      },
+      {
+        "model_variant": "historical_gas_ntu",
+        "species": "ethyl_octanoate",
+        "domain": "wine",
+        "rmse": 48.39756257871254,
+        "nrmse_over_mean": 0.6066130478570597,
+        "bias": -20.921891227319392
+      },
+      {
+        "model_variant": "historical_gas_ntu",
+        "species": "isoamyl_acetate",
+        "domain": "wine",
+        "rmse": 724.2754808790875,
+        "nrmse_over_mean": 0.6589753649020053,
+        "bias": -425.0510888419724
+      },
+      {
+        "model_variant": "historical_gas_ntu",
+        "species": "ethyl_acetate",
+        "domain": "condensate",
+        "rmse": NaN,
+        "nrmse_over_mean": NaN,
+        "bias": NaN
+      },
+      {
+        "model_variant": "historical_gas_ntu",
+        "species": "ethyl_octanoate",
+        "domain": "condensate",
+        "rmse": 846.341337324888,
+        "nrmse_over_mean": 1.6196717994849033,
+        "bias": -517.7738470776686
+      },
+      {
+        "model_variant": "historical_gas_ntu",
+        "species": "isoamyl_acetate",
+        "domain": "condensate",
+        "rmse": 3072.3317169672905,
+        "nrmse_over_mean": 1.2993737786226045,
+        "bias": -2319.388368212795
+      }
+    ],
+    "ethyl_octanoate_26157_mix03": {
+      "equilibrium_unifac": 24.237741552403676,
+      "equilibrium_morakul": 48.77593614414894,
+      "liquid_kla_unifac": 4.69209447263327,
+      "observed_captured_ug": 614.557866106016
+    },
+    "holdout_initialization_policy": "The first wine observation initializes each trajectory and is excluded from RMSE.",
+    "caveat": "Morakul parameters were identified in natural must for ethyl and isoamyl acetate, and in synthetic pilot fermentations for ethyl octanoate. Matrix transfer is tested here, not assumed."
+  }
+}

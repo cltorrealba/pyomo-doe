@@ -1,0 +1,7 @@
+model_variant,species,baseline_condensate_nrmse,candidate_condensate_nrmse,condensate_nrmse_reduction_fraction,condensate_reduction_pass,baseline_wine_nrmse,candidate_wine_nrmse,wine_nrmse_degradation_fraction,wine_guardrail_pass,fraction_runs_lower_condensate_squared_error,run_consistency_pass
+assumed_complete_capture_line_reservoir,ethyl_octanoate,1.484838523265924,1.230221858954625,0.17147767943901804,False,0.9838185147957031,0.7225712983611613,-0.2655441145959646,True,0.8,True
+assumed_complete_capture_line_reservoir,isoamyl_acetate,1.214308591265432,0.9223763751137992,0.2404102369459561,False,1.0968416981540632,1.008572469287399,-0.08047581434514883,True,1.0,True
+assumed_complete_capture_delayed_response,ethyl_octanoate,1.484838523265924,1.4688357530805138,0.010777448143123203,False,0.9838185147957031,0.6776406758576814,-0.31121373945844244,True,0.6,True
+assumed_complete_capture_delayed_response,isoamyl_acetate,1.214308591265432,0.9628442803757292,0.20708435458539542,False,1.0968416981540632,0.9714704803813928,-0.11430201640187887,True,0.75,True
+assumed_complete_capture_delayed_response_plus_line_reservoir,ethyl_octanoate,1.484838523265924,1.5210820581751612,-0.024409075021517568,False,0.9838185147957031,0.5989262356562242,-0.3912228458308742,True,0.8,True
+assumed_complete_capture_delayed_response_plus_line_reservoir,isoamyl_acetate,1.214308591265432,0.9516831756996176,0.2162756793906334,False,1.0968416981540632,0.8645121754841584,-0.21181682193602347,True,0.75,True

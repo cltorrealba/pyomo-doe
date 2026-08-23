@@ -1,0 +1,29 @@
+{
+  "verdict": "NO_VALID_MODEL",
+  "selected_model": null,
+  "diagnostic_best_model": "delayed_response_plus_reservoir",
+  "display_model": "delayed_response_plus_reservoir",
+  "data_quality": {
+    "primary_policy": "retain_all_quantified_samples",
+    "sensitivity_policy": "exclude_flagged_26211_P12_wine_only",
+    "flagged_sample": {
+      "experiment_id": "26211",
+      "sample_id": "26211-P-12",
+      "time_h": 144.0,
+      "analytes_compared": 6,
+      "median_fold": 3.9406763907838167,
+      "maximum_fold": 4.784563152042938,
+      "flagged_26211_P12": true
+    }
+  },
+  "interpretation": {
+    "activation_peak": "Pulse time and temperature transition are confounded in protocol A; activation_peak_h is delayed biological activation, not a uniquely identified nitrogen-response time.",
+    "line_reservoir": "A fitted time constant above an engineering residence-time measurement is phenomenological and cannot be labeled physical line holdup.",
+    "external_validation": "All six runs have informed model development; leave-one-run-out is retrospective internal validation, not prospective confirmation."
+  },
+  "literature_basis": {
+    "transfer": "Morakul et al. 2011, DOI 10.1016/j.procbio.2011.01.034; Mouret et al. 2014, DOI 10.1016/j.foodres.2014.02.044",
+    "nitrogen_response": "Seguinot et al. 2018, DOI 10.1016/j.fm.2018.04.005",
+    "compound_specific_export": "Saerens et al. 2008, DOI 10.1128/AEM.01616-07"
+  }
+}

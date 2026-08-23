@@ -1,0 +1,47 @@
+{
+  "holdout_rmse_comparison": {
+    "condensate__ethyl_acetate": {
+      "dynamic_transfer_rmse": NaN,
+      "empirical_mass_basis_rmse": NaN,
+      "relative_change": NaN
+    },
+    "condensate__ethyl_octanoate": {
+      "dynamic_transfer_rmse": 846.341337324888,
+      "empirical_mass_basis_rmse": 846.1259014468591,
+      "relative_change": 0.00025461444645587505
+    },
+    "condensate__isoamyl_acetate": {
+      "dynamic_transfer_rmse": 3072.3317169672905,
+      "empirical_mass_basis_rmse": 3078.0869233679455,
+      "relative_change": -0.0018697348528279392
+    },
+    "wine__ethyl_acetate": {
+      "dynamic_transfer_rmse": 5550.241726617205,
+      "empirical_mass_basis_rmse": 5547.758704947049,
+      "relative_change": 0.0004475720380451228
+    },
+    "wine__ethyl_octanoate": {
+      "dynamic_transfer_rmse": 48.39756257871254,
+      "empirical_mass_basis_rmse": 48.41606459819133,
+      "relative_change": -0.0003821462903345192
+    },
+    "wine__isoamyl_acetate": {
+      "dynamic_transfer_rmse": 724.2754808790875,
+      "empirical_mass_basis_rmse": 722.5192413946379,
+      "relative_change": 0.0024307165592705824
+    }
+  },
+  "median_integrated_gas_turnover": 34.574886762499915,
+  "loss_identified_with_dynamic_transfer": {
+    "ethyl_acetate": true,
+    "ethyl_octanoate": true,
+    "isoamyl_acetate": true
+  },
+  "ethyl_octanoate_26157_mix03": {
+    "released_co2_model": 7.904288958590115,
+    "dynamic_transfer_model": 5.053205117794947,
+    "observed_captured_ug": 614.557866106016
+  },
+  "holdout_initialization_policy": "The first wine observation initializes each trajectory and is excluded from RMSE.",
+  "interpretation": "Both models use the same fixed released-rCO2 curve. The corrected model converts mass rate to gas turnover and estimates kLa(E); its NTU efficiency remains bounded between zero and one while K(T, ethanol, sugar) supplies thermodynamics."
+}

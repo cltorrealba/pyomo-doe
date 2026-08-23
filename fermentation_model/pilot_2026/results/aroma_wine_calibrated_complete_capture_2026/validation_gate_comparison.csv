@@ -1,0 +1,5 @@
+model_variant,species,wine_nrmse,wine_threshold,wine_pass,independent_condensate_nrmse,condensate_threshold,condensate_closure_pass,wine_nrmse_reduction_vs_baseline,delayed_support_pass
+assumed_complete_capture_equilibrium,ethyl_octanoate,0.4193344303245377,0.6,True,4.744853785899538,1.0550899046355098,False,0.0,True
+assumed_complete_capture_equilibrium,isoamyl_acetate,0.4751091180345242,0.6,True,6.822702966969644,0.969331121297589,False,0.0,True
+assumed_complete_capture_delayed_response,ethyl_octanoate,0.4248228071860174,0.6,True,4.714450488461665,1.0550899046355098,False,-0.013088304857848287,False
+assumed_complete_capture_delayed_response,isoamyl_acetate,0.478805338793139,0.6,True,6.907156928832448,0.969331121297589,False,-0.007779730209989788,False

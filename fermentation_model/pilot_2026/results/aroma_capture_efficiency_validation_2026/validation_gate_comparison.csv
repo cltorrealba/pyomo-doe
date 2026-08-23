@@ -1,0 +1,3 @@
+model_variant,species,baseline_condensate_nrmse,candidate_condensate_nrmse,condensate_nrmse_reduction_fraction,condensate_reduction_pass,baseline_wine_nrmse,candidate_wine_nrmse,wine_nrmse_degradation_fraction,wine_guardrail_pass,fraction_runs_lower_condensate_squared_error,run_consistency_pass
+fitted_capture_efficiency,ethyl_octanoate,1.573950453812406,1.6145661089351881,-0.025804913378564942,False,1.0789410492494402,0.43396426108128233,-0.59778686575771,True,0.0,False
+fitted_capture_efficiency,isoamyl_acetate,1.365659223676868,1.36189911461271,0.002753328941047628,False,1.130804163365065,0.5156622140728206,-0.5439862791641084,True,1.0,True

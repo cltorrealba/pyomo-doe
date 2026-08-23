@@ -1,0 +1,95 @@
+{
+  "analysis_id": "pilot_2026_aroma_assumed_complete_capture_validation",
+  "schema_version": 1,
+  "primary_species": {
+    "ethyl_octanoate": "Octanoato de Etilo",
+    "isoamyl_acetate": "Isoamil Acetato"
+  },
+  "capture_contract": {
+    "assumption": "All aroma mass drained from the gas-line state is recovered in the combined A+B condensate.",
+    "fixed_total_capture_fraction": 1.0,
+    "evidence_status": "engineering_design_assumption_not_independently_measured",
+    "measurement": "The chemistry is measured on the combined MIX; only water/condensate volumes are recorded separately for A and B.",
+    "forbidden_interpretation": "No parameter or result from this analysis estimates the physical condenser efficiency."
+  },
+  "candidate_models": [
+    "assumed_complete_capture_equilibrium",
+    "assumed_complete_capture_line_reservoir",
+    "assumed_complete_capture_delayed_response",
+    "assumed_complete_capture_delayed_response_plus_line_reservoir"
+  ],
+  "model_contract": {
+    "assumed_complete_capture_equilibrium": "Two formation yields, fixed Morakul/Mouret equilibrium loss and instantaneous complete A+B capture.",
+    "assumed_complete_capture_line_reservoir": "Baseline plus one mass-conserving line-holdup time constant; every drained unit is assigned to A+B.",
+    "assumed_complete_capture_delayed_response": "Baseline plus a smooth post-pulse formation response; A+B capture remains fixed at one.",
+    "assumed_complete_capture_delayed_response_plus_line_reservoir": "Post-pulse formation response and line holdup jointly, with complete A+B capture fixed by assumption."
+  },
+  "parameter_bounds": {
+    "formation_growth_ug_per_g_sugar": [0.0001, 10000.0],
+    "formation_stationary_ug_per_g_sugar": [0.0001, 10000.0],
+    "pulse_formation_ug_per_g_sugar": [0.0001, 10000.0],
+    "activation_peak_h": [1.0, 120.0],
+    "line_reservoir_tau_h": [0.25, 72.0]
+  },
+  "parameter_defaults": {
+    "ethyl_octanoate": {
+      "formation_growth_ug_per_g_sugar": 0.8,
+      "formation_stationary_ug_per_g_sugar": 0.8,
+      "pulse_formation_ug_per_g_sugar": 1.0,
+      "activation_peak_h": 24.0,
+      "line_reservoir_tau_h": 6.0
+    },
+    "isoamyl_acetate": {
+      "formation_growth_ug_per_g_sugar": 5.0,
+      "formation_stationary_ug_per_g_sugar": 10.0,
+      "pulse_formation_ug_per_g_sugar": 10.0,
+      "activation_peak_h": 12.0,
+      "line_reservoir_tau_h": 6.0
+    }
+  },
+  "optimization": {
+    "sobol_multistarts": 6,
+    "seed": 20260827,
+    "max_nfev": 180,
+    "loss": "soft_l1",
+    "f_scale": 1.0,
+    "weak_log_prior_sigma": 3.0
+  },
+  "error_model": {
+    "calibration_weighting": "domain_mean",
+    "wine_relative_sigma": 0.2,
+    "wine_minimum_sigma_ug_l": 2.0,
+    "condensate_relative_sigma": 0.25,
+    "condensate_minimum_sigma_ug": 1.0
+  },
+  "validation_policy": {
+    "comparison_baseline_model": "assumed_complete_capture_equilibrium",
+    "leave_out_grain": "complete reactor run",
+    "runs": ["26157", "26158", "26159", "26210", "26211", "26212"],
+    "minimum_condensate_nrmse_reduction_fraction": 0.3,
+    "maximum_wine_nrmse_degradation_fraction": 0.1,
+    "minimum_fraction_runs_with_lower_condensate_squared_error": 0.5,
+    "maximum_active_bound_fraction": 0.25,
+    "maximum_relative_mass_balance_error": 0.00000001,
+    "selection_rule": "Select the simplest complete-capture model passing both-compound condensate improvement, wine guardrail, run consistency, bound, convergence and mass-balance gates."
+  },
+  "data_quality_policy": {
+    "primary": "retain_all_quantified_samples",
+    "sensitivity": "exclude_flagged_26211_P12_wine_only",
+    "flagged_wine_sample_ids": ["26211-P-12"],
+    "reason": "Common six-analyte spike at 144 h; raw chromatogram and independent duplicate unavailable.",
+    "do_not_exclude_condensate": true
+  },
+  "interpretation_limits": {
+    "complete_capture": "eta_AB=1 is imposed from the equipment design and is not measured by the available data.",
+    "condensate_closure": "A condensate mismatch tests the joint production/partition/complete-capture contract but cannot identify which component is wrong.",
+    "activation_peak": "Pulse time and temperature transition are confounded in protocol A; activation_peak_h is phenomenological.",
+    "line_reservoir": "tau is physical line holdup only if independently compatible with residence-time engineering information.",
+    "external_validation": "Leave-one-run-out is retrospective internal validation; all six runs informed model development."
+  },
+  "literature_basis": {
+    "gas_liquid_balance": "Mouret et al. 2014, DOI 10.1016/j.foodres.2014.02.044",
+    "partition_model": "Morakul et al. 2011, DOI 10.1016/j.procbio.2011.01.034",
+    "dynamic_losses": "Mouret et al. 2012, DOI 10.1016/j.lwt.2012.04.031"
+  }
+}

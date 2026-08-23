@@ -1,0 +1,45 @@
+{
+  "verdict": "INFORMATIVE_NEGATIVE",
+  "selected_model": null,
+  "criteria": {
+    "holdout_runs": [
+      "26158",
+      "26211"
+    ],
+    "minimum_condensate_nrmse_reduction_fraction": 0.3,
+    "maximum_wine_rmse_degradation_fraction": 0.1,
+    "primary_condensate_species": [
+      "ethyl_octanoate",
+      "isoamyl_acetate"
+    ],
+    "leave_out_grain": "complete reactor run",
+    "ethyl_acetate_condensate_use": "censoring_only"
+  },
+  "candidate_checks": [
+    {
+      "model_variant": "equilibrium_unifac",
+      "condensate_target_pass": false,
+      "wine_guardrail_pass": false,
+      "computational_pass": true,
+      "mean_condensate_relative_change": -0.004905886675177702,
+      "maximum_wine_relative_change": 1.1951012032446453
+    },
+    {
+      "model_variant": "equilibrium_morakul",
+      "condensate_target_pass": false,
+      "wine_guardrail_pass": false,
+      "computational_pass": true,
+      "mean_condensate_relative_change": -0.009473922160407966,
+      "maximum_wine_relative_change": 1.1622563665174226
+    },
+    {
+      "model_variant": "liquid_kla_unifac",
+      "condensate_target_pass": false,
+      "wine_guardrail_pass": true,
+      "computational_pass": true,
+      "mean_condensate_relative_change": 0.0013114995705328862,
+      "maximum_wine_relative_change": 0.0012866944579001637
+    }
+  ],
+  "interpretation": "PASS requires at least 30% lower holdout condensate error for both observed ester species, no more than 10% wine degradation, and stable optimization. INFORMATIVE_NEGATIVE means the physical hypothesis was tested successfully but did not meet predictive gates."
+}

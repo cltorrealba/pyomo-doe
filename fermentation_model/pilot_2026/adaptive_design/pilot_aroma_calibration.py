@@ -16,11 +16,25 @@ from scipy.stats import qmc
 from pilot_2026.adaptive_design import pilot_calibration
 
 
-PARAMETER_NAMES = (
+FORMATION_PARAMETER_NAMES = (
     "formation_growth_ug_per_g_sugar",
     "formation_stationary_ug_per_g_sugar",
+)
+PARAMETER_NAMES = FORMATION_PARAMETER_NAMES + (
     "effective_loss_scale",
 )
+DYNAMIC_TRANSFER_PARAMETER_NAMES = FORMATION_PARAMETER_NAMES + (
+    "mass_transfer_kla_ref_h_inv",
+    "ethanol_kla_multiplier_per_10_g_l",
+)
+LOSS_MODEL_EMPIRICAL = "empirical_mass_rate_scale"
+LOSS_MODEL_DYNAMIC_TRANSFER = "dynamic_gas_liquid_transfer"
+LOSS_MODEL_EQUILIBRIUM = "equilibrium_gas_liquid_partition"
+CO2_MOLAR_MASS_KG_MOL = 0.0440095
+IDEAL_GAS_CONSTANT_PA_M3_MOL_K = 8.314462618
+REFERENCE_PRESSURE_PA = 101325.0
+IDEAL_GAS_CONSTANT_J_MOL_K = 8.314462618
+MORAKUL_REFERENCE_TEMPERATURE_K = 293.15
 
 
 @dataclass(frozen=True)
@@ -33,6 +47,13 @@ class AromaForcing:
     initial_concentration_ug_l: float
     volume_l: float
     trap_efficiency: float
+    co2_rate_g_l_h: np.ndarray | None = None
+    partition_basis_l_g: np.ndarray | None = None
+    gas_turnover_h_inv: np.ndarray | None = None
+    temperature_c: np.ndarray | None = None
+    ethanol_g_l: np.ndarray | None = None
+    total_sugar_g_l: np.ndarray | None = None
+    loss_model: str = LOSS_MODEL_EMPIRICAL
 
 
 @dataclass(frozen=True)
@@ -107,7 +128,30 @@ def _initial_concentration(wine: pd.DataFrame) -> float:
     return max(0.5 * float(first["upper_bound"]), 0.0)
 
 
-def _partition_basis(model: dict[str, float], temp: float, ethanol: float, sugar: float) -> float:
+def _partition_basis(model: dict[str, Any], temp: float, ethanol: float, sugar: float) -> float:
+    if model.get("model_kind") == "morakul_ethanol_temperature":
+        temp_k = float(temp) + 273.15
+        enthalpy_kj_mol = float(model["F3_kj_mol"]) + float(
+            model["F4_kj_l_mol_g"]
+        ) * float(ethanol)
+        log_k = (
+            float(model["F1"])
+            + float(model["F2_l_g"]) * float(ethanol)
+            - enthalpy_kj_mol
+            # F3/F4 are reported in kJ/mol while the published expression uses
+            # 1000/T; keeping R in J/(mol K) avoids applying the 1000 factor twice.
+            / IDEAL_GAS_CONSTANT_J_MOL_K
+            * (
+                1000.0 / temp_k
+                - 1000.0 / float(
+                    model.get(
+                        "reference_temperature_k",
+                        MORAKUL_REFERENCE_TEMPERATURE_K,
+                    )
+                )
+            )
+        )
+        return float(math.exp(float(np.clip(log_k, -30.0, 5.0))))
     log_k = (
         float(model["logK_ref"])
         + float(model["temp_slope"]) * (float(temp) - 20.0)
@@ -117,6 +161,17 @@ def _partition_basis(model: dict[str, float], temp: float, ethanol: float, sugar
     return float(math.exp(float(np.clip(log_k, -30.0, 5.0))))
 
 
+def _co2_gas_density_g_l(temp_c: float, pressure_pa: float = REFERENCE_PRESSURE_PA) -> float:
+    """Ideal-gas CO2 density in g/L (numerically equal to kg/m3)."""
+
+    temp_k = float(temp_c) + 273.15
+    return float(
+        float(pressure_pa)
+        * CO2_MOLAR_MASS_KG_MOL
+        / (IDEAL_GAS_CONSTANT_PA_M3_MOL_K * temp_k)
+    )
+
+
 def build_forcings(
     tables: pilot_calibration.CalibrationTables,
     calibration_config: dict[str, Any],
@@ -124,7 +179,15 @@ def build_forcings(
     species: str,
     analyte_label: str,
     partition: dict[str, float],
+    co2_rate_override_by_run: dict[str, tuple[np.ndarray, np.ndarray]] | None = None,
+    loss_model: str = LOSS_MODEL_EMPIRICAL,
 ) -> tuple[dict[str, AromaForcing], pd.DataFrame, pd.DataFrame, dict[str, float]]:
+    if loss_model not in {
+        LOSS_MODEL_EMPIRICAL,
+        LOSS_MODEL_DYNAMIC_TRANSFER,
+        LOSS_MODEL_EQUILIBRIUM,
+    }:
+        raise ValueError(f"Unknown aroma loss model {loss_model!r}")
     parameter_rows = pd.read_csv(calibration_run / "primary_parameter_estimates.csv")
     parameter_values = parameter_rows.set_index("parameter")["estimate"].astype(float).to_dict()
     model = pilot_calibration._model_module()
@@ -156,6 +219,12 @@ def build_forcings(
         growth = []
         uptake = []
         loss_basis = []
+        co2_rates = []
+        partition_bases = []
+        gas_turnovers = []
+        temperatures = []
+        ethanols = []
+        total_sugars = []
         for time_h in grid:
             x = max(float(np.interp(time_h, core.index, core["X"])), 0.0)
             n = max(float(np.interp(time_h, core.index, core["N"])), 0.0)
@@ -177,12 +246,36 @@ def build_forcings(
             ) * x
             ethanol_rate = max(float(terms["beta_g"] + terms["beta_f"]) * x, 0.0)
             co2_rate = (44.01 / (2.0 * 46.07)) * ethanol_rate
-            k_part = _partition_basis(
-                partition, model.temperature_at(batch, float(time_h)), e, g + f
-            )
+            if co2_rate_override_by_run is not None and str(run) in co2_rate_override_by_run:
+                override_time, override_rate = co2_rate_override_by_run[str(run)]
+                co2_rate = max(
+                    float(
+                        np.interp(
+                            float(time_h),
+                            np.asarray(override_time, dtype=float),
+                            np.asarray(override_rate, dtype=float),
+                        )
+                    ),
+                    0.0,
+                )
+            temp_c = float(model.temperature_at(batch, float(time_h)))
+            k_part = _partition_basis(partition, temp_c, e, g + f)
+            gas_turnover = co2_rate / _co2_gas_density_g_l(temp_c)
             growth.append(n / (n + 0.035))
             uptake.append(max(float(g_uptake + f_uptake), 0.0))
-            loss_basis.append(max(k_part * co2_rate, 0.0))
+            if loss_model in {
+                LOSS_MODEL_DYNAMIC_TRANSFER,
+                LOSS_MODEL_EQUILIBRIUM,
+            }:
+                loss_basis.append(max(k_part * gas_turnover, 0.0))
+            else:
+                loss_basis.append(max(k_part * co2_rate, 0.0))
+            co2_rates.append(co2_rate)
+            partition_bases.append(k_part)
+            gas_turnovers.append(gas_turnover)
+            temperatures.append(temp_c)
+            ethanols.append(e)
+            total_sugars.append(g + f)
         forcings[str(run)] = AromaForcing(
             experiment_id=str(run),
             time_h=grid,
@@ -192,13 +285,95 @@ def build_forcings(
             initial_concentration_ug_l=_initial_concentration(wine_run),
             volume_l=float(metadata.loc[str(run), "initial_volume_l"]),
             trap_efficiency=float(partition["trap_efficiency"]),
+            co2_rate_g_l_h=np.asarray(co2_rates),
+            partition_basis_l_g=np.asarray(partition_bases),
+            gas_turnover_h_inv=np.asarray(gas_turnovers),
+            temperature_c=np.asarray(temperatures),
+            ethanol_g_l=np.asarray(ethanols),
+            total_sugar_g_l=np.asarray(total_sugars),
+            loss_model=loss_model,
         )
     return forcings, wine, condensate, theta
 
 
+def _parameter_names(forcings: dict[str, AromaForcing]) -> tuple[str, ...]:
+    loss_models = {forcing.loss_model for forcing in forcings.values()}
+    if len(loss_models) != 1:
+        raise ValueError(f"A fit cannot mix aroma loss models: {sorted(loss_models)}")
+    loss_model = next(iter(loss_models))
+    if loss_model == LOSS_MODEL_DYNAMIC_TRANSFER:
+        return DYNAMIC_TRANSFER_PARAMETER_NAMES
+    if loss_model == LOSS_MODEL_EQUILIBRIUM:
+        return FORMATION_PARAMETER_NAMES
+    return PARAMETER_NAMES
+
+
+def transfer_diagnostics(forcing: AromaForcing, log_values: np.ndarray) -> pd.DataFrame:
+    """Return the time-varying physical loss driver used by a simulation."""
+
+    parameter_values = np.exp(np.asarray(log_values, dtype=float))
+    if forcing.loss_model == LOSS_MODEL_DYNAMIC_TRANSFER:
+        if forcing.gas_turnover_h_inv is None or forcing.partition_basis_l_g is None:
+            raise ValueError("Dynamic transfer forcing lacks gas-turnover or partition arrays")
+        qgas = np.maximum(np.asarray(forcing.gas_turnover_h_inv, dtype=float), 0.0)
+        partition = np.maximum(np.asarray(forcing.partition_basis_l_g, dtype=float), 0.0)
+        ethanol = np.asarray(forcing.ethanol_g_l, dtype=float)
+        transport_parameter = float(parameter_values[2])
+        ethanol_multiplier = float(parameter_values[3])
+        log_kla = np.log(transport_parameter) + (
+            (ethanol - 50.0) / 10.0
+        ) * np.log(ethanol_multiplier)
+        kla = np.exp(np.clip(log_kla, -30.0, 30.0))
+        transfer_efficiency = np.zeros_like(qgas)
+        flowing = qgas > 1e-12
+        denominator = partition[flowing] * qgas[flowing]
+        transfer_efficiency[flowing] = -np.expm1(
+            -kla[flowing] / np.maximum(denominator, 1e-30)
+        )
+        loss_coefficient = partition * qgas * transfer_efficiency
+    elif forcing.loss_model == LOSS_MODEL_EQUILIBRIUM:
+        if forcing.gas_turnover_h_inv is None or forcing.partition_basis_l_g is None:
+            raise ValueError("Equilibrium forcing lacks gas-turnover or partition arrays")
+        qgas = np.maximum(np.asarray(forcing.gas_turnover_h_inv, dtype=float), 0.0)
+        partition = np.maximum(np.asarray(forcing.partition_basis_l_g, dtype=float), 0.0)
+        transfer_efficiency = np.where(qgas > 1e-12, 1.0, 0.0)
+        kla = np.full(len(forcing.time_h), np.nan)
+        loss_coefficient = partition * qgas
+    else:
+        transport_parameter = float(parameter_values[2])
+        qgas = (
+            np.asarray(forcing.gas_turnover_h_inv, dtype=float)
+            if forcing.gas_turnover_h_inv is not None
+            else np.full(len(forcing.time_h), np.nan)
+        )
+        transfer_efficiency = np.full(len(forcing.time_h), np.nan)
+        kla = np.full(len(forcing.time_h), np.nan)
+        loss_coefficient = transport_parameter * np.asarray(
+            forcing.loss_basis_h_inv, dtype=float
+        )
+    return pd.DataFrame(
+        {
+            "time_h": forcing.time_h,
+            "co2_rate_g_l_h": forcing.co2_rate_g_l_h,
+            "gas_turnover_h_inv": qgas,
+            "partition_k_gas_over_liquid": forcing.partition_basis_l_g,
+            "transfer_efficiency": transfer_efficiency,
+            "mass_transfer_kla_h_inv": kla,
+            "loss_coefficient_h_inv": loss_coefficient,
+            "temperature_c": forcing.temperature_c,
+            "ethanol_g_l": forcing.ethanol_g_l,
+            "total_sugar_g_l": forcing.total_sugar_g_l,
+        }
+    )
+
+
 def simulate_aroma(forcing: AromaForcing, log_values: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    growth_k, stationary_k, alpha = np.exp(np.asarray(log_values, dtype=float))
+    parameter_values = np.exp(np.asarray(log_values, dtype=float))
+    growth_k, stationary_k = parameter_values[:2]
     time = forcing.time_h
+    loss_coefficients = transfer_diagnostics(forcing, log_values)[
+        "loss_coefficient_h_inv"
+    ].to_numpy(dtype=float)
     liquid = np.empty(len(time), dtype=float)
     captured = np.empty(len(time), dtype=float)
     liquid[0] = forcing.initial_concentration_ug_l
@@ -209,7 +384,7 @@ def simulate_aroma(forcing: AromaForcing, log_values: np.ndarray) -> tuple[np.nd
         production = (
             growth_k * phi + stationary_k * (1.0 - phi)
         ) * float(forcing.sugar_uptake_g_l_h[index - 1])
-        loss_coefficient = alpha * float(forcing.loss_basis_h_inv[index - 1])
+        loss_coefficient = float(loss_coefficients[index - 1])
         previous = max(float(liquid[index - 1]), 0.0)
         if loss_coefficient > 1e-12:
             decay = math.exp(-loss_coefficient * dt)
@@ -324,10 +499,12 @@ def residual_vector(
     return np.concatenate(residuals)
 
 
-def _bounds(config: dict[str, Any]) -> tuple[np.ndarray, np.ndarray]:
+def _bounds(
+    config: dict[str, Any], parameter_names: tuple[str, ...]
+) -> tuple[np.ndarray, np.ndarray]:
     payload = config["parameter_bounds"]
-    lower = np.log([float(payload[name][0]) for name in PARAMETER_NAMES])
-    upper = np.log([float(payload[name][1]) for name in PARAMETER_NAMES])
+    lower = np.log([float(payload[name][0]) for name in parameter_names])
+    upper = np.log([float(payload[name][1]) for name in parameter_names])
     return lower, upper
 
 
@@ -372,12 +549,20 @@ def fit_species(
     condensate: pd.DataFrame,
     config: dict[str, Any],
 ) -> AromaFit:
-    defaults = np.asarray(config["parameter_defaults"][species], dtype=float)
+    parameter_names = _parameter_names(forcings)
+    if parameter_names == DYNAMIC_TRANSFER_PARAMETER_NAMES:
+        defaults = np.asarray(
+            config["parameter_defaults_dynamic_transfer"][species], dtype=float
+        )
+    elif parameter_names == FORMATION_PARAMETER_NAMES:
+        defaults = np.asarray(config["parameter_defaults"][species][:2], dtype=float)
+    else:
+        defaults = np.asarray(config["parameter_defaults"][species], dtype=float)
     default_log = np.log(defaults)
-    lower, upper = _bounds(config)
+    lower, upper = _bounds(config, parameter_names)
     starts = int(config["optimization"]["sobol_multistarts"])
     seed = int(config["optimization"]["seed"])
-    sampler = qmc.Sobol(d=len(PARAMETER_NAMES), scramble=True, seed=seed)
+    sampler = qmc.Sobol(d=len(parameter_names), scramble=True, seed=seed)
     sobol = sampler.random_base2(int(math.ceil(math.log2(max(starts, 2)))))[:starts]
     positions = lower + sobol * (upper - lower)
     positions[0] = np.clip(default_log, lower + 1e-8, upper - 1e-8)
@@ -412,7 +597,7 @@ def fit_species(
                 "final_objective": float(np.dot(final, final)),
                 **{
                     f"estimate__{name}": float(math.exp(value))
-                    for name, value in zip(PARAMETER_NAMES, result.x)
+                    for name, value in zip(parameter_names, result.x)
                 },
             }
         )
@@ -420,16 +605,16 @@ def fit_species(
     best_index = int(summary.iloc[0]["start_index"])
     best = results[best_index]
     residuals = fun(best.x)
-    dof = max(len(residuals) - len(PARAMETER_NAMES), 1)
+    dof = max(len(residuals) - len(parameter_names), 1)
     variance = float(np.dot(residuals, residuals) / dof)
     covariance_array = np.linalg.pinv(best.jac.T @ best.jac, rcond=1e-10) * variance
-    covariance = pd.DataFrame(covariance_array, index=PARAMETER_NAMES, columns=PARAMETER_NAMES)
+    covariance = pd.DataFrame(covariance_array, index=parameter_names, columns=parameter_names)
     estimates = np.exp(best.x)
     active = np.isclose(best.x, lower, atol=1e-5) | np.isclose(best.x, upper, atol=1e-5)
     parameter_table = pd.DataFrame(
         {
             "species": species,
-            "parameter": PARAMETER_NAMES,
+            "parameter": parameter_names,
             "estimate": estimates,
             "lower_bound": np.exp(lower),
             "upper_bound": np.exp(upper),
@@ -444,7 +629,7 @@ def fit_species(
     profile_rows = []
     best_objective = float(np.dot(residuals, residuals))
     offsets = config["optimization"]["profile_grid_log_offsets"]
-    for parameter_index, parameter in enumerate(PARAMETER_NAMES):
+    for parameter_index, parameter in enumerate(parameter_names):
         for offset in offsets:
             fixed = float(np.clip(best.x[parameter_index] + float(offset), lower[parameter_index], upper[parameter_index]))
             result = _fit_with_fixed(
@@ -488,7 +673,7 @@ def fit_species(
         .max()
         .to_dict()
     )
-    std_log = dict(zip(PARAMETER_NAMES, np.sqrt(np.maximum(np.diag(covariance_array), 0.0))))
+    std_log = dict(zip(parameter_names, np.sqrt(np.maximum(np.diag(covariance_array), 0.0))))
     parameter_identified = {
         name: bool(
             profile_left_delta.get(name, 0.0) >= 3.84
@@ -496,9 +681,16 @@ def fit_species(
             and std_log[name] <= 1.25
             and not bool(active[index])
         )
-        for index, name in enumerate(PARAMETER_NAMES)
+        for index, name in enumerate(parameter_names)
     }
     observation_count = len(wine) + len(condensate)
+    loss_model = next(iter({forcing.loss_model for forcing in forcings.values()}))
+    if loss_model == LOSS_MODEL_EQUILIBRIUM:
+        loss_identified: bool | None = None
+    else:
+        loss_identified = all(
+            parameter_identified[name] for name in parameter_names[2:]
+        )
     validation = {
         "species": species,
         "converged_multistarts": int(summary["success"].sum()),
@@ -520,11 +712,13 @@ def fit_species(
         "weak_parameters": [
             name for name, identified in parameter_identified.items() if not identified
         ],
-        "loss_separately_identified": parameter_identified["effective_loss_scale"],
+        "loss_separately_identified": loss_identified,
+        "loss_parameter_fixed_by_physics": loss_model == LOSS_MODEL_EQUILIBRIUM,
+        "loss_model": loss_model,
     }
     return AromaFit(
         species,
-        PARAMETER_NAMES,
+        parameter_names,
         np.asarray(best.x),
         parameter_table,
         summary,
