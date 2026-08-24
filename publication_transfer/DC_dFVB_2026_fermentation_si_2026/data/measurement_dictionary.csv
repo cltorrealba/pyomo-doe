@@ -1,0 +1,30 @@
+field,unit,basis,source_or_derivation,modeling_use
+process_token,dimensionless,publication pseudonym,assigned in workbook order,join key; private mapping stays outside version control
+campaign_token,dimensionless,publication pseudonym,paired-vintage registry,process-to-campaign grouping
+time_h,h,relative process time,source t field,independent variable; no calendar timestamps exported
+temperature_c,degree_C,measured process temperature,source temperatura field,piecewise-linear exogenous input between observations
+density_kg_m3,kg/m3,apparent density,source densidad field,proxy observation only; not a mechanistic state
+viable_cell_concentration_million_cells_ml,10^6 viable cells/mL,cell-count measurement,source Viability field,compare through a cell-mass observation operator
+viable_biomass_proxy_g_l_30pg_cell,g/L,fixed 30 pg/cell proxy,viable cell concentration times 0.030,sensitivity output; do not treat as direct dry biomass
+dry_weight_g_l,g/L,dry-weight measurement,source Peso Seco field,direct biomass observable with its own error model
+glucose_g_l,g/L,compound mass concentration,source GLUCOSE field,direct glucose-state observation
+fructose_g_l,g/L,compound mass concentration,source FRUCTOSE field,direct fructose-state observation
+glycerol_g_l,g/L,compound mass concentration,source GLYCEROL field,direct glycerol-state observation
+pyruvic_acid_mg_l,mg/L,compound mass concentration,source PYRUVIC ACID field,direct or proxy pyruvate-state observation
+pyruvic_acid_2_mg_l,mg/L,compound mass concentration,source PYRUVIC ACID2 field,secondary assay retained separately; do not average without method review
+acetaldehyde_mg_l,mg/L,compound mass concentration,source ACETALDEHIDO field,direct acetaldehyde-state observation
+ethanol_g_l,g/L,compound mass concentration,source ETANOL field; range supports g/L rather than percent v/v,direct ethanol-state observation
+pan_n_mg_l,mg N/L,nitrogen equivalent,source PAN field,direct PAN-N observation or component of aggregate YAN
+ammonia_compound_mg_l,mg NH3/L,compound mass concentration,source AMMONIA field,convert to N basis before aggregating
+ammonia_n_mg_l,mg N/L,nitrogen equivalent,0.82 times AMMONIA,component of aggregate YAN
+yan_reported_n_mg_l,mg N/L,nitrogen equivalent,source YAN field,direct aggregate assimilable-nitrogen observation
+yan_reconstructed_n_mg_l,mg N/L,nitrogen equivalent,PAN plus 0.82 times AMMONIA,unit and data-integrity check
+yan_closure_residual_mg_l,mg N/L,nitrogen equivalent,YAN reported minus reconstructed,quality-control diagnostic
+recorded_amount,unknown,unresolved source basis,source pulso_nut field,not a model input until product dose and N-equivalent are confirmed
+event_type,dimensionless,event classification,t=0 is initial_charge and t>0 is process_pulse,select initialization versus discrete state update
+species,dimensionless,aroma analyte,normalized source column name,select species-specific state/operator
+total_equivalent_mg_l,mg/L,total wine plus condenser-equivalent aroma,current pipeline unit and pool interpretation; confirm against laboratory report,compare with retained plus cumulative captured pools
+condensate_equivalent_mg_l,mg/L,cumulative condenser-equivalent aroma,current pipeline unit and pool interpretation; confirm against laboratory report,compare with cumulative captured/lost pool
+retained_wine_mg_l,mg/L,derived retained aroma,total minus condensate,compare with retained liquid aroma state
+retained_qc,dimensionless,derivation quality flag,total minus condensate consistency,review flagged values rather than clip silently
+include_submission_dataset,boolean,eligibility flag,homogeneous protocol criterion,filter true for publication analyses

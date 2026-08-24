@@ -1,0 +1,7 @@
+check,status,value,criterion
+source_process_count,pass,8,8 source processes
+submission_process_count,pass,7,7 homogeneous eligible processes
+yan_exact_source_closure_max_abs_mg_l,pass,0.0,YAN = PAN + 0.82 * AMMONIA
+negative_retained_aroma_count,pass,0,review rather than clip total-condensate negatives
+negative_dry_weight_count,warning,2,preserve and treat through assay error/LOD policy; do not clip silently
+pulse_unit_basis,warning,unresolved,confirm product dose and N-equivalent before model input

@@ -1,0 +1,9 @@
+process_token,campaign_token,campaign,matrix,scale,temperature_input,temperature_min_c,temperature_mean_c,temperature_max_c,analytical_start_h,analytical_end_h,n_source_rows,n_initial_charge_records,n_process_pulse_records,used_in_current_repository_fit_or_model_selection,include_submission_dataset,submission_role,exclusion_reason,independent_validation
+P25_01,C25_01,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,18.5,20.791666666666668,22.0,0,138,24,1,1,True,True,development_calibration,,False
+P25_02,C25_01,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,17.0,18.8125,20.5,0,180,32,1,1,True,True,development_calibration,,False
+P25_03,C25_02,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,17.1,18.3,19.1,0,216,35,1,1,True,True,development_calibration,,False
+P25_04,C25_02,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,15.3,18.482857142857142,28.9,0,216,35,1,1,True,True,development_calibration,,False
+P25_05,C25_03,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,19.5,20.386666666666667,21.6,0,174,30,1,1,True,True,development_calibration,,False
+P25_06,C25_03,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,19.7,20.546666666666663,22.0,0,174,30,1,1,True,True,development_calibration,,False
+P25_07,C25_04,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,14.0,15.631746031746031,20.0,0,372,63,1,1,True,True,development_calibration,,False
+P25_08,C25_04,pilot_2025_paired_vintage,natural_grape_must,pilot,measured_sample_profile_piecewise_linear,12.5,14.852380952380951,20.8,0,372,63,1,1,True,False,excluded_process_incident,nonviable_initial_inoculum_and_reinoculation_requires_effective_time_restart,False
